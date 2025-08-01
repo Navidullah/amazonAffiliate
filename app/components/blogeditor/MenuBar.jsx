@@ -28,11 +28,6 @@ import { storage } from "@/lib/firebase";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import mammoth from "mammoth";
-import * as pdfjsLib from "pdfjs-dist";
-import { GlobalWorkerOptions } from "pdfjs-dist/build/pdf";
-
-// Set worker dynamically
-GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
 
 const MenuBar = ({ editor }) => {
   if (!editor) return null;
@@ -65,7 +60,7 @@ const MenuBar = ({ editor }) => {
 
     toast.info("Reading file...");
 
-    // DOCX
+    // DOCX only
     if (
       file.type ===
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
@@ -82,33 +77,8 @@ const MenuBar = ({ editor }) => {
         }
       };
       reader.readAsArrayBuffer(file);
-    }
-
-    // PDF
-    else if (file.type === "application/pdf") {
-      const reader = new FileReader();
-      reader.onload = async () => {
-        try {
-          const typedarray = new Uint8Array(reader.result);
-          const pdf = await pdfjsLib.getDocument({ data: typedarray }).promise;
-
-          let text = "";
-          for (let i = 1; i <= pdf.numPages; i++) {
-            const page = await pdf.getPage(i);
-            const content = await page.getTextContent();
-            const pageText = content.items.map((item) => item.str).join(" ");
-            text += pageText + "\n";
-          }
-
-          editor.commands.insertContent(`<p>${text}</p>`);
-          toast.success("PDF content inserted!");
-        } catch (err) {
-          toast.error("Failed to parse PDF file.");
-        }
-      };
-      reader.readAsArrayBuffer(file);
     } else {
-      toast.error("Unsupported file. Upload .docx or .pdf");
+      toast.error("Unsupported file. Only .docx files are allowed.");
     }
   };
 
@@ -233,10 +203,10 @@ const MenuBar = ({ editor }) => {
         onChange={handleImageUpload}
       />
 
-      {/* Hidden input for DOCX/PDF upload */}
+      {/* Hidden input for DOCX upload only */}
       <input
         type="file"
-        accept=".docx,.pdf"
+        accept=".docx"
         style={{ display: "none" }}
         ref={docInputRef}
         onChange={handleFileUpload}

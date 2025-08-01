@@ -64,12 +64,13 @@ export default function Header() {
         <div className="flex items-center w-full sm:w-auto mb-2 sm:mb-0">
           <Link href="/" className="flex items-center">
             <Image
-              src="/logo.png"
-              width={100}
-              height={100}
-              alt="Brain-sparks-Logo"
+              src="/shopyor.png"
+              width={50}
+              height={50}
+              alt="shopyor"
               className="font-serif font-bold tracking-tight"
             />
+            <span className="font-semibold text-2xl">Shopyor</span>
           </Link>
         </div>
 

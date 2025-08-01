@@ -1,4 +1,4 @@
-import BlogList from "@/components/BlogList";
+import BlogList from "../components/bloglist/BlogList";
 
 export default async function BlogHomePage() {
   // Fetch all blogs and their comments count in parallel
