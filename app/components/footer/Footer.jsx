@@ -12,8 +12,8 @@ export default function Footer() {
           <Link href="/" className="flex items-center">
             <Image
               src="/shopyor.png"
-              width={120}
-              height={120}
+              width={100}
+              height={100}
               alt="shopyor-logo"
               className="text-3xl font-serif font-bold tracking-tight"
             />
@@ -65,7 +65,7 @@ export default function Footer() {
 
       {/* Copyright */}
       <div className="text-center text-xs text-muted-foreground mt-4">
-        © {new Date().getFullYear()} EchoEmpact. All rights reserved.
+        © {new Date().getFullYear()} Shopyor. All rights reserved.
       </div>
     </footer>
   );

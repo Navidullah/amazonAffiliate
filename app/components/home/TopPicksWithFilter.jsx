@@ -56,7 +56,7 @@ export default function TopPicksWithFilter({ products }) {
       <div className="backdrop-blur pt-2 pb-4">
         <CategoryList selected={category} onSelectCategory={setCategory} />
         <div className="flex justify-center mb-4">
-          <div className="relative w-full max-w-sm">
+          <div className="relative w-full max-w-xs md:max-w-md mx-auto">
             <Search
               className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
               size={18}
