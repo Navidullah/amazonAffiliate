@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "https://www.shopyor.com/$1",
+      "has": [
+        {
+          "type": "host",
+          "value": "shopyor.com"
+        }
+      ],
+      "permanent": true
+    }
+  ]
+}
