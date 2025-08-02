@@ -25,10 +25,8 @@ export default function Footer() {
           <a href="/" className="hover:text-foreground transition">
             Home
           </a>
-          <a href="/" className="hover:text-foreground transition">
-            Tuitions
-          </a>
-          <a href="/" className="hover:text-foreground transition">
+
+          <a href="/blog" className="hover:text-foreground transition">
             Blog
           </a>
           <a href="/contact" className="hover:text-foreground transition">

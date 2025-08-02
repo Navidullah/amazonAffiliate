@@ -25,7 +25,7 @@ export default function BlogList({ blogs }) {
           {/* Left: Text/Meta */}
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-1">
-              <span className="px-2 py-0.5 text-xs font-semibold rounded bg-yellow-100 text-yellow-900">
+              <span className="px-2 py-0.5 text-xs font-semibold rounded  text-yellow-900">
                 {blog.category}
               </span>
               <span className="text-xs text-gray-400 ml-2">

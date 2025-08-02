@@ -23,11 +23,11 @@ export default async function BlogHomePage() {
     };
   });
 
-  // Merge counts into blogs
+  // Merge counts into blogs - FIXED!
   const blogsWithCounts = blogs.map((blog) => ({
     ...blog,
-    commentsCount: counts[blog.slug] || 0, // never undefined!
-    likesCount: counts[blog.slug] || 0,
+    commentsCount: counts[blog.slug]?.commentsCount || 0,
+    likesCount: counts[blog.slug]?.likesCount || 0,
   }));
 
   return (

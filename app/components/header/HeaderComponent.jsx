@@ -14,6 +14,9 @@ import {
   SquarePen,
   User,
   Menu,
+  SquareArrowDownRight,
+  SquareActivityIcon,
+  Pen,
 } from "lucide-react";
 import { useState } from "react";
 import { ModeToggle } from "./ModeToggle";
@@ -28,6 +31,8 @@ import {
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import Image from "next/image";
 import { useCart } from "../cart/CartContext";
+import { FaBlog, FaBlogger, FaBloggerB } from "react-icons/fa";
+import { Icon } from "@iconify/react";
 // <-- Cart context import
 
 export default function Header() {
@@ -70,7 +75,7 @@ export default function Header() {
               alt="shopyor"
               className="font-serif font-bold tracking-tight"
             />
-            <span className="font-semibold text-2xl">Shopyor</span>
+            <span className="font-semibold text-2xl">ShopYor</span>
           </Link>
         </div>
 
@@ -99,11 +104,11 @@ export default function Header() {
         <div className="flex items-center gap-2 sm:gap-4 w-full sm:w-auto justify-end">
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-5">
-            <Link href="/products" className="hover:text-primary">
-              Products
+            <Link href="/" className="hover:text-primary">
+              Home
             </Link>
-            <Link href="/account" className="hover:text-primary">
-              Account
+            <Link href="/blog" className="hover:text-primary">
+              Blog
             </Link>
           </div>
           {/* cart badge */}
@@ -132,30 +137,22 @@ export default function Header() {
               </SheetTrigger>
               <SheetContent side="left" className="pt-8 flex flex-col gap-5">
                 <Link
-                  href="/products"
+                  href="/"
                   className="text-lg font-semibold hover:text-primary"
                 >
-                  Products
+                  Home
                 </Link>
                 <Link
-                  href="/account"
+                  href="/blog"
                   className="text-lg font-semibold hover:text-primary"
                 >
-                  Account
+                  Blog
                 </Link>
               </SheetContent>
             </Sheet>
           </div>
 
           {/* Write Button */}
-          <Button
-            size="icon"
-            variant="outline"
-            className="flex items-center justify-center rounded-full hover:cursor-pointer"
-            onClick={handleWrite}
-          >
-            <SquarePen />
-          </Button>
 
           {/* Mode toggle Button */}
           <ModeToggle />
@@ -197,6 +194,24 @@ export default function Header() {
                   <Link href="/admin/orders">
                     <LayoutDashboard />
                     Dashboard
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/add-product">
+                    <Icon icon="formkit:add" width="16" height="16" />
+                    Add Product
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/write">
+                    <Pen />
+                    Write
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/blog">
+                    <FaBloggerB />
+                    Blog
                   </Link>
                 </DropdownMenuItem>
                 {/* Admin-only menu */}

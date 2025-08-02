@@ -156,11 +156,12 @@ import { storage } from "@/lib/firebase"; // <-- your Firebase setup
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Icon } from "@iconify/react";
 
 const categories = [
   "Technology",
   "Programming",
-  "Health",
+  "Health & fitness",
   "Lifestyle",
   "Science",
   "Travel",
@@ -280,13 +281,15 @@ export default function WritePage() {
               </SelectContent>
             </Select>
             {/* Main Image Upload */}
-            <div>
+            <div className="flex items-center">
+              <Icon icon="line-md:upload-loop" width="50" height="50" />
               <input
                 type="file"
                 accept="image/*"
                 onChange={handleMainImage}
                 required
               />
+
               {preview && (
                 <img
                   src={preview}
