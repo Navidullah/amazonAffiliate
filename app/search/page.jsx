@@ -14,7 +14,7 @@ export default async function SearchPage({ searchParams }) {
   }
 
   return (
-    <main className="min-h-screen py-10 px-4">
+    <main className="min-h-screen wrapper py-10 px-4">
       <h1 className="text-2xl font-bold mb-4">
         {q ? `Search results for "${q}"` : "Enter a term to search blogs"}
       </h1>
