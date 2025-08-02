@@ -22,8 +22,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "My Modern Shop",
-  description: "E-commerce + Amazon Affiliate",
+  title: "Shopyor",
+  description: "E-commerce website + Amazon Affiliate",
+  icons: {
+    icon: "/shopyor.png", // or "/favicon.ico" or your logo's path
+    // You can add more formats if you want:
+    // shortcut: "/favicon.ico",
+    // apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({ children }) {
