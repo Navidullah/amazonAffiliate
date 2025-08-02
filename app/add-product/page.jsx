@@ -10,6 +10,12 @@ import { toast } from "react-toastify";
 import { storage } from "@/lib/firebase"; // <-- Import storage from your utils
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+} from "@/components/ui/select";
 
 export default function ProductAddForm({ onSubmit }) {
   const [type, setType] = useState("own");
@@ -131,6 +137,98 @@ export default function ProductAddForm({ onSubmit }) {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* ...Other fields... */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <Label htmlFor="title" className="mb-1">
+                  Title
+                </Label>
+                <Input
+                  name="title"
+                  id="title"
+                  value={form.title}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="slug" className="mb-1">
+                  Slug
+                </Label>
+                <Input
+                  name="slug"
+                  id="slug"
+                  value={form.slug}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="category" className="mb-1">
+                  Category
+                </Label>
+                <Input
+                  name="category"
+                  id="category"
+                  value={form.category}
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <Label htmlFor="price" className="mb-1">
+                  Price
+                </Label>
+                <Input
+                  name="price"
+                  id="price"
+                  type="number"
+                  value={form.price}
+                  onChange={handleChange}
+                  min={0}
+                  step={0.01}
+                />
+              </div>
+              <div>
+                <Label htmlFor="stock" className="mb-1">
+                  Stock
+                </Label>
+                <Input
+                  name="stock"
+                  id="stock"
+                  type="number"
+                  value={form.stock}
+                  onChange={handleChange}
+                  min={0}
+                />
+              </div>
+              <div>
+                <Label htmlFor="type" className="mb-1">
+                  Product Type
+                </Label>
+                <Select value={type} onValueChange={handleTypeChange}>
+                  <SelectTrigger id="type">
+                    <span className="capitalize">{type}</span>
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="own">Own Product</SelectItem>
+                    <SelectItem value="affiliate">Affiliate</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="description" className="mb-1">
+                Description
+              </Label>
+              <Textarea
+                name="description"
+                id="description"
+                rows={3}
+                value={form.description}
+                onChange={handleChange}
+                placeholder="Enter product description"
+              />
+            </div>
 
             {/* Image Upload */}
             <div>
