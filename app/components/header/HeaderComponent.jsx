@@ -197,18 +197,7 @@ export default function Header() {
                     Dashboard
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/add-product">
-                    <Icon icon="formkit:add" width="16" height="16" />
-                    Add Product
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/write">
-                    <Pen />
-                    Write
-                  </Link>
-                </DropdownMenuItem>
+
                 <DropdownMenuItem asChild>
                   <Link href="/blog">
                     <FaBloggerB />
@@ -229,9 +218,21 @@ export default function Header() {
                 </DropdownMenuItem>
                 {/* Admin-only menu */}
                 {isAdmin && (
-                  <DropdownMenuItem asChild>
-                    <Link href="/admin">Admin Panel</Link>
-                  </DropdownMenuItem>
+                  <>
+                    {" "}
+                    <DropdownMenuItem asChild>
+                      <Link href="/add-product">
+                        <Icon icon="formkit:add" width="16" height="16" />
+                        Add Product
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link href="/write">
+                        <Pen />
+                        Write
+                      </Link>
+                    </DropdownMenuItem>
+                  </>
                 )}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
