@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Upload } from "lucide-react";
 import { toast } from "react-toastify";
-import { storage } from "@/lib/firebase"; // <-- Import storage from your utils
+import { storage } from "@/lib/firebase"; // Update the path if needed!
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -65,15 +65,14 @@ export default function ProductAddForm({ onSubmit }) {
     }));
   }
 
-  // Handle image file selection
   async function handleImageUpload(e) {
     const file = e.target.files[0];
     if (!file) return;
     setImageFile(file);
-    // Do NOT set form.image here – upload on submit!
+    // We upload on submit, not here!
   }
 
-  // Upload image to Firebase, return URL
+  // Upload image to Firebase and return URL
   async function uploadImageToFirebase(file) {
     const ext = file.name.split(".").pop();
     const imageRef = ref(storage, `products/${uuidv4()}.${ext}`);
@@ -87,7 +86,7 @@ export default function ProductAddForm({ onSubmit }) {
       setUploading(true);
       let imageUrl = form.image;
 
-      // If a new file is selected, upload it!
+      // Upload image if selected
       if (imageFile) {
         toast.info("Uploading image...");
         imageUrl = await uploadImageToFirebase(imageFile);
@@ -136,12 +135,10 @@ export default function ProductAddForm({ onSubmit }) {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* ...Other fields... */}
+            {/* Product Info */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
-                <Label htmlFor="title" className="mb-1">
-                  Title
-                </Label>
+                <Label htmlFor="title">Title</Label>
                 <Input
                   name="title"
                   id="title"
@@ -151,9 +148,7 @@ export default function ProductAddForm({ onSubmit }) {
                 />
               </div>
               <div>
-                <Label htmlFor="slug" className="mb-1">
-                  Slug
-                </Label>
+                <Label htmlFor="slug">Slug</Label>
                 <Input
                   name="slug"
                   id="slug"
@@ -163,9 +158,7 @@ export default function ProductAddForm({ onSubmit }) {
                 />
               </div>
               <div>
-                <Label htmlFor="category" className="mb-1">
-                  Category
-                </Label>
+                <Label htmlFor="category">Category</Label>
                 <Input
                   name="category"
                   id="category"
@@ -174,9 +167,7 @@ export default function ProductAddForm({ onSubmit }) {
                 />
               </div>
               <div>
-                <Label htmlFor="price" className="mb-1">
-                  Price
-                </Label>
+                <Label htmlFor="price">Price</Label>
                 <Input
                   name="price"
                   id="price"
@@ -188,9 +179,7 @@ export default function ProductAddForm({ onSubmit }) {
                 />
               </div>
               <div>
-                <Label htmlFor="stock" className="mb-1">
-                  Stock
-                </Label>
+                <Label htmlFor="stock">Stock</Label>
                 <Input
                   name="stock"
                   id="stock"
@@ -201,9 +190,7 @@ export default function ProductAddForm({ onSubmit }) {
                 />
               </div>
               <div>
-                <Label htmlFor="type" className="mb-1">
-                  Product Type
-                </Label>
+                <Label htmlFor="type">Product Type</Label>
                 <Select value={type} onValueChange={handleTypeChange}>
                   <SelectTrigger id="type">
                     <span className="capitalize">{type}</span>
@@ -216,10 +203,9 @@ export default function ProductAddForm({ onSubmit }) {
               </div>
             </div>
 
+            {/* Description */}
             <div>
-              <Label htmlFor="description" className="mb-1">
-                Description
-              </Label>
+              <Label htmlFor="description">Description</Label>
               <Textarea
                 name="description"
                 id="description"
@@ -232,7 +218,7 @@ export default function ProductAddForm({ onSubmit }) {
 
             {/* Image Upload */}
             <div>
-              <Label className="mb-1">Image</Label>
+              <Label>Image</Label>
               <div className="flex items-center gap-4">
                 <Input
                   type="file"
@@ -249,7 +235,55 @@ export default function ProductAddForm({ onSubmit }) {
               </div>
             </div>
 
-            {/* ...Affiliate fields... */}
+            {/* Affiliate Fields */}
+            {type === "affiliate" && (
+              <div className="border-t pt-5 mt-4 grid grid-cols-1 md:grid-cols-2 gap-5 bg-gray-50 dark:bg-zinc-900 rounded-xl">
+                <div>
+                  <Label htmlFor="affiliate.asin">ASIN</Label>
+                  <Input
+                    name="affiliate.asin"
+                    id="affiliate.asin"
+                    value={form.affiliate.asin}
+                    onChange={handleChange}
+                    required={type === "affiliate"}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="affiliate.url">Affiliate URL</Label>
+                  <Input
+                    name="affiliate.url"
+                    id="affiliate.url"
+                    value={form.affiliate.url}
+                    onChange={handleChange}
+                    required={type === "affiliate"}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="affiliate.rating">Rating</Label>
+                  <Input
+                    name="affiliate.rating"
+                    id="affiliate.rating"
+                    type="number"
+                    min={0}
+                    max={5}
+                    step={0.1}
+                    value={form.affiliate.rating}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="affiliate.reviews">Reviews</Label>
+                  <Input
+                    name="affiliate.reviews"
+                    id="affiliate.reviews"
+                    type="number"
+                    min={0}
+                    value={form.affiliate.reviews}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+            )}
 
             <Button
               type="submit"
