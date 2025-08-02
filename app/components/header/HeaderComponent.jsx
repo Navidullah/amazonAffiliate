@@ -71,8 +71,8 @@ export default function Header() {
           <Link href="/" className="flex items-center">
             <Image
               src="/shopyor.png"
-              width={50}
-              height={50}
+              width={40}
+              height={40}
               alt="shopyor"
               className="font-serif font-bold tracking-tight"
             />
@@ -85,7 +85,7 @@ export default function Header() {
           onSubmit={handleSearch}
           className="w-full sm:w-auto flex-1 flex items-center mb-2 sm:mb-0"
         >
-          <div className="relative w-full max-w-xs sm:max-w-md mx-auto">
+          <div className="relative w-full max-w-xs md:max-w-md mx-auto">
             <Search
               className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
               size={18}
