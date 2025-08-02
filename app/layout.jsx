@@ -25,7 +25,7 @@ export const metadata = {
   title: "Shopyor",
   description: "E-commerce website + Amazon Affiliate",
   icons: {
-    icon: "/favicon.png", // or "/favicon.ico" or your logo's path
+    icon: "/shopyor.png", // or "/favicon.ico" or your logo's path
     // You can add more formats if you want:
     // shortcut: "/favicon.ico",
     // apple: "/apple-touch-icon.png",
