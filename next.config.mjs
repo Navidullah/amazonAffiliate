@@ -5,10 +5,13 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "m.media-amazon.com",
-        port: "",
         pathname: "/images/**",
       },
-      // add more as needed
+      {
+        protocol: "https",
+        hostname: "firebasestorage.googleapis.com",
+        pathname: "/**", // Allow any image path from Firebase Storage
+      },
     ],
   },
 };
