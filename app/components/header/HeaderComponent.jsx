@@ -17,6 +17,7 @@ import {
   SquareArrowDownRight,
   SquareActivityIcon,
   Pen,
+  Link2,
 } from "lucide-react";
 import { useState } from "react";
 import { ModeToggle } from "./ModeToggle";
@@ -31,7 +32,7 @@ import {
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import Image from "next/image";
 import { useCart } from "../cart/CartContext";
-import { FaBlog, FaBlogger, FaBloggerB } from "react-icons/fa";
+import { FaBlog, FaBlogger, FaBloggerB, FaCompress } from "react-icons/fa";
 import { Icon } from "@iconify/react";
 // <-- Cart context import
 
@@ -212,6 +213,18 @@ export default function Header() {
                   <Link href="/blog">
                     <FaBloggerB />
                     Blog
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/generate-link">
+                    <Link2 />
+                    Generate link
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/image-compressor">
+                    <FaCompress />
+                    Image compressor
                   </Link>
                 </DropdownMenuItem>
                 {/* Admin-only menu */}
