@@ -108,7 +108,7 @@ export default function Header() {
             <Link href="/" className="hover:text-primary">
               Home
             </Link>
-            <Link href="/blog" className="hover:text-primary">
+            <Link href="/blogs" className="hover:text-primary">
               Blog
             </Link>
           </div>
@@ -144,7 +144,7 @@ export default function Header() {
                   Home
                 </Link>
                 <Link
-                  href="/blog"
+                  href="/blogs"
                   className="text-lg font-semibold hover:text-primary"
                 >
                   Blog
@@ -199,7 +199,7 @@ export default function Header() {
                 </DropdownMenuItem>
 
                 <DropdownMenuItem asChild>
-                  <Link href="/blog">
+                  <Link href="/blogs">
                     <FaBloggerB />
                     Blog
                   </Link>

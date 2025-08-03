@@ -26,7 +26,7 @@ export default function Footer() {
             Home
           </a>
 
-          <a href="/blog" className="hover:text-foreground transition">
+          <a href="/blogs" className="hover:text-foreground transition">
             Blog
           </a>
           <a href="/contact" className="hover:text-foreground transition">
