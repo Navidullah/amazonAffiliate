@@ -8,7 +8,7 @@ import { Analytics } from "@vercel/analytics/next";
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
-  variable: "--font-jetbrainsMono", // this will be used in Tailwind
+  variable: "--font-jetbrainsMono",
   display: "swap",
 });
 
@@ -25,12 +25,20 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "Shopyor",
   description: "E-commerce website + Amazon Affiliate",
+  themeColor: "#00bcd4",
   icons: {
-    icon: "/shopyor.png", // or "/favicon.ico" or your logo's path
-    // You can add more formats if you want:
-    // shortcut: "/favicon.ico",
-    // apple: "/apple-touch-icon.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: {
+      url: "/apple-touch-icon.png",
+      sizes: "180x180",
+      type: "image/png",
+    },
   },
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({ children }) {
