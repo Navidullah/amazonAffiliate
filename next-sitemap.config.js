@@ -1,7 +1,16 @@
-/** @type {import('next-sitemap').IConfig} */
-module.exports = {
-  siteUrl: "https://www.shopyor.com", // replace with your domain
+// next-sitemap.config.js (ES module syntax)
+export default {
+  siteUrl: "https://www.shopyor.com",
   generateRobotsTxt: true,
-
-  // ...you can add more options, like exclude or additional paths
+  exclude: [],
+  additionalPaths: async (config) => {
+    return [
+      {
+        loc: "https://www.shopyor.com/blogs",
+        changefreq: "daily",
+        priority: 0.7,
+        lastmod: new Date().toISOString(),
+      },
+    ];
+  },
 };
