@@ -32,7 +32,13 @@ import {
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import Image from "next/image";
 import { useCart } from "../cart/CartContext";
-import { FaBlog, FaBlogger, FaBloggerB, FaCompress } from "react-icons/fa";
+import {
+  FaBackward,
+  FaBlog,
+  FaBlogger,
+  FaBloggerB,
+  FaCompress,
+} from "react-icons/fa";
 import { Icon } from "@iconify/react";
 // <-- Cart context import
 
@@ -214,6 +220,12 @@ export default function Header() {
                   <Link href="/image-compressor">
                     <FaCompress />
                     Image compressor
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/background-remover">
+                    <FaBackward />
+                    BackgroundRemover
                   </Link>
                 </DropdownMenuItem>
                 {/* Admin-only menu */}
