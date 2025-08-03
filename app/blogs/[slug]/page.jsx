@@ -243,7 +243,7 @@ export default async function SingleBlogPage({ params }) {
         <p className="text-sm text-gray-500">Share this blog:</p>
         <a
           href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${blog.slug}`
+            `${process.env.NEXT_PUBLIC_BASE_URL}/blogs/${blog.slug}`
           )}&text=${encodeURIComponent(blog.title)}`}
           target="_blank"
           rel="noopener noreferrer"
@@ -253,7 +253,7 @@ export default async function SingleBlogPage({ params }) {
         </a>
         <a
           href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${blog.slug}`
+            `${process.env.NEXT_PUBLIC_BASE_URL}/blogs/${blog.slug}`
           )}`}
           target="_blank"
           rel="noopener noreferrer"
@@ -265,7 +265,7 @@ export default async function SingleBlogPage({ params }) {
           href={`https://wa.me/?text=${encodeURIComponent(
             blog.title +
               " " +
-              `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${blog.slug}`
+              `${process.env.NEXT_PUBLIC_BASE_URL}/blogs/${blog.slug}`
           )}`}
           target="_blank"
           rel="noopener noreferrer"
