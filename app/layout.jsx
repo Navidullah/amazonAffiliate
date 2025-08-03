@@ -3,6 +3,7 @@ import "./globals.css";
 import { Providers } from "./providers/Providers";
 import HeaderComponent from "./components/header/HeaderComponent";
 import Footer from "./components/footer/Footer";
+import { Analytics } from "@vercel/analytics/next";
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -46,6 +47,7 @@ export default function RootLayout({ children }) {
         <Providers>
           <HeaderComponent />
           <main className="pt-[170px] sm:pt-[145px]">{children}</main>
+          <Analytics />
           <Footer />
         </Providers>
       </body>
