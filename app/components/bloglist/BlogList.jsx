@@ -43,7 +43,7 @@ export default function BlogList({ blogs }) {
               )}
             </div>
             <Link
-              href={`/blog/${blog.slug}`}
+              href={`/blogs/${blog.slug}`}
               className="block group-hover:underline"
             >
               <h2 className="text-xl md:text-2xl font-bold mb-1">
@@ -80,7 +80,7 @@ export default function BlogList({ blogs }) {
           {/* Right: Animated Image */}
           <div className="w-full md:w-[200px] flex-shrink-0">
             <AnimatedBlogImage
-              href={`/blog/${blog.slug}`}
+              href={`/blogs/${blog.slug}`}
               src={blog.image}
               alt={blog.title}
             />

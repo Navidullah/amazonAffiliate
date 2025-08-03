@@ -313,7 +313,7 @@ export default async function SingleBlogPage({ params }) {
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {related.map((item) => (
               <Link
-                href={`/blog/${item.slug}`}
+                href={`/blogs/${item.slug}`}
                 key={item._id}
                 className="border p-4 rounded hover:shadow transition"
               >
