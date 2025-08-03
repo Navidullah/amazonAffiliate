@@ -293,7 +293,7 @@ export default async function SingleBlogPage({ params }) {
             dateModified: blog.updatedAt || blog.date,
             mainEntityOfPage: {
               "@type": "WebPage",
-              "@id": `${process.env.NEXT_PUBLIC_BASE_URL || ""}/blog/${
+              "@id": `${process.env.NEXT_PUBLIC_BASE_URL || ""}/blogs/${
                 blog.slug
               }`,
             },
