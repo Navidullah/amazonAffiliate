@@ -23,8 +23,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Shopyor",
-  description: "E-commerce website + Amazon Affiliate",
+  title:
+    "Shopyor - Your Trusted Online Store for Quality Products & Amazon Deals",
+  description:
+    "Shopyor delivers expert fitness coach insights, nutrition for health and fitness, weight bench workouts, and home workout routines—then helps you shop quality equipment, fitness gear & recovery tools.",
   themeColor: "#00bcd4",
   icons: {
     icon: [
@@ -44,6 +46,33 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Structured Data for Google */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Store",
+              name: "Shopyor",
+              url: "https://www.shopyor.com",
+              description:
+                "Shopyor delivers expert fitness coach insights, nutrition for health and fitness, weight bench workouts, and home workout routines—then helps you shop quality equipment, fitness gear & recovery tools.",
+              logo: "https://www.shopyor.com/shopyor.png",
+              sameAs: [
+                "https://www.facebook.com/YourPage",
+                "https://www.instagram.com/YourProfile",
+                "https://twitter.com/YourProfile",
+              ],
+              potentialAction: {
+                "@type": "SearchAction",
+                target: "https://www.shopyor.com/search?q={search_term_string}",
+                "query-input": "required name=search_term_string",
+              },
+            }),
+          }}
+        />
+      </head>
       <body
         className={`${jetbrainsMono.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
