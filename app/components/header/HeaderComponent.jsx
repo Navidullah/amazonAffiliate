@@ -117,6 +117,38 @@ export default function Header() {
             <Link href="/blogs" className="hover:text-primary">
               Blog
             </Link>
+            {/* Tools Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="flex items-center gap-1 hover:text-primary"
+                >
+                  Tools
+                  <SquareArrowDownRight className="w-4 h-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56">
+                <DropdownMenuItem asChild>
+                  <Link href="/image-compressor">
+                    <FaCompress className="mr-2" />
+                    Image Compressor
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/background-remover">
+                    <FaBackward className="mr-2" />
+                    Background Remover
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/generate-link">
+                    <Link2 className="mr-2" />
+                    Affiliate Link Generator
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
           {/* cart badge */}
           <Link href="/cart" className="relative">
