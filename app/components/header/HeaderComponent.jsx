@@ -174,19 +174,54 @@ export default function Header() {
                   <Menu />
                 </Button>
               </SheetTrigger>
+
               <SheetContent side="left" className="pt-8 flex flex-col gap-5">
-                <Link
-                  href="/"
-                  className="text-lg font-semibold hover:text-primary"
-                >
-                  Home
-                </Link>
-                <Link
-                  href="/blogs"
-                  className="text-lg font-semibold hover:text-primary"
-                >
-                  Blog
-                </Link>
+                {({ close }) => (
+                  <>
+                    <Link
+                      href="/"
+                      onClick={close}
+                      className="text-lg font-semibold hover:text-primary"
+                    >
+                      Home
+                    </Link>
+                    <Link
+                      href="/blogs"
+                      onClick={close}
+                      className="text-lg font-semibold hover:text-primary"
+                    >
+                      Blog
+                    </Link>
+
+                    {/* Tools Collapsible Menu */}
+                    <div className="flex flex-col">
+                      <span className="text-lg font-semibold">Tools</span>
+                      <div className="ml-4 mt-2 flex flex-col gap-2">
+                        <Link
+                          href="/image-compressor"
+                          onClick={close}
+                          className="flex items-center gap-2 hover:text-primary"
+                        >
+                          <FaCompress /> Image Compressor
+                        </Link>
+                        <Link
+                          href="/background-remover"
+                          onClick={close}
+                          className="flex items-center gap-2 hover:text-primary"
+                        >
+                          <FaBackward /> Background Remover
+                        </Link>
+                        <Link
+                          href="/generate-link"
+                          onClick={close}
+                          className="flex items-center gap-2 hover:text-primary"
+                        >
+                          <Link2 /> Affiliate Link Generator
+                        </Link>
+                      </div>
+                    </div>
+                  </>
+                )}
               </SheetContent>
             </Sheet>
           </div>
