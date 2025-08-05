@@ -11,13 +11,11 @@ import {
   LucideLogOut,
   Search,
   ShoppingCart,
-  SquarePen,
-  User,
-  Menu,
   SquareArrowDownRight,
-  SquareActivityIcon,
   Pen,
   Link2,
+  Menu,
+  User,
 } from "lucide-react";
 import { useState } from "react";
 import { ModeToggle } from "./ModeToggle";
@@ -29,18 +27,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetClose,
+} from "@/components/ui/sheet";
 import Image from "next/image";
 import { useCart } from "../cart/CartContext";
-import {
-  FaBackward,
-  FaBlog,
-  FaBlogger,
-  FaBloggerB,
-  FaCompress,
-} from "react-icons/fa";
+import { FaBackward, FaBloggerB, FaCompress } from "react-icons/fa";
 import { Icon } from "@iconify/react";
-// <-- Cart context import
 
 export default function Header() {
   const { data: session } = useSession();
@@ -57,31 +53,17 @@ export default function Header() {
     }
   };
 
-  const handleWrite = () => {
-    if (!session) signIn();
-    else router.push("/write");
-  };
-
   const handleLogin = () => signIn();
   const handleLogout = () => signOut();
-
-  // Check if admin
   const isAdmin = session?.user?.role === "admin";
 
   return (
     <header className="fixed top-0 w-full z-50 py-1 bg-white/70 dark:bg-gray-900/70 backdrop-blur-md border-b border-black/10 dark:border-gray-700/30">
       <div className="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-6 px-2 sm:px-6 h-auto sm:h-16">
         {/* Logo */}
-
         <div className="flex items-center w-full sm:w-auto mb-2 sm:mb-0">
           <Link href="/" className="flex items-center">
-            <Image
-              src="/shopyor.png"
-              width={40}
-              height={40}
-              alt="shopyor"
-              className="font-serif font-bold tracking-tight"
-            />
+            <Image src="/shopyor.png" width={40} height={40} alt="shopyor" />
             <span className="font-semibold text-2xl">ShopYor</span>
           </Link>
         </div>
@@ -109,7 +91,7 @@ export default function Header() {
 
         {/* Actions */}
         <div className="flex items-center gap-2 sm:gap-4 w-full sm:w-auto justify-end">
-          {/* Desktop Navigation */}
+          {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-5">
             <Link href="/" className="hover:text-primary">
               Home
@@ -117,40 +99,36 @@ export default function Header() {
             <Link href="/blogs" className="hover:text-primary">
               Blog
             </Link>
-            {/* Tools Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
                   className="flex items-center gap-1 hover:text-primary"
                 >
-                  Tools
-                  <SquareArrowDownRight className="w-4 h-4" />
+                  Tools <SquareArrowDownRight className="w-4 h-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
                 <DropdownMenuItem asChild>
                   <Link href="/image-compressor">
-                    <FaCompress className="mr-2" />
-                    Image Compressor
+                    <FaCompress className="mr-2" /> Image Compressor
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link href="/background-remover">
-                    <FaBackward className="mr-2" />
-                    Background Remover
+                    <FaBackward className="mr-2" /> Background Remover
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link href="/generate-link">
-                    <Link2 className="mr-2" />
-                    Affiliate Link Generator
+                    <Link2 className="mr-2" /> Affiliate Link Generator
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-          {/* cart badge */}
+
+          {/* Cart */}
           <Link href="/cart" className="relative">
             <Button size="icon" variant="outline" className="rounded-full">
               <ShoppingCart />
@@ -162,6 +140,7 @@ export default function Header() {
             </Button>
           </Link>
 
+          {/* Mobile Menu */}
           <div className="flex md:hidden items-center">
             <Sheet>
               <SheetTrigger asChild>
@@ -174,68 +153,64 @@ export default function Header() {
                   <Menu />
                 </Button>
               </SheetTrigger>
-
               <SheetContent side="left" className="pt-8 flex flex-col gap-5">
-                {({ close }) => (
-                  <>
-                    <Link
-                      href="/"
-                      onClick={close}
-                      className="text-lg font-semibold hover:text-primary"
-                    >
-                      Home
-                    </Link>
-                    <Link
-                      href="/blogs"
-                      onClick={close}
-                      className="text-lg font-semibold hover:text-primary"
-                    >
-                      Blog
-                    </Link>
-
-                    {/* Tools Collapsible Menu */}
-                    <div className="flex flex-col">
-                      <span className="text-lg font-semibold">Tools</span>
-                      <div className="ml-4 mt-2 flex flex-col gap-2">
-                        <Link
-                          href="/image-compressor"
-                          onClick={close}
-                          className="flex items-center gap-2 hover:text-primary"
-                        >
-                          <FaCompress /> Image Compressor
-                        </Link>
-                        <Link
-                          href="/background-remover"
-                          onClick={close}
-                          className="flex items-center gap-2 hover:text-primary"
-                        >
-                          <FaBackward /> Background Remover
-                        </Link>
-                        <Link
-                          href="/generate-link"
-                          onClick={close}
-                          className="flex items-center gap-2 hover:text-primary"
-                        >
-                          <Link2 /> Affiliate Link Generator
-                        </Link>
-                      </div>
-                    </div>
-                  </>
-                )}
+                <SheetClose asChild>
+                  <Link
+                    href="/"
+                    className="text-lg font-semibold hover:text-primary"
+                  >
+                    Home
+                  </Link>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Link
+                    href="/blogs"
+                    className="text-lg font-semibold hover:text-primary"
+                  >
+                    Blog
+                  </Link>
+                </SheetClose>
+                <div className="flex flex-col">
+                  <span className="text-lg font-semibold">Tools</span>
+                  <div className="ml-4 mt-2 flex flex-col gap-2">
+                    <SheetClose asChild>
+                      <Link
+                        href="/image-compressor"
+                        className="flex items-center gap-2 hover:text-primary"
+                      >
+                        <FaCompress /> Image Compressor
+                      </Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Link
+                        href="/background-remover"
+                        className="flex items-center gap-2 hover:text-primary"
+                      >
+                        <FaBackward /> Background Remover
+                      </Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Link
+                        href="/generate-link"
+                        className="flex items-center gap-2 hover:text-primary"
+                      >
+                        <Link2 /> Affiliate Link Generator
+                      </Link>
+                    </SheetClose>
+                  </div>
+                </div>
               </SheetContent>
             </Sheet>
           </div>
 
-          {/* Write Button */}
-
-          {/* Mode toggle Button */}
+          {/* Theme Toggle */}
           <ModeToggle />
 
-          {/* Login / Avatar Dropdown */}
+          {/* Login / Avatar */}
           {!session ? (
             <Button
               onClick={handleLogin}
-              className="ml-1 px-3 py-1 text-sm sm:text-base hover:cursor-pointer"
+              className="ml-1 px-3 py-1 text-sm sm:text-base"
             >
               Login
             </Button>
@@ -266,60 +241,50 @@ export default function Header() {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                   <Link href="/admin/orders">
-                    <LayoutDashboard />
-                    Dashboard
+                    <LayoutDashboard /> Dashboard
                   </Link>
                 </DropdownMenuItem>
-
                 <DropdownMenuItem asChild>
                   <Link href="/blogs">
-                    <FaBloggerB />
-                    Blog
+                    <FaBloggerB /> Blog
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link href="/generate-link">
-                    <Link2 />
-                    Generate link
+                    <Link2 /> Generate link
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link href="/image-compressor">
-                    <FaCompress />
-                    Image compressor
+                    <FaCompress /> Image compressor
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link href="/background-remover">
-                    <FaBackward />
-                    BackgroundRemover
+                    <FaBackward /> BackgroundRemover
                   </Link>
                 </DropdownMenuItem>
-                {/* Admin-only menu */}
                 {isAdmin && (
                   <>
-                    {" "}
                     <DropdownMenuItem asChild>
                       <Link href="/add-product">
-                        <Icon icon="formkit:add" width="16" height="16" />
-                        Add Product
+                        <Icon icon="formkit:add" width="16" height="16" /> Add
+                        Product
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
                       <Link href="/write">
-                        <Pen />
-                        Write
+                        <Pen /> Write
                       </Link>
                     </DropdownMenuItem>
                   </>
                 )}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
-                  className="cursor-pointer"
                   onClick={handleLogout}
+                  className="cursor-pointer"
                 >
-                  <LucideLogOut />
-                  Logout
+                  <LucideLogOut /> Logout
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
