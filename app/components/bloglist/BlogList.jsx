@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MessageCircle, Heart } from "lucide-react";
+import { MessageCircle, Heart, Eye } from "lucide-react";
 
 import AnimatedBlogImage from "./AnimatedBlogImage";
 
