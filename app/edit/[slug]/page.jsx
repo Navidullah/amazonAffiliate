@@ -122,7 +122,7 @@ export default function EditBlogPage() {
       });
       if (res.ok) {
         toast.success("Blog updated!");
-        router.push(`/blog/${slug}`);
+        router.push(`/blogs/${slug}`);
       } else {
         toast.error("Update failed!");
       }
