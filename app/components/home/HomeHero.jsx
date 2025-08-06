@@ -34,7 +34,7 @@ export default function HomeHero() {
         className="text-4xl md:text-6xl font-extrabold mb-4
         bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-transparent bg-clip-text"
       >
-        Shopyor – Your Trusted Online Store
+        Shop the Best Fitness Equipment, Home Workout Gear & Essentials
       </motion.h1>
 
       {/* SEO-Friendly Intro */}
@@ -44,12 +44,14 @@ export default function HomeHero() {
         transition={{ delay: 0.15, duration: 0.7, ease: "easeOut" }}
         className="max-w-2xl text-lg md:text-2xl text-zinc-600 dark:text-zinc-300 mb-8"
       >
-        Discover quality products, exclusive Amazon affiliate deals, and great
-        prices – all in one place. From <strong>electronics</strong>,{" "}
-        <strong>fashion</strong>, and <strong>home essentials</strong> to
-        <strong> fitness gear</strong> and{" "}
-        <strong>lifestyle accessories</strong>, Shopyor helps you shop smarter
-        and save more.
+        Discover top-rated <strong>fitness equipment</strong>,{" "}
+        <strong>adjustable dumbbells</strong>, <strong>resistance bands</strong>
+        , and <strong>home workout gear</strong> alongside exclusive Amazon
+        affiliate deals – all in one place. From <strong>electronics</strong>,{" "}
+        <strong>fashion</strong>, and <strong>home essentials</strong> to{" "}
+        <strong>health & fitness gear</strong> and{" "}
+        <strong>lifestyle accessories</strong>, Shopyor helps you shop smarter,
+        stay fit, and save more.
       </motion.p>
 
       {/* Call to Action Button */}
