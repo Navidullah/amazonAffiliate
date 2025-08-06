@@ -204,7 +204,7 @@ export default async function SingleBlogPage({ params }) {
 
       {/* Category and author */}
       <div className="flex items-center gap-2 mb-4 text-sm text-gray-500">
-        <span className="px-2 py-0.5 font-semibold rounded bg-yellow-300 text-white">
+        <span className="px-2 py-0.5 font-semibold rounded bg-blue-600 text-white">
           {blog.category}
         </span>
         <span className="ml-2">
