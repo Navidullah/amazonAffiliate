@@ -23,7 +23,7 @@ export default function HomeHero() {
         repeatType: "mirror",
         ease: "linear",
       }}
-      className="w-full py-16 flex flex-col items-center text-center min-h-[38vh] md:min-h-[48vh] relative overflow-hidden bg-white/30 dark:bg-zinc-900/30 border border-white/40 dark:border-zinc-800/40 backdrop-blur-md shadow-lg px-4"
+      className="w-full py-16 flex flex-col items-center text-center min-h-[38vh] md:min-h-[48vh] relative overflow-hidden bg-white dark:bg-zinc-900/30 border border-white/40 dark:border-zinc-800/40 backdrop-blur-md shadow-lg px-4"
       initial={false}
     >
       {/* Main Heading */}
