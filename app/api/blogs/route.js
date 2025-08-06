@@ -94,6 +94,7 @@ export async function POST(req) {
   const {
     title,
     description,
+    metaDescription, // ✅ New field
     category,
     image,
     author,
@@ -115,6 +116,7 @@ export async function POST(req) {
     title,
     slug,
     description,
+    metaDescription, // ✅ New field
     category,
     image, // <-- This is now a URL string
     author,

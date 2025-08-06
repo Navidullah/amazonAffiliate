@@ -21,7 +21,7 @@ export default function BlogHero() {
         source for
         <strong> fitness equipment reviews</strong>,{" "}
         <strong>workout routines</strong>, and
-        <strong>nutrition tips</strong>. We cover adjustable dumbbells,
+        <strong> nutrition tips</strong>. We cover adjustable dumbbells,
         resistance bands, whey protein, and home gym essentials.
       </motion.p>
     </motion.section>

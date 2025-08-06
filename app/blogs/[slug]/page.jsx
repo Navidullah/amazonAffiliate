@@ -125,18 +125,25 @@ export async function generateMetadata({ params }) {
   if (!res.ok) return {};
 
   const blog = await res.json();
+
+  // ✅ Use metaDescription if provided, otherwise fallback to blog description
+  const seoDescription =
+    blog.metaDescription && blog.metaDescription.trim().length > 0
+      ? blog.metaDescription
+      : blog.description.replace(/<[^>]+>/g, "").slice(0, 150);
+
   return {
     title: blog.title,
-    description: blog.description.replace(/<[^>]+>/g, "").slice(0, 150),
+    description: seoDescription,
     openGraph: {
       title: blog.title,
-      description: blog.description.replace(/<[^>]+>/g, "").slice(0, 150),
+      description: seoDescription,
       images: [{ url: blog.image }],
     },
     twitter: {
       card: "summary_large_image",
       title: blog.title,
-      description: blog.description.replace(/<[^>]+>/g, "").slice(0, 150),
+      description: seoDescription,
       images: [blog.image],
     },
   };
