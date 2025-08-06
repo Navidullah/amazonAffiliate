@@ -180,6 +180,7 @@ export default function WritePage() {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [metaDescription, setMetaDescription] = useState("");
   const [category, setCategory] = useState("");
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState("");
@@ -193,7 +194,7 @@ export default function WritePage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!title || !description || !category || !image) {
+    if (!title || !metaDescription || !description || !category || !image) {
       toast.error("All fields are required.");
       return;
     }
