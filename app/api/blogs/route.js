@@ -88,47 +88,55 @@ function slugify(text) {
 }
 
 export async function POST(req) {
-  await ConnectToDB();
-  const data = await req.json(); // Expect JSON body now!
+  try {
+    await ConnectToDB();
+    const data = await req.json(); // Expect JSON body now!
 
-  const {
-    title,
-    description,
-    metaDescription, // ✅ New field
-    category,
-    image,
-    author,
-    authorImage,
-    authorEmail,
-  } = data;
+    const {
+      title,
+      description,
+      metaDescription, // ✅ New field
+      category,
+      image,
+      author,
+      authorImage,
+      authorEmail,
+    } = data;
 
-  // Generate slug from title
-  let slug = slugify(title);
+    // Generate slug from title
+    let slug = slugify(title);
 
-  // If slug exists, append a random 4-digit code
-  let exists = await BlogModel.findOne({ slug });
-  if (exists) {
-    slug = `${slug}-${Math.floor(1000 + Math.random() * 9000)}`;
+    // If slug exists, append a random 4-digit code
+    let exists = await BlogModel.findOne({ slug });
+    if (exists) {
+      slug = `${slug}-${Math.floor(1000 + Math.random() * 9000)}`;
+    }
+
+    // Save blog to DB with slug and image URL from Firebase
+    const blog = new BlogModel({
+      title,
+      slug,
+      description,
+      metaDescription, // ✅ New field
+      category,
+      image, // <-- This is now a URL string
+      author,
+      authorImage,
+      authorEmail,
+    });
+
+    await blog.save();
+
+    return new Response(JSON.stringify({ message: "Blog created", blog }), {
+      status: 201,
+    });
+  } catch (error) {
+    console.error("Error creating blog:", error); // ✅ Log the actual error
+    return new Response(
+      JSON.stringify({ error: error.message || "Something went wrong" }),
+      { status: 500 }
+    );
   }
-
-  // Save blog to DB with slug and image URL from Firebase
-  const blog = new BlogModel({
-    title,
-    slug,
-    description,
-    metaDescription, // ✅ New field
-    category,
-    image, // <-- This is now a URL string
-    author,
-    authorImage,
-    authorEmail,
-  });
-
-  await blog.save();
-
-  return new Response(JSON.stringify({ message: "Blog created", blog }), {
-    status: 201,
-  });
 }
 
 // /api/blogs/route.js (GET)
