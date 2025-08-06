@@ -152,6 +152,13 @@ export default function EditBlogPage() {
               placeholder="Blog Title"
               required
             />
+            <Input
+              value={metaDescription}
+              onChange={(e) => setMetaDescription(e.target.value)}
+              placeholder="Meta Description (max 160 characters)"
+              maxLength={160}
+              required
+            />
             <Select value={category} onValueChange={setCategory} required>
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select Category" />
