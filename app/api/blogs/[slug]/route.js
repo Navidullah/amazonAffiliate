@@ -4,26 +4,19 @@ import BlogModel from "@/lib/models/BlogModel";
 // GET: Get blog by slug
 export async function GET(req, { params }) {
   await ConnectToDB();
-  const blog = await BlogModel.findOne({ slug: params.slug });
+  const { slug } = params;
+
+  // Increment views by 1
+  const blog = await BlogModel.findOneAndUpdate(
+    { slug },
+    { $inc: { views: 1 } },
+    { new: true }
+  );
   if (!blog) {
     return Response.json({ error: "Not found" }, { status: 404 });
   }
   return Response.json(blog);
 }
-
-/*
-// PUT: Update blog by slug
-export async function PUT(req, { params }) {
-  await ConnectToDB();
-  const body = await req.json();
-  const blog = await BlogModel.findOneAndUpdate(
-    { slug: params.slug },
-    { $set: body },
-    { new: true }
-  );
-  if (!blog) return new Response("Not found", { status: 404 });
-  return Response.json({ message: "Updated", blog }, { status: 200 });
-}*/
 
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/authOptions";
