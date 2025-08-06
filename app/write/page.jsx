@@ -215,6 +215,7 @@ export default function WritePage() {
     // Submit blog data to API
     const blogData = {
       title,
+      metaDescription,
       description,
       category,
       image: imageUrl, // <-- Firebase URL

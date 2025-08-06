@@ -22,7 +22,7 @@ import "react-toastify/dist/ReactToastify.css";
 const categories = [
   "Technology",
   "Programming",
-  "Health",
+  "Health & fitness",
   "Lifestyle",
   "Science",
   "Travel",
@@ -47,6 +47,7 @@ export default function EditBlogPage() {
   // Blog fields
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState(""); // Tiptap HTML
+  const [metaDescription, setMetaDescription] = useState(""); // Tiptap HTML
   const [category, setCategory] = useState("");
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState("");
@@ -62,6 +63,7 @@ export default function EditBlogPage() {
         setBlog(data);
         setTitle(data.title);
         setDescription(data.description);
+        setMetaDescription(data.metaDescription);
         setCategory(data.category);
         setPreview(data.image);
         setLoading(false);
