@@ -1,4 +1,5 @@
 import BlogList from "../components/bloglist/BlogList";
+import { motion } from "framer-motion";
 
 export default async function BlogHomePage() {
   // Fetch all blogs and their comments count in parallel
