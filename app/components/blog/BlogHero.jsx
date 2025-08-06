@@ -19,7 +19,7 @@ export default function BlogHero() {
       <motion.p className="max-w-3xl text-lg md:text-xl text-zinc-600 dark:text-zinc-300 mb-8">
         Welcome to <strong>Shopyor’s Health & Fitness Blog</strong> – your go-to
         source for
-        <strong>fitness equipment reviews</strong>,{" "}
+        <strong> fitness equipment reviews</strong>,{" "}
         <strong>workout routines</strong>, and
         <strong>nutrition tips</strong>. We cover adjustable dumbbells,
         resistance bands, whey protein, and home gym essentials.
