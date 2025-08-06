@@ -63,6 +63,10 @@ export default function BlogList({ blogs }) {
                     })
                   : ""}
               </span>
+              {/* seen */}
+              <span className="flex items-center gap-1">
+                <Eye className="w-4 h-4" /> {blog.views || 0}
+              </span>
               {/* Likes */}
               <span className="flex items-center gap-1">
                 <span className="font-semibold">{blog.likesCount ?? 0}</span>
