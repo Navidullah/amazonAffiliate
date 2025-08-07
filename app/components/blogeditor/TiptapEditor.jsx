@@ -8,15 +8,23 @@ import { FontSize, TextStyle } from "@tiptap/extension-text-style";
 import Image from "@tiptap/extension-image";
 import Blockquote from "@tiptap/extension-blockquote";
 import { Placeholder } from "@tiptap/extensions";
+import Link from "@tiptap/extension-link";
+import Table from "@tiptap/extension-table";
+import TableRow from "@tiptap/extension-table-row";
+import TableHeader from "@tiptap/extension-table-header";
+import TableCell from "@tiptap/extension-table-cell";
 import React from "react";
+
 import MenuBar from "./MenuBar";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
-import Link from "@tiptap/extension-link";
 
 const TiptapEditor = ({ value, onChange }) => {
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        history: true,
+        table: false, // ⛔ disable built-in table to prevent conflicts
+      }),
       Highlight,
       FontSize,
       TextStyle,
@@ -26,33 +34,48 @@ const TiptapEditor = ({ value, onChange }) => {
         HTMLAttributes: {
           class: "text-blue-500 font-semibold hover:underline",
         },
-        openOnClick: false, // disable opening in new tab
-        linkOnPaste: false, // optional: disable auto-links from pasted text
+        openOnClick: false,
+        linkOnPaste: false,
       }),
       TextAlign.configure({
-        types: ["heading", "paragraph"],
+        types: ["heading", "paragraph", "tableCell"], // ✅ enable alignment for tables
       }),
       Placeholder.configure({
         placeholder: "Write something …",
       }),
+      Table.configure({
+        resizable: true,
+        HTMLAttributes: {
+          class: "w-full border-collapse table-auto",
+        },
+      }),
+      TableRow,
+      TableHeader,
+      TableCell,
     ],
     content: value,
     editorProps: {
       attributes: {
-        class: "min-h-[156px] border rounded-md py-2 px-3 tiptap",
+        class:
+          "min-h-[156px] border rounded-md py-2 px-3 tiptap prose dark:prose-invert max-w-full",
       },
     },
-    onUpdate({ editor }) {
+    onUpdate: ({ editor }) => {
       onChange(editor.getHTML());
     },
-    // Don't render immediately on the server to avoid SSR issues
     immediatelyRender: false,
   });
 
   return (
     <div>
-      <MenuBar editor={editor} />
-      <EditorContent editor={editor} className="tiptap" />
+      {!editor ? (
+        <LoadingSpinner />
+      ) : (
+        <>
+          <MenuBar editor={editor} />
+          <EditorContent editor={editor} className="tiptap" />
+        </>
+      )}
     </div>
   );
 };

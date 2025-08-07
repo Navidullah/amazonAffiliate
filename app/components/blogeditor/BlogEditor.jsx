@@ -283,7 +283,7 @@ export default function BlogEditor({ value, onChange }) {
         </div>
       )}
       <div className="border rounded min-h-[250px] px-2 py-3 bg-white dark:bg-zinc-900">
-        <EditorContent editor={editor} />
+        <EditorContent editor={editor} className="tiptap" />
       </div>
     </div>
   );
