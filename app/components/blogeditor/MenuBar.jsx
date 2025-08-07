@@ -19,6 +19,10 @@ import {
   Quote,
   UnlinkIcon,
   File as FileIcon,
+  Table,
+  Columns,
+  Rows,
+  Trash,
 } from "lucide-react";
 import { BsParagraph } from "react-icons/bs";
 import React, { useRef } from "react";
@@ -83,6 +87,7 @@ const MenuBar = ({ editor }) => {
   };
 
   const Options = [
+    // Headings & Paragraph
     {
       icon: <Heading1 className="size-7" />,
       onClick: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
@@ -103,6 +108,8 @@ const MenuBar = ({ editor }) => {
       onClick: () => editor.chain().focus().setParagraph().run(),
       pressed: editor.isActive("paragraph"),
     },
+
+    // Text styles
     {
       icon: <Bold className="size-7" />,
       onClick: () => editor.chain().focus().toggleBold().run(),
@@ -123,6 +130,8 @@ const MenuBar = ({ editor }) => {
       onClick: () => editor.chain().focus().toggleHighlight().run(),
       pressed: editor.isActive("highlight"),
     },
+
+    // Lists
     {
       icon: <List className="size-7" />,
       onClick: () => editor.chain().focus().toggleBulletList().run(),
@@ -133,6 +142,8 @@ const MenuBar = ({ editor }) => {
       onClick: () => editor.chain().focus().toggleOrderedList().run(),
       pressed: editor.isActive("orderedList"),
     },
+
+    // Alignment
     {
       icon: <AlignLeft className="size-7" />,
       onClick: () => editor.chain().focus().setTextAlign("left").run(),
@@ -153,11 +164,15 @@ const MenuBar = ({ editor }) => {
       onClick: () => editor.chain().focus().setTextAlign("justify").run(),
       pressed: editor.isActive("textAlign", { textAlign: "justify" }),
     },
+
+    // Blockquote
     {
       icon: <Quote className="size-7" />,
       onClick: () => editor.chain().focus().toggleBlockquote().run(),
       pressed: editor.isActive("blockquote"),
     },
+
+    // Media Uploads
     {
       icon: <ImageIcon className="size-7" />,
       onClick: () => fileInputRef.current.click(),
@@ -168,6 +183,8 @@ const MenuBar = ({ editor }) => {
       onClick: () => docInputRef.current.click(),
       pressed: false,
     },
+
+    // Links
     {
       icon: <LinkIcon className="size-7" />,
       onClick: () => {
@@ -188,6 +205,33 @@ const MenuBar = ({ editor }) => {
     {
       icon: <UnlinkIcon className="size-7" />,
       onClick: () => editor.chain().focus().unsetLink().run(),
+      pressed: false,
+    },
+
+    // 🔥 Table Tools
+    {
+      icon: <Table className="size-7" />,
+      onClick: () =>
+        editor
+          .chain()
+          .focus()
+          .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
+          .run(),
+      pressed: false,
+    },
+    {
+      icon: <Columns className="size-7" />,
+      onClick: () => editor.chain().focus().addColumnAfter().run(),
+      pressed: false,
+    },
+    {
+      icon: <Rows className="size-7" />,
+      onClick: () => editor.chain().focus().addRowAfter().run(),
+      pressed: false,
+    },
+    {
+      icon: <Trash className="size-7" />,
+      onClick: () => editor.chain().focus().deleteTable().run(),
       pressed: false,
     },
   ];

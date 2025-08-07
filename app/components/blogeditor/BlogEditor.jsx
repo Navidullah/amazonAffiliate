@@ -14,6 +14,12 @@ import Youtube from "@tiptap/extension-youtube";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Undo2, Redo2 } from "lucide-react";
+import {
+  Table,
+  TableCell,
+  TableHeader,
+  TableRow,
+} from "@tiptap/extension-table";
 
 export default function BlogEditor({ value, onChange }) {
   const fileInputRef = useRef();
@@ -37,6 +43,13 @@ export default function BlogEditor({ value, onChange }) {
           class: "mx-auto my-4 rounded-md",
         },
       }),
+      // ⬇️ Add these
+      Table.configure({
+        resizable: true,
+      }),
+      TableRow,
+      TableHeader,
+      TableCell,
     ],
     content: value,
     onUpdate: ({ editor }) => {
