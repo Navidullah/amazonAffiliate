@@ -1,23 +1,30 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 
-export default function AnimatedBlogImage({ href, src, alt }) {
+export default function AnimatedBlogImage({ href, src, alt, priority }) {
   return (
     <Link href={href}>
-      <motion.img
-        src={src}
-        alt={alt}
-        className="w-full h-[200px] object-contain "
-        style={{ minWidth: 180, minHeight: 120, background: "#222" }}
+      <motion.div
+        className="overflow-hidden rounded-md"
         whileHover={{
-          borderColor: "var(--primary)", // Vibrant violet (Tailwind's violet-700)
           scale: 1.04,
           boxShadow: "0 0 16px var(--primary)",
         }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      />
+      >
+        <Image
+          src={src}
+          alt={alt}
+          width={400}
+          height={250}
+          className="object-cover w-full h-[200px]"
+          loading="lazy" // default in next/image
+          priority={priority}
+        />
+      </motion.div>
     </Link>
   );
 }

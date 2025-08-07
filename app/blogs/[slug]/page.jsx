@@ -113,6 +113,7 @@ import EditButton from "@/app/components/blog/EditButton";
 import { getRelatedBlogs } from "@/app/api/getRelatedBlogs/route";
 import { FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
+import Image from "next/image";
 // import this at top
 
 // 👇 1. Generate SEO metadata
@@ -195,10 +196,13 @@ export default async function SingleBlogPage({ params }) {
 
       {/* Cover image */}
       {blog.image && (
-        <img
+        <Image
           src={blog.image}
           alt={blog.title}
-          className="w-full h-60 sm:h-72 md:h-96 object-cover"
+          width={1200}
+          height={500}
+          priority // Important: Tells browser this image is part of the LCP
+          className="w-full h-60 sm:h-72 md:h-96 object-cover rounded"
         />
       )}
 
@@ -211,10 +215,12 @@ export default async function SingleBlogPage({ params }) {
           by <span className="font-medium">{blog.author}</span>
         </span>
         {blog.authorImage && (
-          <img
+          <Image
             src={blog.authorImage}
             alt={blog.author}
-            className="w-7 h-7 rounded-full object-cover ml-2 border"
+            width={56}
+            height={56}
+            className="w-14 h-14 rounded-full border object-cover"
           />
         )}
       </div>
@@ -324,11 +330,14 @@ export default async function SingleBlogPage({ params }) {
                 key={item._id}
                 className="border p-4 rounded hover:shadow transition"
               >
-                <img
+                <Image
                   src={item.image}
                   alt={item.title}
+                  width={400}
+                  height={250}
                   className="w-full h-40 object-cover mb-3 rounded"
                 />
+
                 <h3 className="font-semibold text-lg line-clamp-2">
                   {item.title}
                 </h3>

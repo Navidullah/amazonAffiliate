@@ -2,6 +2,7 @@ import Link from "next/link";
 import { MessageCircle, Heart, Eye } from "lucide-react";
 
 import AnimatedBlogImage from "./AnimatedBlogImage";
+import Image from "next/image";
 
 export default function BlogList({ blogs }) {
   //console.log("blogs in BlogList:", blogs);
@@ -35,9 +36,11 @@ export default function BlogList({ blogs }) {
                 </span>
               </span>
               {blog.authorImage && (
-                <img
+                <Image
                   src={blog.authorImage}
                   alt={blog.author}
+                  width={24}
+                  height={24}
                   className="w-6 h-6 rounded-full object-cover ml-2 border"
                 />
               )}
@@ -87,6 +90,7 @@ export default function BlogList({ blogs }) {
               href={`/blogs/${blog.slug}`}
               src={blog.image}
               alt={blog.title}
+              priority={index === 0}
             />
           </div>
         </div>
