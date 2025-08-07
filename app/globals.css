@@ -168,20 +168,44 @@
     height: 0;
     pointer-events: none;
   }
-  /* Tailwind styling for Tiptap tables */
+  /* TipTap Table Styling (converted for Tailwind) */
+
   .tiptap table {
-    @apply w-full border-collapse border border-gray-300 dark:border-gray-600 my-4;
+    @apply border-collapse w-full table-fixed overflow-hidden;
+  }
+
+  .tiptap td,
+  .tiptap th {
+    @apply border border-gray-300 dark:border-gray-600 box-border min-w-[1em] p-2 align-top relative;
   }
 
   .tiptap th {
-    @apply bg-gray-100 dark:bg-zinc-800 border border-gray-300 dark:border-gray-600 px-4 py-2 text-left font-semibold text-sm;
+    @apply bg-gray-100 dark:bg-zinc-800 font-bold text-left;
   }
 
-  .tiptap td {
-    @apply border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm;
+  .tiptap td > *,
+  .tiptap th > * {
+    @apply mb-0;
   }
 
-  .tiptap tr:nth-child(even) {
-    @apply bg-gray-50 dark:bg-zinc-900;
+  /* Selected cell highlight */
+  .tiptap .selectedCell::after {
+    content: "";
+    @apply absolute inset-0 bg-gray-200 dark:bg-zinc-700 pointer-events-none z-20;
+  }
+
+  /* Column resize handle */
+  .tiptap .column-resize-handle {
+    @apply absolute top-0 bottom-[-2px] right-[-2px] w-1 bg-purple-500 pointer-events-none;
+  }
+
+  /* Responsive table wrapper */
+  .tiptap .tableWrapper {
+    @apply my-6 overflow-x-auto;
+  }
+
+  /* Resize cursor override */
+  .tiptap.resize-cursor {
+    cursor: col-resize !important;
   }
 }
