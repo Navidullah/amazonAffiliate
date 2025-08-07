@@ -59,21 +59,23 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 w-full z-50 py-1 bg-white/70 dark:bg-gray-900/70 backdrop-blur-md border-b border-black/10 dark:border-gray-700/30">
-      <div className="wrapper flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-6 px-2 sm:px-6 h-auto sm:h-16">
+      <div className="flex flex-wrap items-center justify-between gap-y-2 gap-x-4 px-2 sm:px-6 py-2">
         {/* Logo */}
-        <div className="flex items-center w-full sm:w-auto mb-2 sm:mb-0">
+        <div className="flex items-center w-full sm:w-auto">
           <Link href="/" className="flex items-center">
             <Image src="/shopyor.png" width={40} height={40} alt="shopyor" />
-            <span className="font-semibold text-2xl">ShopYor</span>
+            <span className="font-semibold text-xl sm:text-2xl ml-2">
+              ShopYor
+            </span>
           </Link>
         </div>
 
         {/* Search bar */}
         <form
           onSubmit={handleSearch}
-          className="w-full sm:w-auto flex-1 flex items-center mb-2 sm:mb-0"
+          className="w-full sm:w-auto flex-1 flex items-center"
         >
-          <div className="relative w-full max-w-xs md:max-w-md mx-auto">
+          <div className="relative w-full max-w-[320px] sm:max-w-xs md:max-w-md mx-auto">
             <Search
               className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
               size={18}
@@ -130,7 +132,11 @@ export default function Header() {
 
           {/* Cart */}
           <Link href="/cart" className="relative">
-            <Button size="icon" variant="outline" className="rounded-full">
+            <Button
+              size="icon"
+              variant="outline"
+              className="rounded-full w-9 h-9"
+            >
               <ShoppingCart />
               {cartCount > 0 && (
                 <span className="absolute top-0 right-0 -mt-2 -mr-2 bg-blue-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center shadow">
@@ -148,7 +154,7 @@ export default function Header() {
                   size="icon"
                   variant="outline"
                   aria-label="Open menu"
-                  className="rounded-full border"
+                  className="rounded-full border w-9 h-9"
                 >
                   <Menu />
                 </Button>
