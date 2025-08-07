@@ -14,12 +14,10 @@ import Youtube from "@tiptap/extension-youtube";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Undo2, Redo2 } from "lucide-react";
-import {
-  Table,
-  TableCell,
-  TableHeader,
-  TableRow,
-} from "@tiptap/extension-table";
+import { Table } from "@tiptap/extension-table";
+import TableRow from "@tiptap/extension-table-row";
+import TableCell from "@tiptap/extension-table-cell";
+import TableHeader from "@tiptap/extension-table-header";
 
 export default function BlogEditor({ value, onChange }) {
   const fileInputRef = useRef();
