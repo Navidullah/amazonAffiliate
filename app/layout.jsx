@@ -84,7 +84,9 @@ export default function RootLayout({ children }) {
         </div>
         <Providers>
           <HeaderComponent />
-          <main className="pt-[170px] sm:pt-[145px]">{children}</main>
+          <main className="pt-24 sm:pt-28 md:pt-32 lg:pt-36 xl:pt-40">
+            {children}
+          </main>
           <Analytics />
           <SpeedInsights />
           <Footer />
