@@ -335,7 +335,7 @@ export default async function SingleBlogPage({ params }) {
                   alt={item.title}
                   width={400}
                   height={250}
-                  className="w-full h-40 object-cover mb-3 rounded"
+                  className="w-full h-40 object-fit mb-3 rounded"
                 />
 
                 <h3 className="font-semibold text-lg line-clamp-2">
