@@ -202,7 +202,7 @@ export default async function SingleBlogPage({ params }) {
           width={1200}
           height={500}
           priority // Important: Tells browser this image is part of the LCP
-          className="w-full h-60 sm:h-72 md:h-96 object-fit rounded"
+          className="w-full h-60 sm:h-72 md:h-96 object-contain rounded"
         />
       )}
 
@@ -218,8 +218,8 @@ export default async function SingleBlogPage({ params }) {
           <Image
             src={blog.authorImage}
             alt={blog.author}
-            width={40}
-            height={40}
+            width={30}
+            height={30}
             className="w-10 h-10 rounded-full border object-cover"
           />
         )}

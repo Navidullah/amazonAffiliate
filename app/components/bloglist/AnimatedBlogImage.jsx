@@ -20,7 +20,7 @@ export default function AnimatedBlogImage({ href, src, alt }) {
           alt={alt}
           width={400}
           height={250}
-          className="object-fit w-full h-[200px]"
+          className="object-contain w-full h-[200px]"
           loading="lazy" // default in next/image
         />
       </motion.div>
