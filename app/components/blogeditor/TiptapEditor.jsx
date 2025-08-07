@@ -52,7 +52,7 @@ const TiptapEditor = ({ value, onChange }) => {
   return (
     <div>
       <MenuBar editor={editor} />
-      <EditorContent editor={editor} />
+      <EditorContent editor={editor} className="tiptap" />
     </div>
   );
 };
