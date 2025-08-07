@@ -32,7 +32,7 @@ export default async function BlogHomePage() {
   }));
 
   return (
-    <main className="wrapper py-10">
+    <main className="py-10">
       <BlogHero className="mb-8" />
 
       <BlogList blogs={blogsWithCounts} />
