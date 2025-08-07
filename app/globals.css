@@ -169,19 +169,19 @@
     pointer-events: none;
   }
   /* Tailwind styling for Tiptap tables */
-  table {
+  .tiptap table {
     @apply w-full border-collapse border border-gray-300 dark:border-gray-600 my-4;
   }
 
-  th {
+  .tiptap th {
     @apply bg-gray-100 dark:bg-zinc-800 border border-gray-300 dark:border-gray-600 px-4 py-2 text-left font-semibold text-sm;
   }
 
-  td {
+  .tiptap td {
     @apply border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm;
   }
 
-  tr:nth-child(even) {
+  .tiptap tr:nth-child(even) {
     @apply bg-gray-50 dark:bg-zinc-900;
   }
 }
