@@ -90,7 +90,6 @@ export default function BlogList({ blogs }) {
               href={`/blogs/${blog.slug}`}
               src={blog.image}
               alt={blog.title}
-              priority={index === 0}
             />
           </div>
         </div>
