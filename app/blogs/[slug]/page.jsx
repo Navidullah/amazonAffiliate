@@ -220,7 +220,7 @@ export default async function SingleBlogPage({ params }) {
             alt={blog.author}
             width={40}
             height={40}
-            className="w-14 h-14 rounded-full border object-cover"
+            className="w-10 h-10 rounded-full border object-cover"
           />
         )}
       </div>
