@@ -32,7 +32,7 @@ export default async function BlogHomePage() {
   }));
 
   return (
-    <main className=" relative px-auto pt-24 px-4 sm:px-6 ">
+    <main className=" wrapper pt-24 px-4 sm:px-6 ">
       <BlogHero className="mb-8" />
 
       <BlogList blogs={blogsWithCounts} />
