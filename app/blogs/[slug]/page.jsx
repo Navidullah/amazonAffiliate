@@ -164,16 +164,16 @@ export default async function SingleBlogPage({ params }) {
   );
 
   return (
-    <article className="wrapper py-12 px-4">
+    <article className="px-4 sm:px-6 max-w-screen-md mx-auto py-12">
       <EditButton blog={blog} />
 
       {/* Title */}
-      <h1 className="text-2xl md:text-4xl sm:text-3xl text-center font-bold mb-4">
+      <h1 className="text-2xl md:text-4xl sm:text-3xl text-center font-bold mb-4 break-words">
         {blog.title}
       </h1>
 
       {/* Meta info */}
-      <div className="flex items-center gap-4 text-xs text-gray-400 mb-6">
+      <div className="flex flex-wrap items-center gap-4 text-xs text-gray-400 mb-6">
         <span>
           {new Date(blog.date).toLocaleDateString("en-US", {
             month: "short",
@@ -198,7 +198,7 @@ export default async function SingleBlogPage({ params }) {
         <img
           src={blog.image}
           alt={blog.title}
-          className="w-full h-[400px] object-fill mb-8 border rounded"
+          className="w-full h-60 sm:h-72 md:h-96 object-cover"
         />
       )}
 
@@ -231,7 +231,7 @@ export default async function SingleBlogPage({ params }) {
       <CommentSection blogSlug={blog.slug} />
 
       {/* Author Bio */}
-      <div className="mt-12 border-t pt-6">
+      <div className=" flex-wrap mt-12 border-t pt-6">
         <div className="flex items-center gap-4">
           <img
             src={blog.authorImage}
@@ -317,7 +317,7 @@ export default async function SingleBlogPage({ params }) {
       {related.length > 0 && (
         <div className="mt-14">
           <h2 className="text-xl font-semibold mb-4">Related Blogs</h2>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((item) => (
               <Link
                 href={`/blogs/${item.slug}`}

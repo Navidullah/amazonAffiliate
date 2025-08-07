@@ -133,10 +133,17 @@
   .wrapper {
     max-width: 800px;
     margin: 0 auto;
-    padding-left: 1rem;
+    padding-left: 1rem; /* already there */
     padding-right: 1rem;
     width: 100%;
   }
+  .tiptap {
+    @apply break-words;
+  }
+  .tiptap .tableWrapper {
+    @apply my-6 overflow-x-auto;
+  }
+
   .tiptap h1 {
     @apply text-3xl font-bold mt-5;
   }
