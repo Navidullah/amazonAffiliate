@@ -46,7 +46,7 @@ export default function BlogList({ blogs }) {
               href={`/blogs/${blog.slug}`}
               className="block group-hover:underline"
             >
-              <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-1 break-words max-w-full leading-snug line-clamp-2">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-1 break-words max-w-full leading-snug line-clamp-2 whitespace-normal">
                 {blog.title}
               </h2>
             </Link>
@@ -82,7 +82,7 @@ export default function BlogList({ blogs }) {
 
           {/* Right: Image */}
           {/* Right: Animated Image */}
-          <div className="w-full md:w-[200px] flex-shrink-0">
+          <div className="w-full md:w-[200px] flex-shrink-0 overflow-hidden">
             <AnimatedBlogImage
               href={`/blogs/${blog.slug}`}
               src={blog.image}
