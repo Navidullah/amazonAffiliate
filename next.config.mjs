@@ -12,6 +12,10 @@ const nextConfig = {
         hostname: "firebasestorage.googleapis.com",
         pathname: "/**", // Allow any image path from Firebase Storage
       },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+      },
     ],
   },
 };
