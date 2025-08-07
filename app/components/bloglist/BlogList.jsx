@@ -16,7 +16,7 @@ export default function BlogList({ blogs }) {
   );
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 w-full">
       {blogs.map((blog) => (
         <div
           key={blog._id}
@@ -46,7 +46,7 @@ export default function BlogList({ blogs }) {
               href={`/blogs/${blog.slug}`}
               className="block group-hover:underline"
             >
-              <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-1 break-words line-clamp-2 leading-snug">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-1">
                 {blog.title}
               </h2>
             </Link>
