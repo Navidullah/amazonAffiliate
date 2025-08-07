@@ -9,10 +9,10 @@ import Image from "@tiptap/extension-image";
 import Blockquote from "@tiptap/extension-blockquote";
 import { Placeholder } from "@tiptap/extensions";
 import Link from "@tiptap/extension-link";
-import Table from "@tiptap/extension-table";
-import TableRow from "@tiptap/extension-table-row";
-import TableHeader from "@tiptap/extension-table-header";
-import TableCell from "@tiptap/extension-table-cell";
+import { Table } from "@tiptap/extension-table";
+import { TableHeader } from "@tiptap/extension-table-header";
+import { TableRow } from "@tiptap/extension-table-row";
+import { TableCell } from "@tiptap/extension-table-cell";
 import React from "react";
 
 import MenuBar from "./MenuBar";
