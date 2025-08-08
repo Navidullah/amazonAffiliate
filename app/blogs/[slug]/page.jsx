@@ -451,7 +451,7 @@ export default async function SingleBlogPage({ params }) {
             width={1200}
             height={500}
             priority
-            className="w-full h-60 sm:h-72 md:h-96 object-cover rounded"
+            className="w-full h-60 sm:h-72 md:h-96 object-contain rounded"
           />
         )}
 
