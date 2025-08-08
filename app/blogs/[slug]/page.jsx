@@ -354,6 +354,7 @@ export default async function SingleBlogPage({ params }) {
   );
 */
 // app/blogs/[slug]/page.jsx
+// app/blogs/[slug]/page.jsx
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { MessageCircle, Eye, Heart } from "lucide-react";
@@ -372,7 +373,6 @@ export async function generateMetadata({ params }) {
     `${process.env.NEXT_PUBLIC_BASE_URL || ""}/api/blogs/${params.slug}`,
     { cache: "no-store" }
   );
-
   if (!res.ok) return {};
 
   const blog = await res.json();
@@ -411,8 +411,10 @@ export default async function SingleBlogPage({ params }) {
   const pageUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/blogs/${blog.slug}`;
 
   return (
-    <article className="px-4 sm:px-6 max-w-screen-xl mx-auto py-12">
-      <div className="max-w-screen-md mx-auto">
+    // Use one consistent max width to align image + TOC/content grid
+    <article className="px-4 sm:px-6 max-w-5xl mx-auto py-12">
+      {/* Header + meta + image section */}
+      <div className="w-full">
         <EditButton blog={blog} />
 
         {/* Title */}
@@ -441,7 +443,7 @@ export default async function SingleBlogPage({ params }) {
           <span className="italic ml-auto">{readTime} min read</span>
         </div>
 
-        {/* Cover image */}
+        {/* Cover image (full width of content area) */}
         {blog.image && (
           <Image
             src={blog.image}
@@ -454,7 +456,7 @@ export default async function SingleBlogPage({ params }) {
         )}
 
         {/* Category and author */}
-        <div className="flex items-center gap-2 mb-4 text-sm text-gray-500">
+        <div className="flex items-center gap-2 mb-4 mt-4 text-sm text-gray-500">
           <span className="px-2 py-0.5 font-semibold rounded bg-blue-600 text-white">
             {blog.category}
           </span>
@@ -475,13 +477,15 @@ export default async function SingleBlogPage({ params }) {
         <LikeButton initialLikes={blog.likesCount} blogSlug={blog.slug} />
       </div>
 
-      {/* ----- Content + TOC (read-only Tiptap) ----- */}
-      <div className="max-w-screen-xl mx-auto">
+      {/* ----- TOC (left, desktop) + Blog content (right) ----- */}
+      {/* BlogTOCContent already renders a 2-col grid with TOC hidden on mobile */}
+      <div className="mt-8">
         <BlogTOCContent html={blog.description} />
       </div>
 
-      {/* Comment section */}
-      <div className="max-w-screen-md mx-auto">
+      {/* ---------- Bottom section (unchanged) ---------- */}
+      <div className="max-w-3xl mx-auto">
+        {/* Comment section */}
         <CommentSection blogSlug={blog.slug} />
 
         {/* Author Bio */}
