@@ -34,7 +34,9 @@ export default function ProductCard({ product }) {
         </span>
       </CardHeader>
       <CardContent className="flex flex-col flex-1">
-        <CardTitle className="text-lg font-bold">{product.title}</CardTitle>
+        <CardTitle className="text-[16px] font-semibold line-clamp-2">
+          {product.title}
+        </CardTitle>
         <div className="text-gray-600 mb-2 line-clamp-2">
           {product.description}
         </div>
