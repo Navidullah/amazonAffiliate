@@ -80,6 +80,10 @@ export default function RootLayout({ children }) {
             }),
           }}
         />
+        <meta
+          name="p:domain_verify"
+          content="606cad5cbdd2926b674d14dfca5887f0"
+        />
       </head>
       <body
         className={`${jetbrainsMono.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
