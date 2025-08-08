@@ -70,18 +70,7 @@ export default function BlogTOCContent({ html }) {
     immediatelyRender: false,
   });
 
-  // Keep ToC active state in sync when selection changes
-  useEffect(() => {
-    if (!editor) return;
-    const handler = () => {
-      const list = editor?.storage?.tableOfContents?.anchors ?? [];
-      setAnchors(Array.isArray(list) ? list : []);
-    };
-    editor.on("selectionUpdate", handler);
-    return () => editor.off("selectionUpdate", handler);
-  }, [editor]);
-
-  // Assign IDs to actual headings so clicks jump correctly
+  // assign IDs to actual headings so clicks jump correctly
   useEffect(() => {
     const root = contentWrapRef.current;
     if (!root || anchors.length === 0) return;
@@ -95,7 +84,7 @@ export default function BlogTOCContent({ html }) {
   const scrollToAnchor = (id) => {
     const el = document.getElementById(id);
     if (!el) return;
-    const HEADER_OFFSET = 96; // tweak to your header height
+    const HEADER_OFFSET = 96; // adjust to your sticky header height
     const y = el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
     window.scrollTo({ top: y, behavior: "smooth" });
   };
@@ -113,24 +102,11 @@ export default function BlogTOCContent({ html }) {
               {anchors.map((a) => (
                 <li key={a.id}>
                   <button
-                    onClick={() => {
-                      // 1) set selection so the correct item becomes active
-                      editor?.chain().setTextSelection(a.pos).run();
-                      // 2) then scroll to the element (next frame)
-                      requestAnimationFrame(() => scrollToAnchor(a.id));
-                    }}
-                    className={`block w-full text-left hover:underline ${
-                      a.isActive ? "font-semibold text-violet-600" : ""
-                    }`}
+                    onClick={() => scrollToAnchor(a.id)}
+                    className="block w-full text-left hover:underline"
                     style={{ paddingLeft: `${(a.level - 1) * 12}px` }}
                   >
-                    <span
-                      className={`mr-1 rounded px-1 ${
-                        a.isActive
-                          ? "text-violet-600 bg-violet-100 dark:bg-violet-900/20 font-semibold"
-                          : "text-gray-500"
-                      }`}
-                    >
+                    <span className="mr-1 rounded px-1 text-gray-500">
                       {a.index || ""}.
                     </span>
                     {a.textContent}
