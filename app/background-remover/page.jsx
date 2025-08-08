@@ -94,7 +94,7 @@ export default function FreeBackgroundRemover() {
         />
       </Head>
 
-      <main className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 md:p-8">
+      <main className="min-h-screen bg-background p-4 md:p-8">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10">
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
