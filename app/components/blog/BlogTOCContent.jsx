@@ -34,7 +34,7 @@ export default function BlogTOCContent({ html }) {
   const contentWrapRef = useRef(null);
 
   const editor = useEditor({
-    editable: false, // read-only for blog detail
+    editable: false,
     extensions: [
       StarterKit.configure({ history: false, table: false }),
       Highlight,
@@ -70,19 +70,17 @@ export default function BlogTOCContent({ html }) {
     immediatelyRender: false,
   });
 
-  // Give each rendered heading an id that matches the ToC anchor id
+  // assign IDs to actual headings so clicks jump correctly
   useEffect(() => {
     const root = contentWrapRef.current;
     if (!root || anchors.length === 0) return;
-
-    const headings = root.querySelectorAll("h1, h2, h3, h4, h5, h6");
+    const headings = root.querySelectorAll("h1,h2,h3,h4,h5,h6");
     anchors.forEach((a, i) => {
       const el = headings[i];
       if (el && a?.id) el.id = a.id;
     });
   }, [anchors, html]);
 
-  // Smooth scroll helper with sticky header offset
   const scrollToAnchor = (id) => {
     const el = document.getElementById(id);
     if (!el) return;
@@ -94,10 +92,10 @@ export default function BlogTOCContent({ html }) {
   if (!editor) return null;
 
   return (
-    // Desktop: 2 cols (TOC + content). Mobile: content only
-    <div className="mt-8 grid md:grid-rows-[220px,1fr] gap-6">
-      {/* TOC – hidden on mobile */}
-      <aside className="hidden md:block">
+    // ✅ FLEX layout (desktop: TOC left + content right; mobile: content only)
+    <div className="mt-8 flex flex-row gap-6 max-md:flex-col">
+      {/* TOC — hidden on mobile */}
+      <aside className="hidden md:block w-[220px] shrink-0">
         <div className="sticky top-24 h-[calc(100vh-6rem)] border-l pl-4">
           <nav aria-label="Table of contents">
             <ul className="text-sm space-y-1">
@@ -134,7 +132,7 @@ export default function BlogTOCContent({ html }) {
       </aside>
 
       {/* Blog content */}
-      <main className="min-w-0" ref={contentWrapRef}>
+      <main className="flex-1 min-w-0" ref={contentWrapRef}>
         <EditorContent editor={editor} />
       </main>
     </div>
