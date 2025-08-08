@@ -98,6 +98,7 @@ export default function BlogTOCContent({ html }) {
       <aside className="hidden md:block w-[220px] shrink-0">
         <div className="sticky top-24 h-[calc(100vh-6rem)] border-l pl-4">
           <nav aria-label="Table of contents">
+            <span className="text-2xl mb-2">Table of Contents</span>
             <ul className="text-sm space-y-1">
               {anchors.map((a) => (
                 <li key={a.id}>
