@@ -93,13 +93,34 @@ export default function TiptapEditor({ value, onChange }) {
   if (!editor) return <LoadingSpinner />;
 
   return (
-    <div className="grid md:grid-cols-[260px,1fr] gap-6">
-      <ToCSidebar editor={editor} />
+    <div className="flex flex-row max-md:flex-col-reverse">
+      {/* Sidebar */}
+      <aside className="sticky top-0 h-screen max-md:static max-md:h-auto border-l max-md:border-l-0 max-md:border-b w-60 md:w-80 p-4">
+        <nav aria-label="Table of contents">
+          <ul className="text-sm space-y-1">
+            {anchors.map((a) => (
+              <li key={a.id}>
+                <button
+                  onClick={() => {
+                    editor.chain().setTextSelection(a.pos).run();
+                    editor.commands.scrollIntoView();
+                  }}
+                  className={`block w-full text-left hover:underline ${a.isActive ? "font-semibold text-violet-600" : ""}`}
+                  style={{ paddingLeft: `${(a.level - 1) * 12}px` }}
+                >
+                  {a.textContent}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </aside>
 
-      <div>
+      {/* Main */}
+      <main className="flex flex-col w-full h-full overflow-auto">
         <MenuBar editor={editor} />
         <EditorContent editor={editor} className="tiptap" />
-      </div>
+      </main>
     </div>
   );
 }
