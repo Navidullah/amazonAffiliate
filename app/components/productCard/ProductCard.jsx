@@ -52,7 +52,7 @@ export default function ProductCard({ product }) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Button>Buy on Amazon</Button>
+            <Button>Buy Now</Button>
           </a>
         ) : (
           <Link href={`/products/${product.slug}`}>

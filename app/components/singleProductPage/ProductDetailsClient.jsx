@@ -149,7 +149,7 @@ export default function ProductDetailsClient({ product }) {
                 className="bg-yellow-400 text-black hover:bg-yellow-300 transition font-bold px-8 py-6 text-lg shadow"
                 size="lg"
               >
-                Buy on Amazon
+                Buy Here
               </Button>
             </a>
           ) : (
