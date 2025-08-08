@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { MessageCircle } from "lucide-react";
+import Image from "next/image";
 
 export default function CommentSection({ blogSlug }) {
   const { data: session } = useSession();
@@ -63,9 +64,11 @@ export default function CommentSection({ blogSlug }) {
         )}
         {user && (
           <div className="flex items-center gap-2 mb-2">
-            <img
+            <Image
               src={user.image}
               alt={user.name}
+              width={32}
+              height={32}
               className="w-8 h-8 rounded-full object-cover"
             />
             <span className="font-medium">{user.name}</span>
@@ -76,7 +79,7 @@ export default function CommentSection({ blogSlug }) {
           placeholder="Write a comment..."
           value={form.text}
           onChange={(e) => setForm((f) => ({ ...f, text: e.target.value }))}
-          className="border px-2 py-1 rounded w-full"
+          className="border px-2 py-1 rounded w-full bg-background"
           required
         />
         <button
