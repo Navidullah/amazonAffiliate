@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Highlight from "@tiptap/extension-highlight";
@@ -13,17 +14,33 @@ import { Table } from "@tiptap/extension-table";
 import { TableHeader } from "@tiptap/extension-table-header";
 import { TableRow } from "@tiptap/extension-table-row";
 import { TableCell } from "@tiptap/extension-table-cell";
-import React from "react";
+import TableOfContents, {
+  getHierarchicalIndexes,
+} from "@tiptap/extension-table-of-contents";
 
 import MenuBar from "./MenuBar";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import ToCSidebar from "./ToCSidebar";
 
-const TiptapEditor = ({ value, onChange }) => {
+function slugId(text) {
+  const base = (text || "")
+    .toString()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+  const rand =
+    globalThis.crypto && crypto.randomUUID
+      ? crypto.randomUUID().slice(0, 6)
+      : Math.random().toString(36).slice(2, 8);
+  return `${base}-${rand}`;
+}
+
+export default function TiptapEditor({ value, onChange }) {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
         history: true,
-        table: false, // ⛔ disable built-in table to prevent conflicts
+        table: false, // disable built-in to avoid conflicts with @tiptap/extension-table
       }),
       Highlight,
       FontSize,
@@ -38,7 +55,7 @@ const TiptapEditor = ({ value, onChange }) => {
         linkOnPaste: false,
       }),
       TextAlign.configure({
-        types: ["heading", "paragraph", "tableCell"], // ✅ enable alignment for tables
+        types: ["heading", "paragraph", "tableCell"],
       }),
       Placeholder.configure({
         placeholder: "Write something …",
@@ -52,6 +69,13 @@ const TiptapEditor = ({ value, onChange }) => {
       TableRow,
       TableHeader,
       TableCell,
+
+      // ⬇️ Table of Contents
+      TableOfContents.configure({
+        getIndex: getHierarchicalIndexes, // 1, 1.1, 1.2…
+        getId: (text) => slugId(text), // stable, unique IDs
+        scrollParent: () => window, // or return a scrollable container element
+      }),
     ],
     content: value,
     editorProps: {
@@ -61,23 +85,21 @@ const TiptapEditor = ({ value, onChange }) => {
       },
     },
     onUpdate: ({ editor }) => {
-      onChange(editor.getHTML());
+      onChange?.(editor.getHTML());
     },
-    immediatelyRender: false,
+    immediatelyRender: false, // avoids hydration mismatch in Next.js
   });
 
+  if (!editor) return <LoadingSpinner />;
+
   return (
-    <div>
-      {!editor ? (
-        <LoadingSpinner />
-      ) : (
-        <>
-          <MenuBar editor={editor} />
-          <EditorContent editor={editor} className="tiptap" />
-        </>
-      )}
+    <div className="grid md:grid-cols-[260px,1fr] gap-6">
+      <ToCSidebar editor={editor} />
+
+      <div>
+        <MenuBar editor={editor} />
+        <EditorContent editor={editor} className="tiptap" />
+      </div>
     </div>
   );
-};
-
-export default TiptapEditor;
+}
