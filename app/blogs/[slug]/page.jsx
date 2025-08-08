@@ -479,7 +479,7 @@ export default async function SingleBlogPage({ params }) {
 
       {/* ----- TOC (left, desktop) + Blog content (right) ----- */}
       {/* BlogTOCContent already renders a 2-col grid with TOC hidden on mobile */}
-      <div className="mt-8">
+      <div className=" bg-background mt-8">
         <BlogTOCContent html={blog.description} />
       </div>
 

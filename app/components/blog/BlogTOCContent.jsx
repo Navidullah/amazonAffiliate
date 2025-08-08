@@ -124,7 +124,7 @@ export default function BlogTOCContent({ html }) {
       </aside>
 
       {/* Blog content */}
-      <main className=" bg-background flex-1 min-w-0" ref={contentWrapRef}>
+      <main className=" px-4 py-4 flex-1 min-w-0" ref={contentWrapRef}>
         <EditorContent editor={editor} />
       </main>
     </div>
