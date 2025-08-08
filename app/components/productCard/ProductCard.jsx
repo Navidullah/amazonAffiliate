@@ -8,15 +8,18 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+import Image from "next/image";
 
 export default function ProductCard({ product }) {
   const isAffiliate = product.type === "affiliate";
   return (
     <Card className="shadow hover:shadow-lg transition-all flex flex-col gap-0 py-0">
       <CardHeader className="p-0 relative">
-        <img
+        <Image
           src={product.image}
           alt={product.title}
+          width={100}
+          height={50}
           className="h-auto w-full object-contain"
           loading="lazy"
         />
@@ -47,13 +50,13 @@ export default function ProductCard({ product }) {
               : ""}
         </span>
         {isAffiliate ? (
-          <a
+          <Link
             href={product.affiliate?.url}
             target="_blank"
             rel="noopener noreferrer"
           >
             <Button>Buy Now</Button>
-          </a>
+          </Link>
         ) : (
           <Link href={`/products/${product.slug}`}>
             <Button>View Details</Button>
