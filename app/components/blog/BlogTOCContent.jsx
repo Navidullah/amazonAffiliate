@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Highlight from "@tiptap/extension-highlight";
@@ -31,6 +31,7 @@ function slugId(text) {
 
 export default function BlogTOCContent({ html }) {
   const [anchors, setAnchors] = useState([]);
+  const contentWrapRef = useRef(null);
 
   const editor = useEditor({
     editable: false, // read-only for blog detail
@@ -69,50 +70,71 @@ export default function BlogTOCContent({ html }) {
     immediatelyRender: false,
   });
 
+  // Give each rendered heading an id that matches the ToC anchor id
+  useEffect(() => {
+    const root = contentWrapRef.current;
+    if (!root || anchors.length === 0) return;
+
+    const headings = root.querySelectorAll("h1, h2, h3, h4, h5, h6");
+    anchors.forEach((a, i) => {
+      const el = headings[i];
+      if (el && a?.id) el.id = a.id;
+    });
+  }, [anchors, html]);
+
+  // Smooth scroll helper with sticky header offset
+  const scrollToAnchor = (id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const HEADER_OFFSET = 96; // adjust to your sticky header height
+    const y = el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+    window.scrollTo({ top: y, behavior: "smooth" });
+  };
+
   if (!editor) return null;
 
   return (
-    <div className="flex flex-row max-md:flex-col-reverse gap-6 mt-8">
-      {/* TOC sidebar */}
-      <aside className="sticky top-24 h-[calc(100vh-6rem)] max-md:static max-md:h-auto border-l max-md:border-l-0 max-md:border-b w-60 md:w-80 p-4">
-        <nav aria-label="Table of contents">
-          <ul className="text-sm space-y-1">
-            {anchors.map((a) => (
-              <li key={a.id}>
-                <button
-                  onClick={() => {
-                    editor.chain().setTextSelection(a.pos).run();
-                    editor.commands.scrollIntoView();
-                  }}
-                  className={`block w-full text-left hover:underline ${
-                    a.isActive ? "font-semibold text-violet-600" : ""
-                  }`}
-                  style={{ paddingLeft: `${(a.level - 1) * 12}px` }}
-                >
-                  <span
-                    className={`mr-1 rounded px-1 ${
-                      a.isActive
-                        ? "text-violet-600 bg-violet-100 dark:bg-violet-900/20 font-semibold"
-                        : "text-gray-500"
+    // Desktop: 2 cols (TOC + content). Mobile: content only
+    <div className="mt-8 grid md:grid-cols-[220px,1fr] gap-6">
+      {/* TOC – hidden on mobile */}
+      <aside className="hidden md:block">
+        <div className="sticky top-24 h-[calc(100vh-6rem)] border-l pl-4">
+          <nav aria-label="Table of contents">
+            <ul className="text-sm space-y-1">
+              {anchors.map((a) => (
+                <li key={a.id}>
+                  <button
+                    onClick={() => scrollToAnchor(a.id)}
+                    className={`block w-full text-left hover:underline ${
+                      a.isActive ? "font-semibold text-violet-600" : ""
                     }`}
+                    style={{ paddingLeft: `${(a.level - 1) * 12}px` }}
                   >
-                    {a.index || ""}.
-                  </span>
-                  {a.textContent}
-                </button>
-              </li>
-            ))}
-            {anchors.length === 0 && (
-              <li className="text-xs text-muted-foreground">
-                Add headings (H1–H4) to see a table of contents.
-              </li>
-            )}
-          </ul>
-        </nav>
+                    <span
+                      className={`mr-1 rounded px-1 ${
+                        a.isActive
+                          ? "text-violet-600 bg-violet-100 dark:bg-violet-900/20 font-semibold"
+                          : "text-gray-500"
+                      }`}
+                    >
+                      {a.index || ""}.
+                    </span>
+                    {a.textContent}
+                  </button>
+                </li>
+              ))}
+              {anchors.length === 0 && (
+                <li className="text-xs text-muted-foreground">
+                  Add headings (H1–H4) to see a table of contents.
+                </li>
+              )}
+            </ul>
+          </nav>
+        </div>
       </aside>
 
       {/* Blog content */}
-      <main className="flex-1">
+      <main className="min-w-0" ref={contentWrapRef}>
         <EditorContent editor={editor} />
       </main>
     </div>

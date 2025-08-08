@@ -492,9 +492,11 @@ export default async function SingleBlogPage({ params }) {
         <div className="flex-wrap mt-12 border-t pt-6">
           <div className="flex items-center gap-4">
             {blog.authorImage && (
-              <img
+              <Img
                 src={blog.authorImage}
                 alt={blog.author}
+                width={50}
+                height={50}
                 className="w-14 h-14 rounded-full border object-cover"
               />
             )}
