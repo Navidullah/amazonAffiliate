@@ -46,7 +46,7 @@ export default function CommentSection({ blogSlug }) {
   };
 
   return (
-    <div className="mt-10 max-w-xl">
+    <div className="mt-10 w-full">
       <h2 className="text-lg font-bold flex items-center gap-2 mb-3">
         <MessageCircle className="w-5 h-5" /> Comments ({comments.length})
       </h2>
