@@ -412,7 +412,7 @@ export default async function SingleBlogPage({ params }) {
 
   return (
     // Use one consistent max width to align image + TOC/content grid
-    <article className="px-4 sm:px-6 max-w-5xl mx-auto py-12">
+    <article className="px-4 sm:px-6 max-w-3xl mx-auto py-12">
       {/* Header + meta + image section */}
       <div className="w-full">
         <EditButton blog={blog} />
