@@ -95,7 +95,7 @@ export default function BlogTOCContent({ html }) {
 
   return (
     // Desktop: 2 cols (TOC + content). Mobile: content only
-    <div className="mt-8 grid md:grid-cols-[220px,1fr] gap-6">
+    <div className="mt-8 grid md:grid-rows-[220px,1fr] gap-6">
       {/* TOC – hidden on mobile */}
       <aside className="hidden md:block">
         <div className="sticky top-24 h-[calc(100vh-6rem)] border-l pl-4">
