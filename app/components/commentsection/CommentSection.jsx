@@ -95,7 +95,7 @@ export default function CommentSection({ blogSlug }) {
         {comments.map((c) => (
           <div
             key={c._id}
-            className="bg-gray-100 dark:bg-zinc-800 rounded px-4 py-3 shadow flex gap-3"
+            className="bg-background rounded px-4 py-3 shadow flex gap-3"
           >
             {c.userImage ? (
               <img
