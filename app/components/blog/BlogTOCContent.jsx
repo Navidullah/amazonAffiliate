@@ -70,7 +70,18 @@ export default function BlogTOCContent({ html }) {
     immediatelyRender: false,
   });
 
-  // assign IDs to actual headings so clicks jump correctly
+  // Keep ToC active state in sync when selection changes
+  useEffect(() => {
+    if (!editor) return;
+    const handler = () => {
+      const list = editor?.storage?.tableOfContents?.anchors ?? [];
+      setAnchors(Array.isArray(list) ? list : []);
+    };
+    editor.on("selectionUpdate", handler);
+    return () => editor.off("selectionUpdate", handler);
+  }, [editor]);
+
+  // Assign IDs to actual headings so clicks jump correctly
   useEffect(() => {
     const root = contentWrapRef.current;
     if (!root || anchors.length === 0) return;
@@ -84,7 +95,7 @@ export default function BlogTOCContent({ html }) {
   const scrollToAnchor = (id) => {
     const el = document.getElementById(id);
     if (!el) return;
-    const HEADER_OFFSET = 96; // adjust to your sticky header height
+    const HEADER_OFFSET = 96; // tweak to your header height
     const y = el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
     window.scrollTo({ top: y, behavior: "smooth" });
   };
@@ -92,7 +103,7 @@ export default function BlogTOCContent({ html }) {
   if (!editor) return null;
 
   return (
-    // ✅ FLEX layout (desktop: TOC left + content right; mobile: content only)
+    // FLEX layout (desktop: TOC left + content right; mobile: content only)
     <div className="mt-8 flex flex-row gap-6 max-md:flex-col">
       {/* TOC — hidden on mobile */}
       <aside className="hidden md:block w-[220px] shrink-0">
@@ -102,7 +113,12 @@ export default function BlogTOCContent({ html }) {
               {anchors.map((a) => (
                 <li key={a.id}>
                   <button
-                    onClick={() => scrollToAnchor(a.id)}
+                    onClick={() => {
+                      // 1) set selection so the correct item becomes active
+                      editor?.chain().setTextSelection(a.pos).run();
+                      // 2) then scroll to the element (next frame)
+                      requestAnimationFrame(() => scrollToAnchor(a.id));
+                    }}
                     className={`block w-full text-left hover:underline ${
                       a.isActive ? "font-semibold text-violet-600" : ""
                     }`}
