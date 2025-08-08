@@ -54,7 +54,7 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Store",
+              "@type": "Organization",
               name: "Shopyor",
               url: "https://www.shopyor.com",
               description:
@@ -70,6 +70,13 @@ export default function RootLayout({ children }) {
                 target: "https://www.shopyor.com/search?q={search_term_string}",
                 "query-input": "required name=search_term_string",
               },
+              contactPoint: [
+                {
+                  "@type": "ContactPoint",
+                  contactType: "customer support",
+                  email: "support@shopyor.com",
+                },
+              ],
             }),
           }}
         />
