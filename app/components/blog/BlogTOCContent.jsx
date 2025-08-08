@@ -95,10 +95,12 @@ export default function BlogTOCContent({ html }) {
     // FLEX layout (desktop: TOC left + content right; mobile: content only)
     <div className="mt-8 flex flex-row gap-6 max-md:flex-col">
       {/* TOC — hidden on mobile */}
-      <aside className="hidden md:block w-[220px] shrink-0">
-        <div className="sticky top-24 h-[calc(100vh-6rem)] border-l pl-4">
+      <aside className="hidden border-r-2 md:block w-[220px] shrink-0">
+        <div className="sticky top-24 h-[calc(100vh-6rem)]  border-r-2 pl-4">
           <nav aria-label="Table of contents">
-            <span className="text-2xl mb-2">Table of Contents</span>
+            <span className="text-2xl font-bold mt-2 mb-2 text-primary-foreground">
+              Table of Contents
+            </span>
             <ul className="text-sm space-y-1">
               {anchors.map((a) => (
                 <li key={a.id}>

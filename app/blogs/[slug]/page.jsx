@@ -484,7 +484,7 @@ export default async function SingleBlogPage({ params }) {
       </div>
 
       {/* ---------- Bottom section (unchanged) ---------- */}
-      <div className="max-w-3xl mx-auto">
+      <div className="w-full mx-auto">
         {/* Comment section */}
         <CommentSection blogSlug={blog.slug} />
 
