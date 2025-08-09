@@ -1,7 +1,25 @@
-import { Resend } from "resend";
-import Order from "@/lib/models/OrderModel";
-import { ConnectToDB } from "@/lib/db";
 import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
+import { ConnectToDB } from "@/lib/db";
+import Order from "@/lib/models/OrderModel";
+// import { Resend } from "resend"; // optional email
+
+export const runtime = "nodejs";
+
+export async function GET() {
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session || session.user?.role !== "admin") {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    await ConnectToDB();
+    const orders = await Order.find({}).sort({ createdAt: -1 }).lean();
+    return NextResponse.json(orders || []);
+  } catch (err) {
+    return NextResponse.json({ error: err.message }, { status: 500 });
+  }
+}
 
 export async function POST(request) {
   try {
@@ -9,24 +27,12 @@ export async function POST(request) {
     const body = await request.json();
     const order = await Order.create(body);
 
-    // Send email (before returning)
-    const resend = new Resend(process.env.RESEND_API_KEY);
+    // OPTIONAL: send email in background, don't block response
+    // if (process.env.RESEND_API_KEY) {
+    //   const resend = new Resend(process.env.RESEND_API_KEY);
+    //   resend.emails.send({...}).catch(() => {});
+    // }
 
-    await resend.emails.send({
-      from: "orders@yourdomain.com",
-      to: "addminyahya@gmail.com",
-      subject: `New Order Received from ${body.name}`,
-      html: `<h2>Order Details</h2>
-        <p>Name: ${body.name}</p>
-        <p>Email: ${body.email}</p>
-        <p>Phone: ${body.phone}</p>
-        <p>Address: ${body.address}</p>
-        <p>Total: $${body.total}</p>
-        <p>Items: ${body.items.map((item) => `${item.title} x ${item.quantity}`).join(", ")}</p>
-      `,
-    });
-
-    // Now return success
     return NextResponse.json({ success: true, order });
   } catch (err) {
     return NextResponse.json(

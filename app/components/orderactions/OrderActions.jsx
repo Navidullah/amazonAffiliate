@@ -5,14 +5,15 @@ import { useTransition } from "react";
 export default function OrderActions({ id, status }) {
   const [isPending, startTransition] = useTransition();
 
-  const updateStatus = async (status) => {
+  const updateStatus = (next) => {
     startTransition(async () => {
-      await fetch(`/api/orders/${id}`, {
+      const res = await fetch(`/api/orders/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status }),
+        body: JSON.stringify({ status: next }),
       });
-      window.location.reload(); // Refresh to show updated status
+      if (!res.ok) return; // optionally show a toast
+      window.location.reload();
     });
   };
 

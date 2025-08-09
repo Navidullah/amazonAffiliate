@@ -1,30 +1,22 @@
 import { getServerSession } from "next-auth";
-// Update path if needed
 import { redirect } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import OrderActions from "@/app/components/orderactions/OrderActions";
 import { authOptions } from "@/lib/authOptions";
-// Import the client component
 
 export default async function OrdersAdminPage() {
   const session = await getServerSession(authOptions);
+  if (!session) redirect("/signin");
+  if (session.user?.role !== "admin") redirect("/");
 
-  if (!session) {
-    redirect("/signin");
-  }
-  if (session.user?.role !== "admin") {
-    redirect("/");
-  }
-
-  const res = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/api/orders", {
-    cache: "no-store",
-  });
+  const res = await fetch("/api/orders", { cache: "no-store" });
+  if (!res.ok) throw new Error(`Failed to load orders: ${res.status}`);
   const orders = await res.json();
 
   return (
     <main className="container mx-auto py-10">
       <h1 className="text-3xl font-bold mb-6">🛒 Order Management</h1>
-      {orders.length === 0 ? (
+      {!orders || orders.length === 0 ? (
         <div>No orders found.</div>
       ) : (
         <div className="rounded-xl shadow-lg bg-white/90 dark:bg-zinc-900 p-6 overflow-x-auto">
@@ -56,7 +48,7 @@ export default async function OrdersAdminPage() {
                   <td className="p-3 text-xs">{order.address}</td>
                   <td className="p-3 text-xs">
                     <ul>
-                      {order.items.map((item, i) => (
+                      {(order.items || []).map((item, i) => (
                         <li key={i}>
                           <span className="font-medium">{item.title}</span> x{" "}
                           {item.quantity}
@@ -84,7 +76,9 @@ export default async function OrdersAdminPage() {
                     <OrderActions id={order._id} status={order.status} />
                   </td>
                   <td className="p-3 text-xs">
-                    {new Date(order.createdAt).toLocaleString()}
+                    {order.createdAt
+                      ? new Date(order.createdAt).toLocaleString()
+                      : "-"}
                   </td>
                 </tr>
               ))}
