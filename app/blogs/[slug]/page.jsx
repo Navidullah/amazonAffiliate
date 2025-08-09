@@ -357,6 +357,16 @@ export default async function SingleBlogPage({ params }) {
 // app/blogs/[slug]/page.jsx
 // app/blogs/[slug]/page.tsx
 import { notFound } from "next/navigation";
+import Link from "next/link";
+import { MessageCircle, Eye, Heart } from "lucide-react";
+import CommentSection from "@/app/components/commentsection/CommentSection";
+import LikeButton from "@/app/components/likebutton/LikeButton";
+import EditButton from "@/app/components/blog/EditButton";
+import { getRelatedBlogs } from "@/app/api/getRelatedBlogs/route";
+import { FaLinkedin, FaWhatsapp } from "react-icons/fa";
+import { BsTwitterX } from "react-icons/bs";
+import Image from "next/image";
+import BlogTOCContent from "@/app/components/blog/BlogTOCContent";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
 
