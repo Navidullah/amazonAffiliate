@@ -1,0 +1,12 @@
+# Apply to all crawlers
+User-agent: *
+Disallow: /admin/orders
+Disallow: /dashboard
+Disallow: /cart
+Allow: /
+
+# Host (optional, not used by Google)
+Host: www.shopyor.com
+
+# Sitemap location
+Sitemap: https://www.shopyor.com/sitemap.xml
