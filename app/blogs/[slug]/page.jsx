@@ -355,43 +355,58 @@ export default async function SingleBlogPage({ params }) {
 */
 // app/blogs/[slug]/page.jsx
 // app/blogs/[slug]/page.jsx
+// app/blogs/[slug]/page.tsx
 import { notFound } from "next/navigation";
-import Link from "next/link";
-import { MessageCircle, Eye, Heart } from "lucide-react";
-import CommentSection from "@/app/components/commentsection/CommentSection";
-import LikeButton from "@/app/components/likebutton/LikeButton";
-import EditButton from "@/app/components/blog/EditButton";
-import { getRelatedBlogs } from "@/app/api/getRelatedBlogs/route";
-import { FaLinkedin, FaWhatsapp } from "react-icons/fa";
-import { BsTwitterX } from "react-icons/bs";
-import Image from "next/image";
-import BlogTOCContent from "@/app/components/blog/BlogTOCContent";
 
-// ---------- SEO ----------
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
+
 export async function generateMetadata({ params }) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL || ""}/api/blogs/${params.slug}`,
-    { cache: "no-store" }
-  );
+  const res = await fetch(`${BASE_URL}/api/blogs/${params.slug}`, {
+    cache: "no-store",
+  });
   if (!res.ok) return {};
 
   const blog = await res.json();
 
-  const seoDescription =
-    blog.metaDescription && blog.metaDescription.trim().length > 0
-      ? blog.metaDescription
-      : blog.description.replace(/<[^>]+>/g, "").slice(0, 150);
+  const seoDescription = blog.metaDescription?.trim()?.length
+    ? blog.metaDescription
+    : blog.description.replace(/<[^>]+>/g, "").slice(0, 150);
+
+  // Ensure absolute, public URL for the image
+  const absoluteImage = blog.image?.startsWith("http")
+    ? blog.image
+    : new URL(blog.image || "", BASE_URL).toString();
+
+  const pageUrl = `${BASE_URL}/blogs/${blog.slug}`;
 
   return {
     title: blog.title,
     description: seoDescription,
+    alternates: { canonical: pageUrl },
     openGraph: {
+      type: "article",
+      url: pageUrl,
       title: blog.title,
       description: seoDescription,
-      images: [{ url: blog.image }],
+      images: [
+        {
+          url: absoluteImage, // ABSOLUTE
+          width: 1200,
+          height: 630,
+          alt: blog.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: blog.title,
+      description: seoDescription,
+      images: [absoluteImage],
     },
   };
 }
+
+// (your page component stays as is)
 
 // ---------- Page ----------
 export default async function SingleBlogPage({ params }) {
