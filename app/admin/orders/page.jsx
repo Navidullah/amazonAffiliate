@@ -1,5 +1,6 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import { headers, cookies } from "next/headers"; // ⬅️ add this
 import { Badge } from "@/components/ui/badge";
 import OrderActions from "@/app/components/orderactions/OrderActions";
 import { authOptions } from "@/lib/authOptions";
@@ -9,8 +10,24 @@ export default async function OrdersAdminPage() {
   if (!session) redirect("/signin");
   if (session.user?.role !== "admin") redirect("/");
 
-  const res = await fetch("/api/orders", { cache: "no-store" });
-  if (!res.ok) throw new Error(`Failed to load orders: ${res.status}`);
+  // Build absolute base URL and forward cookies
+  const h = headers();
+  const proto = h.get("x-forwarded-proto") ?? "https";
+  const host = h.get("x-forwarded-host") ?? h.get("host");
+  const base = `${proto}://${host}`;
+
+  const res = await fetch(new URL("/api/orders", base), {
+    cache: "no-store",
+    headers: { cookie: cookies().toString() }, // forward session cookies
+  });
+
+  if (!res.ok) {
+    const body = await res.text();
+    throw new Error(
+      `Failed to load orders: ${res.status} ${body.slice(0, 200)}`
+    );
+  }
+
   const orders = await res.json();
 
   return (
