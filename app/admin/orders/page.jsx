@@ -31,7 +31,7 @@ export default async function OrdersAdminPage() {
   const orders = await res.json();
 
   return (
-    <main className="container mx-auto py-10">
+    <main className="min-h-screen container mx-auto py-10">
       <h1 className="text-3xl font-bold mb-6">🛒 Order Management</h1>
       {!orders || orders.length === 0 ? (
         <div>No orders found.</div>
