@@ -90,14 +90,14 @@ export default function FreeBackgroundRemover() {
         <title>Free Background Remover | Instant Transparent PNGs</title>
         <meta
           name="description"
-          content="Remove image backgrounds for free and download transparent PNGs instantly"
+          content="Remove image backgrounds for free and download transparent Images instantly"
         />
       </Head>
 
       <main className="min-h-screen bg-background p-4 md:p-8">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-300 mb-2">
               ✨ Free Background Remover
             </h1>
             <p className="text-gray-600 max-w-md mx-auto">
@@ -106,7 +106,7 @@ export default function FreeBackgroundRemover() {
             </p>
           </div>
 
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+          <div className="bg-transparent rounded-xl shadow-lg overflow-hidden">
             {/* Upload Section */}
             <div className="p-6 md:p-8">
               <div
