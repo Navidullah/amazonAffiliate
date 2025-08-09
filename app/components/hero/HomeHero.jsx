@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function HomeHero() {
   return (
     <motion.section
-      className="py-16 px-4 flex flex-col items-center text-center bg-gradient-to-b from-blue-50 to-white dark:from-zinc-900 dark:to-zinc-950"
+      className="py-16  flex flex-col items-center text-center bg-gradient-to-b from-blue-50 to-white dark:from-zinc-900 dark:to-zinc-950"
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7 }}
