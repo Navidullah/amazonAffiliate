@@ -16,6 +16,7 @@ import {
   Link2,
   Menu,
   User,
+  RemoveFormatting,
 } from "lucide-react";
 import { useState } from "react";
 import { ModeToggle } from "./ModeToggle";
@@ -65,7 +66,7 @@ export default function Header() {
           <Link href="/" className="flex items-center">
             <Image src="/shopyor.png" width={40} height={40} alt="shopyor" />
             <span className="font-semibold text-xl sm:text-2xl ml-2">
-              ShopYor
+              Shopyor
             </span>
           </Link>
         </div>
@@ -119,6 +120,11 @@ export default function Header() {
                 <DropdownMenuItem asChild>
                   <Link href="/background-remover">
                     <FaBackward className="mr-2" /> Background Remover
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/exif-remover">
+                    <FaBackward className="mr-2" /> EXIF Remover
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
@@ -197,6 +203,14 @@ export default function Header() {
                     </SheetClose>
                     <SheetClose asChild>
                       <Link
+                        href="/exif-remover"
+                        className="flex items-center gap-2 hover:text-primary"
+                      >
+                        <RemoveFormatting /> EXIF Remover
+                      </Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Link
                         href="/generate-link"
                         className="flex items-center gap-2 hover:text-primary"
                       >
@@ -245,11 +259,7 @@ export default function Header() {
                   )}
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Link href="/admin/orders">
-                    <LayoutDashboard /> Dashboard
-                  </Link>
-                </DropdownMenuItem>
+
                 <DropdownMenuItem asChild>
                   <Link href="/blogs">
                     <FaBloggerB /> Blog
@@ -267,11 +277,16 @@ export default function Header() {
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link href="/background-remover">
-                    <FaBackward /> BackgroundRemover
+                    <FaBackward /> Background Remover
                   </Link>
                 </DropdownMenuItem>
                 {isAdmin && (
                   <>
+                    <DropdownMenuItem asChild>
+                      <Link href="/admin/orders">
+                        <LayoutDashboard /> Dashboard
+                      </Link>
+                    </DropdownMenuItem>
                     <DropdownMenuItem asChild>
                       <Link href="/add-product">
                         <Icon icon="formkit:add" width="16" height="16" /> Add
