@@ -443,7 +443,7 @@ export default async function SingleBlogPage({ params }) {
         <EditButton blog={blog} />
 
         {/* Title */}
-        <h1 className="text-2xl md:text-4xl sm:text-3xl text-center font-bold mb-4 break-words">
+        <h1 className="text-xl sm:text-2xl md:text-3xl  text-center font-semibold mb-4 break-words">
           {blog.title}
         </h1>
 
