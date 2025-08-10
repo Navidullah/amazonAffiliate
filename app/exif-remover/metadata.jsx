@@ -1,11 +1,12 @@
 // app/exif-remover/metadata.js
 export const metadata = {
-  title: "EXIF Remover – Strip Photo Metadata Online",
+  title: "EXIF Remover – Remove Photo Metadata Online",
   description:
-    "Remove EXIF, GPS, and camera metadata from photos. Clean images on-device or via server. Free and fast.",
+    "Remove EXIF data, GPS location, camera details, and hidden metadata from your images instantly. Protect your privacy and share clean, safe photos online.",
   openGraph: {
-    title: "EXIF Remover",
-    description: "Strip photo metadata (EXIF, GPS) online.",
+    title: "EXIF Remover – Remove Photo Metadata Online",
+    description:
+      "Free online tool to strip EXIF metadata from photos, including GPS, camera settings, and more. Keep your images private and secure.",
   },
   robots: { index: true, follow: true },
 };
