@@ -60,7 +60,7 @@ export default function Page() {
   };
 
   return (
-    <main className="max-w-5xl mx-auto px-4 py-10">
+    <main className="min-h-screen max-w-5xl mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold">EXIF Remover</h1>
       <p className="text-sm text-neutral-500 mt-2">
         Drop a photo, preview EXIF, then download a metadata-free copy.
