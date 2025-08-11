@@ -24,10 +24,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title:
-    "Shopyor - Best Fitness Equipment, Adjustable Dumbbells, and Workout Gear",
-  description:
-    "Shop top-rated fitness equipment, adjustable dumbbells, Home gym gear, and Workout accessories. Read expert Health & Fitness blogs and find the best Amazon deals at Shopyor.",
+  title: "Shopyor - Health and Fitness Guide",
+  description: "Health & Fitness Blogs – Tips, Reviews & Workout Guides",
   themeColor: "#00bcd4",
   icons: {
     icon: [
