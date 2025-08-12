@@ -22,11 +22,21 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+export const viewport = {
+  // single color:
+  // themeColor: "#00bcd4",
+
+  // or better: light/dark-aware
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#00bcd4" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0b0b" },
+  ],
+};
 
 export const metadata = {
   title: "Shopyor - Health and Fitness Guide",
   description: "Health & Fitness Blogs – Tips, Reviews & Workout Guides",
-  themeColor: "#00bcd4",
+
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "48x48" },
