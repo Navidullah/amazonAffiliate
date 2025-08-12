@@ -1,3 +1,4 @@
+// app/layout.jsx
 import { JetBrains_Mono, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers/Providers";
@@ -12,31 +13,77 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrainsMono",
   display: "swap",
 });
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
-
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-export const viewport = {
-  // single color:
-  // themeColor: "#00bcd4",
 
-  // or better: light/dark-aware
+/** Viewport: light/dark aware address bar color */
+export const viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#00bcd4" },
     { media: "(prefers-color-scheme: dark)", color: "#0b0b0b" },
   ],
 };
 
+/** **********  HOME PAGE SEO  ********** */
 export const metadata = {
-  title: "Shopyor - Health and Fitness Guide",
-  description: "Health & Fitness Blogs – Tips, Reviews & Workout Guides",
-
+  metadataBase: new URL("https://www.shopyor.com"),
+  title: {
+    default: "Shopyor – Health, Fitness & Physics Insights",
+    template: "%s | Shopyor",
+  },
+  description:
+    "Explore expert health, fitness, and physics blogs—covering workouts, nutrition, and science tips to boost your mind, body, and knowledge.",
+  keywords: [
+    "health",
+    "fitness",
+    "physics",
+    "workout",
+    "nutrition",
+    "science tips",
+    "mind body",
+  ],
+  alternates: {
+    canonical: "/",
+    languages: { "en-US": "/", "en-GB": "/" },
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot:
+      "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+  },
+  openGraph: {
+    type: "website",
+    url: "https://www.shopyor.com/",
+    siteName: "Shopyor",
+    title: "Shopyor – Health, Fitness & Physics Insights",
+    description:
+      "Explore expert health, fitness, and physics blogs—covering workouts, nutrition, and science tips to boost your mind, body, and knowledge.",
+    images: [
+      {
+        url: "/og/og-home-1200x630.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Shopyor — Health, Fitness & Physics Blogs",
+      },
+    ],
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@Shopyor",
+    creator: "@Shopyor",
+    title: "Shopyor – Health, Fitness & Physics Insights",
+    description:
+      "Explore expert health, fitness, and physics blogs—covering workouts, nutrition, and science tips to boost your mind, body, and knowledge.",
+    images: ["/og/og-home-1200x630.jpg"],
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "48x48" },
@@ -50,49 +97,69 @@ export const metadata = {
     },
   },
   manifest: "/manifest.json",
+  verification: {
+    google: "", // Add your Google Search Console code here
+    other: { "p:domain_verify": ["606cad5cbdd2926b674d14dfca5887f0"] },
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Structured Data for Google */}
+        {/* Organization + WebSite JSON-LD (home page) */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "Shopyor",
-              url: "https://www.shopyor.com",
-              description:
-                "Shopyor delivers expert fitness coach insights, nutrition for health and fitness, weight bench workouts, and home workout routines—then helps you shop quality equipment, fitness gear & recovery tools.",
-              logo: "https://www.shopyor.com/shopyor.png",
-              sameAs: [
-                "https://www.facebook.com/YourPage",
-                "https://www.instagram.com/YourProfile",
-                "https://twitter.com/YourProfile",
-              ],
-              potentialAction: {
-                "@type": "SearchAction",
-                target: "https://www.shopyor.com/search?q={search_term_string}",
-                "query-input": "required name=search_term_string",
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                name: "Shopyor",
+                url: "https://www.shopyor.com",
+                logo: "https://www.shopyor.com/shopyor.png",
+                sameAs: [
+                  "https://www.facebook.com/YourPage",
+                  "https://www.instagram.com/YourProfile",
+                  "https://twitter.com/YourProfile",
+                ],
+                contactPoint: [
+                  {
+                    "@type": "ContactPoint",
+                    contactType: "customer support",
+                    email: "support@shopyor.com",
+                  },
+                ],
               },
-              contactPoint: [
-                {
-                  "@type": "ContactPoint",
-                  contactType: "customer support",
-                  email: "support@shopyor.com",
+              {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                name: "Shopyor",
+                url: "https://www.shopyor.com",
+                potentialAction: {
+                  "@type": "SearchAction",
+                  target:
+                    "https://www.shopyor.com/search?q={search_term_string}",
+                  "query-input": "required name=search_term_string",
                 },
-              ],
-            }),
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "WebPage",
+                url: "https://www.shopyor.com/",
+                name: "Shopyor – Health, Fitness & Physics Blogs",
+                description:
+                  "Readable, research-based articles on health, fitness, and physics.",
+                isPartOf: {
+                  "@type": "WebSite",
+                  url: "https://www.shopyor.com",
+                },
+              },
+            ]),
           }}
         />
-        <meta
-          name="p:domain_verify"
-          content="606cad5cbdd2926b674d14dfca5887f0"
-        />
       </head>
+
       <body
         className={`${jetbrainsMono.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -101,9 +168,10 @@ export default function RootLayout({ children }) {
             <div className="w-[800px] h-[800px] bg-purple-500 opacity-30 dark:opacity-20 blur-[160px] rounded-full mx-auto" />
           </div>
         </div>
+
         <Providers>
           <HeaderComponent />
-          <main className=" pt-28 sm:pt-28 md:pt-32 lg:pt-36 xl:pt-40">
+          <main className="pt-28 sm:pt-28 md:pt-32 lg:pt-36 xl:pt-40">
             {children}
           </main>
           <Analytics />
