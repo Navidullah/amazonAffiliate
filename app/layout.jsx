@@ -25,12 +25,12 @@ const geistMono = Geist_Mono({
 /** Viewport: light/dark aware address bar color */
 export const viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#00bcd4" },
+    { media: "(prefers-color-scheme: light)", color: "#00bcd4" }, // keep brand cyan
     { media: "(prefers-color-scheme: dark)", color: "#0b0b0b" },
   ],
 };
 
-/** **********  HOME PAGE SEO  ********** */
+/** **********  SITE-WIDE SEO DEFAULTS  ********** */
 export const metadata = {
   metadataBase: new URL("https://www.shopyor.com"),
   title: {
@@ -49,8 +49,8 @@ export const metadata = {
     "mind body",
   ],
   alternates: {
-    canonical: "/",
-    languages: { "en-US": "/", "en-GB": "/" },
+    canonical: "/", // pages can override (e.g., with pagination)
+    // languages removed until localized versions exist
   },
   robots: {
     index: true,
@@ -77,8 +77,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    site: "@Shopyor",
-    creator: "@Shopyor",
+    site: "@Shopyor", // remove if not a real handle yet
+    creator: "@Shopyor", // remove if not a real handle yet
     title: "Shopyor – Health, Fitness & Physics Insights",
     description:
       "Explore expert health, fitness, and physics blogs—covering workouts, nutrition, and science tips to boost your mind, body, and knowledge.",
@@ -98,7 +98,7 @@ export const metadata = {
   },
   manifest: "/manifest.json",
   verification: {
-    google: "", // Add your Google Search Console code here
+    google: "", // Add your Google Search Console code
     other: { "p:domain_verify": ["606cad5cbdd2926b674d14dfca5887f0"] },
   },
 };
@@ -107,7 +107,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Organization + WebSite JSON-LD (home page) */}
+        {/* Keep Organization + WebSite JSON-LD site-wide.
+            Move WebPage JSON-LD into each page (e.g., home page, post pages). */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -139,20 +140,8 @@ export default function RootLayout({ children }) {
                 potentialAction: {
                   "@type": "SearchAction",
                   target:
-                    "https://www.shopyor.com/search?q={search_term_string}",
+                    "https://www.shopyor.com/blogs?search={search_term_string}",
                   "query-input": "required name=search_term_string",
-                },
-              },
-              {
-                "@context": "https://schema.org",
-                "@type": "WebPage",
-                url: "https://www.shopyor.com/",
-                name: "Shopyor – Health, Fitness & Physics Blogs",
-                description:
-                  "Readable, research-based articles on health, fitness, and physics.",
-                isPartOf: {
-                  "@type": "WebSite",
-                  url: "https://www.shopyor.com",
                 },
               },
             ]),
@@ -163,6 +152,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${jetbrainsMono.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* Optional background blob */}
         <div className="fixed inset-0 -z-10 pointer-events-none">
           <div className="absolute inset-0 flex items-center justify-center min-h-screen">
             <div className="w-[800px] h-[800px] bg-purple-500 opacity-30 dark:opacity-20 blur-[160px] rounded-full mx-auto" />
