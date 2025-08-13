@@ -102,6 +102,9 @@ export default function Header() {
             <Link href="/blogs" className="hover:text-primary">
               Blog
             </Link>
+            <Link href="/product" className="hover:text-primary">
+              Product
+            </Link>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -180,6 +183,14 @@ export default function Header() {
                     className="text-lg font-semibold hover:text-primary"
                   >
                     Blog
+                  </Link>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Link
+                    href="/product"
+                    className="text-lg font-semibold hover:text-primary"
+                  >
+                    Product
                   </Link>
                 </SheetClose>
                 <div className="flex flex-col">

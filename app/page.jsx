@@ -1,3 +1,4 @@
+import HomeBlogHero from "./components/bloghero/HomeBlogHero";
 import BlogList from "./components/bloglist/BlogList";
 
 export default async function HomePage() {
@@ -8,9 +9,15 @@ export default async function HomePage() {
   const blogs = await res.json();
 
   return (
-    <main className="wrapper py-10">
-      <h1 className="text-2xl font-bold mb-6">Latest Blogs</h1>
-      <BlogList blogs={blogs} />
+    <main className="wrapper py-10 space-y-10">
+      {/* Hero */}
+      <HomeBlogHero />
+
+      {/* Latest */}
+      <section>
+        <h2 className="text-2xl font-bold mb-6">Latest Blogs</h2>
+        <BlogList blogs={blogs} />
+      </section>
     </main>
   );
 }
