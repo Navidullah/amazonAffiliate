@@ -589,7 +589,7 @@ export default async function SingleBlogPage({ params }) {
 
         {/* Back link */}
         <div className="mt-8">
-          <Link href="/blogs" className="text-indigo-600 hover:underline">
+          <Link href="/" className="text-indigo-600 hover:underline">
             ← Back to all blogs
           </Link>
         </div>
