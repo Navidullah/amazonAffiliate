@@ -34,23 +34,26 @@ export const viewport = {
 export const metadata = {
   metadataBase: new URL("https://www.shopyor.com"),
   title: {
-    default: "Shopyor – Health, Fitness & Physics Insights",
-    template: "%s | Shopyor",
+    default:
+      "Shopyor – Expert Health, Fitness, and Nutrition Insights for a Healthier & Happier Life",
+    template: "%s | Shopyor – Expert Health, Fitness, and Nutrition Insights",
   },
   description:
-    "Explore expert health, fitness, and physics blogs—covering workouts, nutrition, and science tips to boost your mind, body, and knowledge.",
+    "Discover expert blogs on health, fitness, and nutrition—featuring workout tips, healthy eating guides, and science-based wellness advice to improve your body, mind, and lifestyle. Stay informed, inspired, and motivated with Shopyor’s in-depth articles.",
   keywords: [
     "health",
     "fitness",
-    "physics",
-    "workout",
     "nutrition",
-    "science tips",
-    "mind body",
+    "workout tips",
+    "healthy eating",
+    "wellness",
+    "exercise guides",
+    "healthy lifestyle",
+    "diet and fitness",
+    "mind body health",
   ],
   alternates: {
-    canonical: "/", // pages can override (e.g., with pagination)
-    // languages removed until localized versions exist
+    canonical: "/",
   },
   robots: {
     index: true,
@@ -62,26 +65,28 @@ export const metadata = {
     type: "website",
     url: "https://www.shopyor.com/",
     siteName: "Shopyor",
-    title: "Shopyor – Health, Fitness & Physics Insights",
+    title:
+      "Shopyor – Expert Health, Fitness, and Nutrition Insights for a Healthier & Happier Life",
     description:
-      "Explore expert health, fitness, and physics blogs—covering workouts, nutrition, and science tips to boost your mind, body, and knowledge.",
+      "Explore in-depth blogs on health, fitness, and nutrition—covering workouts, wellness, and healthy living tips to boost your body, mind, and lifestyle.",
     images: [
       {
         url: "/og/og-home-1200x630.jpg",
         width: 1200,
         height: 630,
-        alt: "Shopyor — Health, Fitness & Physics Blogs",
+        alt: "Shopyor — Health, Fitness, and Nutrition Blogs",
       },
     ],
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    site: "@Shopyor", // remove if not a real handle yet
-    creator: "@Shopyor", // remove if not a real handle yet
-    title: "Shopyor – Health, Fitness & Physics Insights",
+    site: "@Shopyor",
+    creator: "@Shopyor",
+    title:
+      "Shopyor – Expert Health, Fitness, and Nutrition Insights for a Healthier & Happier Life",
     description:
-      "Explore expert health, fitness, and physics blogs—covering workouts, nutrition, and science tips to boost your mind, body, and knowledge.",
+      "Read expert articles on health, fitness, and nutrition—get workout tips, healthy recipes, and wellness guides to improve your life.",
     images: ["/og/og-home-1200x630.jpg"],
   },
   icons: {
@@ -98,7 +103,7 @@ export const metadata = {
   },
   manifest: "/manifest.json",
   verification: {
-    google: "", // Add your Google Search Console code
+    google: "", // Add your Google Search Console verification code
     other: { "p:domain_verify": ["606cad5cbdd2926b674d14dfca5887f0"] },
   },
 };
