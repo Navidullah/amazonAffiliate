@@ -140,8 +140,38 @@ export async function POST(req) {
 }
 
 // /api/blogs/route.js (GET)
-export async function GET() {
-  await ConnectToDB();
-  const blogs = await BlogModel.find().sort({ date: -1 });
-  return Response.json(blogs, { status: 200 });
+// /api/blogs/route.js (GET with pagination)
+export async function GET(req) {
+  try {
+    await ConnectToDB();
+
+    const { searchParams } = new URL(req.url);
+    const page = Math.max(1, Number(searchParams.get("page") || 1)); // default 1
+    const limit = Math.max(1, Number(searchParams.get("limit") || 5)); // default 5
+    const skip = (page - 1) * limit;
+
+    const total = await BlogModel.countDocuments();
+    const blogs = await BlogModel.find()
+      .sort({ date: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    return new Response(
+      JSON.stringify({
+        items: blogs,
+        total,
+        page,
+        limit,
+        hasPrev: page > 1,
+        hasNext: page * limit < total,
+      }),
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error fetching blogs:", error);
+    return new Response(
+      JSON.stringify({ error: error.message || "Something went wrong" }),
+      { status: 500 }
+    );
+  }
 }
