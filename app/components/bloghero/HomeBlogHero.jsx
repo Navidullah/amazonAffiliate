@@ -12,7 +12,7 @@ export default function HomeBlogHero() {
   const onSearch = (e) => {
     e.preventDefault();
     const term = q.trim();
-    router.push(term ? `/blog?search=${encodeURIComponent(term)}` : "/blog");
+    router.push(term ? `/blogs?search=${encodeURIComponent(term)}` : "/blogs");
   };
 
   return (
