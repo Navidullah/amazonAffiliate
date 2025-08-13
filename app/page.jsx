@@ -11,8 +11,13 @@ export default async function HomePage({ searchParams }) {
     { cache: "no-store" }
   );
 
-  // API returns: { items, total, page, limit, hasPrev, hasNext }
-  const { items = [], total = 0, hasNext = false } = await res.json();
+  // API should return: { items, total, page, limit, hasPrev, hasNext }
+  const {
+    items = [],
+    total = 0,
+    hasPrev = false,
+    hasNext = false,
+  } = await res.json();
 
   return (
     <main className="wrapper py-10 space-y-10">
@@ -24,9 +29,24 @@ export default async function HomePage({ searchParams }) {
         <h2 className="mb-6 text-2xl font-bold">Latest Blogs</h2>
         <BlogList blogs={items} />
 
-        {/* Next-only pagination */}
-        <div className="mt-8 flex justify-end">
-          {hasNext && (
+        {/* Pagination */}
+        <div className="mt-8 flex items-center justify-between">
+          {hasPrev ? (
+            <Link
+              href={`/?page=${page - 1}`}
+              prefetch
+              rel="prev"
+              className="rounded-lg border border-white/10 px-4 py-2 text-sm hover:bg-white/5"
+            >
+              ← Previous
+            </Link>
+          ) : (
+            <span className="px-4 py-2 text-sm text-white/40 select-none">
+              ← Previous
+            </span>
+          )}
+
+          {hasNext ? (
             <Link
               href={`/?page=${page + 1}`}
               prefetch
@@ -35,6 +55,10 @@ export default async function HomePage({ searchParams }) {
             >
               Next →
             </Link>
+          ) : (
+            <span className="px-4 py-2 text-sm text-white/40 select-none">
+              Next →
+            </span>
           )}
         </div>
       </section>
