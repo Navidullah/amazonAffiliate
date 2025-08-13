@@ -6,23 +6,24 @@ import TopPicksWithFilter from "../components/home/TopPicksWithFilter";
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
 
 // ---- Per-page SEO (title uses your layout template) ----
+// ---- Per-page SEO ----
 export const metadata = {
-  title: "Products", // -> "Products | Shopyor – Health & Fitness"
+  title: "Products", // becomes: Products | Shopyor — Expert Health & Fitness…
   description:
-    "Explore curated health & fitness products, tools, and gear recommended by Shopyor.",
-  alternates: { canonical: "/product" }, // change to "/products" if that's your URL
+    "Shop Shopyor’s curated health & fitness gear: evidence-backed supplements, recovery tools, and workout essentials—paired with honest reviews and guides.",
+  alternates: { canonical: "/product" },
   openGraph: {
     type: "website",
     url: `${BASE_URL}/product`,
     title: "Products",
     description:
-      "Explore curated health & fitness products, tools, and gear recommended by Shopyor.",
+      "Curated health & fitness products from Shopyor—tested gear and tools that complement our research-backed guides.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Products",
     description:
-      "Explore curated health & fitness products, tools, and gear recommended by Shopyor.",
+      "Curated health & fitness products from Shopyor—tested gear and tools that complement our research-backed guides.",
   },
 };
 

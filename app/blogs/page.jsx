@@ -6,27 +6,29 @@ import BlogList from "../components/bloglist/BlogList";
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
 
 // ---------- Per-page SEO (canonical changes with ?page) ----------
+// ---------- Per-page SEO (canonical changes with ?page) ----------
 export async function generateMetadata({ searchParams }) {
   const page = Number(searchParams?.page || 1);
+  const title = page > 1 ? `Blogs – Page ${page}` : "Blogs";
+  const desc =
+    "Explore research-backed health & fitness articles from Shopyor—workouts, nutrition, sleep, and recovery—plus product roundups that link to our curated store.";
+
   return {
-    title: page > 1 ? `Blogs – Page ${page}` : "Blogs",
-    description:
-      "Browse all health, fitness, and science blogs from Shopyor. Expert-backed tips, routines, and product breakdowns.",
+    title,
+    description: desc,
     alternates: {
       canonical: page > 1 ? `/blogs?page=${page}` : "/blogs",
     },
     openGraph: {
       type: "website",
       url: page > 1 ? `${BASE_URL}/blogs?page=${page}` : `${BASE_URL}/blogs`,
-      title: page > 1 ? `Blogs – Page ${page}` : "Blogs",
-      description:
-        "Browse all health, fitness, and science blogs from Shopyor.",
+      title,
+      description: desc,
     },
     twitter: {
       card: "summary_large_image",
-      title: page > 1 ? `Blogs – Page ${page}` : "Blogs",
-      description:
-        "Browse all health, fitness, and science blogs from Shopyor.",
+      title,
+      description: desc,
     },
   };
 }

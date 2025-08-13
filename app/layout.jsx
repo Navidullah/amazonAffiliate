@@ -31,64 +31,75 @@ export const viewport = {
 };
 
 /** **********  SITE-WIDE SEO DEFAULTS  ********** */
+/** **********  SITE-WIDE SEO DEFAULTS  ********** */
 export const metadata = {
   metadataBase: new URL("https://www.shopyor.com"),
+
+  // Longer, brand-forward title + a template that appends to page titles.
   title: {
+    // Default used on pages that don’t set their own title
     default:
-      "Shopyor – Expert Health, Fitness, and Nutrition Insights for a Healthier & Happier Life",
-    template: "%s | Shopyor – Expert Health, Fitness, and Nutrition Insights",
+      "Shopyor — Expert Health & Fitness Guides, Wellness Tips & Store for Proven Gear",
+    // Any page that sets `title: "Blogs"` will render as:
+    // "Blogs | Shopyor — Expert Health & Fitness Guides, Wellness Tips & Store for Proven Gear"
+    template:
+      "%s | Shopyor — Expert Health & Fitness Guides, Wellness Tips & Store for Proven Gear",
   },
+
+  // Expanded description to cover both content + commerce
   description:
-    "Discover expert blogs on health, fitness, and nutrition—featuring workout tips, healthy eating guides, and science-based wellness advice to improve your body, mind, and lifestyle. Stay informed, inspired, and motivated with Shopyor’s in-depth articles.",
+    "Shopyor publishes research-backed health & fitness blogs—workouts, nutrition, sleep, and recovery—and curates a store of tested products and tools. Practical guides, honest reviews, and step-by-step routines to help you feel better, move more, and build sustainable habits.",
+
   keywords: [
-    "health",
-    "fitness",
-    "nutrition",
-    "workout tips",
-    "healthy eating",
-    "wellness",
-    "exercise guides",
-    "healthy lifestyle",
-    "diet and fitness",
-    "mind body health",
+    "health and fitness",
+    "wellness tips",
+    "workout routines",
+    "nutrition advice",
+    "sleep and recovery",
+    "product reviews",
+    "fitness gear store",
+    "wellness shop",
   ],
-  alternates: {
-    canonical: "/",
-  },
+
+  alternates: { canonical: "/" },
+
   robots: {
     index: true,
     follow: true,
     googleBot:
       "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
   },
+
   openGraph: {
     type: "website",
     url: "https://www.shopyor.com/",
     siteName: "Shopyor",
     title:
-      "Shopyor – Expert Health, Fitness, and Nutrition Insights for a Healthier & Happier Life",
+      "Shopyor — Expert Health & Fitness Guides, Wellness Tips & Store for Proven Gear",
     description:
-      "Explore in-depth blogs on health, fitness, and nutrition—covering workouts, wellness, and healthy living tips to boost your body, mind, and lifestyle.",
+      "Research-backed health & fitness blogs plus a curated store of tested products. Practical guides, honest reviews, and step-by-step routines.",
     images: [
       {
         url: "/og/og-home-1200x630.jpg",
         width: 1200,
         height: 630,
-        alt: "Shopyor — Health, Fitness, and Nutrition Blogs",
+        alt: "Shopyor — Health & Fitness Guides and Store",
       },
     ],
     locale: "en_US",
   },
+
   twitter: {
     card: "summary_large_image",
-    site: "@Shopyor",
-    creator: "@Shopyor",
+    // site: "@Shopyor",
+    // creator: "@Shopyor",
     title:
-      "Shopyor – Expert Health, Fitness, and Nutrition Insights for a Healthier & Happier Life",
+      "Shopyor — Expert Health & Fitness Guides, Wellness Tips & Store for Proven Gear",
     description:
-      "Read expert articles on health, fitness, and nutrition—get workout tips, healthy recipes, and wellness guides to improve your life.",
+      "Research-backed health & fitness blogs plus a curated store of tested products. Practical guides, honest reviews, and step-by-step routines.",
     images: ["/og/og-home-1200x630.jpg"],
   },
+
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "48x48" },
@@ -101,9 +112,11 @@ export const metadata = {
       type: "image/png",
     },
   },
+
   manifest: "/manifest.json",
+
   verification: {
-    google: "", // Add your Google Search Console verification code
+    google: "",
     other: { "p:domain_verify": ["606cad5cbdd2926b674d14dfca5887f0"] },
   },
 };
