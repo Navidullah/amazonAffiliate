@@ -5,8 +5,11 @@ import AnimatedBlogImage from "./AnimatedBlogImage";
 import Image from "next/image";
 
 export default function BlogList({ blogs }) {
+  const list = Array.isArray(blogs) ? blogs : blogs?.items || [];
+
+  if (!list.length) return <div>No blogs yet.</div>;
   //console.log("blogs in BlogList:", blogs);
-  if (!blogs?.length) return <div>No blogs yet.</div>;
+  //if (!blogs?.length) return <div>No blogs yet.</div>;
   console.log(
     blogs.map((b) => ({
       title: b.title,
@@ -18,7 +21,7 @@ export default function BlogList({ blogs }) {
 
   return (
     <div className="space-y-8 w-full">
-      {blogs.map((blog) => (
+      {list.map((blog) => (
         <div
           key={blog._id}
           className="flex flex-col md:flex-row items-start justify-between border-b pb-8 gap-6 group"
