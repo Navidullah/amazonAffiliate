@@ -124,6 +124,21 @@ export default async function BlogHomePage({ searchParams }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            itemListElement: (items || []).map((post, i) => ({
+              "@type": "ListItem",
+              position: (page - 1) * limit + (i + 1),
+              url: `${BASE_URL}/blogs/${post.slug}`,
+              name: post.title,
+            })),
+          }),
+        }}
+      />
 
       {/* Hero / Heading */}
       <header className="flex items-end justify-between gap-4">
