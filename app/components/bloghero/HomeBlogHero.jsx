@@ -51,7 +51,7 @@ export default function HomeHero({ postsCount = 0 }) {
           {["Eczema", "Protein", "Jogging", "Sleep", "Beginners"].map((t) => (
             <Link
               key={t}
-              href={`/blog?tag=${encodeURIComponent(t.toLowerCase())}`}
+              href={`/blogs?tag=${encodeURIComponent(t.toLowerCase())}`}
               className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/90 hover:bg-white/10"
             >
               #{t}
