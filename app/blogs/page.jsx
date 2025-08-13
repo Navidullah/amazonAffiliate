@@ -94,6 +94,24 @@ export default async function BlogHomePage({ searchParams }) {
       },
     ],
   };
+  {
+    /* JSON-LD: ItemList for current page */
+  }
+  <script
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{
+      __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        itemListElement: (items || []).map((post, i) => ({
+          "@type": "ListItem",
+          position: (page - 1) * limit + (i + 1),
+          url: `${BASE_URL}/blogs/${post.slug}`,
+          name: post.title,
+        })),
+      }),
+    }}
+  />;
 
   return (
     <main className="wrapper py-10 space-y-8">

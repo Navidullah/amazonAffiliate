@@ -1,5 +1,4 @@
-// next-sitemap.config.js (ES module syntax)
-
+// next-sitemap.config.js (ESM)
 const siteUrl = "https://www.shopyor.com";
 
 export default {
@@ -7,20 +6,37 @@ export default {
   generateRobotsTxt: true,
   exclude: [],
   additionalPaths: async (config) => {
-    const res = await fetch(`${siteUrl}/api/blogs`);
-    const blogs = await res.json();
+    let blogs = [];
 
-    // Build blog URLs for sitemap
+    try {
+      const res = await fetch(`${siteUrl}/api/blogs`);
+      if (res.ok) {
+        const data = await res.json();
+        // Ensure blogs is an array
+        blogs = Array.isArray(data)
+          ? data
+          : Array.isArray(data.items)
+            ? data.items
+            : [];
+      }
+    } catch (err) {
+      console.warn(
+        "[next-sitemap] Could not fetch blogs during build:",
+        err.message
+      );
+    }
+
+    // Build blog URLs
     const blogPaths = blogs.map((blog) => ({
       loc: `${siteUrl}/blogs/${blog.slug}`,
       lastmod: new Date(
-        blog.updatedAt || blog.date || new Date()
+        blog.updatedAt || blog.date || Date.now()
       ).toISOString(),
       changefreq: "weekly",
       priority: 0.7,
     }));
 
-    // Also include /blogs listing page manually
+    // Include the main /blogs page
     return [
       {
         loc: `${siteUrl}/blogs`,
