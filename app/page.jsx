@@ -1,4 +1,4 @@
-/*import BlogList from "./components/bloglist/BlogList";
+import BlogList from "./components/bloglist/BlogList";
 
 export default async function HomePage() {
   const res = await fetch(
@@ -14,9 +14,9 @@ export default async function HomePage() {
     </main>
   );
 }
-*/
-// app/page.jsx
 
+// app/page.jsx
+/*
 import HomeHero from "./components/home/HomeHero";
 
 import TopPicksWithFilter from "./components/home/TopPicksWithFilter";
@@ -43,3 +43,4 @@ export default async function HomePage() {
     </div>
   );
 }
+*/
