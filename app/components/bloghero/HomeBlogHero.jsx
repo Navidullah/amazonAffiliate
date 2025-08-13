@@ -96,7 +96,7 @@ export default function HomeBlogHero() {
             {["Eczema", "Protein", "Jogging", "Sleep"].map((t) => (
               <Link
                 key={t}
-                href={`/blog?tag=${encodeURIComponent(t.toLowerCase())}`}
+                href={`/blogs?tag=${encodeURIComponent(t.toLowerCase())}`}
                 className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/80 hover:bg-white/5"
               >
                 #{t}
