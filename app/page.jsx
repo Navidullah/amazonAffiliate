@@ -11,7 +11,7 @@ export default async function HomePage() {
   return (
     <main className="wrapper py-10 space-y-10">
       {/* Hero */}
-      <HomeBlogHero />
+      <HomeBlogHero postsCount={blogs?.length || 0} />
 
       {/* Latest */}
       <section>
