@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function HomeHero({ postsCount = 0 }) {
   return (
-    <section className="relative overflow-hidden rounded-2xl border border-white/10 bg-custom-gradient dark:bg-gradient-to-b from-cyan-500/10 via-transparent to-transparent p-8 sm:p-12">
+    <section className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-cyan-500/10 via-transparent to-transparent p-8 sm:p-12">
       {/* soft glow */}
       <div
         aria-hidden="true"
