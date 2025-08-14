@@ -1,198 +1,79 @@
-"use client";
+// app/image-compressor/page.jsx
 
-import { useState } from "react";
-import imageCompression from "browser-image-compression";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Slider } from "@/components/ui/slider";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import ImageCompressorClient from "../tools/ImageCompressorClient";
 
-export default function ImageCompressor() {
-  const [originalImage, setOriginalImage] = useState(null);
-  const [compressedImage, setCompressedImage] = useState(null);
-  const [quality, setQuality] = useState(70);
-  const [loading, setLoading] = useState(false);
-  const [dragging, setDragging] = useState(false);
-  const [format, setFormat] = useState("jpeg");
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
 
-  const handleImageChange = (file) => {
-    setOriginalImage(file);
-    setCompressedImage(null);
+export const metadata = {
+  title:
+    "Free Online Image Compressor | Shopyor – Reduce Image Size Without Losing Quality",
+  description:
+    "Compress JPG, PNG, and WebP images online for free with Shopyor's Image Compressor. Reduce file size while keeping image quality intact for web and social media.",
+  alternates: { canonical: "/image-compressor" },
+  keywords: [
+    "image compressor",
+    "free online image compressor",
+    "compress JPG",
+    "compress PNG",
+    "compress WebP",
+    "reduce image size",
+    "optimize images for web",
+  ],
+  openGraph: {
+    type: "website",
+    url: `${BASE_URL}/image-compressor`,
+    title: "Free Online Image Compressor | Shopyor",
+    description:
+      "Compress images online for free without losing quality. Perfect for faster websites and better SEO.",
+    images: [
+      {
+        url: `${BASE_URL}/images/og-image-compressor.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "Free Online Image Compressor Tool",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Free Online Image Compressor | Shopyor",
+    description:
+      "Compress JPG, PNG, and WebP images online for free without losing quality.",
+    images: [`${BASE_URL}/images/og-image-compressor.jpg`],
+  },
+};
+
+export default function ImageCompressorPage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Shopyor Image Compressor",
+    url: `${BASE_URL}/image-compressor`,
+    description:
+      "Free online tool to compress JPG, PNG, and WebP images without losing quality. Ideal for websites and social media.",
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: "All",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   };
-
-  const convertBlobToFile = async (blob, fileName) => {
-    const arrayBuffer = await blob.arrayBuffer();
-    return new File([arrayBuffer], fileName, { type: blob.type });
-  };
-
-  const compressImage = async () => {
-    if (!originalImage) return;
-
-    setLoading(true);
-    const options = {
-      maxSizeMB: 2,
-      maxWidthOrHeight: 1024,
-      initialQuality: quality / 100,
-      fileType: `image/${format}`,
-      useWebWorker: true,
-    };
-
-    try {
-      const compressedBlob = await imageCompression(originalImage, options);
-      const convertedFile = await convertBlobToFile(
-        compressedBlob,
-        `compressed.${format}`
-      );
-      setCompressedImage(convertedFile);
-    } catch (err) {
-      console.error("Compression failed", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    setDragging(false);
-    const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith("image/")) {
-      handleImageChange(file);
-    }
-  };
-
-  const sizeChartData =
-    compressedImage && originalImage
-      ? [
-          {
-            name: "Original",
-            size: Number((originalImage.size / 1024 / 1024).toFixed(2)),
-          },
-          {
-            name: "Compressed",
-            size: Number((compressedImage.size / 1024 / 1024).toFixed(2)),
-          },
-        ]
-      : [];
 
   return (
-    <div className="min-h-screen max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-4">📷 Image Compressor</h1>
+    <main className="wrapper py-10 space-y-4">
+      {/* JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
 
-      <div
-        className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
-          dragging ? "bg-blue-100 border-blue-500" : "bg-muted"
-        }`}
-        onDrop={handleDrop}
-        onDragOver={(e) => e.preventDefault()}
-        onDragEnter={() => setDragging(true)}
-        onDragLeave={() => setDragging(false)}
-      >
-        <p className="text-lg">
-          Drag & drop an image here, or click to select a file
-        </p>
-        <Input
-          type="file"
-          accept="image/*"
-          className="mt-4"
-          onChange={(e) => {
-            const file = e.target.files?.[0];
-            if (file) handleImageChange(file);
-          }}
-        />
-      </div>
+      {/* H1 for SEO */}
+      <h1 className="text-3xl font-bold">
+        Free Online Image Compressor (JPG, PNG, WebP)
+      </h1>
+      <p className="text-sm text-gray-600 dark:text-gray-400">
+        Reduce image size without losing visible quality. Faster pages, better
+        Core Web Vitals, and quick sharing.
+      </p>
 
-      <div className="mt-6">
-        <Label>Compression Quality: {quality}%</Label>
-        <Slider
-          min={10}
-          max={100}
-          step={5}
-          defaultValue={[quality]}
-          onValueChange={(value) => setQuality(value[0])}
-          className="mt-2"
-        />
-      </div>
-
-      <div className="mt-6">
-        <Label>Select Output Format</Label>
-        <Select defaultValue="jpeg" onValueChange={(value) => setFormat(value)}>
-          <SelectTrigger className="mt-2" />
-          <SelectContent>
-            <SelectItem value="jpeg">JPEG</SelectItem>
-            <SelectItem value="png">PNG</SelectItem>
-            <SelectItem value="webp">WebP</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-
-      <Button onClick={compressImage} className="mt-6" disabled={loading}>
-        {loading ? "Compressing..." : "Compress"}
-      </Button>
-
-      {compressedImage && (
-        <div className="mt-10 space-y-8">
-          <div className="grid md:grid-cols-2 gap-8">
-            <div>
-              <h3 className="font-bold">Original</h3>
-              <p>Size: {(originalImage?.size / 1024 / 1024).toFixed(2)} MB</p>
-              <img
-                src={URL.createObjectURL(originalImage)}
-                alt="Original"
-                className="rounded mt-2"
-              />
-            </div>
-            <div>
-              <h3 className="font-bold">Compressed ({format.toUpperCase()})</h3>
-              <p>Size: {(compressedImage.size / 1024 / 1024).toFixed(2)} MB</p>
-              <img
-                src={URL.createObjectURL(compressedImage)}
-                alt="Compressed"
-                className="rounded mt-2"
-              />
-              <a
-                href={URL.createObjectURL(compressedImage)}
-                download={`compressed.${format}`}
-                className="inline-block mt-2 text-blue-600 underline"
-              >
-                Download Image
-              </a>
-            </div>
-          </div>
-
-          {sizeChartData.length === 2 && (
-            <div className="w-full h-64">
-              <h3 className="text-xl font-semibold mb-2">
-                Compression Comparison
-              </h3>
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={sizeChartData}>
-                  <XAxis dataKey="name" />
-                  <YAxis
-                    label={{ value: "MB", angle: -90, position: "insideLeft" }}
-                  />
-                  <Tooltip />
-                  <Bar dataKey="size" fill="#3b82f6" radius={[4, 4, 0, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          )}
-        </div>
-      )}
-    </div>
+      <ImageCompressorClient />
+    </main>
   );
 }

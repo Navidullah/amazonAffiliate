@@ -71,7 +71,7 @@ export default function AffiliateLinkGenerator() {
   };
 
   return (
-    <main className="max-w-xl mx-auto p-6">
+    <main className="min-h-screen max-w-xl mx-auto p-6">
       <h1 className="text-2xl font-bold mb-4">
         🛠 Amazon Affiliate Link Generator
       </h1>

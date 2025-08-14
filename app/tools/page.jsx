@@ -85,7 +85,7 @@ export default function ToolsPage() {
   };
 
   return (
-    <main className="wrapper py-10 space-y-8">
+    <main className="min-h-screen wrapper py-10 space-y-8">
       {/* SEO JSON-LD */}
       <script
         type="application/ld+json"
