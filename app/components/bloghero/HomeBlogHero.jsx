@@ -52,7 +52,7 @@ export default function HomeHero({ postsCount = 0 }) {
         {/* CTAs */}
         <div className="mt-6 flex flex-wrap gap-3">
           <Link
-            href="/blog"
+            href="/blogs"
             className="rounded-lg border border-gray-200 dark:border-white/10 
                        bg-white dark:bg-white/5 
                        px-4 py-2 text-sm font-semibold 
