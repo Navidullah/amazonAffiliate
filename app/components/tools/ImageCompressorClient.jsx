@@ -70,12 +70,10 @@ export default function ImageCompressorClient() {
     e.preventDefault();
     setDragging(false);
     const file = e.dataTransfer.files?.[0];
-    if (file && file.type.startsWith("image/")) {
-      handleImageChange(file);
-    }
+    if (file && file.type.startsWith("image/")) handleImageChange(file);
   };
 
-  // Stable blob URLs for previews (with cleanup)
+  // Stable blob URLs (each with its own cleanup)
   const originalUrl = useMemo(
     () => (originalImage ? URL.createObjectURL(originalImage) : null),
     [originalImage]
@@ -85,23 +83,29 @@ export default function ImageCompressorClient() {
     [compressedImage]
   );
 
+  // Revoke ONLY when that URL changes/unmounts
   useEffect(() => {
     return () => {
       if (originalUrl) URL.revokeObjectURL(originalUrl);
+    };
+  }, [originalUrl]);
+
+  useEffect(() => {
+    return () => {
       if (compressedUrl) URL.revokeObjectURL(compressedUrl);
     };
-  }, [originalUrl, compressedUrl]);
+  }, [compressedUrl]);
 
   const sizeChartData =
     compressedImage && originalImage
       ? [
           {
             name: "Original",
-            size: Number((originalImage.size / 1024 / 1024).toFixed(2)),
+            size: +(originalImage.size / 1024 / 1024).toFixed(2),
           },
           {
             name: "Compressed",
-            size: Number((compressedImage.size / 1024 / 1024).toFixed(2)),
+            size: +(compressedImage.size / 1024 / 1024).toFixed(2),
           },
         ]
       : [];
@@ -147,7 +151,7 @@ export default function ImageCompressorClient() {
 
       <div className="mt-6">
         <Label htmlFor="format">Select Output Format</Label>
-        <Select defaultValue="jpeg" onValueChange={(value) => setFormat(value)}>
+        <Select defaultValue="jpeg" onValueChange={(v) => setFormat(v)}>
           <SelectTrigger id="format" className="mt-2" />
           <SelectContent>
             <SelectItem value="jpeg">JPEG</SelectItem>
@@ -161,34 +165,36 @@ export default function ImageCompressorClient() {
         {loading ? "Compressing..." : "Compress"}
       </Button>
 
+      {/* 👉 Show the original as soon as a file is chosen */}
+      {originalImage && (
+        <div className="mt-10">
+          <h3 className="font-bold">Original</h3>
+          <p>Size: {(originalImage.size / 1024 / 1024).toFixed(2)} MB</p>
+          {originalUrl && (
+            <img
+              key={originalUrl}
+              src={originalUrl}
+              alt="Original uploaded image"
+              className="rounded mt-2 max-h-96 w-auto object-contain"
+            />
+          )}
+        </div>
+      )}
+
+      {/* Compressed + comparison */}
       {compressedImage && (
         <div className="mt-10 space-y-8">
-          <div className="grid md:grid-cols-2 gap-8">
-            <div>
-              <h3 className="font-bold">Original</h3>
-              <p>Size: {(originalImage?.size / 1024 / 1024).toFixed(2)} MB</p>
-              {originalUrl && (
-                <img
-                  key={originalUrl}
-                  src={originalUrl}
-                  alt="Original uploaded image"
-                  className="rounded mt-2 max-h-96 w-auto object-contain"
-                />
-              )}
-            </div>
-
-            <div>
-              <h3 className="font-bold">Compressed ({format.toUpperCase()})</h3>
-              <p>Size: {(compressedImage.size / 1024 / 1024).toFixed(2)} MB</p>
-              {compressedUrl && (
+          <div>
+            <h3 className="font-bold">Compressed ({format.toUpperCase()})</h3>
+            <p>Size: {(compressedImage.size / 1024 / 1024).toFixed(2)} MB</p>
+            {compressedUrl && (
+              <>
                 <img
                   key={compressedUrl}
                   src={compressedUrl}
                   alt="Compressed output image"
                   className="rounded mt-2 max-h-96 w-auto object-contain"
                 />
-              )}
-              {compressedUrl && (
                 <a
                   href={compressedUrl}
                   download={`compressed.${format}`}
@@ -196,8 +202,8 @@ export default function ImageCompressorClient() {
                 >
                   Download Image
                 </a>
-              )}
-            </div>
+              </>
+            )}
           </div>
 
           {sizeChartData.length === 2 && (
