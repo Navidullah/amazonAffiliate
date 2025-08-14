@@ -21,6 +21,8 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function ImageCompressorClient() {
   const [originalImage, setOriginalImage] = useState(null);
@@ -168,9 +170,11 @@ export default function ImageCompressorClient() {
               <h3 className="font-bold">Original</h3>
               <p>Size: {(originalImage?.size / 1024 / 1024).toFixed(2)} MB</p>
               {originalUrl && (
-                <img
+                <Image
                   src={originalUrl}
                   alt="Original uploaded image"
+                  width={100}
+                  height={400}
                   className="rounded mt-2"
                 />
               )}
@@ -179,20 +183,22 @@ export default function ImageCompressorClient() {
               <h3 className="font-bold">Compressed ({format.toUpperCase()})</h3>
               <p>Size: {(compressedImage.size / 1024 / 1024).toFixed(2)} MB</p>
               {compressedUrl && (
-                <img
+                <Image
                   src={compressedUrl}
                   alt="Compressed output image"
+                  width={100}
+                  height={400}
                   className="rounded mt-2"
                 />
               )}
               {compressedUrl && (
-                <a
+                <Link
                   href={compressedUrl}
                   download={`compressed.${format}`}
                   className="inline-block mt-2 text-blue-600 underline"
                 >
                   Download Image
-                </a>
+                </Link>
               )}
             </div>
           </div>
