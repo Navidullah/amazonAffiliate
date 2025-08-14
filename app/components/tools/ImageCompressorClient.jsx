@@ -166,63 +166,70 @@ export default function ImageCompressorClient() {
       </Button>
 
       {/* 👉 Show the original as soon as a file is chosen */}
+      {/* Side-by-side images */}
       {originalImage && (
         <div className="mt-10">
-          <h3 className="font-bold">Original</h3>
-          <p>Size: {(originalImage.size / 1024 / 1024).toFixed(2)} MB</p>
-          {originalUrl && (
-            <img
-              key={originalUrl}
-              src={originalUrl}
-              alt="Original uploaded image"
-              className="rounded mt-2 max-h-96 w-auto object-contain"
-            />
-          )}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Original */}
+            <div>
+              <h3 className="font-bold">Original</h3>
+              <p>Size: {(originalImage.size / 1024 / 1024).toFixed(2)} MB</p>
+              {originalUrl && (
+                <img
+                  key={originalUrl}
+                  src={originalUrl}
+                  alt="Original uploaded image"
+                  className="rounded mt-2 max-h-96 w-auto object-contain"
+                />
+              )}
+            </div>
+
+            {/* Compressed */}
+            {compressedImage && (
+              <div>
+                <h3 className="font-bold">
+                  Compressed ({format.toUpperCase()})
+                </h3>
+                <p>
+                  Size: {(compressedImage.size / 1024 / 1024).toFixed(2)} MB
+                </p>
+                {compressedUrl && (
+                  <>
+                    <img
+                      key={compressedUrl}
+                      src={compressedUrl}
+                      alt="Compressed output image"
+                      className="rounded mt-2 max-h-96 w-auto object-contain"
+                    />
+                    <a
+                      href={compressedUrl}
+                      download={`compressed.${format}`}
+                      className="inline-block mt-2 text-blue-600 underline"
+                    >
+                      Download Image
+                    </a>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       )}
 
-      {/* Compressed + comparison */}
-      {compressedImage && (
-        <div className="mt-10 space-y-8">
-          <div>
-            <h3 className="font-bold">Compressed ({format.toUpperCase()})</h3>
-            <p>Size: {(compressedImage.size / 1024 / 1024).toFixed(2)} MB</p>
-            {compressedUrl && (
-              <>
-                <img
-                  key={compressedUrl}
-                  src={compressedUrl}
-                  alt="Compressed output image"
-                  className="rounded mt-2 max-h-96 w-auto object-contain"
-                />
-                <a
-                  href={compressedUrl}
-                  download={`compressed.${format}`}
-                  className="inline-block mt-2 text-blue-600 underline"
-                >
-                  Download Image
-                </a>
-              </>
-            )}
-          </div>
-
-          {sizeChartData.length === 2 && (
-            <div className="w-full h-64">
-              <h3 className="text-xl font-semibold mb-2">
-                Compression Comparison
-              </h3>
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={sizeChartData}>
-                  <XAxis dataKey="name" />
-                  <YAxis
-                    label={{ value: "MB", angle: -90, position: "insideLeft" }}
-                  />
-                  <Tooltip />
-                  <Bar dataKey="size" radius={[4, 4, 0, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          )}
+      {/* Chart stays below */}
+      {sizeChartData.length === 2 && (
+        <div className="w-full h-64 mt-10">
+          <h3 className="text-xl font-semibold mb-2">Compression Comparison</h3>
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={sizeChartData}>
+              <XAxis dataKey="name" />
+              <YAxis
+                label={{ value: "MB", angle: -90, position: "insideLeft" }}
+              />
+              <Tooltip />
+              <Bar dataKey="size" radius={[4, 4, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
       )}
     </div>

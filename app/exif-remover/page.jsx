@@ -57,7 +57,7 @@ export default function ExifRemoverPage() {
   };
 
   return (
-    <main className="wrapper py-10 space-y-4">
+    <main className="wrapper pt-13 space-y-4">
       {/* JSON-LD */}
       <script
         type="application/ld+json"
