@@ -111,7 +111,7 @@ export default function ImageCompressorClient() {
       : [];
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className=" min-h-screen max-w-4xl mx-auto">
       <div
         className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
           dragging ? "bg-blue-100 border-blue-500" : "bg-muted"
