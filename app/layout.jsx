@@ -38,8 +38,7 @@ export const metadata = {
   // Longer, brand-forward title + a template that appends to page titles.
   title: {
     // Default used on pages that don’t set their own title
-    default:
-      "Shopyor — Expert Health & Fitness Guides, Wellness Tips & Store for Proven Gear",
+    default: "Shopyor – Expert Health,Fitness Tips,Wellness & Proven Gear",
     // Any page that sets `title: "Blogs"` will render as:
     // "Blogs | Shopyor — Expert Health & Fitness Guides, Wellness Tips & Store for Proven Gear"
     template:
@@ -48,7 +47,7 @@ export const metadata = {
 
   // Expanded description to cover both content + commerce
   description:
-    "Shopyor publishes research-backed health & fitness blogs—workouts, nutrition, sleep, and recovery—and curates a store of tested products and tools. Practical guides, honest reviews, and step-by-step routines to help you feel better, move more, and build sustainable habits.",
+    "Shopyor brings you expert health & fitness tips, detailed wellness guides, and proven gear to help you stay active, confident, and live a healthier life daily.",
 
   keywords: [
     "health and fitness",
