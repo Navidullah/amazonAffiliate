@@ -575,7 +575,7 @@ export default async function SingleBlogPage({ params }) {
 
       {/* Content + TOC */}
       <div className="bg-background rounded-xl mt-8">
-        <BlogTOCContent html={blog.description} />
+        <BlogTOCContent html={blog.description} showTOC={false} />
       </div>
 
       {/* Comments */}
