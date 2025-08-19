@@ -1,9 +1,6 @@
-// ==============================
-// File: app/pinterest/page.jsx
-// ==============================
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
@@ -37,38 +34,72 @@ function isHttpUrl(value) {
 }
 
 export default function PinterestPinPage() {
+  // form state
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [link, setLink] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [file, setFile] = useState(null);
+
+  // boards
+  const [boards, setBoards] = useState([]);
+  const [boardsLoading, setBoardsLoading] = useState(true);
+  const [boardsError, setBoardsError] = useState("");
+  const [selectedBoardId, setSelectedBoardId] = useState("");
+
+  // UX
   const [posting, setPosting] = useState(false);
   const [result, setResult] = useState(null);
 
+  // counters
   const titleCount = title.trim().length;
   const descCount = description.trim().length;
+
+  // load boards once
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch("/api/boards");
+        if (!res.ok)
+          throw new Error(
+            "Failed to load boards (are you signed in with Pinterest?)"
+          );
+        const json = await res.json();
+        const list = json?.boards || [];
+        setBoards(list);
+        if (list[0]?.id) setSelectedBoardId(list[0].id);
+      } catch (e) {
+        setBoardsError(e.message || "Could not fetch boards");
+      } finally {
+        setBoardsLoading(false);
+      }
+    })();
+  }, []);
 
   const canSubmitUrl = useMemo(() => {
     return (
       title.trim().length > 0 &&
       description.trim().length > 0 &&
       isHttpUrl(imageUrl) &&
+      !!selectedBoardId &&
       (link ? isHttpUrl(link) : true)
     );
-  }, [title, description, imageUrl, link]);
+  }, [title, description, imageUrl, link, selectedBoardId]);
 
   const canSubmitFile = useMemo(() => {
     return (
       title.trim().length > 0 &&
       description.trim().length > 0 &&
       file instanceof File &&
+      !!selectedBoardId &&
       (link ? isHttpUrl(link) : true)
     );
-  }, [title, description, file, link]);
+  }, [title, description, file, link, selectedBoardId]);
 
   async function submitViaUrl(e) {
     e.preventDefault();
     if (!canSubmitUrl) return;
+
     setPosting(true);
     setResult(null);
     try {
@@ -80,6 +111,7 @@ export default function PinterestPinPage() {
           description,
           link: link || undefined,
           imageUrl,
+          boardId: selectedBoardId, // <<< important
         }),
       });
       const data = await res.json();
@@ -109,6 +141,7 @@ export default function PinterestPinPage() {
   async function submitViaFile(e) {
     e.preventDefault();
     if (!canSubmitFile) return;
+
     setPosting(true);
     setResult(null);
     try {
@@ -117,6 +150,7 @@ export default function PinterestPinPage() {
       fd.append("title", title);
       fd.append("description", description);
       if (link) fd.append("link", link);
+      fd.append("boardId", selectedBoardId); // <<< important
 
       const res = await fetch("/api/pins/upload", { method: "POST", body: fd });
       const data = await res.json();
@@ -143,6 +177,35 @@ export default function PinterestPinPage() {
     }
   }
 
+  const BoardSelect = (
+    <div className="grid gap-2">
+      <Label htmlFor="board">Board *</Label>
+      {boardsLoading ? (
+        <p className="text-sm text-muted-foreground">Loading boards…</p>
+      ) : boardsError ? (
+        <p className="text-sm text-destructive">{boardsError}</p>
+      ) : boards.length === 0 ? (
+        <p className="text-sm text-destructive">
+          No boards found. Create one on Pinterest and refresh.
+        </p>
+      ) : (
+        <select
+          id="board"
+          className="border rounded p-2 bg-background"
+          value={selectedBoardId}
+          onChange={(e) => setSelectedBoardId(e.target.value)}
+          required
+        >
+          {boards.map((b) => (
+            <option key={b.id} value={b.id}>
+              {b.name}
+            </option>
+          ))}
+        </select>
+      )}
+    </div>
+  );
+
   return (
     <div className="min-h-[calc(100dvh-4rem)] w-full flex items-center justify-center p-6 md:p-10 bg-gradient-to-br from-background to-muted/30">
       <Card className="w-full max-w-3xl shadow-xl">
@@ -157,9 +220,12 @@ export default function PinterestPinPage() {
         </CardHeader>
 
         <CardContent className="space-y-10">
-          {/* --- URL mode --- */}
+          {/* --- URL MODE --- */}
           <form onSubmit={submitViaUrl} className="space-y-6">
             <h3 className="font-semibold">Via Image URL</h3>
+
+            {BoardSelect}
+
             <div className="grid gap-4">
               <Label htmlFor="imageUrl" className="flex items-center gap-2">
                 <ImageIcon className="h-4 w-4" /> Image URL *
@@ -176,7 +242,7 @@ export default function PinterestPinPage() {
                   animate={{ opacity: 1, y: 0 }}
                   className="rounded-2xl overflow-hidden border bg-muted/30"
                 >
-                  {/* eslint-disable @next/next/no-img-element */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={imageUrl}
                     alt="pin preview"
@@ -263,9 +329,12 @@ export default function PinterestPinPage() {
 
           <Separator className="my-2" />
 
-          {/* --- File mode --- */}
+          {/* --- FILE MODE --- */}
           <form onSubmit={submitViaFile} className="space-y-6">
             <h3 className="font-semibold">Via File Upload</h3>
+
+            {BoardSelect}
+
             <div className="grid gap-2">
               <Label htmlFor="file" className="flex items-center gap-2">
                 <Upload className="h-4 w-4" /> Image File *
@@ -366,19 +435,3 @@ export default function PinterestPinPage() {
     </div>
   );
 }
-
-// ==================================
-// File: app/api/pins/route.js
-// (Create a Pin using a public image URL)
-// ==================================
-
-// ==================================
-// File: app/api/pins/upload/route.js
-// (Register media → PUT bytes → Create Pin from media_id)
-// ==================================
-
-// ==============================
-// .env.local (example)
-// ==============================
-// PINTEREST_ACCESS_TOKEN=your_long_lived_token
-// PINTEREST_BOARD_ID=your_board_id
