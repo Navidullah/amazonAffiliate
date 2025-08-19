@@ -4,7 +4,12 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function AnimatedBlogImage({ href, src, alt }) {
+export default function AnimatedBlogImage({
+  href,
+  src,
+  alt,
+  prefetch = false,
+}) {
   return (
     <Link href={href}>
       <motion.div

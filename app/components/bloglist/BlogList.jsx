@@ -51,6 +51,7 @@ export default function BlogList({ blogs }) {
             <Link
               href={`/blogs/${blog.slug}`}
               className="block group-hover:underline"
+              prefetch={false}
             >
               <h2 className="text-lg sm:text-xl md:text-xl font-semibold mb-1 break-words max-w-full leading-snug whitespace-normal">
                 {blog.title}
@@ -93,6 +94,7 @@ export default function BlogList({ blogs }) {
               href={`/blogs/${blog.slug}`}
               src={blog.image}
               alt={blog.title}
+              prefetch={false}
             />
           </div>
         </div>
