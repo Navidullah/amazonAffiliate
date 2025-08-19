@@ -5,6 +5,7 @@ export async function POST(req) {
   const API = "https://api.pinterest.com/v5";
 
   try {
+    // 0) Auth
     const session = await getServerSession(authOptions);
     const accessToken =
       session?.pinterestAccessToken || process.env.PINTEREST_ACCESS_TOKEN;
@@ -12,13 +13,11 @@ export async function POST(req) {
     if (!accessToken) {
       return new Response(
         JSON.stringify({ error: "Not authenticated with Pinterest." }),
-        {
-          status: 401,
-          headers: { "Content-Type": "application/json" },
-        }
+        { status: 401, headers: { "Content-Type": "application/json" } }
       );
     }
 
+    // 1) Read form fields
     const form = await req.formData();
     const file = form.get("file");
     const title = form.get("title") || "";
@@ -39,11 +38,12 @@ export async function POST(req) {
       });
     }
 
-    // (optional) basic type check
-    const validTypes = ["image/jpeg", "image/png", "image/webp"];
-    if (file.type && !validTypes.includes(file.type)) {
+    // 2) Validate type, convert to base64
+    const mime = file.type || "image/jpeg";
+    const allowed = ["image/jpeg", "image/png", "image/webp"];
+    if (!allowed.includes(mime)) {
       return new Response(
-        JSON.stringify({ error: `Unsupported type: ${file.type}` }),
+        JSON.stringify({ error: `Unsupported type: ${mime}` }),
         {
           status: 415,
           headers: { "Content-Type": "application/json" },
@@ -51,41 +51,10 @@ export async function POST(req) {
       );
     }
 
-    // 1) Register media
-    const reg = await fetch(`${API}/media`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ media_type: "IMAGE" }),
-    });
-    const regJson = await reg.json();
-    if (!reg.ok) {
-      return new Response(JSON.stringify({ error: regJson }), {
-        status: reg.status,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
+    const buf = Buffer.from(new Uint8Array(await file.arrayBuffer()));
+    const b64 = buf.toString("base64");
 
-    // 2) Upload bytes
-    const buf = await file.arrayBuffer();
-    const put = await fetch(regJson.upload_url, {
-      method: "PUT",
-      headers: { "Content-Type": "application/octet-stream" },
-      body: buf,
-    });
-    if (!put.ok) {
-      return new Response(
-        JSON.stringify({ error: "Upload to storage failed" }),
-        {
-          status: 400,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-    }
-
-    // 3) Create pin
+    // 3) Create the Pin with image_base64
     const pinRes = await fetch(`${API}/pins`, {
       method: "POST",
       headers: {
@@ -97,9 +66,14 @@ export async function POST(req) {
         title,
         description,
         link,
-        media_source: { source_type: "media_id", media_id: regJson.media_id },
+        media_source: {
+          source_type: "image_base64",
+          content_type: mime, // e.g., "image/jpeg"
+          data: b64, // base64 of the image file (no data URI prefix)
+        },
       }),
     });
+
     const pin = await pinRes.json();
     if (!pinRes.ok) {
       return new Response(JSON.stringify({ error: pin }), {
