@@ -11,7 +11,7 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaPinterest } from "react-icons/fa";
 import { Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -128,6 +128,18 @@ export default function LoginPage() {
                       >
                         <FaGithub size={22} />
                         Continue with GitHub
+                      </button>
+                      {/* NEW: Pinterest */}
+                      <button
+                        onClick={async () => {
+                          setLoading(true);
+                          await signIn("pinterest", { callbackUrl: "/" });
+                        }}
+                        disabled={loading}
+                        className="w-full flex items-center justify-center gap-2 px-4 py-2 border rounded hover:bg-red-50 dark:hover:bg-red-900/20 transition font-medium text-base disabled:opacity-60"
+                      >
+                        <FaPinterest size={20} className="text-red-600" />
+                        Continue with Pinterest
                       </button>
                     </div>
                   </CardContent>
