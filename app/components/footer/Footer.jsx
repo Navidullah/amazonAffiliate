@@ -22,16 +22,22 @@ export default function Footer() {
 
         {/* Navigation Links */}
         <div className="flex gap-6 text-sm text-muted-foreground">
-          <a href="/" className="hover:text-foreground transition">
+          <Link href="/" className="hover:text-foreground transition">
             Home
-          </a>
+          </Link>
 
-          <a href="/blogs" className="hover:text-foreground transition">
+          <Link href="/blogs" className="hover:text-foreground transition">
             Blog
-          </a>
-          <a href="/contact" className="hover:text-foreground transition">
+          </Link>
+          <Link href="/contact" className="hover:text-foreground transition">
             Contact
-          </a>
+          </Link>
+          <Link
+            href="/privacy-policy"
+            className="hover:text-foreground transition"
+          >
+            Privacy Policy
+          </Link>
         </div>
 
         {/* Social Icons */}
