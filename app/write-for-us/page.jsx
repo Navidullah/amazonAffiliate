@@ -104,15 +104,17 @@ export default function WriteForUsPage() {
                 key={title}
                 className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5"
               >
-                <h3 className="text-lg font-semibold">{title}</h3>
+                <h3 className="text-lg font-semibold text-blue-950">{title}</h3>
                 <p className="mt-2 text-sm text-neutral-700">{desc}</p>
               </div>
             ))}
           </div>
 
           {/* Guidelines */}
-          <div className="mt-12 rounded-2xl bg-white p-8 shadow-sm ring-1 ring-black/5">
-            <h2 className="text-2xl font-semibold">Topics We Love</h2>
+          <div className="mt-12 rounded-2xl bg-background p-8 shadow-sm ring-1 ring-black/5">
+            <h2 className="text-2xl font-semibold text-blue-950">
+              Topics We Love
+            </h2>
             <ul className="mt-4 grid list-disc gap-2 pl-5 text-neutral-700 md:grid-cols-2">
               <li>Evidence-based health, fitness & conditioning</li>
               <li>Nutrition: macros, micronutrients, meal planning</li>
@@ -163,7 +165,7 @@ export default function WriteForUsPage() {
               </li>
             </ul>
 
-            <div className="mt-8 rounded-xl bg-emerald-50 p-4 text-sm text-emerald-900">
+            <div className="mt-8 rounded-xl bg-emerald-50 p-4 text-sm text-blue-200">
               <strong>Note:</strong> We don’t publish purely promotional
               content, spun/AI-dumped text, or medical advice. If you discuss
               supplements or products, include evidence and a safety disclaimer.
@@ -173,14 +175,14 @@ export default function WriteForUsPage() {
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href="mailto:shopyor.com@gmail.com?subject=Guest%20Post%20Pitch%20for%20Shopyor&body=Hi%20Shopyor%20Team%2C%0A%0ATitle%3A%20%0AOutline%20(3%E2%80%936%20bullets)%3A%0A%0AWhy%20this%20helps%20readers%3A%0A%0AMy%20bio%20(50%E2%80%93100%20words)%3A%0A%0ASamples%20(links)%3A%0A%0AThanks%2C%0A"
-                className="rounded-xl bg-emerald-600 px-5 py-2.5 text-white shadow-sm hover:bg-emerald-700"
+                className="rounded-xl bg-blue-600 px-5 py-2.5 text-white shadow-sm hover:bg-emerald-700"
                 rel="noopener"
               >
                 Email Your Pitch
               </a>
               <Link
                 href="/contact"
-                className="rounded-xl border border-neutral-300 bg-white px-5 py-2.5 text-neutral-900 hover:bg-neutral-50"
+                className="rounded-xl border border-neutral-300 bg-background px-5 py-2.5 text-neutral-900 hover:bg-neutral-50"
               >
                 Use Contact Page
               </Link>
@@ -188,8 +190,8 @@ export default function WriteForUsPage() {
           </div>
 
           {/* FAQs (expanders) */}
-          <div className="mt-12 rounded-2xl bg-white p-8 shadow-sm ring-1 ring-black/5">
-            <h2 className="text-2xl font-semibold">FAQs</h2>
+          <div className="mt-12 rounded-2xl bg-background p-8 shadow-sm ring-1 ring-black/5">
+            <h2 className="text-2xl font-semibold text-blue-950">FAQs</h2>
             <div className="mt-4 space-y-4 text-neutral-700">
               <details className="rounded-xl border border-neutral-200 p-4">
                 <summary className="cursor-pointer font-medium">
