@@ -1,6 +1,10 @@
+// app/api/boards/route.js
 // Lists the current user's boards (id + name)
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
+
+// Use env base (Sandbox while on Trial). Fallback to production host.
+const API = process.env.PINTEREST_API_BASE || "https://api.pinterest.com/v5";
 
 export async function GET() {
   const session = await getServerSession(authOptions);
@@ -10,14 +14,11 @@ export async function GET() {
   if (!token) {
     return new Response(
       JSON.stringify({ error: "Not authenticated with Pinterest" }),
-      {
-        status: 401,
-        headers: { "Content-Type": "application/json" },
-      }
+      { status: 401, headers: { "Content-Type": "application/json" } }
     );
   }
 
-  const r = await fetch("https://api.pinterest.com/v5/boards", {
+  const r = await fetch(`${API}/boards`, {
     headers: { Authorization: `Bearer ${token}` },
   });
   const data = await r.json();

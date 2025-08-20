@@ -1,9 +1,11 @@
+// app/api/pins/upload/route.js
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 
-export async function POST(req) {
-  const API = "https://api.pinterest.com/v5";
+// Use env base (set to https://api-sandbox.pinterest.com/v5 while on Trial)
+const API = process.env.PINTEREST_API_BASE || "https://api.pinterest.com/v5";
 
+export async function POST(req) {
   try {
     // 0) Auth
     const session = await getServerSession(authOptions);
@@ -44,10 +46,7 @@ export async function POST(req) {
     if (!allowed.includes(mime)) {
       return new Response(
         JSON.stringify({ error: `Unsupported type: ${mime}` }),
-        {
-          status: 415,
-          headers: { "Content-Type": "application/json" },
-        }
+        { status: 415, headers: { "Content-Type": "application/json" } }
       );
     }
 

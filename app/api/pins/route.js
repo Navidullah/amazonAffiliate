@@ -1,25 +1,26 @@
+// app/api/pins/route.js
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 
-export async function POST(req) {
-  const API = "https://api.pinterest.com/v5";
+// Use env base (set to https://api-sandbox.pinterest.com/v5 while on Trial)
+const API = process.env.PINTEREST_API_BASE || "https://api.pinterest.com/v5";
 
+export async function POST(req) {
   try {
     const session = await getServerSession(authOptions);
     const accessToken =
       session?.pinterestAccessToken || process.env.PINTEREST_ACCESS_TOKEN;
+
     if (!accessToken) {
       return new Response(
         JSON.stringify({ error: "Not authenticated with Pinterest." }),
-        {
-          status: 401,
-          headers: { "Content-Type": "application/json" },
-        }
+        { status: 401, headers: { "Content-Type": "application/json" } }
       );
     }
 
     const { title, description, link, imageUrl, boardId } = await req.json();
     const targetBoardId = boardId || process.env.PINTEREST_BOARD_ID;
+
     if (!targetBoardId) {
       return new Response(JSON.stringify({ error: "Missing board ID." }), {
         status: 400,
