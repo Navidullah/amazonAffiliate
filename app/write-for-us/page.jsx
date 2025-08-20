@@ -70,14 +70,14 @@ export default function WriteForUsPage() {
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <a
                 href="mailto:editor@shopyor.com?subject=Guest%20Post%20Pitch%20for%20Shopyor&body=Hi%20Shopyor%20Team%2C%0A%0ATitle%3A%20%0AOutline%20(3%E2%80%936%20bullets)%3A%0A%0AWhy%20this%20helps%20readers%3A%0A%0AMy%20bio%20(50%E2%80%93100%20words)%3A%0A%0ASamples%20(links)%3A%0A%0AThanks%2C%0A"
-                className="rounded-xl bg-emerald-600 px-5 py-2.5 text-white shadow-sm hover:bg-emerald-700"
+                className="rounded-xl bg-blue-600 px-5 py-2.5 text-white shadow-sm hover:bg-emerald-700"
                 rel="noopener"
               >
                 Email Your Pitch
               </a>
               <Link
                 href="/contact"
-                className="rounded-xl border border-neutral-300 bg-white px-5 py-2.5 text-neutral-900 hover:bg-neutral-50"
+                className="rounded-xl border border-neutral-300 bg-card px-5 py-2.5 text-card-foreground"
               >
                 Use Contact Page
               </Link>
@@ -163,7 +163,7 @@ export default function WriteForUsPage() {
               </li>
             </ul>
 
-            <div className="mt-8 rounded-xl bg-blue-300 p-4 text-sm">
+            <div className="mt-8 rounded-xl bg-card text-card-foreground p-4 text-sm">
               <strong>Note:</strong> We don’t publish purely promotional
               content, spun/AI-dumped text, or medical advice. If you discuss
               supplements or products, include evidence and a safety disclaimer.
@@ -180,7 +180,7 @@ export default function WriteForUsPage() {
               </a>
               <Link
                 href="/contact"
-                className="rounded-xl border border-neutral-300 bg-card px-5 py-2.5 text-card-foreground hover:bg-neutral-50"
+                className="rounded-xl border border-neutral-300 bg-card px-5 py-2.5 text-card-foreground"
               >
                 Use Contact Page
               </Link>
@@ -227,11 +227,6 @@ export default function WriteForUsPage() {
                 </p>
               </details>
             </div>
-          </div>
-
-          {/* Footer note */}
-          <div className="mt-12 text-center text-sm text-neutral-500">
-            © {new Date().getFullYear()} Shopyor. All rights reserved.
           </div>
         </div>
       </section>
