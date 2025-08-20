@@ -33,7 +33,7 @@ export default function Footer() {
             Contact
           </Link>
           <Link
-            href="/write_for_us"
+            href="/write-for-us"
             className="hover:text-foreground transition"
           >
             Write for us
