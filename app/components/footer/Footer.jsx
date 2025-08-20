@@ -33,6 +33,12 @@ export default function Footer() {
             Contact
           </Link>
           <Link
+            href="/write_for_us"
+            className="hover:text-foreground transition"
+          >
+            Write for us
+          </Link>
+          <Link
             href="/privacy-policy"
             className="hover:text-foreground transition"
           >
