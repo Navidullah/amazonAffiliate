@@ -50,7 +50,7 @@ export default function WriteForUsPage() {
       />
 
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-emerald-100 via-white to-sky-100" />
+        <div className="absolute inset-0 -z-10 bg-background" />
         <div className="mx-auto max-w-5xl px-4 py-16 md:py-24">
           {/* Header */}
           <header className="text-center">
