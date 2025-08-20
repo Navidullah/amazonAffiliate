@@ -1,25 +1,27 @@
-// app/api/pins/upload/route.js
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 
-// Use env base (set to https://api-sandbox.pinterest.com/v5 while on Trial)
 const API = process.env.PINTEREST_API_BASE || "https://api.pinterest.com/v5";
+const IS_SANDBOX = API.includes("api-sandbox");
 
 export async function POST(req) {
   try {
-    // 0) Auth
     const session = await getServerSession(authOptions);
-    const accessToken =
-      session?.pinterestAccessToken || process.env.PINTEREST_ACCESS_TOKEN;
+
+    const accessToken = IS_SANDBOX
+      ? process.env.PINTEREST_ACCESS_TOKEN
+      : session?.pinterestAccessToken || process.env.PINTEREST_ACCESS_TOKEN;
 
     if (!accessToken) {
       return new Response(
-        JSON.stringify({ error: "Not authenticated with Pinterest." }),
-        { status: 401, headers: { "Content-Type": "application/json" } }
+        JSON.stringify({ error: "No Pinterest token available." }),
+        {
+          status: 401,
+          headers: { "Content-Type": "application/json" },
+        }
       );
     }
 
-    // 1) Read form fields
     const form = await req.formData();
     const file = form.get("file");
     const title = form.get("title") || "";
@@ -40,20 +42,21 @@ export async function POST(req) {
       });
     }
 
-    // 2) Validate type, convert to base64
     const mime = file.type || "image/jpeg";
     const allowed = ["image/jpeg", "image/png", "image/webp"];
     if (!allowed.includes(mime)) {
       return new Response(
         JSON.stringify({ error: `Unsupported type: ${mime}` }),
-        { status: 415, headers: { "Content-Type": "application/json" } }
+        {
+          status: 415,
+          headers: { "Content-Type": "application/json" },
+        }
       );
     }
 
     const buf = Buffer.from(new Uint8Array(await file.arrayBuffer()));
     const b64 = buf.toString("base64");
 
-    // 3) Create the Pin with image_base64
     const pinRes = await fetch(`${API}/pins`, {
       method: "POST",
       headers: {
@@ -67,8 +70,8 @@ export async function POST(req) {
         link,
         media_source: {
           source_type: "image_base64",
-          content_type: mime, // e.g., "image/jpeg"
-          data: b64, // base64 of the image file (no data URI prefix)
+          content_type: mime,
+          data: b64,
         },
       }),
     });
