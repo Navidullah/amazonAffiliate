@@ -77,7 +77,7 @@ export default function WriteForUsPage() {
               </a>
               <Link
                 href="/contact"
-                className="rounded-xl border border-neutral-300 bg-card px-5 py-2.5 text-card-foreground hover:bg-gray-100"
+                className="rounded-xl border border-neutral-300 bg-card px-5 py-2.5 text-card-foreground hover:bg-emerald-700"
               >
                 Use Contact Page
               </Link>
