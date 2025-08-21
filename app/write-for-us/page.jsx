@@ -60,7 +60,7 @@ export default function WriteForUsPage() {
             <h1 className="mt-4 text-3xl font-bold tracking-tight md:text-5xl">
               Share Your Expertise on Health, Fitness & Wellness
             </h1>
-            <p className="mx-auto mt-4 max-w-3xl text-neutral-700 md:text-lg">
+            <p className="mx-auto mt-4 max-w-3xl text-neutral-700 dark:text-white md:text-lg">
               Are you a coach, nutritionist, researcher, or passionate writer?
               Pitch an original, evidence-based article and help thousands of
               readers live healthier, happier lives on <strong>Shopyor</strong>.
@@ -69,7 +69,7 @@ export default function WriteForUsPage() {
             {/* Primary CTAs */}
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <a
-                href="mailto:editor@shopyor.com?subject=Guest%20Post%20Pitch%20for%20Shopyor&body=Hi%20Shopyor%20Team%2C%0A%0ATitle%3A%20%0AOutline%20(3%E2%80%936%20bullets)%3A%0A%0AWhy%20this%20helps%20readers%3A%0A%0AMy%20bio%20(50%E2%80%93100%20words)%3A%0A%0ASamples%20(links)%3A%0A%0AThanks%2C%0A"
+                href="mailto:shopyor.com@gmail.com?subject=Guest%20Post%20Pitch%20for%20Shopyor&body=Hi%20Shopyor%20Team%2C%0A%0ATitle%3A%20%0AOutline%20(3%E2%80%936%20bullets)%3A%0A%0AWhy%20this%20helps%20readers%3A%0A%0AMy%20bio%20(50%E2%80%93100%20words)%3A%0A%0ASamples%20(links)%3A%0A%0AThanks%2C%0A"
                 className="rounded-xl bg-blue-600 px-5 py-2.5 text-white shadow-sm hover:bg-emerald-700"
                 rel="noopener"
               >
@@ -77,7 +77,7 @@ export default function WriteForUsPage() {
               </a>
               <Link
                 href="/contact"
-                className="rounded-xl border border-neutral-300 bg-card px-5 py-2.5 text-card-foreground"
+                className="rounded-xl border border-neutral-300 bg-card px-5 py-2.5 text-card-foreground hover:bg-gray-100"
               >
                 Use Contact Page
               </Link>
