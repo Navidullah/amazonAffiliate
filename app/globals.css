@@ -145,13 +145,13 @@
   }
 
   .tiptap h1 {
-    @apply text-3xl font-bold mt-5;
+    @apply text-3xl font-bold mt-5 text-blue-800;
   }
   .tiptap h2 {
-    @apply text-2xl font-semibold mt-5;
+    @apply text-2xl font-semibold mt-5 text-blue-800;
   }
   .tiptap h3 {
-    @apply text-xl font-medium mt-5;
+    @apply text-xl font-medium mt-5 text-blue-800;
   }
   .tiptap ul {
     @apply list-disc ml-6;
