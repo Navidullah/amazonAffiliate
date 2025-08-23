@@ -70,6 +70,15 @@ export default function HomeHero({ postsCount = 0 }) {
           >
             Try Tools
           </Link>
+          <Link
+            href="/product"
+            className="rounded-lg border border-gray-200 dark:border-white/10 
+                       px-4 py-2 text-sm font-medium 
+                       hover:bg-gray-50 dark:hover:bg-white/5 
+                       active:scale-[0.99]"
+          >
+            Explore Products
+          </Link>
         </div>
 
         {/* Quick topics */}
