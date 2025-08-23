@@ -145,13 +145,13 @@
   }
 
   .tiptap h1 {
-    @apply text-3xl font-bold mt-5 text-blue-800;
+    @apply text-3xl font-bold mt-5 text-[#0947d9];
   }
   .tiptap h2 {
-    @apply text-2xl font-semibold mt-5 text-blue-800;
+    @apply text-2xl font-semibold mt-5 text-[#0947d9];
   }
   .tiptap h3 {
-    @apply text-xl font-medium mt-5 text-blue-800;
+    @apply text-xl font-medium mt-5 text-[#0947d9];
   }
   .tiptap ul {
     @apply list-disc ml-6;
@@ -163,7 +163,7 @@
     @apply my-1;
   }
   .tiptap blockquote {
-    @apply border-l-4 border-foreground pl-4 italic text-[#de7428] my-4;
+    @apply border-l-4 border-[#de7428] pl-4 italic text-[#de7428] my-4;
   }
   .tiptap p {
     @apply py-3;

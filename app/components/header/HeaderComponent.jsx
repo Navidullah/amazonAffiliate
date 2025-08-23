@@ -105,38 +105,9 @@ export default function Header() {
             <Link href="/product" className="hover:text-primary">
               Product
             </Link>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  className="flex items-center gap-1 hover:text-primary"
-                >
-                  Tools <SquareArrowDownRight className="w-4 h-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56">
-                <DropdownMenuItem asChild>
-                  <Link href="/image-compressor">
-                    <FaCompress className="mr-2" /> Image Compressor
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/background-remover">
-                    <FaBackward className="mr-2" /> Background Remover
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/exif-remover">
-                    <FaBackward className="mr-2" /> EXIF Remover
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/generate-link">
-                    <Link2 className="mr-2" /> Affiliate Link Generator
-                  </Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <Link href="/tools" className="hover:text-primary">
+              Tools
+            </Link>
           </div>
 
           {/* Cart */}
