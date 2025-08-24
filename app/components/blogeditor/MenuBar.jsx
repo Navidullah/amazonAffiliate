@@ -39,6 +39,16 @@ const MenuBar = ({ editor }) => {
   const fileInputRef = useRef();
   const docInputRef = useRef();
 
+  // ---------- helpers ----------
+  // Keep this in sync with TiptapEditor.jsx
+  const sanitizeUrl = (raw) => {
+    if (!raw) return "";
+    const trimmed = raw.trim();
+    const lower = trimmed.toLowerCase();
+    if (lower.startsWith("javascript:") || lower.startsWith("data:")) return "";
+    return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+  };
+
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
@@ -86,27 +96,64 @@ const MenuBar = ({ editor }) => {
     }
   };
 
+  // ---------- link actions (external) ----------
+  const addOrEditExternalLink = () => {
+    const prev = editor.getAttributes("link").href || "";
+    const input = window.prompt("Enter URL", prev || "https://");
+    const clean = sanitizeUrl(input);
+    if (!clean) {
+      // invalid/empty → remove link if one exists
+      editor.chain().focus().unsetLink().run();
+      return;
+    }
+
+    const { empty } = editor.state.selection;
+    if (empty) {
+      // if nothing selected, insert URL text and then link it
+      editor
+        .chain()
+        .focus()
+        .insertContent(clean)
+        .extendMarkRange("link")
+        .setLink({ href: clean })
+        .run();
+    } else {
+      editor
+        .chain()
+        .focus()
+        .extendMarkRange("link")
+        .setLink({ href: clean })
+        .run();
+    }
+  };
+
+  const unlink = () => editor.chain().focus().unsetLink().run();
+
   const Options = [
     // Headings & Paragraph
     {
       icon: <Heading1 className="size-7" />,
       onClick: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
       pressed: editor.isActive("heading", { level: 1 }),
+      title: "Heading 1",
     },
     {
       icon: <Heading2 className="size-7" />,
       onClick: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
       pressed: editor.isActive("heading", { level: 2 }),
+      title: "Heading 2",
     },
     {
       icon: <Heading3 className="size-7" />,
       onClick: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
       pressed: editor.isActive("heading", { level: 3 }),
+      title: "Heading 3",
     },
     {
       icon: <BsParagraph className="size-7" />,
       onClick: () => editor.chain().focus().setParagraph().run(),
       pressed: editor.isActive("paragraph"),
+      title: "Paragraph",
     },
 
     // Text styles
@@ -114,21 +161,25 @@ const MenuBar = ({ editor }) => {
       icon: <Bold className="size-7" />,
       onClick: () => editor.chain().focus().toggleBold().run(),
       pressed: editor.isActive("bold"),
+      title: "Bold",
     },
     {
       icon: <Italic className="size-7" />,
       onClick: () => editor.chain().focus().toggleItalic().run(),
       pressed: editor.isActive("italic"),
+      title: "Italic",
     },
     {
       icon: <LucideStrikethrough className="size-7" />,
       onClick: () => editor.chain().focus().toggleStrike().run(),
       pressed: editor.isActive("strike"),
+      title: "Strikethrough",
     },
     {
       icon: <Highlighter className="size-7" />,
       onClick: () => editor.chain().focus().toggleHighlight().run(),
       pressed: editor.isActive("highlight"),
+      title: "Highlight",
     },
 
     // Lists
@@ -136,11 +187,13 @@ const MenuBar = ({ editor }) => {
       icon: <List className="size-7" />,
       onClick: () => editor.chain().focus().toggleBulletList().run(),
       pressed: editor.isActive("bulletList"),
+      title: "Bullet list",
     },
     {
       icon: <ListOrdered className="size-7" />,
       onClick: () => editor.chain().focus().toggleOrderedList().run(),
       pressed: editor.isActive("orderedList"),
+      title: "Numbered list",
     },
 
     // Alignment
@@ -148,21 +201,25 @@ const MenuBar = ({ editor }) => {
       icon: <AlignLeft className="size-7" />,
       onClick: () => editor.chain().focus().setTextAlign("left").run(),
       pressed: editor.isActive("textAlign", { textAlign: "left" }),
+      title: "Align left",
     },
     {
       icon: <AlignRight className="size-7" />,
       onClick: () => editor.chain().focus().setTextAlign("right").run(),
       pressed: editor.isActive("textAlign", { textAlign: "right" }),
+      title: "Align right",
     },
     {
       icon: <AlignCenter className="size-7" />,
       onClick: () => editor.chain().focus().setTextAlign("center").run(),
       pressed: editor.isActive("textAlign", { textAlign: "center" }),
+      title: "Align center",
     },
     {
       icon: <AlignJustify className="size-7" />,
       onClick: () => editor.chain().focus().setTextAlign("justify").run(),
       pressed: editor.isActive("textAlign", { textAlign: "justify" }),
+      title: "Justify",
     },
 
     // Blockquote
@@ -170,45 +227,38 @@ const MenuBar = ({ editor }) => {
       icon: <Quote className="size-7" />,
       onClick: () => editor.chain().focus().toggleBlockquote().run(),
       pressed: editor.isActive("blockquote"),
+      title: "Blockquote",
     },
 
     // Media Uploads
     {
       icon: <ImageIcon className="size-7" />,
-      onClick: () => fileInputRef.current.click(),
+      onClick: () => fileInputRef.current?.click(),
       pressed: false,
+      title: "Insert image",
     },
     {
       icon: <FileIcon className="size-7" />,
-      onClick: () => docInputRef.current.click(),
+      onClick: () => docInputRef.current?.click(),
       pressed: false,
+      title: "Import .docx",
     },
 
-    // Links
+    // Links (External)
     {
       icon: <LinkIcon className="size-7" />,
-      onClick: () => {
-        const url = prompt("Enter internal path (e.g., /blog/my-post):");
-        if (url && url.startsWith("/")) {
-          editor
-            .chain()
-            .focus()
-            .extendMarkRange("link")
-            .setLink({ href: url })
-            .run();
-        } else {
-          alert("Only internal links allowed (start with '/')");
-        }
-      },
+      onClick: addOrEditExternalLink,
       pressed: editor.isActive("link"),
+      title: "Add/Edit link (external)",
     },
     {
       icon: <UnlinkIcon className="size-7" />,
-      onClick: () => editor.chain().focus().unsetLink().run(),
+      onClick: unlink,
       pressed: false,
+      title: "Remove link",
     },
 
-    // 🔥 Table Tools
+    // Table Tools
     {
       icon: <Table className="size-7" />,
       onClick: () =>
@@ -218,21 +268,25 @@ const MenuBar = ({ editor }) => {
           .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
           .run(),
       pressed: false,
+      title: "Insert table",
     },
     {
       icon: <Columns className="size-7" />,
       onClick: () => editor.chain().focus().addColumnAfter().run(),
       pressed: false,
+      title: "Add column",
     },
     {
       icon: <Rows className="size-7" />,
       onClick: () => editor.chain().focus().addRowAfter().run(),
       pressed: false,
+      title: "Add row",
     },
     {
       icon: <Trash className="size-7" />,
       onClick: () => editor.chain().focus().deleteTable().run(),
       pressed: false,
+      title: "Delete table",
     },
   ];
 
@@ -261,6 +315,7 @@ const MenuBar = ({ editor }) => {
           key={index}
           pressed={option.pressed}
           onClick={option.onClick}
+          title={option.title}
           className={option.pressed ? "bg-gray-300 dark:bg-gray-700" : ""}
         >
           {option.icon}

@@ -8,7 +8,7 @@ import TextAlign from "@tiptap/extension-text-align";
 import { FontSize, TextStyle } from "@tiptap/extension-text-style";
 import Image from "@tiptap/extension-image";
 import Blockquote from "@tiptap/extension-blockquote";
-import { Placeholder } from "@tiptap/extensions";
+import Placeholder from "@tiptap/extension-placeholder";
 import Link from "@tiptap/extension-link";
 import { Table } from "@tiptap/extension-table";
 import { TableHeader } from "@tiptap/extension-table-header";
@@ -21,6 +21,7 @@ import TableOfContents, {
 import MenuBar from "./MenuBar";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
+// ------------------------ utils ------------------------
 function slugId(text) {
   const base = (text || "")
     .toString()
@@ -34,6 +35,15 @@ function slugId(text) {
   return `${base}-${rand}`;
 }
 
+// ensure URLs are safe and have protocol
+const sanitizeUrl = (raw) => {
+  if (!raw) return "";
+  const trimmed = raw.trim();
+  const lower = trimmed.toLowerCase();
+  if (lower.startsWith("javascript:") || lower.startsWith("data:")) return "";
+  return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+};
+
 export default function TiptapEditor({ value, onChange }) {
   const [anchors, setAnchors] = useState([]);
 
@@ -46,11 +56,15 @@ export default function TiptapEditor({ value, onChange }) {
       Blockquote,
       Image,
       Link.configure({
+        openOnClick: true,
+        autolink: true,
+        linkOnPaste: true,
         HTMLAttributes: {
-          class: "text-blue-500 font-semibold hover:underline",
+          target: "_blank",
+          rel: "noopener noreferrer nofollow ugc",
+          class: "text-blue-600 underline hover:opacity-80",
         },
-        openOnClick: false,
-        linkOnPaste: false,
+        validate: (href) => !!sanitizeUrl(href),
       }),
       TextAlign.configure({ types: ["heading", "paragraph", "tableCell"] }),
       Placeholder.configure({ placeholder: "Write something …" }),
@@ -125,7 +139,10 @@ export default function TiptapEditor({ value, onChange }) {
 
       {/* Main */}
       <main className="flex flex-col w-full h-full overflow-auto">
+        {/* Toolbar */}
         <MenuBar editor={editor} />
+
+        {/* Editor */}
         <EditorContent editor={editor} className="tiptap" />
       </main>
     </div>
