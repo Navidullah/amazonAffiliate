@@ -57,7 +57,7 @@ export default function Footer() {
             <FaFacebook size={20} />
           </a>
           <a
-            href="https://twitter.com"
+            href="https://x.com/shopyor"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-foreground transition"

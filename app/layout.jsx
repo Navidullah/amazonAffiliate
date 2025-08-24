@@ -137,15 +137,15 @@ export default function RootLayout({ children }) {
                 url: "https://www.shopyor.com",
                 logo: "https://www.shopyor.com/shopyor.png",
                 sameAs: [
-                  "https://www.facebook.com/YourPage",
+                  "https://www.facebook.com/shopyor.blogs",
                   "https://www.instagram.com/YourProfile",
-                  "https://twitter.com/YourProfile",
+                  "https://x.com/shopyor",
                 ],
                 contactPoint: [
                   {
                     "@type": "ContactPoint",
                     contactType: "customer support",
-                    email: "support@shopyor.com",
+                    email: "shopyor.com@gmail.com",
                   },
                 ],
               },
