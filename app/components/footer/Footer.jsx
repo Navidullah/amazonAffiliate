@@ -1,7 +1,7 @@
 // components/Footer.jsx
 import Image from "next/image";
 import Link from "next/link";
-import { FaGithub, FaTwitter, FaLinkedin } from "react-icons/fa";
+import { FaTwitter, FaLinkedin, FaFacebook } from "react-icons/fa";
 
 export default function Footer() {
   return (
@@ -49,12 +49,12 @@ export default function Footer() {
         {/* Social Icons */}
         <div className="flex gap-4 text-muted-foreground">
           <a
-            href="https://github.com"
+            href="https://facebook.com"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-foreground transition"
           >
-            <FaGithub size={20} />
+            <FaFacebook size={20} />
           </a>
           <a
             href="https://twitter.com"
