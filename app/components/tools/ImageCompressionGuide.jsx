@@ -284,9 +284,9 @@ export default function ImageCompressionGuide() {
       </Card>
 
       {/* Closing */}
-      <div className="mt-8 rounded-2xl border border-border p-6">
+      <div className="mt-8 rounded-2xl border border-border p-6 bg-card">
         <h3 className="text-xl font-semibold">Final thoughts</h3>
-        <p className="mt-2 text-muted-foreground">
+        <p className="mt-2 text-card-foreground">
           Start simple: resize, then compress. Measure performance, and automate
           where you can. Your pages will load faster, look great, and keep
           visitors engaged.

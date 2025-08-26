@@ -102,7 +102,7 @@ export default function Header() {
             <Link href="/blogs" className="hover:text-primary">
               Blog
             </Link>
-            <Link href="/product" className="hover:text-primary">
+            <Link href="/products" className="hover:text-primary">
               Product
             </Link>
             <Link href="/tools" className="hover:text-primary">
@@ -158,7 +158,7 @@ export default function Header() {
                 </SheetClose>
                 <SheetClose asChild>
                   <Link
-                    href="/product"
+                    href="/products"
                     className="text-lg font-semibold hover:text-primary"
                   >
                     Product
