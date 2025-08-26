@@ -236,7 +236,7 @@ export default function ProductDetailsClient({
   };
 
   return (
-    <div className="pt-30 flex flex-col w-full mx-auto gap-12">
+    <div className="flex flex-col w-full mx-auto gap-12">
       {/* Top section: product info */}
       <div className="flex flex-col md:flex-row gap-10 w-full max-w-5xl mx-auto">
         {/* LEFT: Image gallery */}

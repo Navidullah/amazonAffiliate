@@ -178,7 +178,7 @@ export default function RootLayout({ children }) {
 
         <Providers>
           <HeaderComponent />
-          <main className="pt-28 sm:pt-28 md:pt-32 lg:pt-36 xl:pt-40">
+          <main className="pt-40 sm:pt-35 md:pt-40 lg:pt-45 xl:pt-40">
             {children}
           </main>
           <Analytics />
