@@ -266,7 +266,7 @@ export default function BlogEditor({ value, onChange }) {
           </Button>
           <Button
             type="button"
-            size="sm"
+            size="lg"
             onClick={() => editor.chain().focus().redo().run()}
             variant="outline"
           >
