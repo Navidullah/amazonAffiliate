@@ -1,310 +1,211 @@
-/*"use client";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import dynamic from "next/dynamic";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import {
-  Select,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-  SelectValue,
-} from "@/components/ui/select";
-import LoadingSpinner from "@/components/ui/LoadingSpinner";
-
-const categories = [
-  "Technology",
-  "Programming",
-  "Health",
-  "Lifestyle",
-  "Science",
-  "Travel",
-  "Education",
-  "Sports",
-];
-
-const TiptapEditor = dynamic(
-  () => import("@/app/components/blogeditor/TiptapEditor"),
-  {
-    ssr: false,
-  }
-);
-
-export default function WritePage() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
-
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState(""); // Tiptap HTML
-  const [category, setCategory] = useState("");
-  const [image, setImage] = useState(null); // main image file
-  const [preview, setPreview] = useState(""); // preview of main image
-
-  const handleMainImage = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
-    if (file) setPreview(URL.createObjectURL(file));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!title || !description || !category || !image) {
-      alert("All fields are required.");
-      return;
-    }
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("description", description);
-    formData.append("category", category);
-    formData.append("image", image);
-    formData.append("author", session.user.name || "");
-    formData.append("authorImage", session.user.image || "");
-    formData.append("authorEmail", session.user.email || "");
-
-    const res = await fetch("/api/blogs", {
-      method: "POST",
-      body: formData,
-    });
-
-    if (res.ok) {
-      router.push("/");
-    } else {
-      alert("Failed to publish blog!");
-    }
-  };
-
-  if (status === "loading")
-    return (
-      <LoadingSpinner message="Loading editor, please wait..." size="large" />
-    );
-  if (!session) return <div>Please log in to write a blog.</div>;
-
-  return (
-    <div className="min-h-screen">
-      <Card className="p-6">
-        <CardHeader>
-          <CardTitle>Write a New Blog</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <Input
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="Blog Title"
-              required
-            />
-            <Select value={category} onValueChange={setCategory} required>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select Category" />
-              </SelectTrigger>
-              <SelectContent>
-                {categories.map((cat) => (
-                  <SelectItem key={cat} value={cat}>
-                    {cat}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            {/* Main Image Upload 
-            <div>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleMainImage}
-                required
-              />
-              {preview && (
-                <img
-                  src={preview}
-                  alt="Preview"
-                  className="w-40 h-32 mt-2 rounded object-cover"
-                />
-              )}
-            </div>
-            {/* Tiptap rich text editor *
-            <TiptapEditor value={description} onChange={setDescription} />
-            <Button type="submit" className="mt-4">
-              Publish
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
-    </div>
-  );
-}
-*/
 "use client";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+
 import { useState } from "react";
-import dynamic from "next/dynamic";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import {
-  Select,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-  SelectValue,
-} from "@/components/ui/select";
-import LoadingSpinner from "@/components/ui/LoadingSpinner";
-import { storage } from "@/lib/firebase"; // <-- your Firebase setup
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { Icon } from "@iconify/react";
 
-const categories = [
-  "Technology",
-  "Programming",
-  "Health & fitness",
-  "Lifestyle",
-  "Science",
-  "Travel",
-  "Education",
-  "Sports",
-];
-
-const TiptapEditor = dynamic(
-  () => import("@/app/components/blogeditor/TiptapEditor"),
-  { ssr: false }
-);
+// Firebase (for cover upload if mode === 'file')
+import { storage } from "@/lib/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import TiptapEditor from "../components/blogeditor/TiptapEditor";
 
 export default function WritePage() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
-
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
   const [metaDescription, setMetaDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [image, setImage] = useState(null);
-  const [preview, setPreview] = useState("");
-  const [uploading, setUploading] = useState(false);
+  const [content, setContent] = useState("");
 
-  const handleMainImage = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
-    if (file) setPreview(URL.createObjectURL(file));
+  // cover image controls
+  const [coverMode, setCoverMode] = useState("file"); // 'file' | 'url'
+  const [coverFile, setCoverFile] = useState(null);
+  const [coverUrl, setCoverUrl] = useState("");
+  const [preview, setPreview] = useState("");
+
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleCoverPick = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setCoverFile(file);
+    setPreview(URL.createObjectURL(file));
   };
+
+  async function uploadCoverToFirebase() {
+    const safeName = `blogs/covers/${Date.now()}_${coverFile.name.replace(/\s+/g, "_")}`;
+    const imageRef = ref(storage, safeName);
+    await uploadBytes(imageRef, coverFile);
+    return await getDownloadURL(imageRef);
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!title || !metaDescription || !description || !category || !image) {
-      toast.error("All fields are required.");
-      return;
-    }
-    setUploading(true);
 
-    // Upload image to Firebase Storage
-    let imageUrl = "";
-    try {
-      const imageRef = ref(storage, `blogs/${Date.now()}_${image.name}`);
-      await uploadBytes(imageRef, image);
-      imageUrl = await getDownloadURL(imageRef);
-    } catch (error) {
-      setUploading(false);
-      toast.error("Failed to upload image to Firebase.");
-      return;
+    if (!title || !metaDescription || !category) {
+      return toast.error("Please fill title, meta description, and category.");
+    }
+    if (coverMode === "file" && !coverFile) {
+      return toast.error(
+        "Please choose a cover image file or switch to URL mode."
+      );
+    }
+    if (coverMode === "url" && !/^https?:\/\//i.test(coverUrl.trim())) {
+      return toast.error("Please provide a valid http(s) cover image URL.");
     }
 
-    // Submit blog data to API
-    const blogData = {
-      title,
-      metaDescription,
-      description,
-      category,
-      image: imageUrl, // <-- Firebase URL
-      author: session.user.name || "",
-      authorImage: session.user.image || "",
-      authorEmail: session.user.email || "",
-    };
-
+    setSubmitting(true);
     try {
+      // Resolve cover image
+      let image = "";
+      if (coverMode === "file") {
+        image = await uploadCoverToFirebase();
+      } else {
+        image = coverUrl.trim();
+      }
+
+      // POST your blog
+      const payload = {
+        title,
+        metaDescription,
+        category,
+        image, // cover image URL (from file upload or direct URL)
+        contentHtml: content, // editor HTML
+      };
+
+      // Adjust endpoint to match your API
       const res = await fetch("/api/blogs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(blogData),
+        body: JSON.stringify(payload),
       });
-      setUploading(false);
 
-      if (res.ok) {
-        toast.success("Blog published successfully!");
-        router.push("/");
-      } else {
-        toast.error("Failed to publish blog!");
-      }
+      const json = await res.json();
+      if (!res.ok) throw new Error(json?.error || "Failed to publish");
+
+      toast.success("Blog published!");
+      // reset form
+      setTitle("");
+      setMetaDescription("");
+      setCategory("");
+      setContent("");
+      setCoverMode("file");
+      setCoverFile(null);
+      setCoverUrl("");
+      setPreview("");
     } catch (err) {
-      setUploading(false);
-      toast.error("Something went wrong!");
+      console.error(err);
+      toast.error(err.message || "Something went wrong.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
-  if (status === "loading")
-    return (
-      <LoadingSpinner message="Loading editor, please wait..." size="large" />
-    );
-  if (!session) return <div>Please log in to write a blog.</div>;
-
   return (
-    <div className="min-h-screen wrapper mt-6">
-      <Card className="p-6">
+    <div className="container max-w-4xl mx-auto py-8">
+      <Card className="shadow-xl border-0">
         <CardHeader>
-          <CardTitle>Write a New Blog</CardTitle>
+          <CardTitle className="text-2xl font-bold">Write a Blog</CardTitle>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <Input
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="Blog Title"
-              required
-            />
-            {/* ✅ Meta Description Input */}
-            <Input
-              value={metaDescription}
-              onChange={(e) => setMetaDescription(e.target.value)}
-              placeholder="Meta Description (max 160 characters)"
-              maxLength={160}
-              required
-            />
-            <Select value={category} onValueChange={setCategory} required>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select Category" />
-              </SelectTrigger>
-              <SelectContent>
-                {categories.map((cat) => (
-                  <SelectItem key={cat} value={cat}>
-                    {cat}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            {/* Main Image Upload */}
-            <div className="flex items-center">
-              <Icon icon="line-md:upload-loop" width="50" height="50" />
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleMainImage}
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <Label>Title</Label>
+                <Input
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <Label>Category</Label>
+                <Input
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label>Meta Description</Label>
+              <Textarea
+                rows={3}
+                value={metaDescription}
+                onChange={(e) => setMetaDescription(e.target.value)}
                 required
               />
+            </div>
 
-              {preview && (
-                <img
-                  src={preview}
-                  alt="Preview"
-                  className="w-40 h-32 mt-2 rounded object-cover"
+            {/* Cover image: File or URL */}
+            <div className="space-y-2">
+              <Label>Cover Image</Label>
+              <div className="flex gap-6 items-center">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="coverMode"
+                    value="file"
+                    checked={coverMode === "file"}
+                    onChange={() => setCoverMode("file")}
+                  />
+                  <span>Upload file</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="coverMode"
+                    value="url"
+                    checked={coverMode === "url"}
+                    onChange={() => setCoverMode("url")}
+                  />
+                  <span>Use image URL</span>
+                </label>
+              </div>
+
+              {coverMode === "file" ? (
+                <div className="flex items-center gap-4">
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleCoverPick}
+                  />
+                  {preview && (
+                    <img
+                      src={preview}
+                      alt="Preview"
+                      className="w-36 h-28 rounded object-cover border"
+                    />
+                  )}
+                </div>
+              ) : (
+                <Input
+                  value={coverUrl}
+                  onChange={(e) => setCoverUrl(e.target.value)}
+                  placeholder="https://example.com/cover.jpg"
                 />
               )}
             </div>
-            <TiptapEditor value={description} onChange={setDescription} />
-            <Button type="submit" className="mt-4" disabled={uploading}>
-              {uploading ? "Publishing..." : "Publish"}
+
+            {/* Tiptap editor: supports insert image by URL and local upload via toolbar */}
+            <div className="space-y-2">
+              <Label>Content</Label>
+              <TiptapEditor
+                initialContent="<p>Write your blog…</p>"
+                onChange={setContent}
+              />
+            </div>
+
+            <Button
+              type="submit"
+              size="lg"
+              disabled={submitting}
+              className="w-full"
+            >
+              {submitting ? "Publishing…" : "Publish Blog"}
             </Button>
           </form>
         </CardContent>
