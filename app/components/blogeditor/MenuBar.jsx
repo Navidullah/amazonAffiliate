@@ -22,10 +22,11 @@ import {
   Heading4,
   Heading5,
   Heading6,
+  Highlighter,
 } from "lucide-react";
 import { toast } from "react-toastify";
 
-// Minimal URL sanitizer (http/https only)
+/** Allow only http/https URLs */
 function sanitizeUrl(u) {
   if (!u) return "";
   try {
@@ -36,11 +37,14 @@ function sanitizeUrl(u) {
   return "";
 }
 
-function MenuBar({ editor }) {
+function MenuBar({ editor, onUploadFile }) {
   const fileInputRef = useRef(null);
   if (!editor) return null;
 
-  // Insert image by URL
+  /** Keep selection stable when opening prompts (mouse down steals focus) */
+  const keepSelection = (e) => e.preventDefault();
+
+  /** Insert image by pasting a URL */
   const insertImageByUrl = () => {
     const raw = window.prompt("Paste image URL (https://…):", "https://");
     const clean = sanitizeUrl(raw);
@@ -50,34 +54,40 @@ function MenuBar({ editor }) {
     toast.success("Image inserted by URL!");
   };
 
-  // Local file upload → you can replace with your Firebase upload logic if you want uploads here too
-  const onPickLocalFile = async (file) => {
+  /** Local file → optional uploader → insert resulting URL */
+  const onLocalChange = async (e) => {
+    const file = e.target.files?.[0];
     if (!file) return;
     try {
-      // Example: use a pre-existing uploader; or plug in Firebase here.
-      // For now, create a temporary object URL (NOT for production!):
-      const tempUrl = URL.createObjectURL(file);
-      editor.chain().focus().setImage({ src: tempUrl, alt: file.name }).run();
-      toast.success(
-        "Local image added (preview URL). Replace with your upload logic!"
-      );
-    } catch (e) {
-      toast.error("Failed to add image.");
+      let url;
+      if (typeof onUploadFile === "function") {
+        // Use your real uploader (Firebase, S3, etc.) if provided by parent
+        url = await onUploadFile(file);
+      } else {
+        // Fallback preview-only URL (replace with real upload in production)
+        url = URL.createObjectURL(file);
+      }
+      editor.chain().focus().setImage({ src: url, alt: file.name }).run();
+      toast.success("Image inserted!");
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to insert image.");
     } finally {
-      // Revoke after a tick if you change the logic to a permanent URL.
+      // Allow choosing the same file again
+      e.target.value = "";
     }
   };
 
-  const handleLocalClick = () => fileInputRef.current?.click();
-  const onLocalChange = (e) => onPickLocalFile(e.target.files?.[0]);
-
+  /** Add or remove link on current selection */
   const setLinkOnSelection = () => {
     const prev = editor.getAttributes("link").href || "https://";
     const raw = window.prompt("Link URL (https://…):", prev);
     if (raw === null) return; // cancelled
     if (raw === "") return editor.chain().focus().unsetLink().run();
+
     const clean = sanitizeUrl(raw);
     if (!clean) return toast.error("Please paste a valid http(s) URL.");
+
     editor
       .chain()
       .focus()
@@ -87,10 +97,13 @@ function MenuBar({ editor }) {
     toast.success("Link set!");
   };
 
+  /** Heading button factory */
   const HeadingBtn = ({ level, Icon }) => (
     <Button
+      type="button"
       size="sm"
       variant={editor.isActive("heading", { level }) ? "default" : "secondary"}
+      onMouseDown={keepSelection}
       onClick={() => editor.chain().focus().toggleHeading({ level }).run()}
       title={`Heading ${level}`}
     >
@@ -100,36 +113,60 @@ function MenuBar({ editor }) {
 
   return (
     <div className="p-2 border-b flex flex-wrap items-center gap-1 bg-muted/40">
-      {/* Text styles */}
+      {/* Inline styles */}
       <Button
+        type="button"
         size="sm"
         variant={editor.isActive("bold") ? "default" : "secondary"}
         onClick={() => editor.chain().focus().toggleBold().run()}
+        title="Bold"
       >
         <Bold className="h-4 w-4" />
       </Button>
       <Button
+        type="button"
         size="sm"
         variant={editor.isActive("italic") ? "default" : "secondary"}
         onClick={() => editor.chain().focus().toggleItalic().run()}
+        title="Italic"
       >
         <Italic className="h-4 w-4" />
       </Button>
       <Button
+        type="button"
         size="sm"
         variant={editor.isActive("strike") ? "default" : "secondary"}
         onClick={() => editor.chain().focus().toggleStrike().run()}
+        title="Strikethrough"
       >
         <Strikethrough className="h-4 w-4" />
       </Button>
+      {/* Underline requires @tiptap/extension-underline; keep disabled if you didn’t add it */}
       <Button
+        type="button"
         size="sm"
         variant={editor.isActive("underline") ? "default" : "secondary"}
         onClick={() => editor.chain().focus().toggleUnderline?.().run()}
-        disabled
+        title="Underline"
+        disabled={
+          !editor.extensionManager.extensions.find(
+            (ex) => ex.name === "underline"
+          )
+        }
       >
         <UnderlineIcon className="h-4 w-4" />
       </Button>
+      {/* Highlight requires @tiptap/extension-highlight in your editor */}
+      <Button
+        type="button"
+        size="sm"
+        variant={editor.isActive("highlight") ? "default" : "secondary"}
+        onClick={() => editor.chain().focus().toggleHighlight().run()}
+        title="Highlight"
+      >
+        <Highlighter className="h-4 w-4" />
+      </Button>
+
       <Separator orientation="vertical" className="mx-1 h-6" />
 
       {/* Headings H1–H6 */}
@@ -139,75 +176,93 @@ function MenuBar({ editor }) {
       <HeadingBtn level={4} Icon={Heading4} />
       <HeadingBtn level={5} Icon={Heading5} />
       <HeadingBtn level={6} Icon={Heading6} />
+
       <Separator orientation="vertical" className="mx-1 h-6" />
 
       {/* Lists / blocks */}
       <Button
+        type="button"
         size="sm"
         variant={editor.isActive("bulletList") ? "default" : "secondary"}
         onClick={() => editor.chain().focus().toggleBulletList().run()}
+        title="Bullet list"
       >
         <List className="h-4 w-4" />
       </Button>
       <Button
+        type="button"
         size="sm"
         variant={editor.isActive("orderedList") ? "default" : "secondary"}
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
+        title="Ordered list"
       >
         <ListOrdered className="h-4 w-4" />
       </Button>
       <Button
+        type="button"
         size="sm"
         variant={editor.isActive("blockquote") ? "default" : "secondary"}
         onClick={() => editor.chain().focus().toggleBlockquote().run()}
+        title="Blockquote"
       >
         <Quote className="h-4 w-4" />
       </Button>
       <Button
+        type="button"
         size="sm"
         variant="secondary"
         onClick={() => editor.chain().focus().setHorizontalRule().run()}
+        title="Horizontal rule"
       >
         <Minus className="h-4 w-4" />
       </Button>
       <Button
+        type="button"
         size="sm"
         variant={editor.isActive("codeBlock") ? "default" : "secondary"}
         onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+        title="Code block"
       >
         <Code2 className="h-4 w-4" />
       </Button>
+
       <Separator orientation="vertical" className="mx-1 h-6" />
 
       {/* Links */}
       <Button
+        type="button"
         size="sm"
         variant={editor.isActive("link") ? "default" : "secondary"}
+        onMouseDown={keepSelection}
         onClick={setLinkOnSelection}
+        title="Add/Edit link"
       >
         <LinkIcon className="h-4 w-4" />
       </Button>
 
-      {/* IMAGES */}
+      {/* Images */}
       <Separator orientation="vertical" className="mx-1 h-6" />
       <Button
+        type="button"
         size="sm"
         variant="secondary"
-        onClick={handleLocalClick}
+        onClick={() => fileInputRef.current?.click()}
         title="Insert image (upload file)"
       >
         <ImageIcon className="h-4 w-4" />
       </Button>
       <Button
+        type="button"
         size="sm"
         variant="secondary"
+        onMouseDown={keepSelection}
         onClick={insertImageByUrl}
         title="Insert image by URL"
       >
         <ImagePlus className="h-4 w-4" />
       </Button>
 
-      {/* hidden local file picker */}
+      {/* Hidden local file input */}
       <input
         ref={fileInputRef}
         type="file"

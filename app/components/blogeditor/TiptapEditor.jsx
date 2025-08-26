@@ -6,19 +6,17 @@ import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import Underline from "@tiptap/extension-underline";
+import Highlight from "@tiptap/extension-highlight";
 import MenuBar from "./MenuBar";
 
-/**
- * Controlled Tiptap:
- * - Accepts `value` (HTML string) and `onChange`.
- * - Loads `value` on mount and whenever it changes (if different).
- * - No Table-of-Contents extensions/components added.
- */
 export default function TiptapEditor({ value = "<p></p>", onChange }) {
   const extensions = useMemo(
     () => [
-      StarterKit, // includes heading, lists, bold, italic, code, etc.
+      StarterKit, // includes headings, lists, code, etc.
       Underline,
+      Highlight.configure({
+        multicolor: false,
+      }),
       Image.configure({
         inline: false,
         allowBase64: false,
@@ -35,10 +33,7 @@ export default function TiptapEditor({ value = "<p></p>", onChange }) {
   const editor = useEditor({
     extensions,
     content: value || "<p></p>",
-    onUpdate: ({ editor }) => {
-      const html = editor.getHTML();
-      onChange?.(html);
-    },
+    onUpdate: ({ editor }) => onChange?.(editor.getHTML()),
     editorProps: {
       attributes: {
         class:
@@ -47,7 +42,7 @@ export default function TiptapEditor({ value = "<p></p>", onChange }) {
     },
   });
 
-  // Sync external `value` into editor when it changes (avoid loops).
+  // keep editor content in sync with external value
   useEffect(() => {
     if (!editor) return;
     const current = editor.getHTML();
