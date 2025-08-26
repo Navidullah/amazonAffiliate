@@ -1,40 +1,46 @@
 "use client";
 
-import { memo } from "react";
+import { memo, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
   Bold,
   Italic,
   Strikethrough,
-  Underline,
-  ImageIcon,
-  ImagePlus,
-  LinkIcon,
-  Quote,
+  Underline as UnderlineIcon,
   List,
   ListOrdered,
+  Quote,
   Minus,
   Code2,
+  LinkIcon,
+  ImageIcon,
+  ImagePlus,
+  Heading1,
+  Heading2,
+  Heading3,
+  Heading4,
+  Heading5,
+  Heading6,
 } from "lucide-react";
 import { toast } from "react-toastify";
 
-/** Minimal URL sanitizer: allow only http/https */
+// Minimal URL sanitizer (http/https only)
 function sanitizeUrl(u) {
   if (!u) return "";
   try {
     const url = new URL(u.trim());
     if (url.protocol === "http:" || url.protocol === "https:")
       return url.toString();
-  } catch (_) {
-    /* ignore */
-  }
+  } catch {}
   return "";
 }
 
-function MenuBar({ editor, fileInputRef, onPickLocalFile, uploading }) {
+function MenuBar({ editor }) {
+  const fileInputRef = useRef(null);
   if (!editor) return null;
 
+  // Insert image by URL
   const insertImageByUrl = () => {
     const raw = window.prompt("Paste image URL (https://…):", "https://");
     const clean = sanitizeUrl(raw);
@@ -43,6 +49,27 @@ function MenuBar({ editor, fileInputRef, onPickLocalFile, uploading }) {
     editor.chain().focus().setImage({ src: clean, alt }).run();
     toast.success("Image inserted by URL!");
   };
+
+  // Local file upload → you can replace with your Firebase upload logic if you want uploads here too
+  const onPickLocalFile = async (file) => {
+    if (!file) return;
+    try {
+      // Example: use a pre-existing uploader; or plug in Firebase here.
+      // For now, create a temporary object URL (NOT for production!):
+      const tempUrl = URL.createObjectURL(file);
+      editor.chain().focus().setImage({ src: tempUrl, alt: file.name }).run();
+      toast.success(
+        "Local image added (preview URL). Replace with your upload logic!"
+      );
+    } catch (e) {
+      toast.error("Failed to add image.");
+    } finally {
+      // Revoke after a tick if you change the logic to a permanent URL.
+    }
+  };
+
+  const handleLocalClick = () => fileInputRef.current?.click();
+  const onLocalChange = (e) => onPickLocalFile(e.target.files?.[0]);
 
   const setLinkOnSelection = () => {
     const prev = editor.getAttributes("link").href || "https://";
@@ -60,9 +87,20 @@ function MenuBar({ editor, fileInputRef, onPickLocalFile, uploading }) {
     toast.success("Link set!");
   };
 
+  const HeadingBtn = ({ level, Icon }) => (
+    <Button
+      size="sm"
+      variant={editor.isActive("heading", { level }) ? "default" : "secondary"}
+      onClick={() => editor.chain().focus().toggleHeading({ level }).run()}
+      title={`Heading ${level}`}
+    >
+      <Icon className="h-4 w-4" />
+    </Button>
+  );
+
   return (
     <div className="p-2 border-b flex flex-wrap items-center gap-1 bg-muted/40">
-      {/* Basic text styles */}
+      {/* Text styles */}
       <Button
         size="sm"
         variant={editor.isActive("bold") ? "default" : "secondary"}
@@ -90,11 +128,20 @@ function MenuBar({ editor, fileInputRef, onPickLocalFile, uploading }) {
         onClick={() => editor.chain().focus().toggleUnderline?.().run()}
         disabled
       >
-        <Underline className="h-4 w-4" />
+        <UnderlineIcon className="h-4 w-4" />
       </Button>
       <Separator orientation="vertical" className="mx-1 h-6" />
 
-      {/* Lists / blockquotes / code */}
+      {/* Headings H1–H6 */}
+      <HeadingBtn level={1} Icon={Heading1} />
+      <HeadingBtn level={2} Icon={Heading2} />
+      <HeadingBtn level={3} Icon={Heading3} />
+      <HeadingBtn level={4} Icon={Heading4} />
+      <HeadingBtn level={5} Icon={Heading5} />
+      <HeadingBtn level={6} Icon={Heading6} />
+      <Separator orientation="vertical" className="mx-1 h-6" />
+
+      {/* Lists / blocks */}
       <Button
         size="sm"
         variant={editor.isActive("bulletList") ? "default" : "secondary"}
@@ -146,8 +193,7 @@ function MenuBar({ editor, fileInputRef, onPickLocalFile, uploading }) {
       <Button
         size="sm"
         variant="secondary"
-        onClick={onPickLocalFile}
-        disabled={uploading}
+        onClick={handleLocalClick}
         title="Insert image (upload file)"
       >
         <ImageIcon className="h-4 w-4" />
@@ -160,6 +206,15 @@ function MenuBar({ editor, fileInputRef, onPickLocalFile, uploading }) {
       >
         <ImagePlus className="h-4 w-4" />
       </Button>
+
+      {/* hidden local file picker */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        hidden
+        onChange={onLocalChange}
+      />
     </div>
   );
 }

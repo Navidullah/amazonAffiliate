@@ -1,88 +1,65 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
-
+import Link from "@tiptap/extension-link";
+import Underline from "@tiptap/extension-underline";
 import MenuBar from "./MenuBar";
-import { toast } from "react-toastify";
-
-// If you already have Firebase in your project, keep this import path consistent:
-import { storage } from "@/lib/firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 /**
- * Small helper to upload a file to Firebase Storage and return a public URL.
- * If you’re using a different uploader, replace this function and keep the same signature.
+ * Controlled Tiptap:
+ * - Accepts `value` (HTML string) and `onChange`.
+ * - Loads `value` on mount and whenever it changes (if different).
+ * - No Table-of-Contents extensions/components added.
  */
-async function uploadImageFileToFirebase(file, folder = "editor") {
-  const safeName = `${folder}/${Date.now()}_${file.name.replace(/\s+/g, "_")}`;
-  const imageRef = ref(storage, safeName);
-  await uploadBytes(imageRef, file);
-  return await getDownloadURL(imageRef);
-}
-
-export default function TiptapEditor({
-  initialContent = "<p>Write your blog…</p>",
-  onChange,
-}) {
-  const fileInputRef = useRef(null);
-  const [uploading, setUploading] = useState(false);
-
-  const editor = useEditor({
-    extensions: [
-      StarterKit,
+export default function TiptapEditor({ value = "<p></p>", onChange }) {
+  const extensions = useMemo(
+    () => [
+      StarterKit, // includes heading, lists, bold, italic, code, etc.
+      Underline,
       Image.configure({
         inline: false,
         allowBase64: false,
         HTMLAttributes: { loading: "lazy", referrerpolicy: "no-referrer" },
       }),
+      Link.configure({
+        openOnClick: false,
+        HTMLAttributes: { rel: "noopener noreferrer", target: "_blank" },
+      }),
     ],
-    content: initialContent,
+    []
+  );
+
+  const editor = useEditor({
+    extensions,
+    content: value || "<p></p>",
     onUpdate: ({ editor }) => {
-      onChange?.(editor.getHTML());
+      const html = editor.getHTML();
+      onChange?.(html);
+    },
+    editorProps: {
+      attributes: {
+        class:
+          "prose dark:prose-invert max-w-none focus:outline-none min-h-[240px]",
+      },
     },
   });
 
-  const handleLocalFilePick = useCallback(
-    async (e) => {
-      const file = e.target.files?.[0];
-      if (!file || !editor) return;
-      try {
-        setUploading(true);
-        const url = await uploadImageFileToFirebase(file, "blogs/content");
-        editor.chain().focus().setImage({ src: url, alt: file.name }).run();
-        toast.success("Image inserted!");
-      } catch (err) {
-        console.error(err);
-        toast.error("Failed to upload image.");
-      } finally {
-        setUploading(false);
-        // reset input so the same file can be chosen again later
-        e.target.value = "";
-      }
-    },
-    [editor]
-  );
+  // Sync external `value` into editor when it changes (avoid loops).
+  useEffect(() => {
+    if (!editor) return;
+    const current = editor.getHTML();
+    if (typeof value === "string" && value !== current) {
+      editor.commands.setContent(value, false);
+    }
+  }, [value, editor]);
 
   return (
     <div className="border rounded-xl overflow-hidden">
-      <MenuBar
-        editor={editor}
-        fileInputRef={fileInputRef}
-        onPickLocalFile={() => fileInputRef.current?.click()}
-        uploading={uploading}
-      />
-      {/* hidden file input for toolbar button */}
-      <input
-        ref={fileInputRef}
-        type="file"
-        accept="image/*"
-        hidden
-        onChange={handleLocalFilePick}
-      />
-      <div className="prose dark:prose-invert max-w-none p-4 min-h-[240px]">
+      <MenuBar editor={editor} />
+      <div className="p-4">
         <EditorContent editor={editor} />
       </div>
     </div>
