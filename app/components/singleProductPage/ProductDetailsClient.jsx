@@ -10,6 +10,7 @@ import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Star, ZoomIn } from "lucide-react";
 import { toast } from "react-toastify";
 import { useCart } from "../cart/CartContext";
+import Link from "next/link";
 
 export default function ProductDetailsClient({ product }) {
   const isAffiliate = product.type === "affiliate";
