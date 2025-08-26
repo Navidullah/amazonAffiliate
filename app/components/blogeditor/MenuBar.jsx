@@ -249,7 +249,7 @@ function MenuBar({ editor, onUploadFile }) {
         onClick={() => fileInputRef.current?.click()}
         title="Insert image (upload file)"
       >
-        <ImageIcon className="h-4 w-4" />
+        <ImageIcon className="h-2 w-4" />
       </Button>
       <Button
         type="button"
@@ -259,7 +259,7 @@ function MenuBar({ editor, onUploadFile }) {
         onClick={insertImageByUrl}
         title="Insert image by URL"
       >
-        <ImagePlus className="h-4 w-4" />
+        <ImagePlus className="h-2 w-4" />
       </Button>
 
       {/* Hidden local file input */}
