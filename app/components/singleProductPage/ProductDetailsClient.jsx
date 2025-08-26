@@ -181,6 +181,20 @@ export default function ProductDetailsClient({ product }) {
           )}
         </div>
         {/* Add extra features: share, wishlist, etc */}
+        {/* Breadcrumb navigation */}
+        <nav className="mt-6 text-sm text-gray-500 dark:text-gray-400">
+          <Link href="/" className="hover:underline">
+            Home
+          </Link>{" "}
+          /{" "}
+          <Link href="/products" className="hover:underline">
+            Products
+          </Link>{" "}
+          /{" "}
+          <span className="text-gray-700 dark:text-gray-200">
+            {product.title}
+          </span>
+        </nav>
       </div>
     </div>
   );
