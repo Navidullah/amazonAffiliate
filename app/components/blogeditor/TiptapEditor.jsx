@@ -7,16 +7,26 @@ import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import Underline from "@tiptap/extension-underline";
 import Highlight from "@tiptap/extension-highlight";
+
+// TABLES
+import Table from "@tiptap/extension-table";
+import TableRow from "@tiptap/extension-table-row";
+import TableHeader from "@tiptap/extension-table-header";
+import TableCell from "@tiptap/extension-table-cell";
+
 import MenuBar from "./MenuBar";
 
-export default function TiptapEditor({ value = "<p></p>", onChange }) {
+export default function TiptapEditor({
+  value = "<p></p>",
+  onChange,
+  /** Optional: pass a function that uploads a File and returns a public URL */
+  onUploadFile,
+}) {
   const extensions = useMemo(
     () => [
-      StarterKit, // includes headings, lists, code, etc.
+      StarterKit, // includes heading, lists, blockquote, code, etc.
       Underline,
-      Highlight.configure({
-        multicolor: false,
-      }),
+      Highlight.configure({ multicolor: false }),
       Image.configure({
         inline: false,
         allowBase64: false,
@@ -26,6 +36,14 @@ export default function TiptapEditor({ value = "<p></p>", onChange }) {
         openOnClick: false,
         HTMLAttributes: { rel: "noopener noreferrer", target: "_blank" },
       }),
+      // --- Table support ---
+      Table.configure({
+        resizable: true,
+        lastColumnResizable: true,
+      }),
+      TableRow,
+      TableHeader,
+      TableCell,
     ],
     []
   );
@@ -42,7 +60,7 @@ export default function TiptapEditor({ value = "<p></p>", onChange }) {
     },
   });
 
-  // keep editor content in sync with external value
+  // keep editor content in sync with external value (controlled mode)
   useEffect(() => {
     if (!editor) return;
     const current = editor.getHTML();
@@ -53,7 +71,7 @@ export default function TiptapEditor({ value = "<p></p>", onChange }) {
 
   return (
     <div className="border rounded-xl overflow-hidden">
-      <MenuBar editor={editor} />
+      <MenuBar editor={editor} onUploadFile={onUploadFile} />
       <div className="p-4">
         <EditorContent editor={editor} />
       </div>
