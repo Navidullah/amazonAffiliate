@@ -203,36 +203,6 @@ export default function WritePage() {
             </div>
 
             {/* Author details (required by model) */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              <div>
-                <Label>Author Name</Label>
-                <Input
-                  value={author}
-                  onChange={(e) => setAuthor(e.target.value)}
-                  placeholder="e.g., Naveed Khan"
-                  required
-                />
-              </div>
-              <div>
-                <Label>Author Email</Label>
-                <Input
-                  type="email"
-                  value={authorEmail}
-                  onChange={(e) => setAuthorEmail(e.target.value)}
-                  placeholder="you@example.com"
-                  required
-                />
-              </div>
-              <div>
-                <Label>Author Image URL</Label>
-                <Input
-                  value={authorImage}
-                  onChange={(e) => setAuthorImage(e.target.value)}
-                  placeholder="https://…/avatar.jpg"
-                  required
-                />
-              </div>
-            </div>
 
             {/* Cover image: File or URL */}
             <div className="space-y-2">
