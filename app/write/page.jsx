@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -13,10 +13,27 @@ import { storage } from "@/lib/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import TiptapEditor from "../components/blogeditor/TiptapEditor";
 
+// simple slugify (keeps it local)
+function slugify(str) {
+  return String(str)
+    .toLowerCase()
+    .trim()
+    .replace(/[\s\W-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 export default function WritePage() {
+  // required by model
   const [title, setTitle] = useState("");
+  const [description, setDescription] = useState(""); // ✅ model-required
   const [metaDescription, setMetaDescription] = useState("");
   const [category, setCategory] = useState("");
+  const [author, setAuthor] = useState(""); // ✅ model-required
+  const [authorEmail, setAuthorEmail] = useState(""); // ✅ model-required
+  const [authorImage, setAuthorImage] = useState(""); // ✅ model-required
+  const [slug, setSlug] = useState(""); // ✅ model-required & unique
+
+  // editor content (not in your model yet, but keep sending if your API stores it)
   const [content, setContent] = useState("");
 
   // cover image controls
@@ -26,6 +43,13 @@ export default function WritePage() {
   const [preview, setPreview] = useState("");
 
   const [submitting, setSubmitting] = useState(false);
+
+  // auto-generate slug from title (editable afterwards)
+  useEffect(() => {
+    if (!title) return setSlug("");
+    setSlug((prev) => (prev ? prev : slugify(title)));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [title]);
 
   const handleCoverPick = (e) => {
     const file = e.target.files?.[0];
@@ -44,8 +68,17 @@ export default function WritePage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!title || !metaDescription || !category) {
-      return toast.error("Please fill title, meta description, and category.");
+    // minimal front-end guard rails to match your model
+    if (!title || !category || !description) {
+      return toast.error("Please fill Title, Category, and Description.");
+    }
+    if (!author || !authorEmail || !authorImage) {
+      return toast.error(
+        "Please fill Author, Author Email, and Author Image URL."
+      );
+    }
+    if (!slug) {
+      return toast.error("Please provide a slug.");
     }
     if (coverMode === "file" && !coverFile) {
       return toast.error(
@@ -58,7 +91,7 @@ export default function WritePage() {
 
     setSubmitting(true);
     try {
-      // Resolve cover image
+      // Resolve cover image -> model field name is "image"
       let image = "";
       if (coverMode === "file") {
         image = await uploadCoverToFirebase();
@@ -66,30 +99,40 @@ export default function WritePage() {
         image = coverUrl.trim();
       }
 
-      // POST your blog
       const payload = {
         title,
+        description, // ✅ model-required
         metaDescription,
-        category,
-        image, // cover image URL (from file upload or direct URL)
-        contentHtml: content, // editor HTML
+        category, // ✅ model-required
+        author, // ✅ model-required
+        authorEmail, // ✅ model-required
+        authorImage, // ✅ model-required (URL)
+        image, // ✅ model-required (cover)
+        slug, // ✅ model-required & unique
+        contentHtml: content, // optional: your API can store this if your model adds it
       };
 
-      // Adjust endpoint to match your API
       const res = await fetch("/api/blogs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
-      const json = await res.json();
-      if (!res.ok) throw new Error(json?.error || "Failed to publish");
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok)
+        throw new Error(json?.message || json?.error || "Failed to publish");
 
       toast.success("Blog published!");
+
       // reset form
       setTitle("");
+      setDescription("");
       setMetaDescription("");
       setCategory("");
+      setAuthor("");
+      setAuthorEmail("");
+      setAuthorImage("");
+      setSlug("");
       setContent("");
       setCoverMode("file");
       setCoverFile(null);
@@ -111,6 +154,7 @@ export default function WritePage() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Title / Category */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
                 <Label>Title</Label>
@@ -130,14 +174,69 @@ export default function WritePage() {
               </div>
             </div>
 
+            {/* Slug */}
             <div>
-              <Label>Meta Description</Label>
+              <Label>Slug</Label>
+              <Input
+                value={slug}
+                onChange={(e) => setSlug(slugify(e.target.value))}
+                placeholder="auto-generated-from-title"
+                required
+              />
+            </div>
+
+            {/* Description (model-required) vs Meta Description (SEO) */}
+            <div>
+              <Label>Description (shown on blog)</Label>
+              <Textarea
+                rows={3}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+              />
+            </div>
+
+            <div>
+              <Label>Meta Description (less than 165 chars for SEO)</Label>
               <Textarea
                 rows={3}
                 value={metaDescription}
                 onChange={(e) => setMetaDescription(e.target.value)}
+                maxLength={165}
                 required
               />
+            </div>
+
+            {/* Author details (required by model) */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              <div>
+                <Label>Author Name</Label>
+                <Input
+                  value={author}
+                  onChange={(e) => setAuthor(e.target.value)}
+                  placeholder="e.g., Naveed Khan"
+                  required
+                />
+              </div>
+              <div>
+                <Label>Author Email</Label>
+                <Input
+                  type="email"
+                  value={authorEmail}
+                  onChange={(e) => setAuthorEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  required
+                />
+              </div>
+              <div>
+                <Label>Author Image URL</Label>
+                <Input
+                  value={authorImage}
+                  onChange={(e) => setAuthorImage(e.target.value)}
+                  placeholder="https://…/avatar.jpg"
+                  required
+                />
+              </div>
             </div>
 
             {/* Cover image: File or URL */}
@@ -190,7 +289,7 @@ export default function WritePage() {
               )}
             </div>
 
-            {/* Tiptap editor: supports insert image by URL and local upload via toolbar */}
+            {/* Content */}
             <div className="space-y-2">
               <Label>Content</Label>
               <TiptapEditor
