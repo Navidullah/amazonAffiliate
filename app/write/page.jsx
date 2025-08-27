@@ -12,6 +12,8 @@ import { toast } from "react-toastify";
 import { storage } from "@/lib/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import TiptapEditor from "../components/blogeditor/TiptapEditor";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 // simple slugify (keeps it local)
 function slugify(str) {
@@ -23,6 +25,8 @@ function slugify(str) {
 }
 
 export default function WritePage() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
   // required by model
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState(""); // ✅ model-required
@@ -104,9 +108,9 @@ export default function WritePage() {
         description, // ✅ model-required
         metaDescription,
         category, // ✅ model-required
-        author, // ✅ model-required
-        authorEmail, // ✅ model-required
-        authorImage, // ✅ model-required (URL)
+        author: session.user.name || "", // ✅ model-required
+        authorEmail: session.user.email || "", // ✅ model-required
+        authorImage: session.user.image, // ✅ model-required (URL)
         image, // ✅ model-required (cover)
         slug, // ✅ model-required & unique
         contentHtml: content, // optional: your API can store this if your model adds it
@@ -138,6 +142,7 @@ export default function WritePage() {
       setCoverFile(null);
       setCoverUrl("");
       setPreview("");
+      router.push("/");
     } catch (err) {
       console.error(err);
       toast.error(err.message || "Something went wrong.");
