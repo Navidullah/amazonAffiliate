@@ -73,17 +73,10 @@ export default function WritePage() {
     e.preventDefault();
 
     // minimal front-end guard rails to match your model
-    if (!title || !category || !description) {
-      return toast.error("Please fill Title, Category, and Description.");
+    if (!title || !category || !description || !metaDescription) {
+      return toast.error("Please all fields are required");
     }
-    if (!author || !authorEmail || !authorImage) {
-      return toast.error(
-        "Please fill Author, Author Email, and Author Image URL."
-      );
-    }
-    if (!slug) {
-      return toast.error("Please provide a slug.");
-    }
+
     if (coverMode === "file" && !coverFile) {
       return toast.error(
         "Please choose a cover image file or switch to URL mode."
