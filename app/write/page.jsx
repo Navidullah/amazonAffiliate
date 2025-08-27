@@ -113,7 +113,6 @@ export default function WritePage() {
         authorImage: session.user.image, // ✅ model-required (URL)
         image, // ✅ model-required (cover)
         slug, // ✅ model-required & unique
-        contentHtml: content, // optional: your API can store this if your model adds it
       };
 
       const res = await fetch("/api/blogs", {
@@ -191,15 +190,6 @@ export default function WritePage() {
             </div>
 
             {/* Description (model-required) vs Meta Description (SEO) */}
-            <div>
-              <Label>Description (shown on blog)</Label>
-              <Textarea
-                rows={3}
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                required
-              />
-            </div>
 
             <div>
               <Label>Meta Description (less than 165 chars for SEO)</Label>
@@ -296,10 +286,10 @@ export default function WritePage() {
 
             {/* Content */}
             <div className="space-y-2">
-              <Label>Content</Label>
+              <Label>Blog Description</Label>
               <TiptapEditor
                 initialContent="<p>Write your blog…</p>"
-                onChange={setContent}
+                onChange={setDescription}
               />
             </div>
 
