@@ -26,7 +26,7 @@ export default function BmiCalculator() {
   const [inch, setInch] = useState("");
   const [lb, setLb] = useState("");
 
-  // hydrate from localStorage
+  // derived + localStorage hydration
   useEffect(() => {
     try {
       const saved = JSON.parse(localStorage.getItem("bmi:last") || "null");
@@ -43,7 +43,6 @@ export default function BmiCalculator() {
     }
   }, []);
 
-  // persist to localStorage
   useEffect(() => {
     const payload = { units, cm, kg, ft, inch, lb };
     localStorage.setItem("bmi:last", JSON.stringify(payload));
@@ -206,6 +205,33 @@ export default function BmiCalculator() {
             )}
           </div>
 
+          {/* Category scale */}
+          <div className="mt-4 grid grid-cols-4 text-center text-xs sm:text-sm">
+            {[
+              { label: "<18.5", name: "Underweight" },
+              { label: "18.5–24.9", name: "Healthy" },
+              { label: "25–29.9", name: "Overweight" },
+              { label: "≥30", name: "Obesity" },
+            ].map((s, i) => (
+              <div key={i} className="space-y-1">
+                <div
+                  className={
+                    "mx-auto h-2 w-20 rounded-full " +
+                    (i === 0
+                      ? "bg-sky-500"
+                      : i === 1
+                        ? "bg-green-500"
+                        : i === 2
+                          ? "bg-amber-500"
+                          : "bg-red-500")
+                  }
+                />
+                <div className="text-muted-foreground">{s.name}</div>
+                <div className="font-medium">{s.label}</div>
+              </div>
+            ))}
+          </div>
+
           {/* Healthy range */}
           {valid && healthyRangeKg && (
             <p className="mt-4 text-sm text-muted-foreground">
@@ -246,21 +272,33 @@ function getBmiCategory(bmi) {
   if (!Number.isFinite(bmi))
     return { name: "—", advice: "Enter height and weight." };
   if (bmi < 18.5)
-    return { name: "Underweight", advice: "Consider a nutrition plan." };
+    return {
+      name: "Underweight",
+      advice: "Consider a nutrition plan to reach a healthy range.",
+    };
   if (bmi < 25)
-    return { name: "Healthy weight", advice: "Great! Keep up healthy habits." };
+    return {
+      name: "Healthy weight",
+      advice: "Great! Keep up balanced diet and activity.",
+    };
   if (bmi < 30)
-    return { name: "Overweight", advice: "Try small lifestyle tweaks." };
-  return { name: "Obesity", advice: "Consider professional guidance." };
+    return {
+      name: "Overweight",
+      advice: "Small lifestyle tweaks can help—focus on habits.",
+    };
+  return {
+    name: "Obesity",
+    advice: "Consider speaking with a clinician for tailored guidance.",
+  };
 }
 
 function sanitizeNum(v, allowDecimal = true) {
   let out = v.replace(/[^0-9.]/g, "");
-  if (!allowDecimal) out = out.replace(/\\./g, "");
+  if (!allowDecimal) out = out.replace(/\./g, "");
   const firstDot = out.indexOf(".");
   if (firstDot !== -1) {
     out =
-      out.slice(0, firstDot + 1) + out.slice(firstDot + 1).replace(/\\./g, "");
+      out.slice(0, firstDot + 1) + out.slice(firstDot + 1).replace(/\./g, "");
   }
   return out;
 }
