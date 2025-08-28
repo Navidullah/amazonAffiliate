@@ -1,5 +1,6 @@
 // app/tools/bmi/page.jsx
-import BmiCalculator from "@/components/tools/BmiCalculator";
+
+import BmiCalculator from "@/app/components/tools/BmiCalculator";
 import {
   Accordion,
   AccordionItem,
