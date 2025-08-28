@@ -1,6 +1,12 @@
 // app/tools/page.jsx
 import Link from "next/link";
-import { Image as ImgIcon, Wand2, Scissors, Link2 } from "lucide-react";
+import {
+  Image as ImgIcon,
+  Wand2,
+  Scissors,
+  Link2,
+  Activity,
+} from "lucide-react";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
 
@@ -129,6 +135,13 @@ export default function ToolsPage() {
           title="Affiliate Link Generator"
           desc="Build clean, trackable affiliate links to share across your posts and socials."
           icon={Link2}
+        />
+        {/* NEW: BMI Calculator */}
+        <ToolCard
+          href="/tools/bmi"
+          title="BMI Calculator"
+          desc="Calculate your Body Mass Index using metric or imperial units, with instant category and healthy range."
+          icon={Activity}
         />
       </section>
     </main>
