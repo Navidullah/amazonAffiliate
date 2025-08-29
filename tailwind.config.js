@@ -6,6 +6,7 @@ module.exports = {
         jetbrains: ["var(--font-jetbrainsMono)"],
         geist: ["var(--font-geist-sans)"],
         geistMono: ["var(--font-geist-mono)"],
+        montserrat: ["var(--font-montserrat)"],
       },
       backgroundImage: {
         "custom-gradient":
