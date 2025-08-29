@@ -6,6 +6,7 @@ import {
   Scissors,
   Link2,
   Activity,
+  Wand,
 } from "lucide-react";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
@@ -142,6 +143,12 @@ export default function ToolsPage() {
           title="BMI Calculator"
           desc="Calculate your Body Mass Index using metric or imperial units, with instant category and healthy range."
           icon={Activity}
+        />
+        <ToolCard
+          href="/tools/background-remover-image"
+          title="Image Background Remover"
+          desc="Extract people or objects from photos instantly with our browser‑based AI background remover."
+          icon={Wand}
         />
       </section>
     </main>
