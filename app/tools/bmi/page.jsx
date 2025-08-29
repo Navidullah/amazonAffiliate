@@ -195,7 +195,7 @@ export default function BmiToolPage() {
           clinical markers like blood pressure and blood sugar.
         </p>
 
-        <h2 className="font-semibold text-3xl mb-3">
+        <h2 className="font-semibold text-3xl mt-3 mb-3">
           How to Calculate BMI — Formula & Example
         </h2>
         <ul>
@@ -209,7 +209,7 @@ export default function BmiToolPage() {
           </li>
         </ul>
 
-        <h2 className="font-semibold text-3xl mb-3">
+        <h2 className="font-semibold text-3xl mt-3 mb-3">
           Adult BMI Chart & Categories
         </h2>
         <div className="overflow-x-auto rounded-xl border">
@@ -270,7 +270,7 @@ export default function BmiToolPage() {
           </table>
         </div>
 
-        <h2 className="font-semibold text-3xl mb-3">Why BMI Matters</h2>
+        <h2 className="font-semibold text-3xl mt-3 mb-3">Why BMI Matters</h2>
         <p>
           As BMI rises, the statistical risk of certain conditions—like type 2
           diabetes, high blood pressure, heart disease, sleep apnea, and fatty
@@ -278,7 +278,9 @@ export default function BmiToolPage() {
           linked to nutrient deficiencies or other health issues.
         </p>
 
-        <h2 className="font-semibold text-3xl mb-3">Where BMI Falls Short</h2>
+        <h2 className="font-semibold text-3xl mt-3 mb-3">
+          Where BMI Falls Short
+        </h2>
         <ul>
           <li>It does not distinguish between muscle, bone, and fat mass.</li>
           <li>
@@ -298,7 +300,7 @@ export default function BmiToolPage() {
           lipids, A1C/fasting glucose, and clinical history.
         </p>
 
-        <h2 className="font-semibold text-3xl mb-3">
+        <h2 className="font-semibold text-3xl mt-3 mb-3">
           How to Improve or Maintain a Healthy BMI
         </h2>
         <ol>
@@ -326,7 +328,7 @@ export default function BmiToolPage() {
           </li>
         </ol>
 
-        <h2 className="font-semibold text-3xl mb-3">
+        <h2 className="font-semibold text-3xl mt-3 mb-3">
           Frequently Asked Questions
         </h2>
         <Accordion type="single" collapsible className="w-full">
