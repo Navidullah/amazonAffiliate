@@ -114,6 +114,9 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
+body {
+  font-family: var(--font-montserrat);
+}
 
 @layer base {
   * {
@@ -169,7 +172,7 @@
     @apply my-1;
   }
   .tiptap blockquote {
-    @apply border-l-4 border-[#de7428] pl-4 italic text-[#de7428] my-4;
+    @apply border-l-4 border-[#de7428] pl-4 italic bg-orange-200 my-4;
   }
   .tiptap p {
     @apply py-3;
