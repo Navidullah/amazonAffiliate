@@ -138,7 +138,7 @@ export default function BmiToolPage() {
       <Separator />
 
       {/* Article */}
-      <article className="prose prose-neutral dark:prose-invert max-w-none">
+      <article className="max-w-none">
         <h2>What Is BMI?</h2>
         <p>
           Body Mass Index (BMI) is a simple ratio of your weight to your height.
