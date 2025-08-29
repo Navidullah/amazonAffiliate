@@ -186,7 +186,11 @@ export default function BgRemoveClient() {
             style={checker}
           >
             {origURL ? (
-              <img src={origURL} alt="Original" className=" object-contain" />
+              <img
+                src={origURL}
+                alt="Original"
+                className="h-full w-full object-contain"
+              />
             ) : (
               <div className="text-sm text-gray-500 dark:text-gray-400">
                 No image selected
@@ -210,7 +214,11 @@ export default function BgRemoveClient() {
                 <Loader2 className="h-4 w-4 animate-spin" /> Processing…
               </div>
             ) : outURL ? (
-              <img src={outURL} alt="Processed" className=" object-contain" />
+              <img
+                src={outURL}
+                alt="Processed"
+                className="h-full w-full object-contain"
+              />
             ) : (
               <div className="text-sm text-gray-500 dark:text-gray-400">
                 Result will appear here
