@@ -2,6 +2,7 @@
 import HomeBlogHero from "./components/bloghero/HomeBlogHero";
 import BlogList from "./components/bloglist/BlogList";
 import Link from "next/link";
+import HomeHeroDesktop from "./components/home/HomeHeroDesktop";
 
 // ✅ Per-page SEO (canonical changes with ?page)
 export async function generateMetadata({ searchParams }) {
@@ -59,9 +60,13 @@ export default async function HomePage({ searchParams }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Hero (H1 lives inside) */}
-      <HomeBlogHero postsCount={total} />
-
+      {/* Heroes */}
+      <div className="lg:hidden">
+        <HomeBlogHero postsCount={total} />
+      </div>
+      <div className="hidden lg:block -mt-6">
+        <HomeHeroDesktop />
+      </div>
       {/* Latest */}
       <section>
         <h2 className="mb-6 text-2xl font-bold">Latest Blogs</h2>
