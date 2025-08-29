@@ -53,7 +53,7 @@ export default async function HomePage({ searchParams }) {
   };
 
   return (
-    <main className="wrapper py-10 space-y-10">
+    <>
       {/* JSON-LD */}
       <script
         type="application/ld+json"
@@ -67,53 +67,55 @@ export default async function HomePage({ searchParams }) {
       <div className="hidden lg:block -mt-6">
         <HomeHeroDesktop />
       </div>
-      {/* Latest */}
-      <section>
-        <h2 className="mb-6 text-2xl font-bold">Latest Blogs</h2>
-        <BlogList blogs={items} />
+      <main className="wrapper py-10 space-y-10">
+        {/* Latest */}
+        <section>
+          <h2 className="mb-6 text-2xl font-bold">Latest Blogs</h2>
+          <BlogList blogs={items} />
 
-        {/* Pagination UI */}
-        <div className="mt-8 flex items-center justify-between">
-          {/* Prev */}
-          {hasPrev ? (
-            <Link
-              href={`/?page=${page - 1}`}
-              prefetch
-              rel="prev"
-              className="rounded-lg border border-gray-200 dark:border-white/10 px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-white/5"
-            >
-              ← Previous
-            </Link>
-          ) : (
-            <span className="px-4 py-2 text-sm text-gray-400 dark:text-white/40 select-none">
-              ← Previous
-            </span>
-          )}
+          {/* Pagination UI */}
+          <div className="mt-8 flex items-center justify-between">
+            {/* Prev */}
+            {hasPrev ? (
+              <Link
+                href={`/?page=${page - 1}`}
+                prefetch
+                rel="prev"
+                className="rounded-lg border border-gray-200 dark:border-white/10 px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-white/5"
+              >
+                ← Previous
+              </Link>
+            ) : (
+              <span className="px-4 py-2 text-sm text-gray-400 dark:text-white/40 select-none">
+                ← Previous
+              </span>
+            )}
 
-          {/* Page x of y */}
-          <div className="text-xs text-gray-600 dark:text-white/60">
-            Page <span className="font-semibold">{page}</span> of{" "}
-            <span className="font-semibold">{totalPages}</span>
+            {/* Page x of y */}
+            <div className="text-xs text-gray-600 dark:text-white/60">
+              Page <span className="font-semibold">{page}</span> of{" "}
+              <span className="font-semibold">{totalPages}</span>
+            </div>
+
+            {/* Next */}
+            {hasNext ? (
+              <Link
+                href={`/?page=${page + 1}`}
+                prefetch
+                rel="next"
+                className="rounded-lg bg-cyan-500 px-4 py-2 text-sm font-semibold text-black hover:bg-cyan-400 active:scale-[0.99]"
+              >
+                Next →
+              </Link>
+            ) : (
+              <span className="px-4 py-2 text-sm text-gray-400 dark:text-white/40 select-none">
+                Next →
+              </span>
+            )}
           </div>
-
-          {/* Next */}
-          {hasNext ? (
-            <Link
-              href={`/?page=${page + 1}`}
-              prefetch
-              rel="next"
-              className="rounded-lg bg-cyan-500 px-4 py-2 text-sm font-semibold text-black hover:bg-cyan-400 active:scale-[0.99]"
-            >
-              Next →
-            </Link>
-          ) : (
-            <span className="px-4 py-2 text-sm text-gray-400 dark:text-white/40 select-none">
-              Next →
-            </span>
-          )}
-        </div>
-      </section>
-    </main>
+        </section>
+      </main>
+    </>
   );
 }
 
