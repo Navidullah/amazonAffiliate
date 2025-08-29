@@ -1,5 +1,10 @@
 // app/layout.jsx
-import { JetBrains_Mono, Geist, Geist_Mono } from "next/font/google";
+import {
+  JetBrains_Mono,
+  Geist,
+  Geist_Mono,
+  Montserrat,
+} from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers/Providers";
 import HeaderComponent from "./components/header/HeaderComponent";
@@ -20,6 +25,11 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"], // choose the weights you need
+  variable: "--font-montserrat",
 });
 
 /** Viewport: light/dark aware address bar color */
@@ -167,7 +177,7 @@ export default function RootLayout({ children }) {
       </head>
 
       <body
-        className={`${jetbrainsMono.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${montserrat.variable} ${jetbrainsMono.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {/* Optional background blob */}
         <div className="fixed inset-0 -z-10 pointer-events-none">
