@@ -159,7 +159,7 @@ export default function BmiToolPage() {
   };
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-10 space-y-10">
+    <main className="bg-background mx-auto max-w-3xl px-4 py-10 space-y-10">
       {/* JSON-LD */}
       <script
         type="application/ld+json"
