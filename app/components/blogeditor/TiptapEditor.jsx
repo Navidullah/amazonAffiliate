@@ -54,7 +54,7 @@ export default function TiptapEditor({
     onUpdate: ({ editor }) => onChange?.(editor.getHTML()),
     editorProps: {
       attributes: {
-        class: "font-montserrat max-w-none focus:outline-none min-h-[240px]",
+        class: "max-w-none focus:outline-none min-h-[240px]",
       },
     },
   });
