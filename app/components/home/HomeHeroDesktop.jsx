@@ -64,7 +64,7 @@ export default function HomeHeroDesktop() {
             Explore Products
           </Link>
           <Link
-            href="/blog"
+            href="/blogs"
             className="rounded-2xl border border-white/30 bg-white/10 px-5 py-3 font-semibold text-white backdrop-blur hover:bg-white/15 active:scale-[0.99]"
           >
             Browse Blogs
