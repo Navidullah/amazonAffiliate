@@ -121,7 +121,7 @@
   }
 
   body {
-    @apply font-montserret bg-background text-foreground;
+    @apply font-montserrat bg-background text-foreground;
   }
   .mainwrapper {
     max-width: 1420px;
