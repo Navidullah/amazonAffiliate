@@ -54,8 +54,7 @@ export default function TiptapEditor({
     onUpdate: ({ editor }) => onChange?.(editor.getHTML()),
     editorProps: {
       attributes: {
-        class:
-          "prose dark:prose-invert max-w-none focus:outline-none min-h-[240px]",
+        class: " max-w-none focus:outline-none min-h-[240px]",
       },
     },
   });
