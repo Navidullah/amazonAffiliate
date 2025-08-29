@@ -11,26 +11,62 @@ import { Separator } from "@/components/ui/separator";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
 
-/** --- SEO --- */
+/** --- SEO (keyword-optimized) --- */
 export const metadata = {
-  title: "BMI Calculator & Guide | Shopyor",
+  title:
+    "Free BMI Calculator Online | Body Mass Index (BMI) Chart, Healthy Ranges & Formula",
   description:
-    "Calculate your Body Mass Index and learn what BMI means, its impact on health, healthy ranges, limitations, and practical ways to manage it. Includes FAQs.",
+    "Use our free BMI calculator online to check your body mass index. View BMI chart categories, healthy BMI ranges, and learn how to manage weight safely.",
   alternates: { canonical: "/tools/bmi" },
   openGraph: {
     type: "article",
     url: `${BASE_URL}/tools/bmi`,
-    title: "BMI Calculator & Guide | Shopyor",
+    title:
+      "Free BMI Calculator Online | Body Mass Index (BMI) Chart, Healthy Ranges & Formula",
     description:
-      "Understand BMI, see your category instantly, and explore healthy strategies to manage weight—plus a research-backed FAQ.",
+      "Instant BMI calculator with chart categories and healthy weight ranges. Understand BMI meaning, formulas, and safe weight management tips.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "BMI Calculator & Guide | Shopyor",
+    title: "BMI Calculator Online – Body Mass Index Guide & Chart",
     description:
-      "Use our BMI calculator and read a clear, comprehensive guide on what BMI is and how to use it wisely.",
+      "Free BMI calculator with BMI formula, chart, categories, and health tips. Understand BMI ranges for adults and how to use BMI wisely.",
   },
 };
+
+/** --- Keyword list (from your Excel) for a user-facing “Related searches” section --- */
+const KEYWORDS = [
+  "bmi",
+  "body mass index",
+  "bmi calculator",
+  "bmi calculator women",
+  "bmi chart",
+  "bmi calculator female",
+  "bmi scale",
+  "body mass index calculator",
+  "bmi calculator men",
+  "bmi chart women",
+  "bmi test",
+  "bmi index",
+  "ideal weight calculator",
+  "my bmi",
+  "bmi calculator male",
+  "best scale for body fat",
+  "bmi calculator kg",
+  "bmi calculator by age",
+  "obese bmi",
+  "imc calculator",
+  "calculate my bmi",
+  "obesity chart",
+  "overweight bmi",
+  "bmi clinic",
+  "overweight calculator",
+  "healthy weight calculator",
+  "bmi for women",
+  "bmi checker",
+  "body mass index chart",
+  "scale with body fat",
+];
 
 const faq = [
   {
@@ -45,7 +81,7 @@ const faq = [
     ),
   },
   {
-    q: "What does my BMI actually tell me?",
+    q: "What is BMI (Body Mass Index) and what does it tell me?",
     a: (
       <>
         BMI is a quick screening tool that estimates whether your weight is
@@ -66,7 +102,7 @@ const faq = [
     ),
   },
   {
-    q: "What’s a healthy BMI range?",
+    q: "What’s a healthy BMI range for adults?",
     a: (
       <>
         For most adults: <strong>18.5–24.9</strong>. Overweight:{" "}
@@ -76,7 +112,7 @@ const faq = [
     ),
   },
   {
-    q: "How can I improve my BMI safely?",
+    q: "How to improve BMI safely?",
     a: (
       <>
         Focus on sustainable habits: balanced meals rich in whole foods, regular
@@ -86,13 +122,22 @@ const faq = [
     ),
   },
   {
-    q: "Are there better metrics than BMI?",
+    q: "Is there a BMI chart for adults?",
     a: (
       <>
-        BMI is convenient, but combining it with{" "}
-        <strong>waist circumference</strong>, <strong>body composition</strong>{" "}
-        estimates, and clinical markers (blood pressure, A1C, lipids) gives a
-        more complete picture.
+        Yes—see the BMI chart below: underweight (&lt;18.5), healthy weight
+        (18.5–24.9), overweight (25–29.9), and obesity (30+). It applies to most
+        adults 20+.
+      </>
+    ),
+  },
+  {
+    q: "Which other metrics should I use besides BMI?",
+    a: (
+      <>
+        Combine BMI with <strong>waist circumference</strong>,{" "}
+        <strong>body composition</strong> estimates, and clinical markers (blood
+        pressure, A1C, lipids) for a more complete picture.
       </>
     ),
   },
@@ -124,12 +169,12 @@ export default function BmiToolPage() {
       {/* Intro + Calculator */}
       <header className="space-y-2">
         <h1 className="text-2xl sm:text-3xl font-bold">
-          BMI Calculator & Complete Guide
+          Free BMI Calculator Online (Body Mass Index)
         </h1>
         <p className="text-sm sm:text-base text-muted-foreground">
-          Check your Body Mass Index instantly and learn how to interpret
-          it—what it means, where it helps, where it falls short, and how to use
-          it wisely for your health.
+          Check your Body Mass Index instantly and learn how to interpret it —
+          what it means, where it helps, where it falls short, and how to use it
+          wisely for your health.
         </p>
       </header>
 
@@ -139,17 +184,16 @@ export default function BmiToolPage() {
 
       {/* Article */}
       <article className="max-w-none">
-        <h2>What Is BMI?</h2>
+        <h2>What Is BMI (Body Mass Index)?</h2>
         <p>
-          Body Mass Index (BMI) is a simple ratio of your weight to your height.
-          It’s widely used as a quick screening tool to estimate whether your
-          weight is within a range that’s generally associated with lower health
-          risks. While BMI is not a diagnosis, it can help you and your
-          healthcare professional decide whether to look deeper into diet,
-          activity level, and other health markers.
+          Body Mass Index (BMI) is a simple weight-to-height ratio. Our free BMI
+          calculator online helps you check your BMI instantly and compare it
+          with standard BMI categories. While BMI is not a diagnosis, it can
+          flag when a closer look is warranted—diet quality, activity level, and
+          clinical markers like blood pressure and blood sugar.
         </p>
 
-        <h2>How BMI Is Calculated</h2>
+        <h2>How to Calculate BMI — Formula & Example</h2>
         <ul>
           <li>
             <strong>Metric:</strong> BMI = weight (kg) ÷ [height (m)]
@@ -161,7 +205,7 @@ export default function BmiToolPage() {
           </li>
         </ul>
 
-        <h2>Adult BMI Categories</h2>
+        <h2>Adult BMI Chart & Categories</h2>
         <div className="overflow-x-auto rounded-xl border">
           <table className="w-full text-sm">
             <thead className="bg-muted/50">
@@ -225,17 +269,15 @@ export default function BmiToolPage() {
           As BMI rises, the statistical risk of certain conditions—like type 2
           diabetes, high blood pressure, heart disease, sleep apnea, and fatty
           liver disease—tends to increase. Conversely, a very low BMI may be
-          linked to nutrient deficiencies, weakened immunity, or other health
-          issues. BMI helps flag when a closer look is warranted, but it does
-          not capture the full picture on its own.
+          linked to nutrient deficiencies or other health issues.
         </p>
 
         <h2>Where BMI Falls Short</h2>
         <ul>
           <li>It does not distinguish between muscle, bone, and fat mass.</li>
           <li>
-            It tells you nothing about fat distribution (for example, abdominal
-            vs. peripheral).
+            It doesn’t reflect fat distribution (e.g., abdominal vs.
+            peripheral).
           </li>
           <li>
             It may misclassify athletes, older adults with sarcopenia, and
@@ -259,33 +301,22 @@ export default function BmiToolPage() {
           </li>
           <li>
             <strong>Move regularly.</strong> Aim for at least 150 minutes of
-            moderate aerobic activity each week, plus 2+ days of resistance
-            training. Start small and progress gradually.
+            moderate activity weekly, plus 2+ days of resistance training.
           </li>
           <li>
-            <strong>Sleep &amp; stress.</strong> Prioritize 7–9 hours of quality
-            sleep and stress-management habits (walks, journaling, social
-            connection, mindfulness).
+            <strong>Sleep &amp; stress.</strong> Prioritize 7–9 hours of sleep
+            and stress-management habits.
           </li>
           <li>
             <strong>Track gently.</strong> Periodic check-ins with weight, waist
-            size, and energy levels can guide adjustments without obsessing over
-            daily fluctuations.
+            size, and energy levels can guide adjustments.
           </li>
           <li>
-            <strong>Seek support when needed.</strong> Dietitians, physicians,
-            and structured programs can help with plateaus, medications, or
-            surgical options in appropriate cases.
+            <strong>Seek support.</strong> Dietitians, physicians, and
+            structured programs can help with plateaus, medications, or surgical
+            options where appropriate.
           </li>
         </ol>
-
-        <h2>Beyond the Number: A Compassionate Approach</h2>
-        <p>
-          Your BMI is a data point—not your identity. Health is multifaceted and
-          includes mental well-being, strength, stamina, relationships, and joy.
-          Use BMI as a compass, not a verdict, and focus on sustainable habits
-          that make you feel and function better.
-        </p>
 
         <h2>Frequently Asked Questions</h2>
         <Accordion type="single" collapsible className="w-full">
@@ -300,6 +331,24 @@ export default function BmiToolPage() {
             </AccordionItem>
           ))}
         </Accordion>
+
+        {/* Related searches (keyword list) */}
+        <section className="mt-10">
+          <h2 className="mb-3">Related searches</h2>
+          <p className="text-sm text-muted-foreground mb-3">
+            People also look for these BMI and healthy-weight topics:
+          </p>
+          <ul className="flex flex-wrap gap-2">
+            {KEYWORDS.map((kw, i) => (
+              <li
+                key={i}
+                className="text-xs rounded-full border px-3 py-1 bg-muted/30"
+              >
+                {kw}
+              </li>
+            ))}
+          </ul>
+        </section>
       </article>
     </main>
   );
