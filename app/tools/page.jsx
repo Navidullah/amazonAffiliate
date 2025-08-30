@@ -46,9 +46,7 @@ function ToolCard({ href, title, desc, icon: Icon, badge }) {
           <Icon className="h-6 w-6" aria-hidden />
         </div>
         <div className="min-w-0">
-          <h2 className="text-base sm:text-lg font-semibold truncate">
-            {title}
-          </h2>
+          <h2 className="text-base sm:text-lg font-semibold">{title}</h2>
           <p className="mt-1 text-xs sm:text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
             {desc}
           </p>
@@ -92,7 +90,7 @@ export default function ToolsPage() {
   };
 
   return (
-    <main className="min-h-screen wrapper py-10 space-y-8">
+    <main className="min-h-screen  py-10 space-y-8">
       {/* SEO JSON-LD */}
       <script
         type="application/ld+json"
