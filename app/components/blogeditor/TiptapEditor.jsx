@@ -16,6 +16,7 @@ import TableHeader from "@tiptap/extension-table-header";
 import TableCell from "@tiptap/extension-table-cell";
 
 import MenuBar from "./MenuBar";
+
 // --- helpers ---
 const isHttpUrl = (u) => {
   try {
@@ -26,13 +27,14 @@ const isHttpUrl = (u) => {
   }
 };
 
+// match youtube.com/watch?v=… | youtu.be/… | youtube.com/shorts/… | /embed/…
 const YT_REGEX =
-  /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/;
+  /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:(?:watch\?v=|shorts\/|embed\/))|youtu\.be\/)([A-Za-z0-9_-]{6,})/;
+
 const toEmbedUrl = (u) => {
   const m = u.match(YT_REGEX);
   if (!m) return "";
   const id = m[1];
-  // add any params you like:
   return `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`;
 };
 
@@ -44,19 +46,32 @@ export default function TiptapEditor({
 }) {
   const extensions = useMemo(
     () => [
-      StarterKit, // includes heading, lists, blockquote, code, etc.
+      StarterKit,
       Underline,
       Highlight.configure({ multicolor: false }),
       Image.configure({
         inline: false,
         allowBase64: false,
-        HTMLAttributes: { loading: "lazy", referrerpolicy: "no-referrer" },
+        HTMLAttributes: {
+          loading: "lazy",
+          referrerpolicy: "no-referrer",
+          class: "max-w-full h-auto rounded-lg",
+        },
       }),
       Link.configure({
         openOnClick: false,
         HTMLAttributes: { rel: "noopener noreferrer", target: "_blank" },
       }),
-      // --- Table support ---
+      Youtube.configure({
+        HTMLAttributes: {
+          class: "aspect-video w-full rounded-lg",
+          loading: "lazy",
+          referrerPolicy: "no-referrer",
+        },
+        width: 640,
+        height: 360,
+        allowFullscreen: true,
+      }),
       Table.configure({
         resizable: true,
         lastColumnResizable: true,
@@ -74,7 +89,8 @@ export default function TiptapEditor({
     onUpdate: ({ editor }) => onChange?.(editor.getHTML()),
     editorProps: {
       attributes: {
-        class: "max-w-none focus:outline-none min-h-[240px]",
+        class:
+          "prose dark:prose-invert max-w-none focus:outline-none min-h-[240px]",
       },
       handlePaste(view, event) {
         const txt = event.clipboardData?.getData("text/plain")?.trim();
@@ -82,14 +98,13 @@ export default function TiptapEditor({
         const embed = toEmbedUrl(txt);
         if (!embed) return false;
         event.preventDefault();
-        // Insert the YouTube video node
         editor?.chain().focus().setYoutubeVideo({ src: embed }).run();
         return true;
       },
     },
   });
 
-  // keep editor content in sync with external value (controlled mode)
+  // keep external `value` in sync (if you load an existing post, etc.)
   useEffect(() => {
     if (!editor) return;
     const current = editor.getHTML();
