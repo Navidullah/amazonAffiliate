@@ -148,19 +148,19 @@ body {
   }
 
   .tiptap h1 {
-    @apply text-3xl font-semibold  mt-5;
+    @apply text-3xl font-semibold  mt-15 mb-15;
   }
   .tiptap h2 {
-    @apply text-2xl font-semibold  mt-5;
+    @apply text-2xl font-semibold  mt-15 mb-15;
   }
   .tiptap h3 {
-    @apply text-xl font-semibold  mt-5;
+    @apply text-xl font-semibold  mt-15 mb-15;
   }
   .tiptap h4 {
-    @apply text-[18px] font-semibold  mt-5;
+    @apply text-[18px] font-semibold  mt-15 mb-15;
   }
   .tiptap h5 {
-    @apply text-[16px] font-semibold  mt-5;
+    @apply text-[16px] font-semibold  mt-15 mb-15;
   }
   .tiptap ul {
     @apply list-disc ml-6;
@@ -175,7 +175,7 @@ body {
     @apply border-l-4 border-[#de7428] pl-4 italic bg-orange-200 my-4;
   }
   .tiptap p {
-    @apply py-3;
+    @apply py-4;
   }
   .tiptap p.is-editor-empty:first-child::before {
     color: #adb5bd;
