@@ -14,7 +14,7 @@ import {
   Minus,
   Code2,
   LinkIcon,
-  ImageIcon,
+  Image as ImgIcon,
   ImagePlus,
   Heading1,
   Heading2,
@@ -31,45 +31,80 @@ import {
   Split,
   Merge,
   Trash2,
+  // Use a non-deprecated video-ish icon instead of Youtube:
+  SquarePlay,
 } from "lucide-react";
 import { toast } from "react-toastify";
 
-/** Allow only http/https URLs */
-function sanitizeUrl(u) {
-  if (!u) return "";
-  try {
-    const url = new URL(u.trim());
-    if (url.protocol === "http:" || url.protocol === "https:")
-      return url.toString();
-  } catch {}
-  return "";
-}
-
+/**
+ * Props:
+ * - editor: Tiptap editor instance
+ * - onUploadFile?: (file: File) => Promise<string>  // returns a public URL
+ */
 function MenuBar({ editor, onUploadFile }) {
   const fileInputRef = useRef(null);
-  if (!editor) return null;
 
-  const keepSelection = (e) => e.preventDefault();
+  if (!editor) {
+    return (
+      <div className="flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground">
+        Loading editor…
+      </div>
+    );
+  }
+
+  // keep selection while clicking toolbar buttons
+  const keepSelection = (e) => {
+    e.preventDefault();
+  };
+
+  // ----- Inline formatting -----
+  const toggleLink = () => {
+    const previousUrl = editor.getAttributes("link").href;
+    const url = window.prompt("Set URL", previousUrl || "https://");
+    if (url === null) return; // cancel
+    if (url === "") {
+      editor.chain().focus().extendMarkRange("link").unsetLink().run();
+      return;
+    }
+    try {
+      const u = new URL(url);
+      if (!/^https?:$/.test(u.protocol)) throw new Error();
+    } catch {
+      return toast.error("Please enter a valid http(s) URL.");
+    }
+    editor
+      .chain()
+      .focus()
+      .extendMarkRange("link")
+      .setLink({ href: url, target: "_blank", rel: "noopener noreferrer" })
+      .run();
+  };
 
   // ----- Images -----
   const insertImageByUrl = () => {
-    const raw = window.prompt("Paste image URL (https://…):", "https://");
-    const clean = sanitizeUrl(raw);
-    if (!clean) return toast.error("Please paste a valid http(s) image URL.");
-    const alt = window.prompt("Alt text (optional):", "") || "";
-    editor.chain().focus().setImage({ src: clean, alt }).run();
-    toast.success("Image inserted by URL!");
+    const url = window.prompt("Image URL", "https://");
+    if (!url) return;
+    try {
+      const u = new URL(url);
+      if (!/^https?:$/.test(u.protocol)) throw new Error();
+    } catch {
+      return toast.error("Please paste a valid http(s) image URL.");
+    }
+    editor.chain().focus().setImage({ src: url }).run();
+    toast.success("Image inserted!");
   };
 
-  const onLocalChange = async (e) => {
+  const onLocalImagePicked = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
     try {
       let url;
       if (typeof onUploadFile === "function") {
-        url = await onUploadFile(file); // your real upload (Firebase/S3) returns a public URL
+        // Your real upload (e.g., Firebase / S3) should return a public URL
+        url = await onUploadFile(file);
       } else {
-        url = URL.createObjectURL(file); // preview-only fallback
+        // Fallback for preview-only
+        url = URL.createObjectURL(file);
       }
       editor.chain().focus().setImage({ src: url, alt: file.name }).run();
       toast.success("Image inserted!");
@@ -81,47 +116,73 @@ function MenuBar({ editor, onUploadFile }) {
     }
   };
 
-  // ----- Links -----
-  const setLinkOnSelection = () => {
-    const prev = editor.getAttributes("link").href || "https://";
-    const raw = window.prompt("Link URL (https://…):", prev);
-    if (raw === null) return; // cancelled
-    if (raw === "") return editor.chain().focus().unsetLink().run();
-    const clean = sanitizeUrl(raw);
-    if (!clean) return toast.error("Please paste a valid http(s) URL.");
-    editor
-      .chain()
-      .focus()
-      .extendMarkRange("link")
-      .setLink({ href: clean, target: "_blank", rel: "noopener noreferrer" })
-      .run();
-    toast.success("Link set!");
-  };
-
-  // ----- Tables -----
-  const insertTable = () => {
-    const r = Math.max(
-      1,
-      Math.min(10, Number(window.prompt("Rows (1-10):", "3") || 3))
+  // ----- YouTube (via Tiptap Youtube extension) -----
+  const insertYouTube = () => {
+    const raw = window.prompt(
+      "Paste YouTube URL",
+      "https://www.youtube.com/watch?v="
     );
-    const c = Math.max(
-      1,
-      Math.min(10, Number(window.prompt("Columns (1-10):", "3") || 3))
+    if (!raw) return;
+    // quick parse for id; matches watch?v= | shorts/ | embed/ | youtu.be/
+    const m = raw.match(
+      /(?:watch\?v=|shorts\/|embed\/|youtu\.be\/)([A-Za-z0-9_-]{6,})/
     );
-    editor
-      .chain()
-      .focus()
-      .insertTable({ rows: r, cols: c, withHeaderRow: true })
-      .run();
+    if (!m) {
+      return toast.error("Could not detect a YouTube video ID.");
+    }
+    const src = `https://www.youtube.com/embed/${m[1]}?rel=0&modestbranding=1`;
+    editor.chain().focus().setYoutubeVideo({ src }).run();
+    toast.success("YouTube video inserted!");
   };
 
   return (
-    <div className="p-2 border-b flex flex-wrap items-center gap-1 bg-muted/40">
+    <div className="flex flex-wrap items-center gap-1 p-2 border-b bg-background">
+      {/* Headings */}
+      <Button
+        type="button"
+        size="sm"
+        variant={
+          editor.isActive("heading", { level: 1 }) ? "default" : "secondary"
+        }
+        onMouseDown={keepSelection}
+        onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+        title="Heading 1"
+      >
+        <Heading1 className="h-4 w-4" />
+      </Button>
+      <Button
+        type="button"
+        size="sm"
+        variant={
+          editor.isActive("heading", { level: 2 }) ? "default" : "secondary"
+        }
+        onMouseDown={keepSelection}
+        onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+        title="Heading 2"
+      >
+        <Heading2 className="h-4 w-4" />
+      </Button>
+      <Button
+        type="button"
+        size="sm"
+        variant={
+          editor.isActive("heading", { level: 3 }) ? "default" : "secondary"
+        }
+        onMouseDown={keepSelection}
+        onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+        title="Heading 3"
+      >
+        <Heading3 className="h-4 w-4" />
+      </Button>
+
+      <Separator orientation="vertical" className="mx-1 h-6" />
+
       {/* Inline styles */}
       <Button
         type="button"
         size="sm"
         variant={editor.isActive("bold") ? "default" : "secondary"}
+        onMouseDown={keepSelection}
         onClick={() => editor.chain().focus().toggleBold().run()}
         title="Bold"
       >
@@ -131,6 +192,7 @@ function MenuBar({ editor, onUploadFile }) {
         type="button"
         size="sm"
         variant={editor.isActive("italic") ? "default" : "secondary"}
+        onMouseDown={keepSelection}
         onClick={() => editor.chain().focus().toggleItalic().run()}
         title="Italic"
       >
@@ -140,6 +202,7 @@ function MenuBar({ editor, onUploadFile }) {
         type="button"
         size="sm"
         variant={editor.isActive("strike") ? "default" : "secondary"}
+        onMouseDown={keepSelection}
         onClick={() => editor.chain().focus().toggleStrike().run()}
         title="Strikethrough"
       >
@@ -149,13 +212,9 @@ function MenuBar({ editor, onUploadFile }) {
         type="button"
         size="sm"
         variant={editor.isActive("underline") ? "default" : "secondary"}
-        onClick={() => editor.chain().focus().toggleUnderline?.().run()}
+        onMouseDown={keepSelection}
+        onClick={() => editor.chain().focus().toggleUnderline().run()}
         title="Underline"
-        disabled={
-          !editor.extensionManager.extensions.find(
-            (ex) => ex.name === "underline"
-          )
-        }
       >
         <UnderlineIcon className="h-4 w-4" />
       </Button>
@@ -163,6 +222,7 @@ function MenuBar({ editor, onUploadFile }) {
         type="button"
         size="sm"
         variant={editor.isActive("highlight") ? "default" : "secondary"}
+        onMouseDown={keepSelection}
         onClick={() => editor.chain().focus().toggleHighlight().run()}
         title="Highlight"
       >
@@ -171,37 +231,12 @@ function MenuBar({ editor, onUploadFile }) {
 
       <Separator orientation="vertical" className="mx-1 h-6" />
 
-      {/* Headings H1–H6 */}
-      {[
-        [1, Heading1],
-        [2, Heading2],
-        [3, Heading3],
-        [4, Heading4],
-        [5, Heading5],
-        [6, Heading6],
-      ].map(([level, Icon]) => (
-        <Button
-          key={level}
-          type="button"
-          size="sm"
-          variant={
-            editor.isActive("heading", { level }) ? "default" : "secondary"
-          }
-          onMouseDown={keepSelection}
-          onClick={() => editor.chain().focus().toggleHeading({ level }).run()}
-          title={`Heading ${level}`}
-        >
-          <Icon className="h-4 w-4" />
-        </Button>
-      ))}
-
-      <Separator orientation="vertical" className="mx-1 h-6" />
-
       {/* Lists / blocks */}
       <Button
         type="button"
         size="sm"
         variant={editor.isActive("bulletList") ? "default" : "secondary"}
+        onMouseDown={keepSelection}
         onClick={() => editor.chain().focus().toggleBulletList().run()}
         title="Bullet list"
       >
@@ -211,8 +246,9 @@ function MenuBar({ editor, onUploadFile }) {
         type="button"
         size="sm"
         variant={editor.isActive("orderedList") ? "default" : "secondary"}
+        onMouseDown={keepSelection}
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
-        title="Ordered list"
+        title="Numbered list"
       >
         <ListOrdered className="h-4 w-4" />
       </Button>
@@ -220,6 +256,7 @@ function MenuBar({ editor, onUploadFile }) {
         type="button"
         size="sm"
         variant={editor.isActive("blockquote") ? "default" : "secondary"}
+        onMouseDown={keepSelection}
         onClick={() => editor.chain().focus().toggleBlockquote().run()}
         title="Blockquote"
       >
@@ -229,6 +266,7 @@ function MenuBar({ editor, onUploadFile }) {
         type="button"
         size="sm"
         variant="secondary"
+        onMouseDown={keepSelection}
         onClick={() => editor.chain().focus().setHorizontalRule().run()}
         title="Horizontal rule"
       >
@@ -238,6 +276,7 @@ function MenuBar({ editor, onUploadFile }) {
         type="button"
         size="sm"
         variant={editor.isActive("codeBlock") ? "default" : "secondary"}
+        onMouseDown={keepSelection}
         onClick={() => editor.chain().focus().toggleCodeBlock().run()}
         title="Code block"
       >
@@ -252,23 +291,27 @@ function MenuBar({ editor, onUploadFile }) {
         size="sm"
         variant={editor.isActive("link") ? "default" : "secondary"}
         onMouseDown={keepSelection}
-        onClick={setLinkOnSelection}
+        onClick={toggleLink}
         title="Add/Edit link"
       >
         <LinkIcon className="h-4 w-4" />
       </Button>
 
-      {/* Images */}
-      <Separator orientation="vertical" className="mx-1 h-6" />
+      {/* YouTube (uses non-deprecated icon) */}
       <Button
         type="button"
         size="sm"
         variant="secondary"
-        onClick={() => fileInputRef.current?.click()}
-        title="Insert image (upload file)"
+        onMouseDown={keepSelection}
+        onClick={insertYouTube}
+        title="Insert YouTube"
       >
-        <ImageIcon className="h-4 w-4" />
+        <SquarePlay className="h-4 w-4" />
       </Button>
+
+      <Separator orientation="vertical" className="mx-1 h-6" />
+
+      {/* Images */}
       <Button
         type="button"
         size="sm"
@@ -284,26 +327,43 @@ function MenuBar({ editor, onUploadFile }) {
         type="file"
         accept="image/*"
         hidden
-        onChange={onLocalChange}
+        onChange={onLocalImagePicked}
       />
-
-      {/* TABLES */}
-      <Separator orientation="vertical" className="mx-1 h-6" />
       <Button
         type="button"
         size="sm"
         variant="secondary"
         onMouseDown={keepSelection}
-        onClick={insertTable}
-        title="Insert table"
+        onClick={() => fileInputRef.current?.click()}
+        title="Upload image"
       >
-        <TableIcon className="h-4 w-4" />
+        <ImgIcon className="h-4 w-4" />
       </Button>
-      {/* Row ops */}
+
+      <Separator orientation="vertical" className="mx-1 h-6" />
+
+      {/* Tables */}
       <Button
         type="button"
         size="sm"
         variant="secondary"
+        onMouseDown={keepSelection}
+        onClick={() =>
+          editor
+            .chain()
+            .focus()
+            .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
+            .run()
+        }
+        title="Insert table"
+      >
+        <TableIcon className="h-4 w-4" />
+      </Button>
+      <Button
+        type="button"
+        size="sm"
+        variant="secondary"
+        onMouseDown={keepSelection}
         onClick={() => editor.chain().focus().addRowBefore().run()}
         title="Add row before"
       >
@@ -313,16 +373,17 @@ function MenuBar({ editor, onUploadFile }) {
         type="button"
         size="sm"
         variant="secondary"
+        onMouseDown={keepSelection}
         onClick={() => editor.chain().focus().addRowAfter().run()}
         title="Add row after"
       >
         <Rows3 className="h-4 w-4" />
       </Button>
-      {/* Column ops */}
       <Button
         type="button"
         size="sm"
         variant="secondary"
+        onMouseDown={keepSelection}
         onClick={() => editor.chain().focus().addColumnBefore().run()}
         title="Add column before"
       >
@@ -332,16 +393,17 @@ function MenuBar({ editor, onUploadFile }) {
         type="button"
         size="sm"
         variant="secondary"
+        onMouseDown={keepSelection}
         onClick={() => editor.chain().focus().addColumnAfter().run()}
         title="Add column after"
       >
         <Columns3 className="h-4 w-4" />
       </Button>
-      {/* Merge / split cells */}
       <Button
         type="button"
         size="sm"
         variant="secondary"
+        onMouseDown={keepSelection}
         onClick={() => editor.chain().focus().mergeCells().run()}
         title="Merge cells"
       >
@@ -351,16 +413,17 @@ function MenuBar({ editor, onUploadFile }) {
         type="button"
         size="sm"
         variant="secondary"
+        onMouseDown={keepSelection}
         onClick={() => editor.chain().focus().splitCell().run()}
         title="Split cell"
       >
         <Split className="h-4 w-4" />
       </Button>
-      {/* Delete */}
       <Button
         type="button"
         size="sm"
         variant="destructive"
+        onMouseDown={keepSelection}
         onClick={() => editor.chain().focus().deleteTable().run()}
         title="Delete table"
       >

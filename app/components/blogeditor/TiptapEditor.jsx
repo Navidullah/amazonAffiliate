@@ -7,6 +7,7 @@ import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import Underline from "@tiptap/extension-underline";
 import Highlight from "@tiptap/extension-highlight";
+import Youtube from "@tiptap/extension-youtube";
 
 // TABLES
 import { Table } from "@tiptap/extension-table";
@@ -15,6 +16,25 @@ import TableHeader from "@tiptap/extension-table-header";
 import TableCell from "@tiptap/extension-table-cell";
 
 import MenuBar from "./MenuBar";
+// --- helpers ---
+const isHttpUrl = (u) => {
+  try {
+    const url = new URL(u.trim());
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch {
+    return false;
+  }
+};
+
+const YT_REGEX =
+  /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/;
+const toEmbedUrl = (u) => {
+  const m = u.match(YT_REGEX);
+  if (!m) return "";
+  const id = m[1];
+  // add any params you like:
+  return `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`;
+};
 
 export default function TiptapEditor({
   value = "<p></p>",
@@ -55,6 +75,16 @@ export default function TiptapEditor({
     editorProps: {
       attributes: {
         class: "max-w-none focus:outline-none min-h-[240px]",
+      },
+      handlePaste(view, event) {
+        const txt = event.clipboardData?.getData("text/plain")?.trim();
+        if (!txt || !isHttpUrl(txt)) return false;
+        const embed = toEmbedUrl(txt);
+        if (!embed) return false;
+        event.preventDefault();
+        // Insert the YouTube video node
+        editor?.chain().focus().setYoutubeVideo({ src: embed }).run();
+        return true;
       },
     },
   });
