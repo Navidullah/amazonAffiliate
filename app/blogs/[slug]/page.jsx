@@ -574,9 +574,10 @@ export default async function SingleBlogPage({ params }) {
       </div>
 
       {/* Content + TOC */}
-      <div className="bg-background rounded-xl mt-8">
-        <BlogTOCContent html={blog.description} showTOC={false} />
-      </div>
+      <div
+        className="tiptap max-w-none bg-background rounded-xl mt-8"
+        dangerouslySetInnerHTML={{ __html: blog.description }}
+      />
 
       {/* Comments */}
       <CommentSection blogSlug={blog.slug} />
