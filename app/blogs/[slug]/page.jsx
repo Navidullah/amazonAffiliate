@@ -575,7 +575,7 @@ export default async function SingleBlogPage({ params }) {
 
       {/* Content + TOC */}
       <div
-        className="tiptap max-w-none bg-background rounded-xl mt-8"
+        className="tiptap max-w-none bg-background rounded-xl mt-8 px-3"
         dangerouslySetInnerHTML={{ __html: blog.description }}
       />
 
