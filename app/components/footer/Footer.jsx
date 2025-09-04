@@ -11,10 +11,10 @@ export default function Footer() {
         <div className="  sm:w-auto mb-2 sm:mb-0">
           <Link href="/" className="flex items-center">
             <Image
-              src="/shopyor.png"
+              src="/shopyor.jpeg"
               width={100}
               height={100}
-              alt="shopyor-logo"
+              alt="Health & fitness"
               className="text-3xl font-serif font-bold tracking-tight"
             />
           </Link>
