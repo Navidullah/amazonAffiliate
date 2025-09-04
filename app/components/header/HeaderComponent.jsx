@@ -163,44 +163,13 @@ export default function Header() {
                   >
                     Product
                   </Link>
+                  <Link
+                    href="/tools"
+                    className="text-lg font-semibold hover:text-primary"
+                  >
+                    Tools
+                  </Link>
                 </SheetClose>
-                <div className="flex flex-col">
-                  <span className="text-lg font-semibold">Tools</span>
-                  <div className="ml-4 mt-2 flex flex-col gap-2">
-                    <SheetClose asChild>
-                      <Link
-                        href="/image-compressor"
-                        className="flex items-center gap-2 hover:text-primary"
-                      >
-                        <FaCompress /> Image Compressor
-                      </Link>
-                    </SheetClose>
-                    <SheetClose asChild>
-                      <Link
-                        href="/background-remover"
-                        className="flex items-center gap-2 hover:text-primary"
-                      >
-                        <FaBackward /> Background Remover
-                      </Link>
-                    </SheetClose>
-                    <SheetClose asChild>
-                      <Link
-                        href="/exif-remover"
-                        className="flex items-center gap-2 hover:text-primary"
-                      >
-                        <RemoveFormatting /> EXIF Remover
-                      </Link>
-                    </SheetClose>
-                    <SheetClose asChild>
-                      <Link
-                        href="/generate-link"
-                        className="flex items-center gap-2 hover:text-primary"
-                      >
-                        <Link2 /> Affiliate Link Generator
-                      </Link>
-                    </SheetClose>
-                  </div>
-                </div>
               </SheetContent>
             </Sheet>
           </div>
