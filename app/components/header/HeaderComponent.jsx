@@ -63,7 +63,7 @@ export default function Header() {
         <div className="flex items-center w-full sm:w-auto">
           <Link href="/" className="flex items-center">
             <Image
-              src="/shopyor.jpeg"
+              src="/shopyor.png"
               width={40}
               height={40}
               alt="Health & fitness"
