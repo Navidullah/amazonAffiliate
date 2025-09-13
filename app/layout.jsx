@@ -28,65 +28,42 @@ const geistMono = Geist_Mono({
 });
 const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: ["400", "500", "700"], // choose the weights you need
+  weight: ["400", "500", "700"],
   variable: "--font-montserrat",
 });
 
-/** Viewport: light/dark aware address bar color */
+/** Light/Dark aware address bar color */
 export const viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#00bcd4" }, // keep brand cyan
+    { media: "(prefers-color-scheme: light)", color: "#00bcd4" },
     { media: "(prefers-color-scheme: dark)", color: "#0b0b0b" },
   ],
 };
 
 /** **********  SITE-WIDE SEO DEFAULTS  ********** */
-/** **********  SITE-WIDE SEO DEFAULTS  ********** */
 export const metadata = {
   metadataBase: new URL("https://www.shopyor.com"),
-
-  // Longer, brand-forward title + a template that appends to page titles.
   title: {
-    // Default used on pages that don’t set their own title
     default: "Shopyor - Health, Fitness Tips, Wellness & Proven Gear",
-    // Any page that sets `title: "Blogs"` will render as:
-    // "Blogs | Shopyor — Expert Health & Fitness Guides, Wellness Tips & Store for Proven Gear"
     template:
       "%s | Shopyor — Expert Health & Fitness Guides, Wellness Tips & Store for Proven Gear",
   },
-
-  // Expanded description to cover both content + commerce
   description:
-    "Shopyor brings you health & fitness tips, detailed wellness guides, and proven gear to help you stay active, confident, and live a healthier life daily.",
-
+    "Shopyor brings you health & fitness tips, detailed wellness guides, and trustworthy product picks. Practical, research-driven content to help you stay active, confident, and live a healthier life daily.",
   keywords: [
     "health and fitness",
     "wellness tips",
     "workout routines",
     "nutrition advice",
     "sleep and recovery",
-    "product reviews",
-    "fitness gear store",
-    "wellness shop",
   ],
-
-  alternates: { canonical: "/" },
-
-  robots: {
-    index: true,
-    follow: true,
-    googleBot:
-      "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
-  },
-
   openGraph: {
     type: "website",
-    url: "https://www.shopyor.com/",
-    siteName: "Shopyor",
     title:
       "Shopyor — Expert Health & Fitness Guides, Wellness Tips & Store for Proven Gear",
     description:
-      "Research-backed health & fitness blogs plus a curated store of tested products. Practical guides, honest reviews, and step-by-step routines.",
+      "Research-driven guides on health, fitness, nutrition, recovery, and curated products that actually help.",
+    url: "https://www.shopyor.com",
     images: [
       {
         url: "/og/og-home-1200x630.jpg",
@@ -97,81 +74,37 @@ export const metadata = {
     ],
     locale: "en_US",
   },
-
   twitter: {
     card: "summary_large_image",
-    // site: "@Shopyor",
-    // creator: "@Shopyor",
     title:
       "Shopyor — Expert Health & Fitness Guides, Wellness Tips & Store for Proven Gear",
     description:
-      "Research-backed health & fitness blogs plus a curated store of tested products. Practical guides, honest reviews, and step-by-step routines.",
+      "Research-driven guides on health, fitness, nutrition, recovery, and curated products that actually help.",
     images: ["/og/og-home-1200x630.jpg"],
   },
-
-  icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "48x48" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-    ],
-    apple: {
-      url: "/apple-touch-icon.png",
-      sizes: "180x180",
-      type: "image/png",
-    },
-  },
-
-  manifest: "/manifest.json",
-
-  verification: {
-    google: "",
-    other: { "p:domain_verify": ["606cad5cbdd2926b674d14dfca5887f0"] },
-  },
+  alternates: { canonical: "https://www.shopyor.com" },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Keep Organization + WebSite JSON-LD site-wide.
-            Move WebPage JSON-LD into each page (e.g., home page, post pages). */}
+        {/* Site JSON-LD (WebSite + SearchAction) */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify([
-              {
-                "@context": "https://schema.org",
-                "@type": "Organization",
-                name: "Shopyor",
-                url: "https://www.shopyor.com",
-                logo: "https://www.shopyor.com/shopyor.png",
-                sameAs: [
-                  "https://www.facebook.com/shopyor.blogs",
-                  "https://www.instagram.com/YourProfile",
-                  "https://x.com/shopyor",
-                ],
-                contactPoint: [
-                  {
-                    "@type": "ContactPoint",
-                    contactType: "customer support",
-                    email: "shopyor.com@gmail.com",
-                  },
-                ],
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Shopyor",
+              url: "https://www.shopyor.com",
+              potentialAction: {
+                "@type": "SearchAction",
+                target:
+                  "https://www.shopyor.com/blogs?search={search_term_string}",
+                "query-input": "required name=search_term_string",
               },
-              {
-                "@context": "https://schema.org",
-                "@type": "WebSite",
-                name: "Shopyor",
-                url: "https://www.shopyor.com",
-                potentialAction: {
-                  "@type": "SearchAction",
-                  target:
-                    "https://www.shopyor.com/blogs?search={search_term_string}",
-                  "query-input": "required name=search_term_string",
-                },
-              },
-            ]),
+            }),
           }}
         />
       </head>
@@ -179,18 +112,19 @@ export default function RootLayout({ children }) {
       <body
         className={`${montserrat.variable} ${jetbrainsMono.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* Optional background blob */}
-        <div className="fixed inset-0 -z-10 pointer-events-none">
-          <div className="absolute inset-0 flex items-center justify-center min-h-screen">
-            <div className="w-[800px] h-[800px] bg-purple-500 opacity-30 dark:opacity-20 blur-[160px] rounded-full mx-auto" />
+        {/* subtle brand blur background */}
+        <div className="pointer-events-none fixed inset-0 -z-10">
+          <div className="absolute inset-x-0 top-[-200px] h-[800px]">
+            <div className="mx-auto max-w-5xl">
+              <div className="w-[800px] h-[800px] bg-cyan-500 opacity-20 dark:opacity-15 blur-[120px] rounded-full mx-auto" />
+            </div>
           </div>
         </div>
 
         <Providers>
           <HeaderComponent />
-          <main className="pt-40 sm:pt-35 md:pt-40 lg:pt-45 xl:pt-40">
-            {children}
-          </main>
+          {/* ✅ Corrected to clear the fixed header on all breakpoints */}
+          <main className="pt-24 md:pt-28 lg:pt-32">{children}</main>
           <Analytics />
           <SpeedInsights />
           <Footer />

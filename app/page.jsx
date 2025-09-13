@@ -7,7 +7,6 @@ import HomeHeroDesktop from "./components/home/HomeHeroDesktop";
 // ✅ Per-page SEO (canonical changes with ?page)
 export async function generateMetadata({ searchParams }) {
   const page = Number(searchParams?.page || 1);
-  // With metadataBase in layout, this becomes absolute automatically
   return {
     alternates: {
       canonical: page > 1 ? `/?page=${page}` : "/",
@@ -24,17 +23,14 @@ export default async function HomePage({ searchParams }) {
     { cache: "no-store" }
   );
 
-  // API shape: { items, total, page, limit, hasPrev, hasNext }
-  const {
-    items = [],
-    total = 0,
-    hasPrev = page > 1,
-    hasNext = false,
-  } = await res.json();
+  // API shape (we’ll compute prev/next locally to be safe)
+  const { items = [], total = 0 } = await res.json();
 
   const totalPages = Math.max(1, Math.ceil(total / limit));
+  const canPrev = page > 1;
+  const canNext = page < totalPages;
 
-  // ✅ WebPage JSON-LD for the home (pagination-aware)
+  // ✅ WebPage JSON-LD (pagination-aware)
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -67,21 +63,21 @@ export default async function HomePage({ searchParams }) {
       <div className="hidden lg:block -mt-6">
         <HomeHeroDesktop />
       </div>
-      <main className="wrapper py-10 space-y-10">
-        {/* Latest */}
-        <section>
-          <h2 className="mb-6 text-2xl font-bold">Latest Blogs</h2>
-          <BlogList blogs={items} />
 
-          {/* Pagination UI */}
+      <main className="mx-auto max-w-6xl px-3 sm:px-4">
+        <section className="py-6 sm:py-8">
+          {/* Blog list */}
+          <BlogList posts={items} />
+
+          {/* Pagination */}
           <div className="mt-8 flex items-center justify-between">
             {/* Prev */}
-            {hasPrev ? (
+            {canPrev ? (
               <Link
                 href={`/?page=${page - 1}`}
                 prefetch
                 rel="prev"
-                className="rounded-lg border border-gray-200 dark:border-white/10 px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-white/5"
+                className="rounded-lg bg-muted px-4 py-2 text-sm hover:bg-muted/80 active:scale-[0.99]"
               >
                 ← Previous
               </Link>
@@ -98,7 +94,7 @@ export default async function HomePage({ searchParams }) {
             </div>
 
             {/* Next */}
-            {hasNext ? (
+            {canNext ? (
               <Link
                 href={`/?page=${page + 1}`}
                 prefetch
@@ -118,33 +114,3 @@ export default async function HomePage({ searchParams }) {
     </>
   );
 }
-
-// app/page.jsx
-/*
-import HomeHero from "./components/home/HomeHero";
-
-import TopPicksWithFilter from "./components/home/TopPicksWithFilter";
-
-// Fetch top picks (replace with real data from your API or database)
-async function getTopProducts() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`, {
-    cache: "no-store",
-  });
-  if (!res.ok) return [];
-  const products = await res.json();
-  return products;
-}
-
-export default async function HomePage() {
-  const topPicks = await getTopProducts();
-  console.log(topPicks);
-
-  return (
-    <div>
-      <HomeHero />
-
-      <TopPicksWithFilter products={topPicks} />
-    </div>
-  );
-}
-*/
