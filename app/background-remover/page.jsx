@@ -42,7 +42,7 @@ export default function BackgroundRemoverPage() {
   };
 
   return (
-    <main className="min-h-screen bg-background pt-13 md:p-9">
+    <main className="min-h-screen bg-background pt-28 md:pt-32 lg:pt-32">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

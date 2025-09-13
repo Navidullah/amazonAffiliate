@@ -8,7 +8,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
 
 export default function ImageCompressorPage() {
   return (
-    <main className="wrapper pt-13 space-y-4">
+    <main className="wrapper pt-28 md:pt-32 lg:pt-32">
       {/* JSON-LD */}
       <script
         type="application/ld+json"

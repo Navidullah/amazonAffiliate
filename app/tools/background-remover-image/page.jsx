@@ -132,7 +132,7 @@ export default function BackgroundRemoverImagePage() {
   };
 
   return (
-    <main className="mx-auto max-w-4xl px-4 py-10 space-y-10">
+    <main className="mx-auto max-w-4xl px-4 pt-28 md:pt-32 lg:pt-32">
       {/* JSON-LD */}
       <script
         type="application/ld+json"
