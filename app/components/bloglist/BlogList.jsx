@@ -43,12 +43,12 @@ export default function BlogList({ blogs }) {
               href={`/blogs/${blog.slug}`}
               className="block group-hover:underline"
             >
-              <h2 className="text-[14px] sm:text-xl md:text-xl font-semibold mb-1 break-words max-w-full leading-snug whitespace-normal">
+              <h2 className="text-[14px] sm:text-xl md:text-xl font-semibold mb-1 break-words max-w-[100px] leading-snug whitespace-normal">
                 {blog.title}
               </h2>
             </Link>
             <p
-              className="text-gray-600 dark:text-gray-300 line-clamp-2 mb-3"
+              className="text-gray-600 dark:text-gray-300 line-clamp-2 mb-3 text-[12px] sm:text-lg md:text-xl"
               dangerouslySetInnerHTML={{ __html: blog.description }}
             />
             <div className="flex items-center gap-6 text-xs text-gray-400 mt-2">
