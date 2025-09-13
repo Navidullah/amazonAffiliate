@@ -90,7 +90,7 @@ export default function ToolsPage() {
   };
 
   return (
-    <main className="min-h-screen  py-10 space-y-8">
+    <main className="min-h-screen  pb-10  pt-28 md:pt-32 lg:pt-32">
       {/* SEO JSON-LD */}
       <script
         type="application/ld+json"
