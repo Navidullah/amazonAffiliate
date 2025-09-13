@@ -74,7 +74,7 @@ export default async function BlogsPage({ searchParams }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <main className="mx-auto max-w-6xl px-3 sm:px-4">
+      <main className="mx-auto max-w-6xl px-3 sm:px-4 pt-28 md:pt-32 lg:pt-32 ">
         <header className="py-6 sm:py-10">
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
             Latest Articles
