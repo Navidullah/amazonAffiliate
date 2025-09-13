@@ -91,7 +91,7 @@ export default function BlogList({ blogs }) {
                   alt={blog.title}
                   width={400}
                   height={250}
-                  className="w-full h-48 sm:h-52 md:h-[200px] object-cover"
+                  className="w-full h-48 sm:h-52 md:h-[200px] object-contain"
                   sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, 200px"
                   loading="lazy"
                 />
