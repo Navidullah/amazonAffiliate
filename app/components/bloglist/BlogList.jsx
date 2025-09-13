@@ -19,7 +19,7 @@ export default function BlogList({ blogs }) {
           className="flex flex-col md:flex-row items-start justify-between border-b pb-8 gap-6 group"
         >
           {/* Left: Text/Meta */}
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
               <span className="px-2 py-0.5 text-xs font-semibold rounded bg-blue-600 text-white">
                 {blog.category}
@@ -80,7 +80,7 @@ export default function BlogList({ blogs }) {
 
           {/* Right: Image */}
           {/* Right: Animated Image */}
-          <div className="w-full md:w-[200px] flex-shrink-0 overflow-hidden">
+          <div className="w-full md:w-[200px] flex-shrink-0 overflow-hidden max-w-full">
             <AnimatedBlogImage
               href={`/blogs/${blog.slug}`}
               src={blog.image}
