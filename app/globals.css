@@ -116,6 +116,7 @@
 }
 body {
   font-family: var(--font-montserrat);
+  overflow-x: hidden;
 }
 
 @layer base {
