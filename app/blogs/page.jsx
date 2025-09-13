@@ -87,7 +87,7 @@ export default async function BlogsPage({ searchParams }) {
         </header>
 
         <section>
-          <BlogList posts={items} />
+          <BlogList blogs={items} />
         </section>
 
         {/* Pagination */}

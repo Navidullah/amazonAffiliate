@@ -10,14 +10,6 @@ export default function BlogList({ blogs }) {
   if (!list.length) return <div>No blogs yet.</div>;
   //console.log("blogs in BlogList:", blogs);
   //if (!blogs?.length) return <div>No blogs yet.</div>;
-  console.log(
-    blogs.map((b) => ({
-      title: b.title,
-      slug: b.slug,
-      commentsCount: b.commentsCount,
-      likesCount: b.likesCount,
-    }))
-  );
 
   return (
     <div className="space-y-8 w-full">

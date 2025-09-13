@@ -67,7 +67,7 @@ export default async function HomePage({ searchParams }) {
       <main className="mx-auto max-w-6xl px-3 sm:px-4">
         <section className="py-6 sm:py-8">
           {/* Blog list */}
-          <BlogList posts={items} />
+          <BlogList blogs={posts} />
 
           {/* Pagination */}
           <div className="mt-8 flex items-center justify-between">
