@@ -74,66 +74,64 @@ export default async function BlogsPage({ searchParams }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <main className="mx-auto max-w-6xl px-3 sm:px-4">
-        <header className="py-6 sm:py-10">
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
-            Latest Articles
-          </h1>
-          {q ? (
-            <p className="mt-2 text-sm text-muted-foreground">
-              Showing results for: <span className="font-semibold">“{q}”</span>
-            </p>
-          ) : null}
-        </header>
+      <header className="py-6 sm:py-10">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
+          Latest Articles
+        </h1>
+        {q ? (
+          <p className="mt-2 text-sm text-muted-foreground">
+            Showing results for: <span className="font-semibold">“{q}”</span>
+          </p>
+        ) : null}
+      </header>
 
-        <section>
-          <BlogList blogs={items} />
-        </section>
+      <section>
+        <BlogList blogs={items} />
+      </section>
 
-        {/* Pagination */}
-        <nav
-          className="mt-8 mb-10 flex items-center justify-between"
-          aria-label="Pagination"
-        >
-          {/* Prev */}
-          {canPrev ? (
-            <Link
-              href={`/blogs?page=${page - 1}${q ? `&search=${encodeURIComponent(q)}` : ""}`}
-              prefetch
-              rel="prev"
-              className="rounded-lg bg-muted px-4 py-2 text-sm hover:bg-muted/80 active:scale-[0.99]"
-            >
-              ← Previous
-            </Link>
-          ) : (
-            <span className="px-4 py-2 text-sm text-gray-400 dark:text-white/40 select-none">
-              ← Previous
-            </span>
-          )}
+      {/* Pagination */}
+      <nav
+        className="mt-8 mb-10 flex items-center justify-between"
+        aria-label="Pagination"
+      >
+        {/* Prev */}
+        {canPrev ? (
+          <Link
+            href={`/blogs?page=${page - 1}${q ? `&search=${encodeURIComponent(q)}` : ""}`}
+            prefetch
+            rel="prev"
+            className="rounded-lg bg-muted px-4 py-2 text-sm hover:bg-muted/80 active:scale-[0.99]"
+          >
+            ← Previous
+          </Link>
+        ) : (
+          <span className="px-4 py-2 text-sm text-gray-400 dark:text-white/40 select-none">
+            ← Previous
+          </span>
+        )}
 
-          {/* Page x of y */}
-          <div className="text-xs text-gray-600 dark:text-white/60">
-            Page <span className="font-semibold">{page}</span> of{" "}
-            <span className="font-semibold">{totalPages}</span>
-          </div>
+        {/* Page x of y */}
+        <div className="text-xs text-gray-600 dark:text-white/60">
+          Page <span className="font-semibold">{page}</span> of{" "}
+          <span className="font-semibold">{totalPages}</span>
+        </div>
 
-          {/* Next */}
-          {canNext ? (
-            <Link
-              href={`/blogs?page=${page + 1}${q ? `&search=${encodeURIComponent(q)}` : ""}`}
-              prefetch
-              rel="next"
-              className="rounded-lg bg-cyan-500 px-4 py-2 text-sm font-semibold text-black hover:bg-cyan-400 active:scale-[0.99]"
-            >
-              Next →
-            </Link>
-          ) : (
-            <span className="px-4 py-2 text-sm text-gray-400 dark:text-white/40 select-none">
-              Next →
-            </span>
-          )}
-        </nav>
-      </main>
+        {/* Next */}
+        {canNext ? (
+          <Link
+            href={`/blogs?page=${page + 1}${q ? `&search=${encodeURIComponent(q)}` : ""}`}
+            prefetch
+            rel="next"
+            className="rounded-lg bg-cyan-500 px-4 py-2 text-sm font-semibold text-black hover:bg-cyan-400 active:scale-[0.99]"
+          >
+            Next →
+          </Link>
+        ) : (
+          <span className="px-4 py-2 text-sm text-gray-400 dark:text-white/40 select-none">
+            Next →
+          </span>
+        )}
+      </nav>
     </>
   );
 }

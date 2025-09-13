@@ -90,7 +90,7 @@ export default function ToolsPage() {
   };
 
   return (
-    <main className="min-h-screen  py-10 space-y-8">
+    <>
       {/* SEO JSON-LD */}
       <script
         type="application/ld+json"
@@ -149,6 +149,6 @@ export default function ToolsPage() {
           icon={Wand}
         />
       </section>
-    </main>
+    </>
   );
 }
