@@ -494,7 +494,7 @@ export default async function SingleBlogPage({ params }) {
   };
 
   return (
-    <article className="px-4 sm:px-6 max-w-3xl mx-auto py-12">
+    <article className="px-4 sm:px-6 max-w-3xl mx-auto pb-4 pt-28 md:pt-32 lg:pt-32">
       {/* JSON-LD */}
       <script
         type="application/ld+json"
