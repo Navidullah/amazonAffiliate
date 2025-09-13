@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { MessageCircle, Heart, Eye } from "lucide-react";
 
-import AnimatedBlogImage from "./AnimatedBlogImage";
 import Image from "next/image";
 
 export default function BlogList({ blogs }) {
@@ -81,12 +80,23 @@ export default function BlogList({ blogs }) {
           {/* Right: Image */}
           {/* Right: Animated Image */}
           <div className="w-full md:w-[200px] flex-shrink-0 overflow-hidden max-w-full">
-            <AnimatedBlogImage
+            <Link
               href={`/blogs/${blog.slug}`}
-              src={blog.image}
-              alt={blog.title}
               prefetch={false}
-            />
+              className="block"
+            >
+              <div className="overflow-hidden rounded-md">
+                <Image
+                  src={blog.image || "/placeholder.jpg"}
+                  alt={blog.title}
+                  width={400}
+                  height={250}
+                  className="w-full h-48 sm:h-52 md:h-[200px] object-cover"
+                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, 200px"
+                  loading="lazy"
+                />
+              </div>
+            </Link>
           </div>
         </div>
       ))}
