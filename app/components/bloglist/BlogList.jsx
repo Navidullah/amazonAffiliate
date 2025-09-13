@@ -43,7 +43,7 @@ export default function BlogList({ blogs }) {
               href={`/blogs/${blog.slug}`}
               className="block group-hover:underline"
             >
-              <h2 className="text-[14px] sm:text-xl md:text-xl font-semibold mb-1 break-words max-w-[100px] leading-snug whitespace-normal">
+              <h2 className="text-[14px] sm:text-xl md:text-xl font-semibold mb-1 break-words max-w-[400px] sm:max-w-full leading-snug whitespace-normal">
                 {blog.title}
               </h2>
             </Link>
