@@ -10,7 +10,7 @@ export default function HomeHero({ postsCount = 0 }) {
       border-gray-200 dark:border-white/10 
       bg-gradient-to-b from-cyan-50 via-white to-white 
       dark:from-cyan-500/10 dark:via-transparent dark:to-transparent
-      p-8 sm:p-12
+      p-8 sm:p-12 pt-28 md:pt-32 lg:pt-32 
     "
     >
       {/* soft glow */}
