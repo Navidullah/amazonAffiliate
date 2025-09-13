@@ -33,8 +33,9 @@ import {
   SheetContent,
   SheetClose,
 } from "@/components/ui/sheet";
-import { useCart } from "@/app/cart/CartContext";
+
 import { FaBloggerB } from "react-icons/fa";
+import { useCart } from "../cart/CartContext";
 
 export default function HeaderComponent() {
   const router = useRouter();
