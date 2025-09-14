@@ -44,32 +44,33 @@ export const viewport = {
 export const metadata = {
   metadataBase: new URL("https://www.shopyor.com"),
   title: {
-    default: "Shopyor - Health, Fitness Tips, Wellness & Proven Gear",
+    default: "Shopyor - Health, Sports, Politics & Current Affairs Blogs",
     template:
-      "%s | Shopyor — Expert Health & Fitness Guides, Wellness Tips & Store for Proven Gear",
+      "%s | Shopyor — Expert Guides on Health, Fitness, Sports & Current Affairs",
   },
   description:
-    "Shopyor brings you health & fitness tips, detailed wellness guides, and trustworthy product picks. Practical, research-driven content to help you stay active, confident, and live a healthier life daily.",
+    "Shopyor brings you health and fitness tips, sports highlights, political insights, and current affairs updates. Practical, research-driven blogs to keep you healthier, smarter, and well-informed every day.",
   keywords: [
-    "health and fitness",
+    "health blogs",
+    "fitness guides",
     "wellness tips",
-    "workout routines",
-    "nutrition advice",
-    "sleep and recovery",
+    "sports news",
+    "politics updates",
+    "current affairs analysis",
   ],
   openGraph: {
     type: "website",
     title:
-      "Shopyor — Expert Health & Fitness Guides, Wellness Tips & Store for Proven Gear",
+      "Shopyor — Expert Guides on Health, Fitness, Sports & Current Affairs",
     description:
-      "Research-driven guides on health, fitness, nutrition, recovery, and curated products that actually help.",
+      "Discover trusted blogs on health, sports, politics, and current affairs. Research-driven guides and expert insights to help you stay active, informed, and confident.",
     url: "https://www.shopyor.com",
     images: [
       {
         url: "/og/og-home-1200x630.jpg",
         width: 1200,
         height: 630,
-        alt: "Shopyor — Health & Fitness Guides and Store",
+        alt: "Shopyor — Health, Sports, Politics & Current Affairs Blogs",
       },
     ],
     locale: "en_US",
@@ -77,9 +78,9 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title:
-      "Shopyor — Expert Health & Fitness Guides, Wellness Tips & Store for Proven Gear",
+      "Shopyor — Expert Guides on Health, Fitness, Sports & Current Affairs",
     description:
-      "Research-driven guides on health, fitness, nutrition, recovery, and curated products that actually help.",
+      "Health tips, sports coverage, political insights, and current affairs blogs — all in one trusted platform.",
     images: ["/og/og-home-1200x630.jpg"],
   },
   alternates: { canonical: "https://www.shopyor.com" },

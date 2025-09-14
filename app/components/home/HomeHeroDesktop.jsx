@@ -30,8 +30,9 @@ export default function HomeHeroDesktop() {
           transition={{ duration: 0.5 }}
           className="text-5xl xl:text-6xl font-extrabold tracking-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]"
         >
-          Practical <span className="text-cyan-300">Health & Fitness</span>{" "}
-          Guides for Real Life
+          Expert Guides on
+          <span className="text-cyan-300">Health, Sports, Politics</span> &
+          Current Affairs
         </motion.h1>
 
         <motion.p
@@ -40,8 +41,10 @@ export default function HomeHeroDesktop() {
           transition={{ delay: 0.08, duration: 0.5 }}
           className="mt-5 max-w-2xl text-lg/8 text-white/80"
         >
-          Evidence-based tips, simple routines, and clear product breakdowns. No
-          fluff—just what helps you feel better, think sharper, and move more.
+          Shopyor brings you practical health tips, fitness routines, sports
+          coverage, and political analysis. Explore research-driven blogs,
+          expert insights, and current affairs updates designed to keep you
+          healthier, smarter, and well-informed every day.
         </motion.p>
 
         {/* CTAs */}

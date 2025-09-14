@@ -32,21 +32,22 @@ export default function HomeHero({ postsCount = 0 }) {
           dark:bg-white/5 dark:text-cyan-300
         "
         >
-          💪 Health & Fitness • Shopyor
+          💪 Health, Sports, & politics • Shopyor
         </span>
 
         <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl">
-          Practical
+          Expert Guides on
           <span className="bg-gradient-to-r from-cyan-500 to-teal-400 bg-clip-text text-transparent">
-            {" "}
-            Health & Fitness{" "}
+            Health, Sports, Politics
           </span>
-          Guides for Real Life
+          & Current Affairs
         </h1>
 
         <p className="mt-4 text-gray-700 dark:text-white/75 sm:text-lg">
-          Evidence-based tips, simple routines, and clear product breakdowns. No
-          fluff—just what helps you feel better, think sharper, and move more.
+          Shopyor brings you practical health tips, fitness routines, sports
+          coverage, and political analysis. Explore research-driven blogs,
+          expert insights, and current affairs updates designed to keep you
+          healthier, smarter, and well-informed every day.
         </p>
 
         {/* CTAs */}
