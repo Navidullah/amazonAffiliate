@@ -173,7 +173,7 @@ body {
     @apply my-1;
   }
   .tiptap blockquote {
-    @apply border-l-4 border-[#de7428] pl-4 italic bg-orange-200 my-4;
+    @apply border-l-4 border-black pl-4 italic bg-blue-300 my-4;
   }
   .tiptap p {
     @apply py-4;
