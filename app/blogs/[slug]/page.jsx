@@ -478,18 +478,41 @@ export default async function SingleBlogPage({ params }) {
   };
 
   // --- Breadcrumb JSON-LD ---
+  // --- Breadcrumb JSON-LD ---
   const breadcrumbLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: `${BASE_URL}/` },
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: `${BASE_URL}/`,
+      },
       {
         "@type": "ListItem",
         position: 2,
         name: "Blogs",
         item: `${BASE_URL}/blogs`,
       },
-      { "@type": "ListItem", position: 3, name: blog.title, item: pageUrl },
+      ...(blog.category
+        ? [
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: blog.category,
+              item: `${BASE_URL}/blogs?category=${encodeURIComponent(
+                blog.category.toLowerCase()
+              )}`,
+            },
+          ]
+        : []),
+      {
+        "@type": "ListItem",
+        position: blog.category ? 4 : 3,
+        name: blog.title,
+        item: pageUrl,
+      },
     ],
   };
 

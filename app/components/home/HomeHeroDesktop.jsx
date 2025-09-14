@@ -31,7 +31,7 @@ export default function HomeHeroDesktop() {
           className="text-5xl xl:text-6xl font-extrabold tracking-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]"
         >
           Expert Guides on
-          <span className="text-cyan-300">Health, Sports, Politics</span> &
+          <span className="text-cyan-300"> Health, Sports, Politics</span> &
           Current Affairs
         </motion.h1>
 

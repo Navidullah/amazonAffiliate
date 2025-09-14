@@ -38,14 +38,42 @@ export default async function HomePage({ searchParams }) {
       page > 1
         ? `https://www.shopyor.com/?page=${page}`
         : "https://www.shopyor.com/",
-    name: "Shopyor – Health, Fitness & Physics Blogs",
+    name: "Shopyor – Health, Sports, Politics & Current Affairs Blogs",
     description:
-      "Readable, research-based articles on health, fitness, and physics.",
+      "Readable, research-based articles on health, fitness, sports, politics, and current affairs.",
     isPartOf: {
       "@type": "WebSite",
       name: "Shopyor",
       url: "https://www.shopyor.com",
     },
+    about: [
+      {
+        "@type": "Thing",
+        name: "Health",
+        description: "Blogs on wellness, nutrition, and healthy living.",
+      },
+      {
+        "@type": "Thing",
+        name: "Fitness",
+        description:
+          "Guides on workouts, exercise routines, and staying active.",
+      },
+      {
+        "@type": "Thing",
+        name: "Sports",
+        description: "Sports news, insights, and performance tips.",
+      },
+      {
+        "@type": "Thing",
+        name: "Politics",
+        description: "Political analysis, insights, and opinion pieces.",
+      },
+      {
+        "@type": "Thing",
+        name: "Current Affairs",
+        description: "Coverage of global events, issues, and breaking news.",
+      },
+    ],
   };
 
   return (
