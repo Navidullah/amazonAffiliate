@@ -8,7 +8,7 @@ export async function generateMetadata({ searchParams }) {
   return {
     title: "Blogs",
     description:
-      "Explore Shopyor’s latest health, fitness, and wellness articles. Research-based, readable, and practical.",
+      "Explore Shopyor’s latest health, fitness, Sports and Political articles. Research-based, readable, and practical.",
     alternates: { canonical },
   };
 }
