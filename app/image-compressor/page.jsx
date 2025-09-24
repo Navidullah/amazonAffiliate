@@ -3,6 +3,7 @@
 import ImageCompressionGuide from "../components/tools/ImageCompressionGuide";
 import ImageCompressorClient from "../components/tools/ImageCompressorClient";
 import { jsonLdWebApp } from "./metadata";
+export { metadata } from "./metadata";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
 
