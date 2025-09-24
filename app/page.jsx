@@ -4,12 +4,30 @@ import BlogList from "./components/bloglist/BlogList";
 import Link from "next/link";
 import HomeHeroDesktop from "./components/home/HomeHeroDesktop";
 
-// ✅ Per-page SEO (canonical changes with ?page)
+/** Use only generateMetadata (no export const metadata in this file) */
 export async function generateMetadata({ searchParams }) {
   const page = Number(searchParams?.page || 1);
+  const canonical = page > 1 ? `/?page=${page}` : "/";
+
+  const title = "Shopyor – Health, Fitness, Sports & Current Affairs Blogs";
+  const description =
+    "Readable, research-based articles on health, fitness, sports, politics, and current affairs—plus practical routines and gear breakdowns.";
+
   return {
-    alternates: {
-      canonical: page > 1 ? `/?page=${page}` : "/",
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      type: "website",
+      url: "https://www.shopyor.com/",
+      title,
+      description,
+      siteName: "Shopyor",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
     },
   };
 }
@@ -22,15 +40,13 @@ export default async function HomePage({ searchParams }) {
     `${process.env.NEXT_PUBLIC_BASE_URL || ""}/api/blogs?page=${page}&limit=${limit}`,
     { cache: "no-store" }
   );
-
-  // API shape (we’ll compute prev/next locally to be safe)
   const { items = [], total = 0 } = await res.json();
 
   const totalPages = Math.max(1, Math.ceil(total / limit));
   const canPrev = page > 1;
   const canNext = page < totalPages;
 
-  // ✅ WebPage JSON-LD (pagination-aware)
+  // JSON-LD (pagination-aware)
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -50,28 +66,27 @@ export default async function HomePage({ searchParams }) {
       {
         "@type": "Thing",
         name: "Health",
-        description: "Blogs on wellness, nutrition, and healthy living.",
+        description: "Wellness, nutrition, healthy living.",
       },
       {
         "@type": "Thing",
         name: "Fitness",
-        description:
-          "Guides on workouts, exercise routines, and staying active.",
+        description: "Workouts, routines, staying active.",
       },
       {
         "@type": "Thing",
         name: "Sports",
-        description: "Sports news, insights, and performance tips.",
+        description: "News, insights, performance tips.",
       },
       {
         "@type": "Thing",
         name: "Politics",
-        description: "Political analysis, insights, and opinion pieces.",
+        description: "Analysis and opinion pieces.",
       },
       {
         "@type": "Thing",
         name: "Current Affairs",
-        description: "Coverage of global events, issues, and breaking news.",
+        description: "Global events and issues.",
       },
     ],
   };
@@ -94,12 +109,10 @@ export default async function HomePage({ searchParams }) {
 
       <main className="mx-auto max-w-6xl px-3 sm:px-4">
         <section className="py-6 sm:py-8">
-          {/* Blog list */}
           <BlogList blogs={items} />
 
           {/* Pagination */}
           <div className="mt-8 flex items-center justify-between">
-            {/* Prev */}
             {canPrev ? (
               <Link
                 href={`/?page=${page - 1}`}
@@ -115,13 +128,11 @@ export default async function HomePage({ searchParams }) {
               </span>
             )}
 
-            {/* Page x of y */}
             <div className="text-xs text-gray-600 dark:text-white/60">
               Page <span className="font-semibold">{page}</span> of{" "}
               <span className="font-semibold">{totalPages}</span>
             </div>
 
-            {/* Next */}
             {canNext ? (
               <Link
                 href={`/?page=${page + 1}`}

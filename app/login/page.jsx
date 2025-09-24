@@ -15,6 +15,7 @@ import { FaGithub, FaPinterest } from "react-icons/fa";
 import { Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+// app/(auth)/login/page.jsx  (or wherever your login route lives)
 
 export default function LoginPage() {
   const { status } = useSession();
