@@ -1,6 +1,6 @@
 // app/contact/page.jsx
 import Image from "next/image";
-import ContactForm from "../components/contact-form/contactForm";
+import ContactForm from "../components/contact-form/ContactForm";
 
 export const metadata = {
   title: "Contact Shopyor – Support & Partnerships",
