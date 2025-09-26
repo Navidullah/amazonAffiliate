@@ -17,11 +17,11 @@ export default function ImageCompressorPage() {
       />
 
       {/* H1 for SEO */}
-      <h1 className="text-3xl font-bold">
+      <h1 className="text-3xl font-bold mb-3">
         Free Online Image Compressor (JPG, PNG, WebP) | Shopyor – Reduce Image
         Size Without Losing Quality
       </h1>
-      <p className="text-sm text-gray-600 dark:text-gray-400">
+      <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
         Reduce image size without losing visible quality. Faster pages, better
         Core Web Vitals, and quick sharing.
       </p>

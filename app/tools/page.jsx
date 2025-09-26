@@ -15,20 +15,20 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
 export const metadata = {
   title: "Tools", // becomes: Tools | Shopyor — Expert Health & Fitness…
   description:
-    "Use Shopyor’s free tools: Image Compressor, EXIF Remover, Background Remover, and Affiliate Link Generator. Fast, private, and easy to use.",
+    "Use Shopyor’s free tools: Image Compressor, EXIF Remover, Background Remover,Body Mass Index (BMI), and Affiliate Link Generator. Fast, private, and easy to use.",
   alternates: { canonical: "/tools" },
   openGraph: {
     type: "website",
     url: `${BASE_URL}/tools`,
     title: "Tools",
     description:
-      "Free utilities from Shopyor: compress images, strip EXIF, remove backgrounds, and generate affiliate links.",
+      "Free utilities from Shopyor: compress images, strip EXIF, remove backgrounds,Body Mass Index (BMI), and generate affiliate links.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Tools",
     description:
-      "Free utilities from Shopyor: compress images, strip EXIF, remove backgrounds, and generate affiliate links.",
+      "Free utilities from Shopyor: compress images, strip EXIF, remove backgrounds,Body Mass Index (BMI), and generate affiliate links.",
   },
 };
 
