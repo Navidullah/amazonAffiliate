@@ -1,6 +1,17 @@
 # *
 User-agent: *
 Allow: /
+Disallow: /login
+Disallow: /signup
+Disallow: /cart
+Disallow: /checkout
+Disallow: /dashboard
+Disallow: /admin/
+Disallow: /api/
+Disallow: /add-product
+Disallow: /write
+Disallow: /thankYou
+Disallow: /pinterest
 
 # Host
 Host: https://www.shopyor.com
