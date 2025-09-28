@@ -237,7 +237,7 @@ export default function Header() {
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link
-                    href="/generate-link"
+                    href="/tools/affiliate-link-generator"
                     className="flex items-center gap-2"
                   >
                     <Link2 /> Generate link
@@ -245,7 +245,7 @@ export default function Header() {
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link
-                    href="/image-compressor"
+                    href="/tools/image-compressor"
                     className="flex items-center gap-2"
                   >
                     <FaCompress /> Image compressor
@@ -253,7 +253,7 @@ export default function Header() {
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link
-                    href="/background-remover"
+                    href="/tools/background-remover-image"
                     className="flex items-center gap-2"
                   >
                     <FaBackward /> Background Remover
