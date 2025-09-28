@@ -59,19 +59,19 @@ module.exports = {
       },
       // (Optional) make tools explicit with better hints:
       {
-        loc: `${siteUrl}/image-compressor`,
+        loc: `${siteUrl}/tools/image-compressor`,
         changefreq: "weekly",
         priority: 0.9,
         lastmod: new Date().toISOString(),
       },
       {
-        loc: `${siteUrl}/background-remover`,
+        loc: `${siteUrl}/tools/background-remover-image`,
         changefreq: "weekly",
         priority: 0.9,
         lastmod: new Date().toISOString(),
       },
       {
-        loc: `${siteUrl}/exif-remover`,
+        loc: `${siteUrl}/tools/exif-remover`,
         changefreq: "weekly",
         priority: 0.8,
         lastmod: new Date().toISOString(),
@@ -139,9 +139,9 @@ module.exports = {
       changefreq = "monthly";
       priority = 0.7;
     } else if (
-      path.startsWith("/image-compressor") ||
-      path.startsWith("/background-remover") ||
-      path.startsWith("/exif-remover")
+      path.startsWith("/tools/image-compressor") ||
+      path.startsWith("/tools/background-remover-image") ||
+      path.startsWith("/tools/exif-remover")
     ) {
       changefreq = "weekly";
       priority = 0.9;
