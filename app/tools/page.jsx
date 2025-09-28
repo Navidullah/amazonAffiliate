@@ -130,7 +130,7 @@ export default function ToolsPage() {
           badge="Beta"
         />
         <ToolCard
-          href="/tools/generate-link"
+          href="/tools/affiliate-link-generator"
           title="Affiliate Link Generator"
           desc="Build clean, trackable affiliate links to share across your posts and socials."
           icon={Link2}
