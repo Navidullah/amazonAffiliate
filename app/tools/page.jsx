@@ -117,13 +117,13 @@ export default function ToolsPage() {
           icon={ImgIcon}
         />
         <ToolCard
-          href="/exif-remover"
+          href="/tools/exif-remover"
           title="EXIF Remover"
           desc="Strip sensitive metadata (location, camera info) from photos before sharing."
           icon={Scissors}
         />
         <ToolCard
-          href="/background-remover"
+          href="/tools/bg-remover"
           title="Background Remover"
           desc="Cut out image backgrounds in seconds for clean product photos and thumbnails."
           icon={Wand2}
