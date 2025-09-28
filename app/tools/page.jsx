@@ -111,7 +111,7 @@ export default function ToolsPage() {
 
       <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
         <ToolCard
-          href="/image-compressor"
+          href="/tools/image-compressor"
           title="Image Compressor"
           desc="Reduce image size without sacrificing quality. Great for web performance and SEO."
           icon={ImgIcon}
