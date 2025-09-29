@@ -64,11 +64,11 @@ export default function Header() {
           <Link href="/" className="flex items-center">
             <Image
               src="/shopyor.png"
-              width={40}
-              height={40}
+              width={100}
+              height={100}
               alt="Health & fitness"
               priority
-              sizes="40px"
+              sizes="100px"
             />
           </Link>
         </div>
