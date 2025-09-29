@@ -63,16 +63,13 @@ export default function Header() {
         <div className="flex items-center w-full sm:w-auto">
           <Link href="/" className="flex items-center">
             <Image
-              src="/shopyor.png"
+              src="/shopyor.jpg"
               width={40}
               height={40}
               alt="Health & fitness"
               priority
               sizes="40px"
             />
-            <span className="font-semibold text-xl sm:text-2xl ml-2">
-              Shopyor
-            </span>
           </Link>
         </div>
 

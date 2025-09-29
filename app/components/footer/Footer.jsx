@@ -11,7 +11,7 @@ export default function Footer() {
         <div className="  sm:w-auto mb-2 sm:mb-0">
           <Link href="/" className="flex items-center">
             <Image
-              src="/shopyor.png"
+              src="/shopyor.jpg"
               width={100}
               height={100}
               alt="Health & fitness"
