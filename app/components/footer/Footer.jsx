@@ -12,8 +12,8 @@ export default function Footer() {
           <Link href="/" className="flex items-center">
             <Image
               src="/shopyor.png"
-              width={100}
-              height={100}
+              width={120}
+              height={120}
               alt="Health & fitness"
               className="text-3xl font-serif font-bold tracking-tight"
             />
