@@ -1,154 +1,145 @@
-// app/page.jsx
-import HomeBlogHero from "./components/bloghero/HomeBlogHero";
-import BlogList from "./components/bloglist/BlogList";
 import Link from "next/link";
-import HomeHeroDesktop from "./components/home/HomeHeroDesktop";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { ImageIcon, Sparkles, Shield, Scale, Link2 } from "lucide-react";
+import AnimatedHero from "./components/home/AnimatedHero";
+import ToolCards from "./components/home/ToolCards";
+import Features from "./components/home/Features";
+import Faq from "./components/home/Faq";
 
-/** Use only generateMetadata (no export const metadata in this file) */
-export async function generateMetadata({ searchParams }) {
-  const page = Number(searchParams?.page || 1);
-  const canonical = page > 1 ? `/?page=${page}` : "/";
+/* ================================
+   TOOLS DATA
+================================ */
+const tools = [
+  {
+    title: "Background Remover 01",
+    desc: "Remove image backgrounds instantly using AI.",
+    href: "/tools/background-remover-image",
+    icon: <ImageIcon className="w-6 h-6" />,
+  },
+  {
+    title: "Background Remover 02",
+    desc: "Remove image backgrounds instantly using AI.",
+    href: "/tools/bg-remover",
+    icon: <ImageIcon className="w-6 h-6" />,
+  },
+  {
+    title: "Image Compressor",
+    desc: "Reduce image size without losing quality.",
+    href: "/tools/image-compressor",
+    icon: <Sparkles className="w-6 h-6" />,
+  },
+  {
+    title: "EXIF Remover",
+    desc: "Remove hidden metadata from your images.",
+    href: "/tools/exif-remover",
+    icon: <Shield className="w-6 h-6" />,
+  },
+  {
+    title: "BMI Calculator",
+    desc: "Calculate your body mass index easily.",
+    href: "/tools/bmi",
+    icon: <Scale className="w-6 h-6" />,
+  },
+  {
+    title: "Affiliate Link Generator",
+    desc: "Create clean and trackable affiliate links.",
+    href: "/tools/affiliate-link-generator",
+    icon: <Link2 className="w-6 h-6" />,
+  },
+];
 
-  const title = "Shopyor – Health, Fitness, Sports & Current Affairs Blogs";
-  const description =
-    "Readable, research-based articles on health, fitness, sports, politics, and current affairs—plus practical routines and gear breakdowns.";
-
-  return {
-    title,
-    description,
-    alternates: { canonical },
-    openGraph: {
-      type: "website",
-      url: "https://www.shopyor.com/",
-      title,
-      description,
-      siteName: "Shopyor",
+/* ================================
+   JSON-LD Structured Data
+================================ */
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "WebSite", name: "Shopyor", url: "https://www.shopyor.com" },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.shopyor.com/",
+        },
+      ],
     },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
+    {
+      "@type": "ItemList",
+      name: "Free Online Tools",
+      itemListElement: tools.map((tool, i) => ({
+        "@type": "SoftwareApplication",
+        position: i + 1,
+        name: tool.title,
+        applicationCategory: "UtilityApplication",
+        operatingSystem: "Web",
+        url: `https://www.shopyor.com${tool.href}`,
+      })),
     },
-  };
-}
-
-export default async function HomePage({ searchParams }) {
-  const page = Number(searchParams?.page) > 0 ? Number(searchParams.page) : 1;
-  const limit = 5;
-
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL || ""}/api/blogs?page=${page}&limit=${limit}`,
-    { cache: "no-store" }
-  );
-  const { items = [], total = 0 } = await res.json();
-
-  const totalPages = Math.max(1, Math.ceil(total / limit));
-  const canPrev = page > 1;
-  const canNext = page < totalPages;
-
-  // JSON-LD (pagination-aware)
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    url:
-      page > 1
-        ? `https://www.shopyor.com/?page=${page}`
-        : "https://www.shopyor.com/",
-    name: "Shopyor – Health, Sports, Politics & Current Affairs Blogs",
-    description:
-      "Readable, research-based articles on health, fitness, sports, politics, and current affairs.",
-    isPartOf: {
-      "@type": "WebSite",
-      name: "Shopyor",
-      url: "https://www.shopyor.com",
+    {
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "Are these tools free to use?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes, all tools on Shopyor are completely free and require no registration.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Do you store uploaded files?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "No, files are processed securely and are not stored on our servers.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Do these tools work on mobile devices?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes, all tools are fully responsive and work on mobile, tablet, and desktop devices.",
+          },
+        },
+      ],
     },
-    about: [
-      {
-        "@type": "Thing",
-        name: "Health",
-        description: "Wellness, nutrition, healthy living.",
-      },
-      {
-        "@type": "Thing",
-        name: "Fitness",
-        description: "Workouts, routines, staying active.",
-      },
-      {
-        "@type": "Thing",
-        name: "Sports",
-        description: "News, insights, performance tips.",
-      },
-      {
-        "@type": "Thing",
-        name: "Politics",
-        description: "Analysis and opinion pieces.",
-      },
-      {
-        "@type": "Thing",
-        name: "Current Affairs",
-        description: "Global events and issues.",
-      },
-    ],
-  };
+  ],
+};
 
+/* ================================
+   HOME PAGE COMPONENT
+================================ */
+export default function HomePage() {
   return (
     <>
-      {/* JSON-LD */}
+      {/* JSON-LD Structured Data for SEO */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Heroes */}
-      <div className="lg:hidden">
-        <HomeBlogHero postsCount={total} />
-      </div>
-      <div className="hidden lg:block -mt-6">
-        <HomeHeroDesktop />
-      </div>
+      <main>
+        {/* HERO */}
+        <AnimatedHero />
 
-      <main className="mx-auto max-w-6xl px-3 sm:px-4">
-        <section className="py-6 sm:py-8">
-          <BlogList blogs={items} />
-
-          {/* Pagination */}
-          <div className="mt-8 flex items-center justify-between">
-            {canPrev ? (
-              <Link
-                href={`/?page=${page - 1}`}
-                prefetch
-                rel="prev"
-                className="rounded-lg bg-muted px-4 py-2 text-sm hover:bg-muted/80 active:scale-[0.99]"
-              >
-                ← Previous
-              </Link>
-            ) : (
-              <span className="px-4 py-2 text-sm text-gray-400 dark:text-white/40 select-none">
-                ← Previous
-              </span>
-            )}
-
-            <div className="text-xs text-gray-600 dark:text-white/60">
-              Page <span className="font-semibold">{page}</span> of{" "}
-              <span className="font-semibold">{totalPages}</span>
-            </div>
-
-            {canNext ? (
-              <Link
-                href={`/?page=${page + 1}`}
-                prefetch
-                rel="next"
-                className="rounded-lg bg-cyan-500 px-4 py-2 text-sm font-semibold text-black hover:bg-cyan-400 active:scale-[0.99]"
-              >
-                Next →
-              </Link>
-            ) : (
-              <span className="px-4 py-2 text-sm text-gray-400 dark:text-white/40 select-none">
-                Next →
-              </span>
-            )}
-          </div>
+        {/* TOOLS */}
+        <section id="tools" className="py-20 px-6 max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-14">
+            Powerful Tools. Zero Complexity.
+          </h2>
+          <ToolCards tools={tools} />
         </section>
+
+        {/* FEATURES */}
+        <Features />
+
+        {/* FAQ */}
+        <Faq />
       </main>
     </>
   );

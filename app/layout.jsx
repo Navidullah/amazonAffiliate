@@ -43,47 +43,72 @@ export const viewport = {
 /** **********  SITE-WIDE SEO DEFAULTS  ********** */
 export const metadata = {
   metadataBase: new URL("https://www.shopyor.com"),
+
   title: {
-    default: "Shopyor - Health, Sports, Politics & Current Affairs Blogs",
-    template:
-      "%s | Shopyor — Expert Guides on Health, Fitness, Sports & Current Affairs",
+    default: "Shopyor — Free Online Tools for Images, Health & Productivity",
+    template: "%s | Shopyor Free Online Tools",
   },
+
   description:
-    "Shopyor brings you health and fitness tips, sports highlights, political insights, and current affairs updates. Practical, research-driven blogs to keep you healthier, smarter, and well-informed every day.",
+    "Shopyor offers powerful free online tools including background remover, image compressor, EXIF cleaner, BMI calculator, and productivity utilities. Fast, secure, and browser-based tools with no downloads required.",
+
   keywords: [
-    "health blogs",
-    "fitness guides",
-    "wellness tips",
-    "sports news",
-    "politics updates",
-    "current affairs analysis",
+    "free online tools",
+    "image tools",
+    "background remover online",
+    "image compressor",
+    "remove image background",
+    "EXIF data remover",
+    "BMI calculator",
+    "online utility tools",
+    "web tools free",
+    "productivity tools online",
   ],
+
   openGraph: {
     type: "website",
-    title:
-      "Shopyor — Expert Guides on Health, Fitness, Sports & Current Affairs",
-    description:
-      "Discover trusted blogs on health, sports, politics, and current affairs. Research-driven guides and expert insights to help you stay active, informed, and confident.",
     url: "https://www.shopyor.com",
+    title: "Shopyor — Free Online Image & Utility Tools",
+    description:
+      "Use powerful free online tools like background remover, image compressor, EXIF cleaner, and productivity utilities. Secure, fast, and 100% browser-based.",
+    siteName: "Shopyor",
     images: [
       {
-        url: "/og/og-home-1200x630.jpg",
+        url: "/og/og-tools-1200x630.jpg",
         width: 1200,
         height: 630,
-        alt: "Shopyor — Health, Sports, Politics & Current Affairs Blogs",
+        alt: "Shopyor Free Online Tools Platform",
       },
     ],
     locale: "en_US",
   },
+
   twitter: {
     card: "summary_large_image",
-    title:
-      "Shopyor — Expert Guides on Health, Fitness, Sports & Current Affairs",
+    title: "Shopyor — Free Online Tools Platform",
     description:
-      "Health tips, sports coverage, political insights, and current affairs blogs — all in one trusted platform.",
-    images: ["/og/og-home-1200x630.jpg"],
+      "Background remover, image compressor, EXIF cleaner, BMI calculator and more. Free browser-based tools with no sign-up required.",
+    images: ["/og/og-tools-1200x630.jpg"],
   },
-  alternates: { canonical: "https://www.shopyor.com" },
+
+  alternates: {
+    canonical: "https://www.shopyor.com",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+
+  category: "technology",
+
   icons: {
     icon: [
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
@@ -122,14 +147,7 @@ export default function RootLayout({ children }) {
         className={`${montserrat.variable} ${jetbrainsMono.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {/* subtle brand blur background */}
-        <div className="pointer-events-none fixed inset-0 -z-10">
-          <div className="absolute inset-x-0 top-[-200px] h-[800px]">
-            <div className="mx-auto max-w-5xl">
-              <div className="w-[800px] h-[800px] bg-cyan-500 opacity-20 dark:opacity-15 blur-[120px] rounded-full mx-auto" />
-            </div>
-          </div>
-        </div>
-
+        //*
         <Providers>
           <HeaderComponent />
           {/* ✅ Corrected to clear the fixed header on all breakpoints */}

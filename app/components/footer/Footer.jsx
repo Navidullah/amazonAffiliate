@@ -14,7 +14,7 @@ export default function Footer() {
               src="/shopyor.png"
               width={120}
               height={120}
-              alt="Health & fitness"
+              alt="Tools"
               className="text-3xl font-serif font-bold tracking-tight"
             />
           </Link>

@@ -66,7 +66,7 @@ export default function Header() {
               src="/shopyor.png"
               width={120}
               height={120}
-              alt="Health & fitness"
+              alt="tools"
               priority
               sizes="120px"
             />
@@ -92,7 +92,7 @@ export default function Header() {
             <Input
               id="header-search"
               type="text"
-              placeholder="Search"
+              placeholder="Search blogs . . ."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="pl-10 pr-4 py-2 w-full rounded-full border bg-gray-100 focus:bg-white dark:bg-zinc-900 dark:focus:bg-zinc-800 text-sm sm:text-base"
@@ -114,30 +114,13 @@ export default function Header() {
             <Link href="/blogs" className="hover:text-primary">
               Blog
             </Link>
-            <Link href="/products" className="hover:text-primary">
-              Products
-            </Link>
+
             <Link href="/tools" className="hover:text-primary">
               Tools
             </Link>
           </nav>
 
           {/* Cart */}
-          <Link href="/cart">
-            <Button
-              size="icon"
-              variant="outline"
-              className="relative rounded-full w-9 h-9"
-              aria-label="Open cart"
-            >
-              <ShoppingCart />
-              {cartCount > 0 && (
-                <span className="absolute top-0 right-0 -mt-2 -mr-2 bg-blue-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center shadow">
-                  {cartCount}
-                </span>
-              )}
-            </Button>
-          </Link>
 
           {/* Mobile Menu */}
           <div className="flex md:hidden items-center">
@@ -169,14 +152,7 @@ export default function Header() {
                     Blog
                   </Link>
                 </SheetClose>
-                <SheetClose asChild>
-                  <Link
-                    href="/products"
-                    className="text-lg font-semibold hover:text-primary"
-                  >
-                    Products
-                  </Link>
-                </SheetClose>
+
                 <SheetClose asChild>
                   <Link
                     href="/tools"
