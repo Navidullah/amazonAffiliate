@@ -45,7 +45,7 @@ export const metadata = {
   metadataBase: new URL("https://www.shopyor.com"),
 
   title: {
-    default: "Shopyor — Free Online Tools for Images, Health & Productivity",
+    default: "Shopyor — Free Online Tools",
     template: "%s | Shopyor Free Online Tools",
   },
 
