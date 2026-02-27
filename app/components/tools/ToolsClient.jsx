@@ -58,6 +58,13 @@ export default function ToolsClient() {
       icon: Wand,
       category: "Image",
     },
+    {
+      href: "/tools/pdf-to-word",
+      title: "Convert PDF file to Word file",
+      desc: "PDF to WORD API using Python code.",
+      icon: Wand,
+      category: "Image",
+    },
   ];
 
   const categories = ["All", "Image", "Health", "Marketing"];
