@@ -1,7 +1,14 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ImageIcon, Sparkles, Shield, Scale, Link2 } from "lucide-react";
+import {
+  ImageIcon,
+  Sparkles,
+  Shield,
+  Scale,
+  Link2,
+  FileType,
+} from "lucide-react";
 import AnimatedHero from "./components/home/AnimatedHero";
 import ToolCards from "./components/home/ToolCards";
 import Features from "./components/home/Features";
@@ -46,6 +53,12 @@ const tools = [
     desc: "Create clean and trackable affiliate links.",
     href: "/tools/affiliate-link-generator",
     icon: <Link2 className="w-6 h-6" />,
+  },
+  {
+    title: "Convert PDF file to Word file",
+    desc: "PDF to WORD API using Python code.",
+    href: "/tools/pdf-to-word",
+    icon: <FileType className="w-6 h-6" />,
   },
 ];
 
