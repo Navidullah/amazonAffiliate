@@ -65,6 +65,13 @@ export default function ToolsClient() {
       icon: Wand,
       category: "Image",
     },
+    {
+      href: "/tools/youtube-thumbnail",
+      title: "Youtube Thumbnail Downloader",
+      desc: "Here You Can Easily Download",
+      icon: Wand,
+      category: "Image",
+    },
   ];
 
   const categories = ["All", "Image", "Health", "Marketing"];
