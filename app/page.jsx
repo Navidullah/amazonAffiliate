@@ -64,7 +64,13 @@ const tools = [
   {
     href: "/tools/youtube-thumbnail",
     title: "Youtube Thumbnail Downloader",
-    desc: "Here You Can Easily Download",
+    desc: "Here You Can Easily Download The Thumbnail.",
+    icon: <Wand className="w-6 h-6" />,
+  },
+  {
+    href: "/tools/youtube-tags",
+    title: "Youtube Tags",
+    desc: "Download Youtube Tags Here You are At Right Place",
     icon: <Wand className="w-6 h-6" />,
   },
 ];

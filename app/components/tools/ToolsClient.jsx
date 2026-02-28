@@ -72,6 +72,13 @@ export default function ToolsClient() {
       icon: Wand,
       category: "Image",
     },
+    {
+      href: "/tools/youtube-tags",
+      title: "Youtube Tags",
+      desc: "Download Youtube Tags Here You are At Right Place",
+      icon: Wand,
+      category: "Image",
+    },
   ];
 
   const categories = ["All", "Image", "Health", "Marketing"];
