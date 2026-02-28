@@ -13,7 +13,7 @@ export default function PdfToWordConverter() {
   const [progress, setProgress] = useState(0);
 
   // Replace this with your deployed API URL
-  const API_URL = "https://pdf-word-api-6q97.onrender.com/convert-pdf-to-word/";
+  const API_URL = "/api/convert-pdf-to-word";
 
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
