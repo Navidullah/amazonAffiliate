@@ -8,6 +8,7 @@ import {
   Scale,
   Link2,
   FileType,
+  Wand,
 } from "lucide-react";
 import AnimatedHero from "./components/home/AnimatedHero";
 import ToolCards from "./components/home/ToolCards";
@@ -59,6 +60,12 @@ const tools = [
     desc: "PDF to WORD API using Python code.",
     href: "/tools/pdf-to-word",
     icon: <FileType className="w-6 h-6" />,
+  },
+  {
+    href: "/tools/youtube-thumbnail",
+    title: "Youtube Thumbnail Downloader",
+    desc: "Here You Can Easily Download",
+    icon: <Wand className="w-6 h-6" />,
   },
 ];
 
