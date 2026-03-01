@@ -1,6 +1,19 @@
 // app/write-for-us/page.jsx
 import Link from "next/link";
 
+export const metadata = {
+  title: "Write For Us | Contribute to Shopyor Tools",
+  description:
+    "Share your expertise and contribute guest posts about tech, productivity, AI tools, software tips, and digital solutions on Shopyor. Get your article published today!",
+  keywords: [
+    "Write for Shopyor",
+    "Guest post",
+    "Tech articles",
+    "Software tips",
+    "AI tools contributions",
+  ],
+};
+
 export default function WriteForUsPage() {
   const faqJsonLd = {
     "@context": "https://schema.org",
@@ -8,18 +21,18 @@ export default function WriteForUsPage() {
     mainEntity: [
       {
         "@type": "Question",
-        name: "What topics does Shopyor accept?",
+        name: "What topics can I write about?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Health, fitness, nutrition, sleep, mental well-being, healthy recipes, evidence-based product guides, and practical wellness tips aligned with our editorial standards.",
+          text: "We welcome articles about web tools, productivity apps, AI tools, software tips, tech tutorials, and digital solutions relevant to our readers.",
         },
       },
       {
         "@type": "Question",
-        name: "Do you allow links?",
+        name: "Can I include links in my article?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. One relevant dofollow link (editor’s discretion) in the body and up to two nofollow reference links. No affiliate or sales pages.",
+          text: "Yes. You can include one relevant dofollow link in the body and up to two nofollow reference links. No affiliate or sales-heavy links are allowed.",
         },
       },
       {
@@ -27,7 +40,7 @@ export default function WriteForUsPage() {
         name: "What is the preferred word count?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "1,200–2,000 words. We prioritize depth, originality, and actionable takeaways with clear H2/H3 structure.",
+          text: "800–1,500 words. Articles should be clear, actionable, and structured with proper headings and subheadings (H2/H3).",
         },
       },
       {
@@ -35,7 +48,7 @@ export default function WriteForUsPage() {
         name: "How do I submit my pitch?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Email a proposed title and 3–6 bullet outline to editor@shopyor.com or use our Contact page.",
+          text: "Email your article idea with a short outline to shopyor.com@gmail.com or use our Contact page to submit your pitch.",
         },
       },
     ],
@@ -43,41 +56,41 @@ export default function WriteForUsPage() {
 
   return (
     <>
-      {/* FAQ Schema for rich results */}
+      {/* FAQ Schema for SEO */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-background" />
+      <section className="relative overflow-hidden bg-gray-50 dark:bg-gray-900">
         <div className="mx-auto max-w-5xl px-4 py-16 md:py-24">
           {/* Header */}
           <header className="text-center">
-            <span className="inline-block rounded-full border px-3 py-1 text-xs tracking-wide uppercase text-emerald-700 border-emerald-200 bg-white/70">
+            <span className="inline-block rounded-full border px-3 py-1 text-xs tracking-wide uppercase text-blue-600 border-blue-300 bg-white/70">
               Write for Us
             </span>
-            <h1 className="mt-4 text-3xl font-bold tracking-tight md:text-5xl">
-              Share Your Expertise on Health, Fitness & Wellness
+            <h1 className="mt-4 text-3xl font-bold tracking-tight md:text-5xl text-gray-900 dark:text-white">
+              Share Your Expertise on Web Tools & Tech
             </h1>
-            <p className="mx-auto mt-4 max-w-3xl text-neutral-700 dark:text-white md:text-lg">
-              Are you a coach, nutritionist, researcher, or passionate writer?
-              Pitch an original, evidence-based article and help thousands of
-              readers live healthier, happier lives on <strong>Shopyor</strong>.
+            <p className="mx-auto mt-4 max-w-3xl text-gray-700 dark:text-gray-300 md:text-lg">
+              Are you a tech enthusiast, software expert, or content creator?
+              Contribute high-quality, original articles about productivity
+              apps, AI tools, software tips, and web solutions, and help
+              thousands of users optimize their digital experience.
             </p>
 
-            {/* Primary CTAs */}
+            {/* Primary CTA */}
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <a
                 href="mailto:shopyor.com@gmail.com?subject=Guest%20Post%20Pitch%20for%20Shopyor&body=Hi%20Shopyor%20Team%2C%0A%0ATitle%3A%20%0AOutline%20(3%E2%80%936%20bullets)%3A%0A%0AWhy%20this%20helps%20readers%3A%0A%0AMy%20bio%20(50%E2%80%93100%20words)%3A%0A%0ASamples%20(links)%3A%0A%0AThanks%2C%0A"
-                className="rounded-xl bg-blue-600 px-5 py-2.5 text-white shadow-sm hover:bg-emerald-700"
+                className="rounded-xl bg-blue-600 px-5 py-2.5 text-white shadow-sm hover:bg-blue-700"
                 rel="noopener"
               >
                 Email Your Pitch
               </a>
               <Link
                 href="/contact"
-                className="rounded-xl border border-neutral-300 bg-card px-5 py-2.5 text-card-foreground hover:bg-emerald-700"
+                className="rounded-xl border border-gray-300 bg-white/70 px-5 py-2.5 text-gray-900 hover:bg-gray-100"
               >
                 Use Contact Page
               </Link>
@@ -89,20 +102,20 @@ export default function WriteForUsPage() {
             {[
               [
                 "Reach a Targeted Audience",
-                "Get your ideas in front of readers actively seeking health and fitness guidance.",
+                "Showcase your knowledge to users interested in web tools, AI, and software tips.",
               ],
               [
                 "Build Your Authority",
-                "Showcase your expertise with a byline and author bio (with one relevant link).",
+                "Get your byline, bio, and one relevant link published with your article.",
               ],
               [
-                "Long-Term Visibility",
-                "Evergreen content promoted via our blog, newsletter, and social channels.",
+                "Evergreen Exposure",
+                "Articles stay live, shared in our newsletter and on social media for long-term visibility.",
               ],
             ].map(([title, desc]) => (
               <div
                 key={title}
-                className="rounded-2xl bg-card text-card-foreground p-6 shadow-sm ring-1 ring-black/5"
+                className="rounded-2xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-6 shadow-md ring-1 ring-black/5"
               >
                 <h3 className="text-lg font-semibold">{title}</h3>
                 <p className="mt-2 text-sm">{desc}</p>
@@ -111,121 +124,53 @@ export default function WriteForUsPage() {
           </div>
 
           {/* Guidelines */}
-          <div className="mt-12 rounded-2xl bg-card  text-card-foreground p-8 shadow-sm ring-1 ring-black/5">
-            <h2 className="text-2xl font-semibold">Topics We Love</h2>
-            <ul className="mt-4 grid list-disc gap-2 pl-5 md:grid-cols-2">
-              <li>Evidence-based health, fitness & conditioning</li>
-              <li>Nutrition: macros, micronutrients, meal planning</li>
-              <li>Weight management, metabolic health, glucose insights</li>
-              <li>Mental health, stress resilience, sleep optimization</li>
-              <li>Beginner-friendly workouts & injury-safe routines</li>
-              <li>Healthy recipes with macros (photos welcome)</li>
-              <li>Science explainers: studies, mechanisms, takeaways</li>
-              <li>Honest, non-promotional product guides (with disclaimers)</li>
-            </ul>
-
-            <h2 className="mt-8 text-2xl font-semibold">
-              Submission Guidelines
-            </h2>
+          <div className="mt-12 rounded-2xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-8 shadow-md ring-1 ring-black/5">
+            <h2 className="text-2xl font-semibold">Submission Guidelines</h2>
             <ul className="mt-4 list-disc space-y-2 pl-5">
               <li>
-                <strong>Original only:</strong> Not published elsewhere; passes
-                plagiarism checks; human-edited.
+                <strong>Original Content:</strong> Articles must not be
+                published elsewhere.
               </li>
               <li>
-                <strong>Word count:</strong> 1,200–2,000 words; clear H2/H3,
-                short paragraphs, and bullets where helpful.
+                <strong>Word Count:</strong> 800–1,500 words; structured with
+                H2/H3 headings and clear paragraphs.
               </li>
               <li>
-                <strong>Sources:</strong> Cite peer-reviewed research or
-                reputable organizations with links (recent, high-quality).
+                <strong>Sources:</strong> Cite authoritative references or
+                official documentation where applicable.
               </li>
               <li>
-                <strong>Links:</strong> 1 relevant <em>dofollow</em> link
-                (editor’s discretion) + up to 2 <em>nofollow</em> references. No
-                affiliate/sales pages.
+                <strong>Links:</strong> One relevant dofollow link in the
+                article + up to two nofollow references.
               </li>
               <li>
-                <strong>Tone:</strong> Practical, supportive, inclusive. Avoid
-                medical claims; add disclaimers where needed.
+                <strong>Tone:</strong> Informative, professional, and
+                approachable.
               </li>
               <li>
-                <strong>Images:</strong> Original or royalty-free with credit
-                (1200×800+) and descriptive alt text.
+                <strong>Images:</strong> Use original or royalty-free images
+                with descriptive alt text.
               </li>
               <li>
-                <strong>Bio:</strong> 50–100 words + headshot (optional) +
-                socials.
-              </li>
-              <li>
-                <strong>Editing:</strong> We may edit for clarity, style, SEO,
-                and compliance.
+                <strong>Bio:</strong> Include a short author bio (50–100 words)
+                and optional social links.
               </li>
             </ul>
 
-            <div className="mt-8 rounded-xl bg-card text-card-foreground p-4 text-sm">
-              <strong>Note:</strong> We don’t publish purely promotional
-              content, spun/AI-dumped text, or medical advice. If you discuss
-              supplements or products, include evidence and a safety disclaimer.
-            </div>
-
-            {/* Secondary CTA */}
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href="mailto:shopyor.com@gmail.com?subject=Guest%20Post%20Pitch%20for%20Shopyor&body=Hi%20Shopyor%20Team%2C%0A%0ATitle%3A%20%0AOutline%20(3%E2%80%936%20bullets)%3A%0A%0AWhy%20this%20helps%20readers%3A%0A%0AMy%20bio%20(50%E2%80%93100%20words)%3A%0A%0ASamples%20(links)%3A%0A%0AThanks%2C%0A"
-                className="rounded-xl bg-blue-600 px-5 py-2.5 text-white shadow-sm hover:bg-emerald-700"
+                className="rounded-xl bg-blue-600 px-5 py-2.5 text-white shadow-sm hover:bg-blue-700"
                 rel="noopener"
               >
                 Email Your Pitch
               </a>
               <Link
                 href="/contact"
-                className="rounded-xl border border-neutral-300 bg-card px-5 py-2.5 text-card-foreground"
+                className="rounded-xl border border-gray-300 bg-white/70 px-5 py-2.5 text-gray-900 hover:bg-gray-100"
               >
                 Use Contact Page
               </Link>
-            </div>
-          </div>
-
-          {/* FAQs (expanders) */}
-          <div className="mt-12 rounded-2xl bg-card text-card-foreground p-8 shadow-sm ring-1 ring-black/5">
-            <h2 className="text-2xl font-semibold text-">FAQs</h2>
-            <div className="mt-4 space-y-4 ">
-              <details className="rounded-xl border border-neutral-200 p-4">
-                <summary className="cursor-pointer font-medium">
-                  Do you accept previously published content?
-                </summary>
-                <p className="mt-2">
-                  No. We only accept original, unpublished content.
-                </p>
-              </details>
-              <details className="rounded-xl border border-neutral-200 p-4">
-                <summary className="cursor-pointer font-medium">
-                  Will I get a backlink?
-                </summary>
-                <p className="mt-2">
-                  You may receive one contextual dofollow link if it serves
-                  readers. Promotional/irrelevant links are removed.
-                </p>
-              </details>
-              <details className="rounded-xl border border-neutral-200 p-4">
-                <summary className="cursor-pointer font-medium">
-                  Can I include images?
-                </summary>
-                <p className="mt-2">
-                  Yes—use original or royalty-free images with proper credit and
-                  alt text (min 1200×800).
-                </p>
-              </details>
-              <details className="rounded-xl border border-neutral-200 p-4">
-                <summary className="cursor-pointer font-medium">
-                  How long until I hear back?
-                </summary>
-                <p className="mt-2">
-                  Usually 5–7 business days. If you don’t hear back, feel free
-                  to pitch a different idea.
-                </p>
-              </details>
             </div>
           </div>
         </div>
