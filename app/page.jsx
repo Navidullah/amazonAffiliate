@@ -9,6 +9,8 @@ import {
   Link2,
   FileType,
   Wand,
+  Youtube,
+  FileText,
 } from "lucide-react";
 import AnimatedHero from "./components/home/AnimatedHero";
 import ToolCards from "./components/home/ToolCards";
@@ -65,13 +67,25 @@ const tools = [
     href: "/tools/youtube-thumbnail",
     title: "Youtube Thumbnail Downloader",
     desc: "Here You Can Easily Download The Thumbnail.",
-    icon: <Wand className="w-6 h-6" />,
+    icon: <Youtube className="w-6 h-6" />,
   },
   {
     href: "/tools/youtube-tags",
     title: "Youtube Tags",
     desc: "Download Youtube Tags Here You are At Right Place",
-    icon: <Wand className="w-6 h-6" />,
+    icon: <Youtube className="w-6 h-6" />,
+  },
+  {
+    href: "/tools/pdf-compress",
+    title: "PDF Compressor By Using Node.Js",
+    desc: "This Tool is very important for reducing the size of PDF file",
+    icon: <FileText className="w-6 h-6" />,
+  },
+  {
+    href: "/tools/pdf-compressor",
+    title: "PDF Compressor By Using Python API",
+    desc: "Using Python API for reducing the size of PDF file",
+    icon: <FileText className="w-6 h-6" />,
   },
 ];
 

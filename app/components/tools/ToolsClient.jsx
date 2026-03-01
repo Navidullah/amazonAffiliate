@@ -9,6 +9,8 @@ import {
   Link2,
   Activity,
   Wand,
+  Youtube,
+  FileText,
 } from "lucide-react";
 
 export default function ToolsClient() {
@@ -62,21 +64,35 @@ export default function ToolsClient() {
       href: "/tools/pdf-to-word",
       title: "Convert PDF file to Word file",
       desc: "PDF to WORD API using Python code.",
-      icon: Wand,
+      icon: FileText,
       category: "Image",
     },
     {
       href: "/tools/youtube-thumbnail",
       title: "Youtube Thumbnail Downloader",
-      desc: "Here You Can Easily Download",
-      icon: Wand,
+      desc: "Here You Can Easily Download Thumbnails",
+      icon: Youtube,
       category: "Image",
     },
     {
       href: "/tools/youtube-tags",
-      title: "Youtube Tags",
+      title: "Youtube Tags Downloader Tool",
       desc: "Download Youtube Tags Here You are At Right Place",
-      icon: Wand,
+      icon: Youtube,
+      category: "Image",
+    },
+    {
+      href: "/tools/pdf-compress",
+      title: "PDF Compressor By Using Node.Js",
+      desc: "This Tool is very important for reducing the size of PDF file",
+      icon: FileText,
+      category: "Image",
+    },
+    {
+      href: "/tools/pdf-compress",
+      title: "PDF Compressor By Using Node.Js",
+      desc: "This Tool is very important for reducing the size of PDF file",
+      icon: FileText,
       category: "Image",
     },
   ];
