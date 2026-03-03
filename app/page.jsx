@@ -109,7 +109,16 @@ export const metadata = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
-    { "@type": "WebSite", name: "Shopyor", url: "https://www.shopyor.com" },
+    {
+      "@type": "WebSite",
+      name: "Shopyor",
+      url: "https://www.shopyor.com",
+      potentialAction: {
+        "@type": "SearchAction",
+        target: "https://www.shopyor.com/?q={search_term_string}",
+        "query-input": "required name=search_term_string",
+      },
+    },
     {
       "@type": "BreadcrumbList",
       itemListElement: [
@@ -193,7 +202,7 @@ export default function HomePage() {
             Free Online Tools for Images, PDFs & YouTube
           </h2>
 
-          <p className="text-gray-600 text-lg leading-relaxed mb-6">
+          <p className="text-muted-foreground text-lg leading-relaxed mb-6">
             Shopyor is a modern collection of free online tools designed to
             simplify digital tasks. Use our{" "}
             <Link
@@ -247,7 +256,7 @@ export default function HomePage() {
             </Link>
           </p>
 
-          <p className="text-gray-600 text-lg leading-relaxed mb-6">
+          <p className="text-muted-foreground text-lg leading-relaxed mb-6">
             All tools run directly in your browser. No downloads, no
             installations, and no registration required. Simply upload your
             file, process it instantly, and download the optimized result within
@@ -258,7 +267,7 @@ export default function HomePage() {
             Why Choose Shopyor?
           </h3>
 
-          <ul className="list-disc list-inside text-gray-600 space-y-3 text-lg">
+          <ul className="list-disc list-inside text-muted-foreground space-y-3 text-lg">
             <li>100% Free and easy to use</li>
             <li>AI-powered image processing</li>
             <li>Secure and privacy-focused system</li>
@@ -266,11 +275,24 @@ export default function HomePage() {
             <li>Fast processing with high-quality results</li>
           </ul>
 
-          <p className="text-gray-600 text-lg leading-relaxed mt-8">
+          <p className="text-muted-foreground text-lg leading-relaxed mt-8">
             Whether you are a designer, developer, student, marketer, or content
             creator, Shopyor provides reliable tools that help you work smarter
             and faster.
           </p>
+        </section>
+        {/*  CTA Button */}
+        <section className="py-20 text-center ">
+          <h2 className="text-3xl font-bold mb-6">
+            Start Using Free Tools Today
+          </h2>
+          <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
+            No sign-up required. No installation needed. Upload your file,
+            process instantly, and download your result within seconds.
+          </p>
+          <Link href="#tools">
+            <Button size="lg">Explore All Tools</Button>
+          </Link>
         </section>
 
         {/* FEATURES */}
