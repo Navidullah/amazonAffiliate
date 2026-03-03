@@ -22,72 +22,86 @@ import Faq from "./components/home/Faq";
 ================================ */
 const tools = [
   {
-    title: "Background Remover 01",
-    desc: "Remove image backgrounds instantly using AI.",
+    title: "Free AI Image Background Remover",
+    desc: "Remove image backgrounds instantly with AI precision.",
     href: "/tools/background-remover-image",
     icon: <ImageIcon className="w-6 h-6" />,
   },
   {
-    title: "Background Remover 02",
-    desc: "Remove image backgrounds instantly using AI.",
+    title: "HD Background Remover (High Quality)",
+    desc: "Get clean, transparent PNG images in high resolution.",
     href: "/tools/bg-remover",
     icon: <ImageIcon className="w-6 h-6" />,
   },
   {
-    title: "Image Compressor",
-    desc: "Reduce image size without losing quality.",
+    title: "Online Image Compressor",
+    desc: "Compress images without losing visual quality.",
     href: "/tools/image-compressor",
     icon: <Sparkles className="w-6 h-6" />,
   },
   {
-    title: "EXIF Remover",
-    desc: "Remove hidden metadata from your images.",
+    title: "EXIF Metadata Remover",
+    desc: "Remove hidden metadata from images for privacy.",
     href: "/tools/exif-remover",
     icon: <Shield className="w-6 h-6" />,
   },
   {
-    title: "BMI Calculator",
-    desc: "Calculate your body mass index easily.",
+    title: "Free BMI Calculator",
+    desc: "Calculate your body mass index instantly online.",
     href: "/tools/bmi",
     icon: <Scale className="w-6 h-6" />,
   },
   {
-    title: "Affiliate Link Generator",
-    desc: "Create clean and trackable affiliate links.",
+    title: "Affiliate Link Generator Tool",
+    desc: "Create clean and trackable affiliate links easily.",
     href: "/tools/affiliate-link-generator",
     icon: <Link2 className="w-6 h-6" />,
   },
   {
-    title: "Convert PDF file to Word file",
-    desc: "PDF to WORD API using Python code.",
+    title: "PDF to Word Converter Online",
+    desc: "Convert PDF files to editable Word documents instantly.",
     href: "/tools/pdf-to-word",
     icon: <FileType className="w-6 h-6" />,
   },
   {
+    title: "YouTube Thumbnail Downloader",
+    desc: "Download high-quality thumbnails from any YouTube video.",
     href: "/tools/youtube-thumbnail",
-    title: "Youtube Thumbnail Downloader",
-    desc: "Here You Can Easily Download The Thumbnail.",
     icon: <Youtube className="w-6 h-6" />,
   },
   {
+    title: "YouTube Tags Extractor",
+    desc: "Extract tags from any YouTube video instantly.",
     href: "/tools/youtube-tags",
-    title: "Youtube Tags",
-    desc: "Download Youtube Tags Here You are At Right Place",
     icon: <Youtube className="w-6 h-6" />,
   },
   {
+    title: "PDF Compressor (Node.js)",
+    desc: "Reduce PDF file size quickly using modern compression.",
     href: "/tools/pdf-compress",
-    title: "PDF Compressor By Using Node.Js",
-    desc: "This Tool is very important for reducing the size of PDF file",
     icon: <FileText className="w-6 h-6" />,
   },
   {
+    title: "PDF Compressor (Python API)",
+    desc: "Compress PDF files securely with advanced API processing.",
     href: "/tools/pdf-compressor",
-    title: "PDF Compressor By Using Python API",
-    desc: "Using Python API for reducing the size of PDF file",
     icon: <FileText className="w-6 h-6" />,
   },
 ];
+/* Meta data */
+export const metadata = {
+  title: "Shopyor – Free Image, PDF & YouTube Tools Online",
+  description:
+    "Use free online tools including AI background remover, image compressor, PDF to Word converter, YouTube thumbnail downloader and more. Fast, secure & browser-based.",
+  keywords: [
+    "free online tools",
+    "image background remover",
+    "image compressor",
+    "pdf to word converter",
+    "youtube thumbnail downloader",
+    "pdf compressor",
+  ],
+};
 
 /* ================================
    JSON-LD Structured Data
@@ -109,7 +123,7 @@ const jsonLd = {
     },
     {
       "@type": "ItemList",
-      name: "Free Online Tools",
+      name: "Shopyor – Free Image, PDF & YouTube Tools",
       itemListElement: tools.map((tool, i) => ({
         "@type": "SoftwareApplication",
         position: i + 1,
@@ -170,9 +184,93 @@ export default function HomePage() {
         {/* TOOLS */}
         <section id="tools" className="py-20 px-6 max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-14">
-            Powerful Tools. Zero Complexity.
+            Free Online Image, PDF & YouTube Tools
           </h2>
           <ToolCards tools={tools} />
+        </section>
+        <section className="py-20 px-6 max-w-5xl mx-auto">
+          <h2 className="text-3xl font-bold mb-8 text-center">
+            Free Online Tools for Images, PDFs & YouTube
+          </h2>
+
+          <p className="text-gray-600 text-lg leading-relaxed mb-6">
+            Shopyor is a modern collection of free online tools designed to
+            simplify digital tasks. Use our{" "}
+            <Link
+              href="/tools/background-remover-image"
+              className="text-blue-600 underline"
+            >
+              AI Image Background Remover
+            </Link>{" "}
+            to remove backgrounds instantly, compress files with our{" "}
+            <Link
+              href="/tools/image-compressor"
+              className="text-blue-600 underline"
+            >
+              Image Compressor
+            </Link>
+            , convert documents using our{" "}
+            <Link href="/tools/pdf-to-word" className="text-blue-600 underline">
+              PDF to Word Converter
+            </Link>
+            , or download thumbnails with the{" "}
+            <Link
+              href="/tools/youtube-thumbnail"
+              className="text-blue-600 underline"
+            >
+              YouTube Thumbnail Downloader
+            </Link>
+            , or download the youtube video tags using our{" "}
+            <Link
+              href="/tools/youtube-tags"
+              className="text-blue-600 underline"
+            >
+              Youtube Tags Extractor
+            </Link>
+            , or you can compress the PDF file using our{" "}
+            <Link
+              href="/tools/pdf-compress"
+              className="text-blue-600 underline"
+            >
+              PDF Compressor
+            </Link>
+            , or you can Calculate the BMI using our{" "}
+            <Link href="/tools/bmi" className="text-blue-600 underline">
+              BMI Calculator
+            </Link>
+            , or you can the EXIF data of file using our{" "}
+            <Link
+              href="/tools/exif-remover"
+              className="text-blue-600 underline"
+            >
+              EXIF Remover
+            </Link>
+          </p>
+
+          <p className="text-gray-600 text-lg leading-relaxed mb-6">
+            All tools run directly in your browser. No downloads, no
+            installations, and no registration required. Simply upload your
+            file, process it instantly, and download the optimized result within
+            seconds.
+          </p>
+
+          <h3 className="text-2xl font-semibold mt-10 mb-4">
+            Why Choose Shopyor?
+          </h3>
+
+          <ul className="list-disc list-inside text-gray-600 space-y-3 text-lg">
+            <li>100% Free and easy to use</li>
+            <li>AI-powered image processing</li>
+            <li>Secure and privacy-focused system</li>
+            <li>Mobile and desktop compatible</li>
+            <li>Fast processing with high-quality results</li>
+          </ul>
+
+          <p className="text-gray-600 text-lg leading-relaxed mt-8">
+            Whether you are a designer, developer, student, marketer, or content
+            creator, Shopyor provides reliable tools that help you work smarter
+            and faster.
+          </p>
         </section>
 
         {/* FEATURES */}
