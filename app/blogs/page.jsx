@@ -6,9 +6,9 @@ export async function generateMetadata({ searchParams }) {
   const page = Number(searchParams?.page || 1);
   const canonical = page > 1 ? `/blogs?page=${page}` : "/blogs";
   return {
-    title: "Blogs",
+    title: "Blogs for Tools App",
     description:
-      "Explore Shopyor’s latest health, fitness, Sports and Political articles. Research-based, readable, and practical.",
+      "Explore Shopyor’s latest Shopyor offers free online tools like background remover, image compressor, EXIF cleaner, BMI calculator & productivity tools. Fast, secure, no downloads.",
     alternates: { canonical },
   };
 }
@@ -21,7 +21,7 @@ async function getBlogs(page, limit, q) {
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL || ""}/api/blogs?` + params.toString(),
-    { cache: "no-store" }
+    { cache: "no-store" },
   );
 
   if (!res.ok) {
@@ -49,7 +49,7 @@ export default async function BlogsPage({ searchParams }) {
         ? `https://www.shopyor.com/blogs?page=${page}`
         : "https://www.shopyor.com/blogs",
     description:
-      "Explore health, fitness, and wellness articles published on Shopyor.",
+      "Shopyor offers free online tools like background remover, image compressor, EXIF cleaner, BMI calculator & productivity tools. Fast, secure, no downloads.",
     isPartOf: {
       "@type": "WebSite",
       name: "Shopyor",

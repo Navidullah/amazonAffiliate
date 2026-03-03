@@ -45,12 +45,12 @@ export const metadata = {
   metadataBase: new URL("https://www.shopyor.com"),
 
   title: {
-    default: "Shopyor — Free Online Tools",
-    template: "%s | Shopyor Free Online Tools",
+    default: "Shopyor – Free Image, PDF & YouTube Tools",
+    template: "%s | Shopyor Free Image, PDF & YouTube Tools",
   },
 
   description:
-    "Shopyor offers powerful free online tools including background remover, image compressor, EXIF cleaner, BMI calculator, and productivity utilities. Fast, secure, and browser-based tools with no downloads required.",
+    "Shopyor offers free online tools like background remover, image compressor, EXIF cleaner, BMI calculator & productivity tools. Fast, secure, no downloads.",
 
   keywords: [
     "free online tools",
