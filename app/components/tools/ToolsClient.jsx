@@ -12,6 +12,7 @@ import {
   Youtube,
   FileText,
   Tag,
+  File,
 } from "lucide-react";
 
 export default function ToolsClient() {
@@ -101,6 +102,13 @@ export default function ToolsClient() {
       title: "Meta Tag Generator Tool for SEO",
       desc: "Meta tags help search engines understand your webpage content.",
       icon: Tag,
+      category: "SEO",
+    },
+    {
+      href: "/tools/robot-txt-generator",
+      title: "Robot.txt File Generator for SEO",
+      desc: "Robot.txt improves crawl efficiency and overall SEO health.",
+      icon: File,
       category: "SEO",
     },
   ];

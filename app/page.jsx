@@ -12,6 +12,7 @@ import {
   Youtube,
   FileText,
   Tag,
+  File,
 } from "lucide-react";
 import AnimatedHero from "./components/home/AnimatedHero";
 import ToolCards from "./components/home/ToolCards";
@@ -99,7 +100,12 @@ const tools = [
     title: "Meta Tag Generator Tool for SEO",
     desc: "Meta tags help search engines understand your webpage content.",
     icon: <Tag className="w-6 h-6" />,
-    category: "SEO",
+  },
+  {
+    href: "/tools/robot-txt-generator",
+    title: "Robot.txt File Generator for SEO",
+    desc: "Robot.txt improves crawl efficiency and overall SEO health.",
+    icon: <File className="w-6 h-6" />,
   },
 ];
 /* Meta data */
