@@ -11,6 +11,7 @@ import {
   Wand,
   Youtube,
   FileText,
+  Tag,
 } from "lucide-react";
 
 export default function ToolsClient() {
@@ -30,7 +31,7 @@ export default function ToolsClient() {
       title: "EXIF Metadata Remover",
       desc: "Remove hidden metadata from images for privacy.",
       icon: Scissors,
-      category: "Image",
+      category: "File",
     },
     {
       href: "/tools/bg-remover",
@@ -65,39 +66,55 @@ export default function ToolsClient() {
       title: "PDF to Word Converter Online",
       desc: "Convert PDF files to editable Word documents instantly.",
       icon: FileText,
-      category: "Image",
+      category: "PDF",
     },
     {
       href: "/tools/youtube-thumbnail",
       title: "Youtube Thumbnail Downloader",
       desc: "Download high-quality thumbnails from any YouTube video.",
       icon: Youtube,
-      category: "Image",
+      category: "YouTube",
     },
     {
       href: "/tools/youtube-tags",
       title: "YouTube Tags Extractor",
       desc: "Extract tags from any YouTube video instantly.",
       icon: Youtube,
-      category: "Image",
+      category: "YouTube",
     },
     {
       href: "/tools/pdf-compress",
       title: "PDF Compressor ( Node.Js )",
       desc: "Reduce PDF file size quickly using modern compression.",
       icon: FileText,
-      category: "Image",
+      category: "PDF",
     },
     {
       href: "/tools/pdf-compressor",
       title: "PDF Compressor ( Python API )",
       desc: "Compress PDF files securely with advanced API processing.",
       icon: FileText,
-      category: "Image",
+      category: "PDF",
+    },
+    {
+      href: "/tools/meta-tag-generator",
+      title: "Meta Tag Generator Tool for SEO",
+      desc: "Meta tags help search engines understand your webpage content.",
+      icon: Tag,
+      category: "SEO",
     },
   ];
 
-  const categories = ["All", "Image", "Health", "Marketing"];
+  const categories = [
+    "All",
+    "Image",
+    "Health",
+    "Marketing",
+    "File",
+    "SEO",
+    "PDF",
+    "YouTube",
+  ];
 
   const filteredTools = tools.filter((tool) => {
     const matchesSearch = tool.title
@@ -135,7 +152,7 @@ export default function ToolsClient() {
             <button
               key={cat}
               onClick={() => setCategory(cat)}
-              className={`px-4 py-1.5 rounded-full text-sm transition ${
+              className={`px-4 py-1.5 rounded-full cursor-pointer text-sm transition ${
                 category === cat
                   ? "bg-cyan-600 text-white"
                   : "bg-gray-200 dark:bg-gray-800"
