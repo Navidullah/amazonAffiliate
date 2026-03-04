@@ -45,8 +45,8 @@ export const metadata = {
   metadataBase: new URL("https://www.shopyor.com"),
 
   title: {
-    default: "Shopyor – Free Image, PDF & YouTube Tools",
-    template: "%s | Shopyor Free Image, PDF & YouTube Tools",
+    default: "Shopyor – Free Image, PDF,SEO & YouTube Tools",
+    template: "%s | Shopyor Free Image, PDF,SEO & YouTube Tools",
   },
 
   description:
@@ -70,7 +70,7 @@ export const metadata = {
     url: "https://www.shopyor.com",
     title: "Shopyor — Free Online Image & Utility Tools",
     description:
-      "Use powerful free online tools like background remover, image compressor, EXIF cleaner, and productivity utilities. Secure, fast, and 100% browser-based.",
+      "Use free online tools like background remover, image compress, EXIF cleaner, and Search engine Optimization. Secure, fast, and 100% browser-based.",
     siteName: "Shopyor",
     images: [
       {

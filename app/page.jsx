@@ -104,9 +104,9 @@ const tools = [
 ];
 /* Meta data */
 export const metadata = {
-  title: "Shopyor – Free Image, PDF & YouTube Tools Online",
+  title: "Shopyor – Free Image, PDF, SEO & YouTube Tools Online",
   description:
-    "Use free online tools including AI background remover, image compressor, PDF to Word converter, YouTube thumbnail downloader and more. Fast, secure & browser-based.",
+    "Free online tools like background remover, SEO tools ,image compressor, PDF to Word converter, YouTube thumbnail downloader and more. Fast, secure & browser-based.",
   keywords: [
     "free online tools",
     "image background remover",
@@ -146,7 +146,7 @@ const jsonLd = {
     },
     {
       "@type": "ItemList",
-      name: "Shopyor – Free Image, PDF & YouTube Tools",
+      name: "Shopyor – Free Image, PDF,SEO & YouTube Tools",
       itemListElement: tools.map((tool, i) => ({
         "@type": "SoftwareApplication",
         position: i + 1,
