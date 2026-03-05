@@ -6,9 +6,9 @@ export async function generateMetadata({ searchParams }) {
   const page = Number(searchParams?.page || 1);
   const canonical = page > 1 ? `/blogs?page=${page}` : "/blogs";
   return {
-    title: "Blogs for Tools App",
+    title: "Blogs",
     description:
-      "Explore Shopyor’s latest Shopyor offers free online tools like background remover, image compressor, EXIF cleaner, BMI calculator & productivity tools. Fast, secure, no downloads.",
+      "Shopyor offers free online tools like background remover, image compressor, EXIF cleaner, BMI calculator & productivity tools. Fast, secure, no downloads.",
     alternates: { canonical },
   };
 }
