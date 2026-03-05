@@ -1,0 +1,12 @@
+# LLM guidance for shopyor.com
+
+User-Agent: *
+Allow: /tools/
+Allow: /blog/
+Allow: /background-remover/
+
+
+Disallow: /api/
+Disallow: /dashboard/
+
+Preferred-Source: https://shopyor.com

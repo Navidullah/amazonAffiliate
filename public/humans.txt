@@ -1,0 +1,22 @@
+/* TEAM */
+Developer: Naveed Khan
+Role: Full Stack Developer
+Website: https://www.shopyor.com
+Location: Pakistan
+
+/* SITE */
+Site Name: Shopyor
+Description: Free online tools for images, PDFs and YouTube utilities
+Language: English
+Doctype: HTML5
+
+/* TECHNOLOGY */
+Framework: Next.js
+Styling: Tailwind CSS
+UI Library: shadcn/ui
+Hosting: Vercel
+Database: MongoDB
+
+/* THANKS */
+Open source community
+Next.js team
