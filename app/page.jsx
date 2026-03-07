@@ -89,12 +89,7 @@ const tools = [
     href: "/tools/pdf-compressor",
     icon: <FileText className="w-6 h-6" />,
   },
-  {
-    title: "PDF Compressor (Python API)",
-    desc: "Compress PDF files securely with advanced API processing.",
-    href: "/tools/pdf-compressor",
-    icon: <FileText className="w-6 h-6" />,
-  },
+
   {
     href: "/tools/meta-tag-generator",
     title: "Meta Tag Generator Tool for SEO",
