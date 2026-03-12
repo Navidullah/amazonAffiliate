@@ -30,6 +30,12 @@ const tools = [
     icon: <ImageIcon className="w-6 h-6" />,
   },
   {
+    href: "/tools/image-resizer",
+    title: "Online Image resizer",
+    desc: "Reduce or resize the sie of images without losing visual quality.",
+    icon: <ImageIcon className="w-6 h-6" />,
+  },
+  {
     title: "HD Background Remover (High Quality)",
     desc: "Get clean, transparent PNG images in high resolution.",
     href: "/tools/bg-remover",

@@ -28,6 +28,13 @@ export default function ToolsClient() {
       category: "Image",
     },
     {
+      href: "/tools/image-resizer",
+      title: "Online Image resizer",
+      desc: "Reduce or resize the sie of images without losing visual quality.",
+      icon: ImgIcon,
+      category: "Image",
+    },
+    {
       href: "/tools/exif-remover",
       title: "EXIF Metadata Remover",
       desc: "Remove hidden metadata from images for privacy.",
