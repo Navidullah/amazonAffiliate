@@ -112,9 +112,9 @@ export default function ToolsClient() {
       category: "SEO",
     },
     {
-      href: "/tools/robot-txt-generator",
-      title: "Robot.txt File Generator for SEO",
-      desc: "Robot.txt improves crawl efficiency and overall SEO health.",
+      href: "/tools/robots-txt-generator",
+      title: "Robots.txt File Generator for SEO",
+      desc: "Robots.txt improves crawl efficiency and overall SEO health.",
       icon: File,
       category: "SEO",
     },

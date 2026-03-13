@@ -104,7 +104,7 @@ const tools = [
   },
   {
     href: "/tools/robots-txt-generator",
-    title: "Robot.txt File Generator for SEO",
+    title: "Robots.txt File Generator for SEO",
     desc: "Robots.txt improves crawl efficiency and overall SEO health.",
     icon: <File className="w-6 h-6" />,
   },
