@@ -1,15 +1,26 @@
-// /lib/actions/blog.js
+// /app/api/related-blogs/route.js
+import { getRelatedBlogs } from "@/lib/actions/blog";
 
-import { ConnectToDB } from "@/lib/db";
-import BlogModel from "@/lib/models/BlogModel";
+export async function GET(req) {
+  try {
+    const url = new URL(req.url);
+    const category = url.searchParams.get("category");
+    const currentSlug = url.searchParams.get("slug");
 
-export const getRelatedBlogs = async (category, currentSlug) => {
-  await ConnectToDB();
-  const blogs = await BlogModel.find({
-    category,
-    slug: { $ne: currentSlug },
-  })
-    .sort({ date: -1 })
-    .limit(3);
-  return blogs;
-};
+    if (!category || !currentSlug) {
+      return new Response(JSON.stringify([]), { status: 200 });
+    }
+
+    const blogs = await getRelatedBlogs(category, currentSlug);
+
+    return new Response(JSON.stringify(blogs), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (err) {
+    console.error("Error fetching related blogs:", err);
+    return new Response(JSON.stringify({ error: "Internal Server Error" }), {
+      status: 500,
+    });
+  }
+}

@@ -362,7 +362,7 @@ import { MessageCircle, Eye, Heart } from "lucide-react";
 import CommentSection from "@/app/components/commentsection/CommentSection";
 import LikeButton from "@/app/components/likebutton/LikeButton";
 import EditButton from "@/app/components/blog/EditButton";
-import { getRelatedBlogs } from "@/app/api/getRelatedBlogs/route";
+import { getRelatedBlogs } from "@/lib/actions/blog.js";
 import { FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
 import Image from "next/image";
@@ -471,7 +471,7 @@ export default async function SingleBlogPage({ params }) {
     mainEntityOfPage: { "@type": "WebPage", "@id": pageUrl },
     description: stripHtml(blog.metaDescription || blog.description).slice(
       0,
-      160
+      160,
     ),
     wordCount: words || undefined,
     keywords: Array.isArray(blog.tags) ? blog.tags.join(", ") : undefined,
@@ -502,7 +502,7 @@ export default async function SingleBlogPage({ params }) {
               position: 3,
               name: blog.category,
               item: `${BASE_URL}/blogs?category=${encodeURIComponent(
-                blog.category.toLowerCase()
+                blog.category.toLowerCase(),
               )}`,
             },
           ]
