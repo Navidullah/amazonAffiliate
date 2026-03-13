@@ -1,20 +1,29 @@
 // components/MonetagAd.jsx
 "use client";
 
-import Script from "next/script";
+import { useEffect } from "react";
 
-export default function MonetagAd({ zoneId }) {
+export default function MonetagAd() {
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("/sw.js")
+        .then((registration) => {
+          console.log("Monetag service worker registered", registration);
+        })
+        .catch((err) => {
+          console.error("Monetag SW registration failed", err);
+        });
+    }
+  }, []);
+
   return (
     <div
       className="monetag-ad"
       style={{ width: "100%", textAlign: "center", margin: "20px 0" }}
     >
-      <Script
-        src="https://quge5.com/88/tag.min.js"
-        data-zone={zoneId}
-        async
-        data-cfasync="false"
-      />
+      {/* Ad placeholder will be injected by service worker */}
+      <div data-zone-id="10726668"></div>
     </div>
   );
 }
