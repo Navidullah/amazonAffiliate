@@ -3,9 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 import {
   LayoutDashboard,
   LucideLogOut,
@@ -18,24 +16,29 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { ModeToggle } from "./ModeToggle";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
-import {
-  Sheet,
-  SheetTrigger,
-  SheetContent,
-  SheetClose,
-} from "@/components/ui/sheet";
+
 import Image from "next/image";
 import { useCart } from "../cart/CartContext";
 import { FaBackward, FaBloggerB, FaCompress } from "react-icons/fa";
 import { Icon } from "@iconify/react";
+
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function Header() {
   const { data: session } = useSession();

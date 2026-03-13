@@ -84,13 +84,13 @@ const tools = [
     icon: <Youtube className="w-6 h-6" />,
   },
   {
-    title: "PDF Compressor (Node.js)",
+    title: "PDF Compressor",
     desc: "Reduce PDF file size quickly using modern compression.",
     href: "/tools/pdf-compress",
     icon: <FileText className="w-6 h-6" />,
   },
   {
-    title: "PDF Compressor (Python API)",
+    title: "PDF Compressor",
     desc: "Compress PDF files securely with advanced API processing.",
     href: "/tools/pdf-compressor",
     icon: <FileText className="w-6 h-6" />,

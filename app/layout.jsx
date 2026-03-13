@@ -123,6 +123,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* money tag */}
+        <meta name="monetag" content="a1831002f31b30bcbcb0edc5134a62c6"></meta>
         {/* Site JSON-LD (WebSite + SearchAction) */}
         <script
           type="application/ld+json"

@@ -92,14 +92,14 @@ export default function ToolsClient() {
     },
     {
       href: "/tools/pdf-compress",
-      title: "PDF Compressor ( Node.Js )",
+      title: "PDF Compressor",
       desc: "Reduce PDF file size quickly using modern compression.",
       icon: FileText,
       category: "PDF",
     },
     {
       href: "/tools/pdf-compressor",
-      title: "PDF Compressor ( Python API )",
+      title: "PDF Compressor",
       desc: "Compress PDF files securely with advanced API processing.",
       icon: FileText,
       category: "PDF",
