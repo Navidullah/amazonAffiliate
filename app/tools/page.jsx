@@ -64,9 +64,8 @@ export default function ToolsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <MonetagAd adUnitId="10726665" />
+      <MonetagAd zoneId="219386" />
       <ToolsClient />
-      <MonetagAd adUnitId="10726666" />
     </>
   );
 }

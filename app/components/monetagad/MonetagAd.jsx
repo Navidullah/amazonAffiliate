@@ -3,7 +3,7 @@
 
 import Script from "next/script";
 
-export default function MonetagAd({ adUnitId }) {
+export default function MonetagAd({ zoneId }) {
   return (
     <div
       className="monetag-ad"
@@ -11,7 +11,7 @@ export default function MonetagAd({ adUnitId }) {
     >
       <Script
         src="https://quge5.com/88/tag.min.js"
-        data-zone={adUnitId}
+        data-zone={zoneId}
         async
         data-cfasync="false"
       />
