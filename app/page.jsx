@@ -103,9 +103,9 @@ const tools = [
     icon: <Tag className="w-6 h-6" />,
   },
   {
-    href: "/tools/robot-txt-generator",
+    href: "/tools/robots-txt-generator",
     title: "Robot.txt File Generator for SEO",
-    desc: "Robot.txt improves crawl efficiency and overall SEO health.",
+    desc: "Robots.txt improves crawl efficiency and overall SEO health.",
     icon: <File className="w-6 h-6" />,
   },
 ];
@@ -121,6 +121,9 @@ export const metadata = {
     "pdf to word converter",
     "youtube thumbnail downloader",
     "pdf compressor",
+    "Image resizer",
+    "Robots.txt generator",
+    "Meta Tag generator",
   ],
 };
 
