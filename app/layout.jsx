@@ -123,14 +123,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* money tag */}
-        <meta name="monetag" content="a1831002f31b30bcbcb0edc5134a62c6"></meta>
-        <script
-          src="https://quge5.com/88/tag.min.js"
-          data-zone="219386"
-          async
-          data-cfasync="false"
-        ></script>
         {/* Site JSON-LD (WebSite + SearchAction) */}
         <script
           type="application/ld+json"

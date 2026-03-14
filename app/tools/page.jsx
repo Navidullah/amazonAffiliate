@@ -1,5 +1,4 @@
 import ToolsClient from "@/app/components/tools/ToolsClient";
-import MonetagAd from "../components/monetagad/MonetagAd";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
 
@@ -64,7 +63,7 @@ export default function ToolsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <MonetagAd />
+
       <ToolsClient />
     </>
   );
