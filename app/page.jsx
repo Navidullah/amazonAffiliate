@@ -25,7 +25,7 @@ import { FaFacebook } from "react-icons/fa";
 ================================ */
 const tools = [
   {
-    href: "/tools/facebook-downloader",
+    href: "/tools/facebook-video-downloader",
     title: "Download facebook videos",
     desc: "Free download the facebook reels and videos",
     icon: <FaFacebook className="w-6 h-6" />,

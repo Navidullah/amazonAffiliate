@@ -22,7 +22,7 @@ export default function ToolsClient() {
 
   const tools = [
     {
-      href: "/tools/facebook-downloader",
+      href: "/tools/facebook-video-downloader",
       title: "Download facebook videos",
       desc: "Free download the facebook reels and videos",
       icon: FaFacebook,
