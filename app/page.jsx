@@ -18,11 +18,18 @@ import AnimatedHero from "./components/home/AnimatedHero";
 import ToolCards from "./components/home/ToolCards";
 import Features from "./components/home/Features";
 import Faq from "./components/home/Faq";
+import { FaFacebook } from "react-icons/fa";
 
 /* ================================
    TOOLS DATA
 ================================ */
 const tools = [
+  {
+    href: "/tools/facebook-downloader",
+    title: "Download facebook videos",
+    desc: "Free download the facebook reels and videos",
+    icon: <FaFacebook className="w-6 h-6" />,
+  },
   {
     title: "Free AI Image Background Remover",
     desc: "Remove image backgrounds instantly with AI precision.",

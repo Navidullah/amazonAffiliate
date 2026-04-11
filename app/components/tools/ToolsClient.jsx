@@ -14,12 +14,20 @@ import {
   Tag,
   File,
 } from "lucide-react";
+import { FaFacebook } from "react-icons/fa";
 
 export default function ToolsClient() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
 
   const tools = [
+    {
+      href: "/tools/facebook-downloader",
+      title: "Download facebook videos",
+      desc: "Free download the facebook reels and videos",
+      icon: FaFacebook,
+      category: "video downloader",
+    },
     {
       href: "/tools/image-compressor",
       title: "Online Image Compressor",
