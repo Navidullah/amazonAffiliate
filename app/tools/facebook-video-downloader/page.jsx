@@ -1,4 +1,4 @@
-import FacebookDownloaderClient from "./facebookDownloaderClient";
+import FacebookDownloaderClient from "@/app/components/video-downloader/FacebookDownloaderClient";
 
 /* ✅ SEO METADATA (SERVER SIDE ONLY) */
 export const metadata = {
