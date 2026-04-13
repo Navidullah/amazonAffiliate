@@ -118,10 +118,12 @@ const tools = [
 ];
 /* Meta data */
 export const metadata = {
-  title: "Shopyor – Free Image, PDF, SEO & YouTube Tools Online",
+  title: "Shopyor – Facebook Video Downloader & free Tools",
   description:
-    "Free online tools like background remover, SEO tools ,image compressor, PDF to Word converter, YouTube thumbnail downloader and more. Fast, secure & browser-based.",
+    "Free online tools like background remover, SEO tools ,image compressor, PDF to Word converter, facebook video downloader. Fast, secure & browser-based.",
   keywords: [
+    "facebook-video-downloader",
+    "reels dowloader",
     "free online tools",
     "image background remover",
     "image compressor",
