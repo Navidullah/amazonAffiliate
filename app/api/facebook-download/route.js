@@ -10,17 +10,27 @@ export async function POST(req) {
       "https://free-facebook-downloader.p.rapidapi.com/external-api/facebook-video-downloader?url=" +
       encodeURIComponent(url);
 
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "x-rapidapi-host": "free-facebook-downloader.p.rapidapi.com",
-        "x-rapidapi-key": process.env.RAPIDAPI_KEY,
-      },
-    });
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 20000);
+
+    let response;
+
+    try {
+      response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "x-rapidapi-host": "free-facebook-downloader.p.rapidapi.com",
+          "x-rapidapi-key": process.env.RAPIDAPI_KEY,
+        },
+        signal: controller.signal,
+      });
+    } catch (err) {
+      return Response.json({ error: "API connection failed" }, { status: 503 });
+    }
+
+    clearTimeout(timeout);
 
     const data = await response.json();
-
-    console.log("RAPIDAPI RESPONSE:", data);
 
     if (!response.ok) {
       return Response.json(
@@ -29,13 +39,8 @@ export async function POST(req) {
       );
     }
 
-    return Response.json({
-      success: true,
-      data,
-    });
+    return Response.json({ success: true, data });
   } catch (error) {
-    console.error("SERVER ERROR:", error);
-
     return Response.json({ error: "Internal server error" }, { status: 500 });
   }
 }
