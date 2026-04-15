@@ -7,15 +7,8 @@ export async function GET(req) {
       return new Response("Missing URL", { status: 400 });
     }
 
-    const response = await fetch(videoUrl);
-    const buffer = await response.arrayBuffer();
-
-    return new Response(buffer, {
-      headers: {
-        "Content-Type": "video/mp4",
-        "Content-Disposition": "attachment; filename=facebook-video.mp4",
-      },
-    });
+    // ✅ Redirect instead of fetching
+    return Response.redirect(videoUrl);
   } catch (error) {
     return new Response("Download failed", { status: 500 });
   }
