@@ -6,40 +6,64 @@ export async function POST(req) {
       return Response.json({ error: "URL is required" }, { status: 400 });
     }
 
-    const apiUrl =
-      "https://free-facebook-downloader.p.rapidapi.com/external-api/facebook-video-downloader?url=" +
-      encodeURIComponent(url);
-
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 20000);
-
-    let response;
-
+    // ================= API 1 =================
     try {
-      response = await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "x-rapidapi-host": "free-facebook-downloader.p.rapidapi.com",
-          "x-rapidapi-key": process.env.RAPIDAPI_KEY,
+      const api1 = await fetch(
+        "https://facebook-video-downloader9.p.rapidapi.com/api/v1/videos/download?url=" +
+          encodeURIComponent(url),
+        {
+          method: "GET",
+          headers: {
+            "x-rapidapi-host": "facebook-video-downloader9.p.rapidapi.com",
+            "x-rapidapi-key": process.env.RAPIDAPI_KEY,
+          },
         },
-        signal: controller.signal,
-      });
-    } catch (err) {
-      return Response.json({ error: "API connection failed" }, { status: 503 });
-    }
-
-    clearTimeout(timeout);
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      return Response.json(
-        { error: data?.message || "Failed to fetch video" },
-        { status: response.status },
       );
+
+      const data1 = await api1.json();
+
+      if (api1.ok && data1?.links) {
+        return Response.json({
+          success: true,
+          source: "API_1",
+          data: data1,
+        });
+      }
+    } catch (e) {
+      console.log("API 1 failed");
     }
 
-    return Response.json({ success: true, data });
+    // ================= API 2 (Fallback) =================
+    try {
+      const api2 = await fetch(
+        "https://free-facebook-downloader.p.rapidapi.com/external-api/facebook-video-downloader?url=" +
+          encodeURIComponent(url),
+        {
+          method: "POST",
+          headers: {
+            "x-rapidapi-host": "free-facebook-downloader.p.rapidapi.com",
+            "x-rapidapi-key": process.env.RAPIDAPI_KEY,
+          },
+        },
+      );
+
+      const data2 = await api2.json();
+
+      if (api2.ok && data2) {
+        return Response.json({
+          success: true,
+          source: "API_2",
+          data: data2,
+        });
+      }
+    } catch (e) {
+      console.log("API 2 failed");
+    }
+
+    return Response.json(
+      { error: "All APIs failed. Try another video." },
+      { status: 500 },
+    );
   } catch (error) {
     return Response.json({ error: "Internal server error" }, { status: 500 });
   }
