@@ -1,7 +1,7 @@
-// components/VideoDownloader.jsx (Updated to handle the new data structure)
+// components/VideoDownloader.jsx (Update to accept initialUrl prop)
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Download,
   Loader2,
@@ -11,18 +11,28 @@ import {
   FileVideo,
   Smartphone,
   Monitor,
-  Clock,
-  Film,
 } from "lucide-react";
-import { CopyrightFooter } from "../copyright/CopyRightSection";
 
-export function VideoDownloader() {
-  const [url, setUrl] = useState("");
+export function VideoDownloader({ initialUrl = "" }) {
+  const [url, setUrl] = useState(initialUrl);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [videoInfo, setVideoInfo] = useState(null);
   const [downloading, setDownloading] = useState(false);
   const [downloadProgress, setDownloadProgress] = useState(0);
+  const [autoAnalyze, setAutoAnalyze] = useState(false);
+
+  // Auto-analyze when initialUrl is provided
+  useEffect(() => {
+    if (initialUrl && !autoAnalyze) {
+      setAutoAnalyze(true);
+      // Small delay to ensure component is mounted
+      const timer = setTimeout(() => {
+        analyzeVideo();
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [initialUrl]);
 
   const validateUrl = (input) => {
     const patterns = [
@@ -126,21 +136,9 @@ export function VideoDownloader() {
 
   const formatDuration = (seconds) => {
     if (!seconds) return "0:00";
-    const hours = Math.floor(seconds / 3600);
-    const mins = Math.floor((seconds % 3600) / 60);
+    const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-
-    if (hours > 0) {
-      return `${hours}:${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
-    }
     return `${mins}:${secs.toString().padStart(2, "0")}`;
-  };
-
-  const getQualityIcon = (type) => {
-    if (type === "hd") return <Monitor className="h-4 w-4 text-primary" />;
-    if (type === "mobile")
-      return <Smartphone className="h-4 w-4 text-primary" />;
-    return <FileVideo className="h-4 w-4 text-primary" />;
   };
 
   return (
@@ -173,7 +171,7 @@ export function VideoDownloader() {
               </>
             ) : (
               <>
-                <Film className="h-5 w-5" />
+                <FileVideo className="h-5 w-5" />
                 Analyze Video
               </>
             )}
@@ -181,8 +179,8 @@ export function VideoDownloader() {
         </div>
 
         {error && (
-          <div className="mt-4 flex items-start gap-2 rounded-lg bg-destructive/10 p-3 text-destructive">
-            <AlertCircle className="h-4 w-4 mt-0.5 flex-shrink-0" />
+          <div className="mt-4 flex items-center gap-2 rounded-lg bg-destructive/10 p-3 text-destructive">
+            <AlertCircle className="h-4 w-4" />
             <span className="text-sm">{error}</span>
           </div>
         )}
@@ -205,31 +203,22 @@ export function VideoDownloader() {
                 <img
                   src={videoInfo.thumbnail}
                   alt={videoInfo.title}
-                  className="w-full md:w-56 rounded-lg shadow-md object-cover aspect-video"
+                  className="w-full md:w-48 rounded-lg shadow-md object-cover"
                   onError={(e) => {
                     e.target.src =
-                      "https://via.placeholder.com/400x225?text=Video+Thumbnail";
+                      "https://via.placeholder.com/400x300?text=Video+Thumbnail";
                   }}
                 />
-                <div className="absolute bottom-2 right-2 rounded bg-black/80 px-2 py-1 text-xs text-white flex items-center gap-1">
-                  <Clock className="h-3 w-3" />
+                <div className="absolute bottom-2 right-2 rounded bg-black/70 px-2 py-1 text-xs text-white">
                   {formatDuration(videoInfo.duration)}
                 </div>
               </div>
 
               {/* Video Title & Download Options */}
               <div className="flex-1">
-                <h4 className="font-semibold text-lg mb-3 line-clamp-2">
-                  {videoInfo.title !== "Untitled"
-                    ? videoInfo.title
-                    : "Facebook Video"}
+                <h4 className="font-semibold text-lg mb-4 line-clamp-2">
+                  {videoInfo.title}
                 </h4>
-
-                {videoInfo.videoId && (
-                  <p className="text-xs text-muted-foreground mb-4">
-                    Video ID: {videoInfo.videoId}
-                  </p>
-                )}
 
                 <div className="space-y-3">
                   <p className="text-sm font-medium text-muted-foreground mb-2">
@@ -243,31 +232,27 @@ export function VideoDownloader() {
                           handleDownload(quality.url, quality.label)
                         }
                         disabled={downloading}
-                        className="flex items-center justify-between rounded-lg border p-3 transition-all hover:border-primary hover:bg-primary/5 disabled:opacity-50 group"
+                        className="flex items-center justify-between rounded-lg border p-3 transition-all hover:border-primary hover:bg-primary/5 disabled:opacity-50"
                       >
                         <div className="flex items-center gap-2">
-                          {getQualityIcon(quality.type)}
+                          {quality.type === "hd" ? (
+                            <Monitor className="h-4 w-4 text-primary" />
+                          ) : quality.type === "mobile" ? (
+                            <Smartphone className="h-4 w-4 text-primary" />
+                          ) : (
+                            <FileVideo className="h-4 w-4 text-primary" />
+                          )}
                           <span className="font-medium">{quality.label}</span>
                         </div>
                         <div className="flex items-center gap-3">
-                          {quality.size && (
-                            <span className="text-xs text-muted-foreground">
-                              {quality.size}
-                            </span>
-                          )}
-                          <Download className="h-4 w-4 group-hover:text-primary transition-colors" />
+                          <span className="text-xs text-muted-foreground">
+                            {quality.size}
+                          </span>
+                          <Download className="h-4 w-4" />
                         </div>
                       </button>
                     ))}
                   </div>
-
-                  {videoInfo.qualities.length === 0 && (
-                    <div className="text-center p-4 bg-muted/30 rounded-lg">
-                      <p className="text-sm text-muted-foreground">
-                        No download options available for this video.
-                      </p>
-                    </div>
-                  )}
                 </div>
               </div>
             </div>
@@ -293,8 +278,6 @@ export function VideoDownloader() {
           </div>
         </div>
       )}
-      {/* Copyright section */}
-      <CopyrightFooter />
     </div>
   );
 }
