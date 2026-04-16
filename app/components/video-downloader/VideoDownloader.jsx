@@ -14,6 +14,7 @@ import {
   Clock,
   Film,
 } from "lucide-react";
+import { CopyrightFooter } from "../copyright/CopyRightSection";
 
 export function VideoDownloader() {
   const [url, setUrl] = useState("");
@@ -292,6 +293,8 @@ export function VideoDownloader() {
           </div>
         </div>
       )}
+      {/* Copyright section */}
+      <CopyrightFooter />
     </div>
   );
 }

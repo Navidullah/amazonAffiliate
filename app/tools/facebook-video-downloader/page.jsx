@@ -29,7 +29,7 @@ export const metadata = {
       "Facebook Video Downloader - Download FB Videos & Reels in HD Quality",
     description:
       "Save any Facebook video or reel in high quality. Free tool that works on desktop and mobile.",
-    url: process.env.NEXT_PUBLIC_APP_URL,
+    url: process.env.NEXT_PUBLIC_BASE_URL,
     siteName: "VideoSaver",
     images: [
       {
@@ -62,14 +62,63 @@ export const metadata = {
   },
 };
 
-const structuredData = {
+// Add to your page.jsx for better rich snippets
+const enhancedStructuredData = {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
-  name: "Facebook Video Downloader",
-  description: "Download Facebook videos and reels in HD quality for free",
-  applicationCategory: "Multimedia",
-  operatingSystem: "All",
-  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://yourdomain.com/#webpage",
+      url: "https://yourdomain.com/",
+      name: "Facebook Video Downloader - Download FB Videos & Reels",
+      description:
+        "Free tool to download Facebook videos and reels in HD quality",
+      isPartOf: { "@id": "https://www.shopyor.com/#website" },
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.shopyor.com/#website",
+      url: "https://www.shopyor.com/",
+      name: "Facebook Video Downloader",
+      description: "Free Facebook video downloader tool",
+      publisher: { "@id": "https://www.shopyor.com/#organization" },
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://www.shopyor.com/#organization",
+      name: "Facebook Video Downloader",
+      url: "https://www.shopyor.com/",
+      logo: "https://www.shopyor.com/logo.png",
+      sameAs: [
+        "https://twitter.com/yourhandle",
+        "https://facebook.com/yourpage",
+      ],
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.shopyor.com/#breadcrumb",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.shopyor.com/",
+        },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.shopyor.com/#faq",
+      mainEntity: faqs.map((faq, index) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: faq.answer,
+        },
+      })),
+    },
+  ],
 };
 
 export default function Home() {
