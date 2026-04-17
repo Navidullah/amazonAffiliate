@@ -700,7 +700,7 @@ export default function HomePage() {
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Button size="lg" asChild className="group">
-                <Link href="#tools">
+                <Link href="/tools/facebook-video-downloader">
                   Try Facebook Video Downloader
                   <Download className="ml-2 h-4 w-4 group-hover:translate-y-0.5 transition-transform" />
                 </Link>

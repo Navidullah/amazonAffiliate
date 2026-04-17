@@ -1,78 +1,255 @@
-// app/contact/page.jsx
-import Image from "next/image";
-import ContactForm from "../components/contact-form/ContactForm";
+// app/contact/page.jsx (Updated with actual email sending)
+"use client";
 
-export const metadata = {
-  title: "Contact Shopyor – Support & Partnerships",
-  description:
-    "Questions, feedback, or partnership ideas? Contact the Shopyor team—we usually reply within 24–48 hours.",
-  alternates: { canonical: "/contact" },
-};
+import { useState } from "react";
+import {
+  Mail,
+  Send,
+  CheckCircle,
+  AlertCircle,
+  Shield,
+  Loader2,
+} from "lucide-react";
 
-export default function ContactUsPage() {
-  // WhatsApp: wa.me requires digits only (no +)
-  const whatsappNumber = "923149493088";
-  const whatsappMessage = encodeURIComponent(
-    "Hi, I want to contact you from your website!"
-  );
-  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+export default function ContactPage() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "ContactPage",
-    mainEntity: {
-      "@type": "Organization",
-      name: "Shopyor",
-      url: "https://www.shopyor.com",
-      contactPoint: [
-        {
-          "@type": "ContactPoint",
-          contactType: "customer support",
-          telephone: "+92-314-9493088",
-          availableLanguage: ["en"],
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    // Basic validation
+    if (!formData.name || !formData.email || !formData.message) {
+      setError("Please fill in all required fields");
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.email.includes("@")) {
+      setError("Please enter a valid email address");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      ],
-    },
-    url: "https://www.shopyor.com/contact",
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to send message");
+      }
+
+      setSubmitted(true);
+      setFormData({ name: "", email: "", subject: "", message: "" });
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (err) {
+      setError(err.message || "Failed to send message. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
-    <div className="min-h-screen wrapper flex flex-col md:flex-row gap-5">
-      {/* JSON-LD */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+    <div className="min-h-screen bg-background py-16 px-4">
+      <div className="container mx-auto max-w-6xl">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold mb-4">Contact Us</h1>
+          <p className="text-xl text-muted-foreground">
+            Get in touch with our support team
+          </p>
+        </div>
 
-      <div className="flex-1 hidden md:flex">
-        <Image
-          src="/contact.png"
-          alt="Contact the Shopyor team"
-          width={400}
-          height={500}
-          className="object-contain h-full"
-          priority
-        />
-      </div>
+        <div className="grid gap-8 md:grid-cols-2">
+          {/* Contact Info */}
+          <div>
+            <div className="bg-muted/30 rounded-lg p-6 mb-6">
+              <h2 className="text-2xl font-semibold mb-4">
+                Contact Information
+              </h2>
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <Mail className="h-5 w-5 text-primary mt-0.5" />
+                  <div>
+                    <p className="font-medium">Email (General)</p>
+                    <a
+                      href="mailto:support@shopyor.com"
+                      className="text-sm text-muted-foreground hover:text-primary"
+                    >
+                      support@shopyor.com
+                    </a>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <AlertCircle className="h-5 w-5 text-primary mt-0.5" />
+                  <div>
+                    <p className="font-medium">DMCA & Copyright Issues</p>
+                    <a
+                      href="mailto:dmca@shopyor.com"
+                      className="text-sm text-muted-foreground hover:text-primary"
+                    >
+                      dmca@shopyor.com
+                    </a>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Response within 24-48 hours
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Shield className="h-5 w-5 text-primary mt-0.5" />
+                  <div>
+                    <p className="font-medium">Privacy Concerns</p>
+                    <a
+                      href="mailto:privacy@shopyor.com"
+                      className="text-sm text-muted-foreground hover:text-primary"
+                    >
+                      privacy@shopyor.com
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-      <div className="flex-1/2 h-full pt-8">
-        <h1 className="text-3xl font-bold mb-4">Contact Us</h1>
+            {/* Business Hours */}
+            <div className="bg-muted/30 rounded-lg p-6">
+              <h3 className="font-semibold mb-3">Business Hours</h3>
+              <div className="space-y-2 text-sm text-muted-foreground">
+                <p>Monday - Friday: 9:00 AM - 6:00 PM EST</p>
+                <p>Saturday: 10:00 AM - 4:00 PM EST</p>
+                <p>Sunday: Closed</p>
+                <p className="text-xs mt-2">
+                  Support responses within 24-48 hours on business days
+                </p>
+              </div>
+            </div>
+          </div>
 
-        {/* Client form */}
-        <ContactForm />
+          {/* Contact Form */}
+          <div className="bg-card rounded-lg border p-6">
+            <h2 className="text-2xl font-semibold mb-4">Send Us a Message</h2>
 
-        <div className="mt-6 text-center">
-          <a
-            href={whatsappLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded shadow transition"
-          >
-            <svg width="24" height="24" fill="currentColor" className="mr-2">
-              <path d="M20.52 3.478A11.943 11.943 0 0 0 12.004 0C5.374 0 .003 5.37.003 12c0 2.12.55 4.21 1.59 6.05L0 24l6.17-1.61A11.944 11.944 0 0 0 12 24C18.628 24 24 18.63 24 12c0-3.197-1.244-6.207-3.48-8.522zM12 22.016c-1.785 0-3.54-.483-5.05-1.395l-.362-.216-3.664.957.98-3.577-.236-.368A9.978 9.978 0 0 1 2.012 12C2.012 6.48 6.486 2.01 12.003 2.01c5.515 0 9.988 4.473 9.988 9.99 0 5.518-4.473 9.99-9.988 9.99zm5.152-7.517c-.243-.121-1.437-.705-1.66-.785-.223-.08-.387-.121-.552.122-.163.242-.63.785-.773.947-.142.162-.284.183-.527.061-.243-.122-1.026-.378-1.956-1.203-.723-.645-1.212-1.438-1.355-1.68-.142-.243-.015-.374.106-.495.108-.108.242-.282.363-.423.121-.142.161-.243.242-.406.081-.163.04-.305-.02-.426-.061-.122-.552-1.335-.755-1.825-.2-.482-.403-.417-.552-.426l-.47-.009c-.163 0-.427.061-.651.305-.223.244-.857.837-.857 2.036s.877 2.362 1 2.527c.122.163 1.73 2.64 4.191 3.598.586.201 1.044.322 1.401.411.588.15 1.125.13 1.551.079.473-.055 1.437-.587 1.641-1.154.202-.568.202-1.055.142-1.155-.06-.1-.22-.162-.462-.284z"></path>
-            </svg>
-            Message us on WhatsApp
-          </a>
+            {submitted && (
+              <div className="mb-4 p-3 bg-green-500/10 border border-green-500/20 rounded-lg flex items-center gap-2 text-green-600 dark:text-green-400">
+                <CheckCircle className="h-4 w-4" />
+                <span className="text-sm">
+                  Message sent successfully! We'll respond within 24-48 hours.
+                </span>
+              </div>
+            )}
+
+            {error && (
+              <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg flex items-center gap-2 text-red-600">
+                <AlertCircle className="h-4 w-4" />
+                <span className="text-sm">{error}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium mb-1">Name *</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="w-full rounded-lg border bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  required
+                  disabled={loading}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">
+                  Email *
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full rounded-lg border bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  required
+                  disabled={loading}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">
+                  Subject
+                </label>
+                <select
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  className="w-full rounded-lg border bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  disabled={loading}
+                >
+                  <option value="">Select a subject</option>
+                  <option value="general">General Inquiry</option>
+                  <option value="dmca">DMCA / Copyright Issue</option>
+                  <option value="bug">Report a Bug</option>
+                  <option value="feature">Feature Request</option>
+                  <option value="privacy">Privacy Concern</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">
+                  Message *
+                </label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  rows={5}
+                  className="w-full rounded-lg border bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  required
+                  disabled={loading}
+                  placeholder="Please provide details about your inquiry..."
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-primary-foreground font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send className="h-4 w-4" />
+                    Send Message
+                  </>
+                )}
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
