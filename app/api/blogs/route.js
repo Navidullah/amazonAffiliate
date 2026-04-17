@@ -74,7 +74,7 @@ export async function GET() {
 }
 */
 import { ConnectToDB } from "@/lib/db";
-import BlogModel from "@/lib/models/BlogModel";
+import Blog from "@/lib/models/Blog";
 
 function slugify(text) {
   return text
@@ -107,13 +107,13 @@ export async function POST(req) {
     let slug = slugify(title);
 
     // If slug exists, append a random 4-digit code
-    let exists = await BlogModel.findOne({ slug });
+    let exists = await Blog.findOne({ slug });
     if (exists) {
       slug = `${slug}-${Math.floor(1000 + Math.random() * 9000)}`;
     }
 
     // Save blog to DB with slug and image URL from Firebase
-    const blog = new BlogModel({
+    const blog = new Blog({
       title,
       slug,
       description,
@@ -134,7 +134,7 @@ export async function POST(req) {
     console.error("Error creating blog:", error); // ✅ Log the actual error
     return new Response(
       JSON.stringify({ error: error.message || "Something went wrong" }),
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -165,13 +165,13 @@ export async function GET(req) {
         hasPrev: page > 1,
         hasNext: page * limit < total,
       }),
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error("Error fetching blogs:", error);
     return new Response(
       JSON.stringify({ error: error.message || "Something went wrong" }),
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -114,7 +114,7 @@ export default function Header() {
             <Link href="/" className="hover:text-primary">
               Home
             </Link>
-            <Link href="/blogs" className="hover:text-primary">
+            <Link href="/blog" className="hover:text-primary">
               Blog
             </Link>
 
