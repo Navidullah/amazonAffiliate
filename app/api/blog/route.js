@@ -61,6 +61,9 @@ export async function GET(request) {
 export async function POST(request) {
   try {
     const session = await getServerSession();
+    // Debug logging
+    console.log("Session:", session);
+    console.log("Session user:", session?.user);
 
     if (!session || !session.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -70,6 +73,8 @@ export async function POST(request) {
 
     // Check if user is admin
     const user = await User.findOne({ email: session.user.email });
+    console.log("Found user:", user);
+    console.log("User role:", user?.role);
     if (!user || user.role !== "admin") {
       return NextResponse.json(
         { error: "Admin access required" },
