@@ -1,17 +1,15 @@
 // app/api/blog/route.js
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"; // Import your authOptions
-import ConnectToDB from "@/lib/db";
+import { authOptions } from "@/lib/authOptions";
+import { ConnectToDB } from "@/lib/db";
 import User from "@/lib/models/User";
 import Blog from "@/lib/models/Blog";
 
 export async function POST(request) {
   try {
-    // 🔥 IMPORTANT: Pass authOptions to getServerSession
     const session = await getServerSession(authOptions);
 
-    // Check if user is logged in
     if (!session || !session.user) {
       return NextResponse.json(
         { error: "Please log in first" },
@@ -19,6 +17,7 @@ export async function POST(request) {
       );
     }
 
+    // Connect to database (users and blogs are in same DB)
     await ConnectToDB();
 
     // Check if user is admin
@@ -26,15 +25,13 @@ export async function POST(request) {
 
     if (!user || user.role !== "admin") {
       return NextResponse.json(
-        { error: "Only admin can write blogs" },
+        { error: "Only admin can write blogs. Your role: " + user?.role },
         { status: 403 },
       );
     }
 
-    // Get blog data from request
     const { title, content, excerpt, category, tags } = await request.json();
 
-    // Validate required fields
     if (!title || !content || !excerpt) {
       return NextResponse.json(
         { error: "Title, content, and excerpt are required" },
@@ -48,6 +45,10 @@ export async function POST(request) {
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-|-$/g, "");
 
+    // Calculate reading time
+    const wordCount = content.split(/\s+/).length;
+    const readingTime = Math.ceil(wordCount / 200);
+
     // Create blog
     const blog = await Blog.create({
       title,
@@ -60,6 +61,7 @@ export async function POST(request) {
       authorId: user._id,
       isPublished: true,
       publishedAt: new Date(),
+      readingTime,
     });
 
     return NextResponse.json({
@@ -68,9 +70,58 @@ export async function POST(request) {
       message: "Blog published successfully!",
     });
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Error creating blog:", error);
     return NextResponse.json(
       { error: error.message || "Failed to create blog" },
+      { status: 500 },
+    );
+  }
+}
+
+// GET all published blogs
+export async function GET(request) {
+  try {
+    await ConnectToDB();
+
+    const { searchParams } = new URL(request.url);
+    const page = parseInt(searchParams.get("page")) || 1;
+    const limit = parseInt(searchParams.get("limit")) || 10;
+    const category = searchParams.get("category");
+    const search = searchParams.get("search");
+
+    const skip = (page - 1) * limit;
+
+    let query = { isPublished: true };
+
+    if (category && category !== "all") {
+      query.category = category;
+    }
+
+    if (search) {
+      query.$or = [
+        { title: { $regex: search, $options: "i" } },
+        { content: { $regex: search, $options: "i" } },
+        { tags: { $in: [new RegExp(search, "i")] } },
+      ];
+    }
+
+    const blogs = await Blog.find(query)
+      .sort({ publishedAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    const total = await Blog.countDocuments(query);
+
+    return NextResponse.json({
+      blogs,
+      currentPage: page,
+      totalPages: Math.ceil(total / limit),
+      total,
+    });
+  } catch (error) {
+    console.error("Error fetching blogs:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch blogs" },
       { status: 500 },
     );
   }
