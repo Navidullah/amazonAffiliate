@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 
 import { VideoDownloader } from "@/app/components/video-downloader/VideoDownloader";
-import { CopyrightNotice } from "@/app/components/copyright/CopyRightNotice";
+import { CopyrightNotice } from "@/app/components/copyright/CopyrightNotice";
 
 // Disclaimer Component
 function CopyrightDisclaimer() {
