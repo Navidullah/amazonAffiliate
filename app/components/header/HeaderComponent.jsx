@@ -207,32 +207,8 @@ export default function Header() {
                 <DropdownMenuSeparator />
 
                 <DropdownMenuItem asChild>
-                  <Link href="/blogs" className="flex items-center gap-2">
+                  <Link href="/blog" className="flex items-center gap-2">
                     <FaBloggerB /> Blog
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link
-                    href="/tools/affiliate-link-generator"
-                    className="flex items-center gap-2"
-                  >
-                    <Link2 /> Generate link
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link
-                    href="/tools/image-compressor"
-                    className="flex items-center gap-2"
-                  >
-                    <FaCompress /> Image compressor
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link
-                    href="/tools/background-remover-image"
-                    className="flex items-center gap-2"
-                  >
-                    <FaBackward /> Background Remover
                   </Link>
                 </DropdownMenuItem>
 
@@ -240,21 +216,13 @@ export default function Header() {
                   <>
                     <DropdownMenuItem asChild>
                       <Link
-                        href="/admin/orders"
+                        href="/admin/blogs"
                         className="flex items-center gap-2"
                       >
                         <LayoutDashboard /> Dashboard
                       </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link
-                        href="/add-product"
-                        className="flex items-center gap-2"
-                      >
-                        <Icon icon="formkit:add" width="16" height="16" /> Add
-                        Product
-                      </Link>
-                    </DropdownMenuItem>
+
                     <DropdownMenuItem asChild>
                       <Link href="/write" className="flex items-center gap-2">
                         <Pen /> Write
