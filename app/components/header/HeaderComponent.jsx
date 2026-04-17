@@ -149,7 +149,7 @@ export default function Header() {
                 </SheetClose>
                 <SheetClose asChild>
                   <Link
-                    href="/blogs"
+                    href="/blog"
                     className="text-lg font-semibold hover:text-primary"
                   >
                     Blog
