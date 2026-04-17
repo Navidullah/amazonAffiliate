@@ -1,89 +1,40 @@
-// app/api/blog/route.js (GET all blogs, POST new blog)
+// app/api/blog/route.js
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"; // Import your authOptions
+import ConnectToDB from "@/lib/db";
+import User from "@/lib/models/User";
 import Blog from "@/lib/models/Blog";
 
-import { ConnectToDB } from "@/lib/db";
-import User from "@/lib/models/User";
-
-// GET all published blogs (public)
-export async function GET(request) {
-  try {
-    await ConnectToDB();
-
-    const { searchParams } = new URL(request.url);
-    const page = parseInt(searchParams.get("page")) || 1;
-    const limit = parseInt(searchParams.get("limit")) || 10;
-    const category = searchParams.get("category");
-    const search = searchParams.get("search");
-
-    const skip = (page - 1) * limit;
-
-    let query = { isPublished: true };
-
-    if (category && category !== "all") {
-      query.category = category;
-    }
-
-    if (search) {
-      query.$or = [
-        { title: { $regex: search, $options: "i" } },
-        { content: { $regex: search, $options: "i" } },
-        { tags: { $in: [new RegExp(search, "i")] } },
-      ];
-    }
-
-    const blogs = await Blog.find(query)
-      .sort({ publishedAt: -1 })
-      .skip(skip)
-      .limit(limit)
-      .select("-content"); // Don't send full content in list view
-
-    const total = await Blog.countDocuments(query);
-
-    return NextResponse.json({
-      blogs,
-      currentPage: page,
-      totalPages: Math.ceil(total / limit),
-      total,
-    });
-  } catch (error) {
-    console.error("Error fetching blogs:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch blogs" },
-      { status: 500 },
-    );
-  }
-}
-
-// POST create new blog (admin only)
 export async function POST(request) {
   try {
-    const session = await getServerSession();
-    // Debug logging
-    console.log("Session:", session);
-    console.log("Session user:", session?.user);
+    // 🔥 IMPORTANT: Pass authOptions to getServerSession
+    const session = await getServerSession(authOptions);
 
+    // Check if user is logged in
     if (!session || !session.user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json(
+        { error: "Please log in first" },
+        { status: 401 },
+      );
     }
 
     await ConnectToDB();
 
     // Check if user is admin
     const user = await User.findOne({ email: session.user.email });
-    console.log("Found user:", user);
-    console.log("User role:", user?.role);
+
     if (!user || user.role !== "admin") {
       return NextResponse.json(
-        { error: "Admin access required" },
+        { error: "Only admin can write blogs" },
         { status: 403 },
       );
     }
 
+    // Get blog data from request
     const { title, content, excerpt, category, tags } = await request.json();
 
+    // Validate required fields
     if (!title || !content || !excerpt) {
       return NextResponse.json(
         { error: "Title, content, and excerpt are required" },
@@ -91,21 +42,35 @@ export async function POST(request) {
       );
     }
 
+    // Create slug from title
+    const slug = title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
+
+    // Create blog
     const blog = await Blog.create({
       title,
+      slug,
       content,
       excerpt,
       category: category || "General",
       tags: tags || [],
       author: user.name || user.email,
       authorId: user._id,
+      isPublished: true,
+      publishedAt: new Date(),
     });
 
-    return NextResponse.json(blog, { status: 201 });
+    return NextResponse.json({
+      success: true,
+      blog,
+      message: "Blog published successfully!",
+    });
   } catch (error) {
-    console.error("Error creating blog:", error);
+    console.error("Error:", error);
     return NextResponse.json(
-      { error: "Failed to create blog" },
+      { error: error.message || "Failed to create blog" },
       { status: 500 },
     );
   }
