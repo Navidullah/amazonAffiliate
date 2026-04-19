@@ -14,7 +14,7 @@ import {
   Tag,
   File,
 } from "lucide-react";
-import { FaFacebook } from "react-icons/fa";
+import { FaFacebook, FaTiktok } from "react-icons/fa";
 
 export default function ToolsClient() {
   const [search, setSearch] = useState("");
@@ -26,6 +26,14 @@ export default function ToolsClient() {
       title: "Download facebook videos",
       desc: "Free download the facebook reels and videos",
       icon: FaFacebook,
+      category: "video downloader",
+    },
+    // Add TikTok downloader to your tools array
+    {
+      href: "/tools/tiktok-video-downloader",
+      title: "TikTok Video Downloader",
+      desc: "Download TikTok videos without watermark in HD quality",
+      icon: FaTiktok,
       category: "video downloader",
     },
     {

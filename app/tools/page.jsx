@@ -8,6 +8,9 @@ export const metadata = {
     "Use Shopyor’s free online tools: Image Compressor, EXIF Remover, Background Remover, BMI Calculator and more. Fast, secure and browser-based utilities.",
   keywords: [
     "free online tools",
+    "facebook video downloader",
+    "tiktok video downloader",
+    "youtube video downloader",
     "image compressor",
     "background remover",
     "exif remover",

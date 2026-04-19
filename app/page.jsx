@@ -55,7 +55,7 @@ const tools = [
     title: "TikTok Video Downloader",
     desc: "Save TikTok videos without watermark. Coming Soon!",
     icon: <FaTiktok className="w-6 h-6" />,
-    featured: false,
+    featured: true,
     comingSoon: true,
     color: "from-black to-gray-800",
   },
@@ -255,7 +255,7 @@ const jsonLd = {
     },
     {
       "@type": "ItemList",
-      name: "Shopyor – Free Image, PDF, SEO & YouTube Tools",
+      name: "Shopyor – facebook,tiktok & youtube video downloader",
       itemListElement: tools.map((tool, i) => ({
         "@type": "SoftwareApplication",
         position: i + 1,
