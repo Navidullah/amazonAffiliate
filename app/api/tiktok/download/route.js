@@ -1,4 +1,4 @@
-// app/api/tiktok/download/route.js
+// app/api/tiktok/download/route.js - Original Working Version
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
@@ -8,8 +8,6 @@ export async function POST(request) {
     if (!url) {
       return NextResponse.json({ error: "URL is required" }, { status: 400 });
     }
-
-    console.log(`📥 Downloading: ${url.substring(0, 100)}...`);
 
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 60000);
@@ -21,7 +19,6 @@ export async function POST(request) {
           "User-Agent":
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
           Accept: "video/mp4,video/webm,video/*",
-          "Accept-Language": "en-US,en;q=0.9",
         },
       });
 
@@ -41,7 +38,6 @@ export async function POST(request) {
           "Content-Disposition": `attachment; filename="${filename}"`,
           "Content-Length": videoBuffer.byteLength.toString(),
           "Cache-Control": "no-cache, no-store, must-revalidate",
-          "Access-Control-Allow-Origin": "*",
         },
       });
     } catch (fetchError) {

@@ -10,6 +10,7 @@
     "postbuild": "next-sitemap --config next-sitemap.config.cjs"
   },
   "dependencies": {
+    "@distube/ytdl-core": "^4.16.12",
     "@google/generative-ai": "^0.24.1",
     "@iconify/react": "^6.0.0",
     "@imgly/background-removal": "^1.7.0",
