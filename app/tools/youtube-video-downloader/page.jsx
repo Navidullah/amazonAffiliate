@@ -39,7 +39,7 @@ export default function YouTubeDownloader() {
     setError("");
 
     try {
-      const response = await fetch(`${API_URL}/analyze`, {
+      const response = await fetch(`api/youtube-proxy`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url: url.trim() }),
