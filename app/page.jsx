@@ -396,7 +396,7 @@ export default function HomePage() {
               <Card className="relative overflow-hidden group hover:shadow-xl transition-all duration-300">
                 <div className="absolute top-0 right-0 bg-gradient-to-l from-primary/20 to-transparent px-4 py-2 rounded-bl-lg">
                   <span className="text-xs font-medium text-primary">
-                    Coming Soon
+                    Available
                   </span>
                 </div>
                 <CardContent className="p-6">
@@ -405,9 +405,12 @@ export default function HomePage() {
                       <FaTiktok className="h-8 w-8" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-semibold">
-                        TikTok Video Downloader
-                      </h3>
+                      <Link href="/tools/free-tiktok-video-downloader">
+                        <h3 className="text-xl font-semibold">
+                          TikTok Video Downloader
+                        </h3>
+                      </Link>
+
                       <p className="text-sm text-muted-foreground">
                         Save TikTok videos without watermark
                       </p>
@@ -416,14 +419,14 @@ export default function HomePage() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       <Clock className="h-4 w-4" />
-                      <span>Launching in 2 weeks</span>
+                      <span>Launched</span>
                     </div>
                     <Button
                       variant="outline"
                       disabled
                       className="cursor-not-allowed"
                     >
-                      Get Notified <ArrowRight className="ml-2 h-4 w-4" />
+                      Try it now <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </div>
                 </CardContent>

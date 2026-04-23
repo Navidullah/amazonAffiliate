@@ -30,7 +30,7 @@ export default function ToolsClient() {
     },
     // Add TikTok downloader to your tools array
     {
-      href: "/tools/tiktok-video-downloader",
+      href: "/tools/free-tiktok-video-downloader",
       title: "TikTok Video Downloader",
       desc: "Download TikTok videos without watermark in HD quality",
       icon: FaTiktok,
