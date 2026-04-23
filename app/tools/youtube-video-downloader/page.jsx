@@ -16,10 +16,6 @@ import {
   Shield,
 } from "lucide-react";
 
-// Get API URL from environment variable
-const API_URL =
-  process.env.NEXT_PUBLIC_YOUTUBE_API_URL || "http://localhost:8000";
-
 export default function YouTubeDownloader() {
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
@@ -27,7 +23,7 @@ export default function YouTubeDownloader() {
   const [error, setError] = useState("");
   const [videoInfo, setVideoInfo] = useState(null);
   const [selectedFormat, setSelectedFormat] = useState(null);
-  const [removeWatermark, setRemoveWatermark] = useState(true);
+  const [removeWatermark, setRemoveWatermark] = useState(false); // Set to false by default
 
   const analyzeVideo = async () => {
     if (!url.trim()) {
@@ -39,16 +35,22 @@ export default function YouTubeDownloader() {
     setError("");
 
     try {
-      const response = await fetch(`api/youtube-proxy`, {
+      // Call the proxy with the correct endpoint
+      const response = await fetch("/api/youtube-proxy", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url: url.trim() }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          url: url.trim(),
+          endpoint: "analyze",
+        }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.detail || "Failed to analyze video");
+        throw new Error(data.detail || data.error || "Failed to analyze video");
       }
 
       setVideoInfo(data);
@@ -56,6 +58,7 @@ export default function YouTubeDownloader() {
         setSelectedFormat(data.formats[0]);
       }
     } catch (err) {
+      console.error("Analysis error:", err);
       setError(err.message || "Failed to analyze video. Please try again.");
       setVideoInfo(null);
     } finally {
@@ -70,29 +73,45 @@ export default function YouTubeDownloader() {
     }
 
     setDownloading(true);
+    setError("");
 
     try {
-      const response = await fetch(`${API_URL}/download`, {
+      const response = await fetch("/api/youtube-proxy", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           url: url.trim(),
           format_id: selectedFormat.format_id,
           remove_watermark: removeWatermark,
+          endpoint: "download",
         }),
       });
 
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          errorData.detail || errorData.error || "Download failed",
+        );
+      }
+
+      // Get the blob from response
       const blob = await response.blob();
       const blobUrl = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = blobUrl;
       const watermarkSuffix = removeWatermark ? "_no_watermark" : "";
-      a.download = `${videoInfo.title.replace(/[^a-z0-9]/gi, "_")}${watermarkSuffix}.mp4`;
+      const safeTitle = videoInfo.title
+        .replace(/[^a-z0-9]/gi, "_")
+        .substring(0, 100);
+      a.download = `${safeTitle}${watermarkSuffix}.mp4`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(blobUrl);
     } catch (err) {
+      console.error("Download error:", err);
       setError(err.message || "Download failed. Please try again.");
     } finally {
       setDownloading(false);
@@ -100,6 +119,7 @@ export default function YouTubeDownloader() {
   };
 
   const formatDuration = (seconds) => {
+    if (!seconds) return "0:00";
     const hours = Math.floor(seconds / 3600);
     const mins = Math.floor((seconds % 3600) / 60);
     const secs = seconds % 60;
@@ -111,6 +131,7 @@ export default function YouTubeDownloader() {
   };
 
   const formatNumber = (num) => {
+    if (!num) return "0";
     if (num >= 1000000) return (num / 1000000).toFixed(1) + "M";
     if (num >= 1000) return (num / 1000).toFixed(1) + "K";
     return num.toString();
@@ -131,9 +152,6 @@ export default function YouTubeDownloader() {
             Download YouTube videos in{" "}
             <strong className="text-red-500">any quality</strong> from 144p to
             4K.
-            <span className="block text-sm mt-1">
-              ✨ Try to remove watermarks from videos!
-            </span>
           </p>
         </div>
 
@@ -216,7 +234,7 @@ export default function YouTubeDownloader() {
               <span>✓ All Qualities (144p - 4K)</span>
               <span>✓ MP4 Format</span>
               <span>✓ Free Forever</span>
-              <span>✓ Watermark Removal Option</span>
+              <span>✓ No Registration</span>
             </div>
           </CardContent>
         </Card>
@@ -242,6 +260,9 @@ export default function YouTubeDownloader() {
                     alt={videoInfo.title}
                     className="w-full md:w-64 rounded-lg shadow-md object-cover"
                     loading="lazy"
+                    onError={(e) => {
+                      e.target.src = "https://picsum.photos/400/300";
+                    }}
                   />
                   <div className="absolute bottom-2 right-2 rounded bg-black/80 px-2 py-1 text-xs text-white">
                     {formatDuration(videoInfo.duration)}
@@ -263,40 +284,41 @@ export default function YouTubeDownloader() {
                   <div className="space-y-3">
                     <p className="text-sm font-medium">Select Quality:</p>
                     <div className="grid gap-2 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 max-h-60 overflow-y-auto p-1">
-                      {videoInfo.formats.map((format, idx) => (
-                        <button
-                          key={idx}
-                          onClick={() => setSelectedFormat(format)}
-                          className={`flex flex-col items-center p-2 rounded-lg border transition-all ${
-                            selectedFormat?.format_id === format.format_id
-                              ? "border-red-500 bg-red-500/10 ring-2 ring-red-500/20"
-                              : "hover:border-red-500 hover:bg-red-500/5"
-                          }`}
-                        >
-                          <span
-                            className={`font-bold text-xs ${format.has_watermark ? "line-through text-muted-foreground" : ""}`}
+                      {videoInfo.formats &&
+                        videoInfo.formats.map((format, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => setSelectedFormat(format)}
+                            className={`flex flex-col items-center p-2 rounded-lg border transition-all ${
+                              selectedFormat?.format_id === format.format_id
+                                ? "border-red-500 bg-red-500/10 ring-2 ring-red-500/20"
+                                : "hover:border-red-500 hover:bg-red-500/5"
+                            }`}
                           >
-                            {format.quality
-                              .replace(" (no watermark)", "")
-                              .replace(" (with watermark)", "")}
-                          </span>
-                          {!format.has_watermark && (
-                            <span className="text-[10px] text-green-600 mt-0.5">
-                              ✨ No WM
+                            <span
+                              className={`font-bold text-xs ${format.has_watermark ? "line-through text-muted-foreground" : ""}`}
+                            >
+                              {format.quality
+                                ?.replace(" (no watermark)", "")
+                                .replace(" (with watermark)", "") || "Unknown"}
                             </span>
-                          )}
-                          {format.has_watermark && (
-                            <span className="text-[10px] text-orange-500 mt-0.5">
-                              ⚠️ WM
-                            </span>
-                          )}
-                          {format.size !== "Unknown" && (
-                            <span className="text-[10px] text-muted-foreground">
-                              {format.size}
-                            </span>
-                          )}
-                        </button>
-                      ))}
+                            {!format.has_watermark && (
+                              <span className="text-[10px] text-green-600 mt-0.5">
+                                ✨ No WM
+                              </span>
+                            )}
+                            {format.has_watermark && (
+                              <span className="text-[10px] text-orange-500 mt-0.5">
+                                ⚠️ WM
+                              </span>
+                            )}
+                            {format.size && format.size !== "Unknown" && (
+                              <span className="text-[10px] text-muted-foreground">
+                                {format.size}
+                              </span>
+                            )}
+                          </button>
+                        ))}
                     </div>
                   </div>
 
@@ -320,12 +342,6 @@ export default function YouTubeDownloader() {
                       </>
                     )}
                   </Button>
-
-                  <p className="text-xs text-muted-foreground text-center mt-3">
-                    {removeWatermark
-                      ? "✨ Trying to download watermark-free version (if available)"
-                      : "📹 Downloading standard version"}
-                  </p>
                 </div>
               </div>
             </div>
