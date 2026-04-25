@@ -57,6 +57,7 @@
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.9.1",
     "@vercel/analytics": "^1.5.0",
+    "@vercel/blob": "^2.3.3",
     "@vercel/speed-insights": "^1.2.0",
     "axios": "^1.10.0",
     "bcrypt": "^6.0.0",

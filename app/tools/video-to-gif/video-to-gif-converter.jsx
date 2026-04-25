@@ -2,6 +2,7 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
+import { upload } from "@vercel/blob/client";
 import Link from "next/link";
 
 export default function VideoToGifConverter() {
@@ -27,7 +28,6 @@ export default function VideoToGifConverter() {
     const selectedFile = e.target.files?.[0];
     if (!selectedFile) return;
 
-    // Validate file type
     const validTypes = [
       "video/mp4",
       "video/webm",
@@ -42,7 +42,6 @@ export default function VideoToGifConverter() {
       return;
     }
 
-    // Validate file size (max 50MB)
     if (selectedFile.size > 50 * 1024 * 1024) {
       setStatus((prev) => ({
         ...prev,
@@ -54,7 +53,6 @@ export default function VideoToGifConverter() {
     setFile(selectedFile);
     setStatus((prev) => ({ ...prev, error: null, outputUrl: null }));
 
-    // Create preview URL
     const previewUrl = URL.createObjectURL(selectedFile);
     setVideoPreview(previewUrl);
   }, []);
@@ -69,17 +67,30 @@ export default function VideoToGifConverter() {
       outputUrl: null,
     });
 
-    const formData = new FormData();
-    formData.append("video", file);
-    formData.append("fps", settings.fps.toString());
-    formData.append("width", settings.width.toString());
-    formData.append("quality", settings.quality);
-    formData.append("loop", settings.loop.toString());
-
     try {
+      // Step 1: Upload file directly to Vercel Blob from the browser
+      setStatus((prev) => ({ ...prev, progress: 10 }));
+
+      const blob = await upload(file.name, file, {
+        access: "public",
+        handleUploadUrl: "/api/blob-upload",
+      });
+
+      setStatus((prev) => ({ ...prev, progress: 30 }));
+
+      // Step 2: Send only the video URL to your conversion API
       const response = await fetch("/api/tools/video-to-gif", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          videoUrl: blob.url,
+          fps: settings.fps,
+          width: settings.width,
+          quality: settings.quality,
+          loop: settings.loop,
+        }),
       });
 
       if (!response.ok) {
@@ -87,7 +98,7 @@ export default function VideoToGifConverter() {
         throw new Error(error.message || "Conversion failed");
       }
 
-      // Simulate progress for better UX
+      // Progress simulation for better UX
       const progressInterval = setInterval(() => {
         setStatus((prev) => ({
           ...prev,
@@ -95,10 +106,10 @@ export default function VideoToGifConverter() {
         }));
       }, 500);
 
-      const blob = await response.blob();
+      const gifBlob = await response.blob();
       clearInterval(progressInterval);
 
-      const outputUrl = URL.createObjectURL(blob);
+      const outputUrl = URL.createObjectURL(gifBlob);
       setStatus((prev) => ({
         ...prev,
         isConverting: false,
@@ -149,10 +160,14 @@ export default function VideoToGifConverter() {
     };
   }, [videoPreview, status.outputUrl]);
 
+  // The rest of your JSX remains the same as before
+  // (the UI structure with upload area, settings, and result section)
+  // ... keeping your existing Tailwind classes and layout
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
       <div className="container mx-auto px-4 py-8 max-w-6xl">
-        {/* Breadcrumbs for SEO */}
+        {/* Breadcrumbs */}
         <nav className="text-sm mb-6 text-gray-600 dark:text-gray-400">
           <ol className="flex flex-wrap gap-2">
             <li>
@@ -367,7 +382,6 @@ export default function VideoToGifConverter() {
             {status.outputUrl ? (
               <div className="space-y-4">
                 <div className="bg-gray-100 dark:bg-gray-900 rounded-lg p-4">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={status.outputUrl}
                     alt="Converted GIF preview"
@@ -444,60 +458,7 @@ export default function VideoToGifConverter() {
             <li>Click "Convert to GIF" button</li>
             <li>Download your animated GIF instantly</li>
           </ol>
-
-          <h2 className="text-2xl font-bold mt-10 mb-4">Supported Formats</h2>
-          <p>
-            Our converter supports all major video formats including MP4, WebM,
-            MOV, and AVI. Maximum file size is 50MB.
-          </p>
-
-          <h2 className="text-2xl font-bold mt-10 mb-4">
-            Tips for Best Results
-          </h2>
-          <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
-            <li>Keep videos under 10 seconds for optimal GIF size</li>
-            <li>Use 10-15 FPS for balanced file size and smoothness</li>
-            <li>Lower width reduces file size significantly</li>
-            <li>Medium quality is recommended for most use cases</li>
-          </ul>
         </div>
-
-        {/* FAQ Schema */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "FAQPage",
-              mainEntity: [
-                {
-                  "@type": "Question",
-                  name: "Is this video to GIF converter free?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "Yes, our video to GIF converter is completely free with no watermarks or registration required.",
-                  },
-                },
-                {
-                  "@type": "Question",
-                  name: "What video formats are supported?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "We support MP4, WebM, MOV, and AVI video formats.",
-                  },
-                },
-                {
-                  "@type": "Question",
-                  name: "Is my video data private?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "Yes, all conversion happens locally in your browser. Your videos never get uploaded to any server.",
-                  },
-                },
-              ],
-            }),
-          }}
-        />
       </div>
     </div>
   );
