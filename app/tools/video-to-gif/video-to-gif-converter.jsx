@@ -1,8 +1,6 @@
-// app/tools/video-to-gif/video-to-gif-converter.jsx
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
-import { upload } from "@vercel/blob/client";
 import Link from "next/link";
 
 export default function VideoToGifConverter() {
@@ -12,17 +10,18 @@ export default function VideoToGifConverter() {
     isConverting: false,
     progress: 0,
     error: null,
-    outputUrl: null,
+    outputGif: null,
   });
   const [settings, setSettings] = useState({
     fps: 15,
     width: 480,
-    quality: "medium",
+    quality: 1,
     loop: true,
   });
 
   const fileInputRef = useRef(null);
   const videoRef = useRef(null);
+  const canvasRef = useRef(null);
 
   const handleFileSelect = useCallback((e) => {
     const selectedFile = e.target.files?.[0];
@@ -42,96 +41,157 @@ export default function VideoToGifConverter() {
       return;
     }
 
-    if (selectedFile.size > 50 * 1024 * 1024) {
+    if (selectedFile.size > 500 * 1024 * 1024) {
       setStatus((prev) => ({
         ...prev,
-        error: "File size must be less than 50MB",
+        error: "File size must be less than 500MB",
       }));
       return;
     }
 
     setFile(selectedFile);
-    setStatus((prev) => ({ ...prev, error: null, outputUrl: null }));
+    setStatus((prev) => ({ ...prev, error: null, outputGif: null }));
 
     const previewUrl = URL.createObjectURL(selectedFile);
     setVideoPreview(previewUrl);
   }, []);
 
-  const handleConvert = async () => {
-    if (!file) return;
+  const convertVideoToGif = async () => {
+    if (!file || !videoRef.current || !canvasRef.current) return;
 
     setStatus({
       isConverting: true,
       progress: 0,
       error: null,
-      outputUrl: null,
+      outputGif: null,
     });
 
     try {
-      // Step 1: Upload file directly to Vercel Blob from the browser
-      setStatus((prev) => ({ ...prev, progress: 10 }));
+      const video = videoRef.current;
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext("2d");
 
-      const blob = await upload(file.name, file, {
-        access: "public",
-        handleUploadUrl: "/api/blob-upload",
+      // Wait for video metadata to load
+      await new Promise((resolve) => {
+        if (video.readyState >= 1) {
+          resolve();
+        } else {
+          video.addEventListener("loadedmetadata", resolve, { once: true });
+        }
       });
 
-      setStatus((prev) => ({ ...prev, progress: 30 }));
+      // Calculate dimensions - FIX: Ensure integers using Math.floor()
+      const targetWidth = settings.width;
+      const targetHeight = Math.floor(
+        (video.videoHeight / video.videoWidth) * targetWidth,
+      );
 
-      // Step 2: Send only the video URL to your conversion API
-      const response = await fetch("/api/tools/video-to-gif", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          videoUrl: blob.url,
-          fps: settings.fps,
-          width: settings.width,
-          quality: settings.quality,
-          loop: settings.loop,
-        }),
+      // Ensure dimensions are integers (already are with Math.floor)
+      canvas.width = targetWidth;
+      canvas.height = targetHeight;
+
+      const duration = video.duration;
+      const frameInterval = 1 / settings.fps;
+      const totalFrames = Math.min(Math.floor(duration / frameInterval), 150); // Limit to 150 frames for performance
+
+      let frames = [];
+      let currentFrame = 0;
+
+      // Dynamically import GIF.js
+      const GIF = (await import("gif.js")).default;
+
+      const gif = new GIF({
+        workers: 2,
+        quality: Math.floor(settings.quality * 30),
+        width: targetWidth,
+        height: targetHeight,
+        workerScript: "/gif.worker.js",
       });
 
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || "Conversion failed");
-      }
+      // Set up video event handlers
+      video.muted = true;
+      video.loop = false;
 
-      // Progress simulation for better UX
-      const progressInterval = setInterval(() => {
-        setStatus((prev) => ({
-          ...prev,
-          progress: Math.min(prev.progress + 10, 90),
-        }));
-      }, 500);
+      return new Promise((resolve, reject) => {
+        const captureFrame = () => {
+          if (currentFrame >= totalFrames) {
+            // Finished capturing all frames
+            gif.on("finished", (blob) => {
+              const url = URL.createObjectURL(blob);
+              setStatus((prev) => ({
+                ...prev,
+                isConverting: false,
+                progress: 100,
+                outputGif: url,
+              }));
+              resolve(url);
+            });
 
-      const gifBlob = await response.blob();
-      clearInterval(progressInterval);
+            gif.render();
+            return;
+          }
 
-      const outputUrl = URL.createObjectURL(gifBlob);
-      setStatus((prev) => ({
-        ...prev,
-        isConverting: false,
-        progress: 100,
-        outputUrl,
-      }));
+          // Draw current frame to canvas
+          ctx.drawImage(video, 0, 0, targetWidth, targetHeight);
+
+          // Get frame data - FIX: Use integers (already integers from Math.floor)
+          const frameData = ctx.getImageData(0, 0, targetWidth, targetHeight);
+          gif.addFrame(frameData, { delay: 1000 / settings.fps });
+
+          currentFrame++;
+          const progress = (currentFrame / totalFrames) * 100;
+          setStatus((prev) => ({ ...prev, progress: Math.min(progress, 95) }));
+
+          // Seek to next frame
+          const nextTime = currentFrame * frameInterval;
+          if (nextTime < duration) {
+            video.currentTime = nextTime;
+          } else {
+            // If we've reached the end, finish
+            captureFrame();
+          }
+        };
+
+        // Handle seeked event
+        const onSeeked = () => {
+          captureFrame();
+        };
+
+        video.addEventListener("seeked", onSeeked);
+
+        // Start capturing from beginning
+        video.currentTime = 0;
+
+        // Cleanup
+        const cleanup = () => {
+          video.removeEventListener("seeked", onSeeked);
+        };
+
+        // Store cleanup for later
+        gif.on("error", (error) => {
+          cleanup();
+          reject(error);
+        });
+      });
     } catch (error) {
+      console.error("Conversion error:", error);
       setStatus((prev) => ({
         ...prev,
         isConverting: false,
-        error:
-          error instanceof Error
-            ? error.message
-            : "An unexpected error occurred",
+        error: "Failed to convert video: " + error.message,
       }));
     }
   };
 
+  const handleConvert = async () => {
+    if (!file) return;
+    await convertVideoToGif();
+  };
+
   const handleDownload = () => {
-    if (status.outputUrl) {
+    if (status.outputGif) {
       const a = document.createElement("a");
-      a.href = status.outputUrl;
+      a.href = status.outputGif;
       a.download = `converted_${Date.now()}.gif`;
       document.body.appendChild(a);
       a.click();
@@ -141,14 +201,14 @@ export default function VideoToGifConverter() {
 
   const handleReset = () => {
     if (videoPreview) URL.revokeObjectURL(videoPreview);
-    if (status.outputUrl) URL.revokeObjectURL(status.outputUrl);
+    if (status.outputGif) URL.revokeObjectURL(status.outputGif);
     setFile(null);
     setVideoPreview(null);
     setStatus({
       isConverting: false,
       progress: 0,
       error: null,
-      outputUrl: null,
+      outputGif: null,
     });
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
@@ -156,16 +216,15 @@ export default function VideoToGifConverter() {
   useEffect(() => {
     return () => {
       if (videoPreview) URL.revokeObjectURL(videoPreview);
-      if (status.outputUrl) URL.revokeObjectURL(status.outputUrl);
+      if (status.outputGif) URL.revokeObjectURL(status.outputGif);
     };
-  }, [videoPreview, status.outputUrl]);
-
-  // The rest of your JSX remains the same as before
-  // (the UI structure with upload area, settings, and result section)
-  // ... keeping your existing Tailwind classes and layout
+  }, [videoPreview, status.outputGif]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+      {/* Hidden canvas for frame capture */}
+      <canvas ref={canvasRef} className="hidden" />
+
       <div className="container mx-auto px-4 py-8 max-w-6xl">
         {/* Breadcrumbs */}
         <nav className="text-sm mb-6 text-gray-600 dark:text-gray-400">
@@ -188,14 +247,20 @@ export default function VideoToGifConverter() {
           </ol>
         </nav>
 
-        {/* Header */}
-        <div className="text-center mb-12">
+        {/* Header with privacy badge */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center gap-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-4 py-2 rounded-full text-sm mb-4">
+            <span className="text-lg">🔒</span>
+            <span>100% Browser-Based - No Upload Required</span>
+          </div>
           <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-4">
             Convert Video to GIF
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Transform your videos into high-quality animated GIFs. Fast, free,
-            and no watermark. Supports MP4, WebM, MOV, and more.
+            Transform your videos into GIFs instantly in your browser.
+            <span className="block text-sm mt-1 text-green-600 dark:text-green-400">
+              ✨ Your videos never leave your computer - 100% private
+            </span>
           </p>
         </div>
 
@@ -203,7 +268,7 @@ export default function VideoToGifConverter() {
           {/* Upload Section */}
           <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 border border-gray-200 dark:border-gray-700">
             <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-              📤 Upload Video
+              📤 Select Video
             </h2>
 
             <div
@@ -242,10 +307,10 @@ export default function VideoToGifConverter() {
                 <div className="space-y-3">
                   <div className="text-5xl">🎥</div>
                   <p className="text-gray-600 dark:text-gray-300">
-                    Click to upload or drag and drop
+                    Click to select video file
                   </p>
                   <p className="text-sm text-gray-400">
-                    MP4, WebM, MOV, AVI (Max 50MB)
+                    MP4, WebM, MOV (Up to 500MB)
                   </p>
                 </div>
               )}
@@ -264,7 +329,7 @@ export default function VideoToGifConverter() {
                 <input
                   type="range"
                   min="5"
-                  max="30"
+                  max="24"
                   value={settings.fps}
                   onChange={(e) =>
                     setSettings((prev) => ({
@@ -275,6 +340,9 @@ export default function VideoToGifConverter() {
                   className="w-full"
                   disabled={status.isConverting}
                 />
+                <p className="text-xs text-gray-400 mt-1">
+                  Lower FPS = smaller file size
+                </p>
               </div>
 
               <div>
@@ -296,6 +364,9 @@ export default function VideoToGifConverter() {
                   className="w-full"
                   disabled={status.isConverting}
                 />
+                <p className="text-xs text-gray-400 mt-1">
+                  Smaller width = smaller file size
+                </p>
               </div>
 
               <div>
@@ -307,15 +378,15 @@ export default function VideoToGifConverter() {
                   onChange={(e) =>
                     setSettings((prev) => ({
                       ...prev,
-                      quality: e.target.value,
+                      quality: parseFloat(e.target.value),
                     }))
                   }
                   className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700"
                   disabled={status.isConverting}
                 >
-                  <option value="low">Low (Smaller file)</option>
-                  <option value="medium">Medium (Balanced)</option>
-                  <option value="high">High (Better quality)</option>
+                  <option value="0.5">Low (Fast, smaller file)</option>
+                  <option value="1">Medium (Balanced)</option>
+                  <option value="2">High (Better quality)</option>
                 </select>
               </div>
 
@@ -359,10 +430,10 @@ export default function VideoToGifConverter() {
                       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                     />
                   </svg>
-                  Converting... {status.progress}%
+                  Processing video... {Math.round(status.progress)}%
                 </span>
               ) : (
-                "Convert to GIF"
+                "Convert to GIF 🎬→🖼️"
               )}
             </button>
 
@@ -376,14 +447,15 @@ export default function VideoToGifConverter() {
           {/* Result Section */}
           <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 border border-gray-200 dark:border-gray-700">
             <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-              🎯 Result
+              🎯 Your GIF Result
             </h2>
 
-            {status.outputUrl ? (
+            {status.outputGif ? (
               <div className="space-y-4">
                 <div className="bg-gray-100 dark:bg-gray-900 rounded-lg p-4">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={status.outputUrl}
+                    src={status.outputGif}
                     alt="Converted GIF preview"
                     className="max-w-full h-auto mx-auto rounded-lg shadow-md"
                   />
@@ -403,61 +475,48 @@ export default function VideoToGifConverter() {
                     Convert Another
                   </button>
                 </div>
+                <p className="text-xs text-center text-gray-500">
+                  GIF created entirely in your browser - nothing was uploaded
+                </p>
               </div>
             ) : (
               <div className="text-center py-12 text-gray-400 dark:text-gray-500">
-                <div className="text-5xl mb-3">🖼️</div>
+                <div className="text-5xl mb-3">🎬</div>
                 <p>Your GIF will appear here</p>
-                <p className="text-sm mt-2">Upload a video and click convert</p>
+                <p className="text-sm mt-2">Select a video and click convert</p>
               </div>
             )}
           </div>
         </div>
 
-        {/* SEO Content Section */}
-        <div className="mt-16 prose prose-lg dark:prose-invert max-w-none">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-            Why Use Our Video to GIF Converter?
+        {/* SEO Content */}
+        <div className="mt-16 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 rounded-2xl p-8">
+          <h2 className="text-2xl font-bold text-center mb-6">
+            ✨ Why Browser-Based Conversion?
           </h2>
-
-          <div className="grid md:grid-cols-3 gap-6 mt-6">
-            <div className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-md">
-              <div className="text-3xl mb-3">⚡</div>
-              <h3 className="font-semibold mb-2">Fast Conversion</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">
-                Convert videos to GIFs in seconds with our optimized processing
-                engine.
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="text-center">
+              <div className="text-3xl mb-2">🔒</div>
+              <h3 className="font-semibold">100% Private</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Your videos never leave your computer
               </p>
             </div>
-
-            <div className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-md">
-              <div className="text-3xl mb-3">🔒</div>
-              <h3 className="font-semibold mb-2">Secure & Private</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">
-                All processing happens on your device. Your files never leave
-                your computer.
+            <div className="text-center">
+              <div className="text-3xl mb-2">⚡</div>
+              <h3 className="font-semibold">No Upload Time</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Start converting instantly
               </p>
             </div>
-
-            <div className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-md">
-              <div className="text-3xl mb-3">🎨</div>
-              <h3 className="font-semibold mb-2">Customizable Output</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">
-                Adjust FPS, width, and quality to get the perfect GIF for your
-                needs.
+            <div className="text-center">
+              <div className="text-3xl mb-2">💪</div>
+              <h3 className="font-semibold">No File Limits</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Process large videos easily
               </p>
             </div>
           </div>
-
-          <h2 className="text-2xl font-bold mt-10 mb-4">
-            How to Convert Video to GIF
-          </h2>
-          <ol className="list-decimal list-inside space-y-2 text-gray-700 dark:text-gray-300">
-            <li>Upload your video file (MP4, WebM, MOV, or AVI format)</li>
-            <li>Adjust GIF settings like frame rate, width, and quality</li>
-            <li>Click "Convert to GIF" button</li>
-            <li>Download your animated GIF instantly</li>
-          </ol>
         </div>
       </div>
     </div>
