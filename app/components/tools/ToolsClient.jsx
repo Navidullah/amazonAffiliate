@@ -13,6 +13,7 @@ import {
   FileText,
   Tag,
   File,
+  Video,
 } from "lucide-react";
 import { FaFacebook, FaTiktok } from "react-icons/fa";
 
@@ -34,6 +35,13 @@ export default function ToolsClient() {
       title: "TikTok Video Downloader",
       desc: "Download TikTok videos without watermark in HD quality",
       icon: FaTiktok,
+      category: "video downloader",
+    },
+    {
+      href: "/tools/video-to-gif",
+      title: "Convert Video to Gif",
+      desc: "Convert and download your video to GIF using video to GIF converter at Shopyor",
+      icon: Video,
       category: "video downloader",
     },
     {
