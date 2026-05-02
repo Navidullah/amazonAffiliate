@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function Faq() {
   const faqs = [
@@ -18,6 +19,32 @@ export default function Faq() {
       q: "Do these tools work on mobile?",
       a: "Yes, all tools are fully responsive and optimized for all devices.",
       delay: 0.2,
+    },
+    {
+      q: "How can I convert a PDF to editable Word?",
+      a: (
+        <>
+          Use our{" "}
+          <Link href="/tools/pdf-to-word" className="text-primary hover:underline">
+            PDF to Word Converter
+          </Link>{" "}
+          to upload your PDF and download an editable DOCX file in seconds.
+        </>
+      ),
+      delay: 0.3,
+    },
+    {
+      q: "Where can I find all available tools?",
+      a: (
+        <>
+          Browse the complete collection on the{" "}
+          <Link href="/tools" className="text-primary hover:underline">
+            tools page
+          </Link>{" "}
+          including image, PDF, SEO, and video utilities.
+        </>
+      ),
+      delay: 0.4,
     },
   ];
 

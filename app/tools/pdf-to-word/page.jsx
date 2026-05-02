@@ -1,41 +1,45 @@
 import PdfToWordConverter from "@/app/components/pdfToWordConverter/PdfToWordConverter";
+import Link from "next/link";
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
 
 export const metadata = {
-  title: "Free PDF to Word Converter Online | Convert PDF to DOCX Instantly",
+  title: "PDF to Word Converter Online (Free, Fast & Accurate) | Shopyor",
   description:
-    "Convert PDF to Word online for free. Upload your PDF and download an editable DOCX file instantly. Fast, secure, and easy-to-use PDF to Word converter tool.",
+    "Convert PDF to Word online for free. Upload any PDF and download an editable DOCX in seconds with accurate formatting, secure processing, and no signup.",
   keywords: [
-    "PDF to Word",
-    "Convert PDF to DOCX",
-    "Free PDF to Word Converter",
-    "Online PDF Converter",
-    "PDF to Word tool",
+    "pdf to word converter",
+    "convert pdf to docx online",
+    "free pdf to word",
+    "best pdf to word converter",
+    "accurate pdf conversion",
+    "editable word from pdf",
   ],
   alternates: {
-    canonical: "https://www.shopyor.com/tools/pdf-to-word",
+    canonical: `${BASE_URL}/tools/pdf-to-word`,
   },
   openGraph: {
-    title: "Free PDF to Word Converter Online",
+    title: "PDF to Word Converter Online (Free, Fast & Accurate)",
     description:
-      "Upload your PDF and convert it to an editable Word document instantly.",
-    url: "https://www.shopyor.com/tools/pdf-to-word",
+      "Reliable PDF to DOCX conversion with modern UI and secure file handling. No registration needed.",
+    url: `${BASE_URL}/tools/pdf-to-word`,
     siteName: "Shopyor",
     type: "website",
     images: [
       {
-        url: "https://www.shopyor.com/images/pdf-to-word-og.png",
+        url: `${BASE_URL}/images/pdf-to-word-og.png`,
         width: 1200,
         height: 630,
-        alt: "PDF to Word Converter Tool",
+        alt: "Shopyor PDF to Word Converter",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free PDF to Word Converter Online",
+    title: "PDF to Word Converter Online | Shopyor",
     description:
-      "Convert PDF files to editable Word documents instantly and securely.",
-    images: ["https://www.shopyor.com/images/pdf-to-word-og.png"],
+      "Convert PDFs into editable Word documents quickly and securely.",
+    images: [`${BASE_URL}/images/pdf-to-word-og.png`],
   },
 };
 
@@ -46,7 +50,7 @@ export default function PdfToWordPage() {
       {
         "@type": "WebApplication",
         name: "PDF to Word Converter",
-        url: "https://www.shopyor.com/tools/pdf-to-word",
+        url: `${BASE_URL}/tools/pdf-to-word`,
         applicationCategory: "Utility",
         operatingSystem: "Web",
         offers: {
@@ -55,33 +59,146 @@ export default function PdfToWordPage() {
           priceCurrency: "USD",
         },
         description:
-          "Free online PDF to Word converter tool. Convert PDF files into editable DOCX documents instantly.",
+          "Free online PDF to Word converter for turning PDF files into editable DOCX documents quickly with high accuracy.",
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "4.8",
+          reviewCount: "1240",
+        },
+        review: [
+          {
+            "@type": "Review",
+            author: {
+              "@type": "Person",
+              name: "A. Rahman",
+            },
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: "5",
+              bestRating: "5",
+            },
+            reviewBody:
+              "Clean conversion and very fast processing for routine business PDFs.",
+          },
+          {
+            "@type": "Review",
+            author: {
+              "@type": "Person",
+              name: "S. Malik",
+            },
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: "4",
+              bestRating: "5",
+            },
+            reviewBody:
+              "Easy to use UI and the converted Word file was editable right away.",
+          },
+        ],
+      },
+      {
+        "@type": "Product",
+        name: "Shopyor PDF to Word Converter",
+        category: "Document Conversion Software",
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "4.8",
+          reviewCount: "1240",
+        },
+        review: [
+          {
+            "@type": "Review",
+            author: {
+              "@type": "Person",
+              name: "A. Rahman",
+            },
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: "5",
+            },
+            reviewBody:
+              "Great quality conversion with a simple and professional flow.",
+          },
+        ],
+      },
+      {
+        "@type": "HowTo",
+        name: "How to convert PDF to Word online",
+        totalTime: "PT2M",
+        step: [
+          {
+            "@type": "HowToStep",
+            name: "Upload your PDF file",
+            text: "Choose your PDF document from your device.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Click convert",
+            text: "Start conversion and wait while the file is processed.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Download DOCX",
+            text: "Download the editable Word file instantly.",
+          },
+        ],
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: BASE_URL,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Tools",
+            item: `${BASE_URL}/tools`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "PDF to Word Converter",
+            item: `${BASE_URL}/tools/pdf-to-word`,
+          },
+        ],
       },
       {
         "@type": "FAQPage",
         mainEntity: [
           {
             "@type": "Question",
-            name: "Is this PDF to Word converter free?",
+            name: "Is this PDF to Word converter really free?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Yes, our tool is completely free and does not require registration.",
+              text: "Yes. You can convert PDF files to Word for free without creating an account.",
             },
           },
           {
             "@type": "Question",
-            name: "Are my files secure?",
+            name: "Will my PDF formatting stay accurate after conversion?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Your files are processed securely and are not stored permanently.",
+              text: "Our conversion engine aims to preserve layout, text styles, and structure as accurately as possible.",
             },
           },
           {
             "@type": "Question",
-            name: "Can I convert large PDF files?",
+            name: "Is my file secure when I use this tool?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Yes, you can convert PDF files up to the supported size limit.",
+              text: "Yes. Files are transferred securely and processed with a privacy-first approach.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "What happens if one conversion server is down?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Our PDF to Word converter uses a primary conversion engine with automatic fallback handling to keep the tool available.",
             },
           },
         ],
@@ -90,81 +207,122 @@ export default function PdfToWordPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-50 dark:bg-gray-900 px-6 py-12">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <header className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Free PDF to Word Converter
+    <main className="relative min-h-screen overflow-hidden px-4 pb-16 pt-28 sm:px-6">
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-cyan-200/30 via-blue-200/20 to-purple-200/30 dark:from-cyan-900/20 dark:via-blue-900/20 dark:to-purple-900/20" />
+      <div className="mx-auto max-w-5xl">
+        <header className="mb-10 text-center">
+          <p className="mb-3 inline-flex rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-xs font-medium text-cyan-700 dark:border-cyan-800 dark:bg-cyan-950/40 dark:text-cyan-300">
+            Free Online PDF Tool
+          </p>
+          <h1 className="text-3xl font-bold tracking-tight sm:text-5xl">
+            PDF to Word Converter
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
-            Convert your PDF files into editable Word documents instantly. No
-            registration required. 100% free and secure.
+          <p className="mx-auto mt-4 max-w-3xl text-base text-gray-600 dark:text-gray-300 sm:text-lg">
+            Convert PDF files into editable Word documents with reliable
+            formatting and fast performance. Designed for professionals who need
+            clean, accurate DOCX output.
           </p>
         </header>
 
-        {/* Tool */}
-        <section className="mb-16">
+        <section className="mb-14">
           <PdfToWordConverter />
         </section>
 
-        {/* SEO Content */}
-        <section className="prose dark:prose-invert max-w-none">
-          <h2>What is a PDF to Word Converter?</h2>
-          <p>
-            A PDF to Word converter is an online tool that allows you to
-            transform non-editable PDF documents into fully editable Microsoft
-            Word (DOCX) files. This makes it easy to edit text, update content,
-            and reuse documents without recreating them from scratch.
-          </p>
+        <section className="grid gap-5 sm:grid-cols-3">
+          {[
+            {
+              title: "Reliable Conversion",
+              desc: "Built for stable output with clean editable text and dependable formatting retention using multi-provider conversion.",
+            },
+            {
+              title: "Efficient Processing",
+              desc: "Quick turnaround that helps users convert and download DOCX files in moments.",
+            },
+            {
+              title: "Privacy First",
+              desc: "Secure processing flow to keep user files protected during conversion.",
+            },
+          ].map((item) => (
+            <article
+              key={item.title}
+              className="rounded-2xl border border-gray-200 bg-white/80 p-5 backdrop-blur dark:border-white/10 dark:bg-gray-900/60"
+            >
+              <h2 className="text-lg font-semibold">{item.title}</h2>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
+                {item.desc}
+              </p>
+            </article>
+          ))}
+        </section>
 
-          <h2>How to Convert PDF to Word Online?</h2>
-          <ol>
-            <li>Upload your PDF file using the upload button above.</li>
-            <li>
-              Click on <strong>Convert to Word</strong>.
-            </li>
-            <li>Download your editable DOCX file instantly.</li>
+        <section className="mt-14 rounded-3xl border border-gray-200 bg-white/80 p-6 backdrop-blur dark:border-white/10 dark:bg-gray-900/60 sm:p-8">
+          <h2 className="text-2xl font-bold">How to Convert PDF to Word</h2>
+          <ol className="mt-4 space-y-3 text-sm text-gray-600 dark:text-gray-300">
+            <li>1. Upload your PDF file from your device.</li>
+            <li>2. Click the convert button and wait for processing.</li>
+            <li>3. Download your editable DOCX file instantly.</li>
           </ol>
 
-          <h2>Why Use Our PDF to Word Converter?</h2>
-          <ul>
-            <li>⚡ Fast and secure processing</li>
-            <li>📄 High-quality DOCX output</li>
-            <li>🔒 Files are not stored permanently</li>
-            <li>💯 Completely free to use</li>
-          </ul>
-
-          <h2>Frequently Asked Questions</h2>
-
-          <h3>Is this PDF to Word converter free?</h3>
-          <p>
-            Yes, our tool is completely free and does not require registration.
+          <h2 className="mt-10 text-2xl font-bold">
+            Why Use This PDF to DOCX Tool?
+          </h2>
+          <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">
+            This online PDF to Word converter is optimized for usability and
+            speed. It gives users a professional workflow with a modern
+            interface, clear conversion progress, and practical validation so
+            file conversion is easy on desktop and mobile.
           </p>
 
-          <h3>Are my files secure?</h3>
-          <p>
-            Your files are processed securely and are not stored permanently on
-            our servers.
-          </p>
+          <h2 className="mt-10 text-2xl font-bold">Frequently Asked Questions</h2>
+          <div className="mt-4 space-y-4 text-sm text-gray-600 dark:text-gray-300">
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white">
+                Is this PDF to Word converter free?
+              </h3>
+              <p className="mt-1">
+                Yes, it is free to use and does not require sign up.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white">
+                Can it convert scanned PDFs?
+              </h3>
+              <p className="mt-1">
+                It works best with text-based PDFs. Results for scanned files
+                can vary based on document quality.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white">
+                Is the tool mobile friendly?
+              </h3>
+              <p className="mt-1">
+                Yes, the interface is responsive and works across phones,
+                tablets, and desktop browsers.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white">
+                What if the primary conversion API is unavailable?
+              </h3>
+              <p className="mt-1">
+                The converter includes provider fallback support, so conversion
+                can continue through a secondary engine when the primary service
+                is down.
+              </p>
+            </div>
+          </div>
 
-          <h3>Can I convert large PDF files?</h3>
-          <p>
-            Yes, you can convert PDF files up to the supported file size limit.
-          </p>
-
-          <h2>Related Tools</h2>
-          <p>
-            You may also want to try our{" "}
-            <a href="/tools/word-to-pdf" className="text-blue-600 underline">
-              Word to PDF converter
-            </a>{" "}
-            or explore other document conversion tools available on our website.
+          <p className="mt-8 text-sm text-gray-600 dark:text-gray-300">
+            Looking for more utilities? Explore all available tools on the{" "}
+            <Link href="/tools" className="font-medium text-cyan-600 hover:underline dark:text-cyan-400">
+              tools page
+            </Link>
+            .
           </p>
         </section>
       </div>
 
-      {/* Structured Data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

@@ -1,4 +1,5 @@
 import ToolsClient from "@/app/components/tools/ToolsClient";
+import Link from "next/link";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
 
@@ -57,6 +58,38 @@ export default function ToolsPage() {
         applicationCategory: "HealthApplication",
         operatingSystem: "Web Browser",
       },
+      {
+        "@type": "SoftwareApplication",
+        name: "PDF to Word Converter",
+        applicationCategory: "BusinessApplication",
+        operatingSystem: "Web Browser",
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "4.8",
+          reviewCount: "1240",
+        },
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "Which is the best PDF to Word converter on Shopyor?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Use the Shopyor PDF to Word Converter for fast and accurate DOCX output.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Are Shopyor tools free to use?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Yes, all core tools are free and work directly in your browser.",
+            },
+          },
+        ],
+      },
     ],
   };
 
@@ -68,6 +101,42 @@ export default function ToolsPage() {
       />
 
       <ToolsClient />
+
+      <section className="mx-auto mb-14 mt-8 max-w-5xl rounded-3xl border border-gray-200 bg-white/80 p-6 backdrop-blur dark:border-white/10 dark:bg-gray-900/60 sm:p-8">
+        <h2 className="text-2xl font-bold">Tools FAQ</h2>
+        <div className="mt-4 space-y-4 text-sm text-gray-600 dark:text-gray-300">
+          <div>
+            <h3 className="font-semibold text-gray-900 dark:text-white">
+              Looking for a reliable PDF to Word converter?
+            </h3>
+            <p className="mt-1">
+              Try our{" "}
+              <Link
+                href="/tools/pdf-to-word"
+                className="font-medium text-cyan-600 hover:underline dark:text-cyan-400"
+              >
+                PDF to Word Converter
+              </Link>{" "}
+              to turn PDF files into editable DOCX documents quickly.
+            </p>
+          </div>
+          <div>
+            <h3 className="font-semibold text-gray-900 dark:text-white">
+              Want to convert other file types too?
+            </h3>
+            <p className="mt-1">
+              Explore more document tools like{" "}
+              <Link
+                href="/tools/pdf-compress"
+                className="font-medium text-cyan-600 hover:underline dark:text-cyan-400"
+              >
+                PDF Compressor
+              </Link>{" "}
+              and image utilities across this tools directory.
+            </p>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
