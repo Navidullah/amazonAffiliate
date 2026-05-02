@@ -103,13 +103,24 @@ export default function FacebookVideoDownloaderClient() {
         {/* Header with optimized heading structure for SEO */}
         <header className="text-center mb-8">
           <h1 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-            Facebook Video Downloader
+            Facebook Video Downloader – Download HD Videos & Reels
           </h1>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
             Download any Facebook video or reel in HD quality. Fast, free, and
             easy to use.
           </p>
         </header>
+        <section className="mt-10 mb-10">
+          <h2 className="text-xl font-semibold mb-3">
+            What is a Facebook Video Downloader?
+          </h2>
+          <p className="text-muted-foreground">
+            A Facebook video downloader is an online tool that allows you to
+            download videos and reels from Facebook directly to your device.
+            With Shopyor, you can save Facebook videos in HD quality quickly and
+            securely without installing any software.
+          </p>
+        </section>
 
         {/* Downloader Component */}
         <VideoDownloader initialUrl={initialUrl} />
@@ -175,10 +186,10 @@ export default function FacebookVideoDownloaderClient() {
           </h2>
           <Card className="bg-muted/30">
             <CardContent className="p-6">
-              <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+              <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <InfoIcon className="h-5 w-5 text-primary" aria-hidden="true" />
                 How to Download Facebook Videos
-              </h3>
+              </h2>
               <ol className="space-y-3 text-muted-foreground">
                 <li className="flex gap-3">
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary text-center text-sm font-medium">
@@ -244,6 +255,80 @@ export default function FacebookVideoDownloaderClient() {
 
         {/* Copyright Notice */}
         <CopyrightNotice />
+
+        {/* FAQ */}
+        <section aria-labelledby="faq-heading" className="mt-12">
+          <Card className="bg-muted/30">
+            <CardContent className="p-6">
+              <h2
+                id="faq-heading"
+                className="text-lg font-semibold mb-4 flex items-center gap-2"
+              >
+                <InfoIcon className="h-5 w-5 text-primary" aria-hidden="true" />
+                Frequently Asked Questions (FAQs)
+              </h2>
+
+              <div className="space-y-4 text-muted-foreground">
+                {/* FAQ 1 */}
+                <div>
+                  <h3 className="font-medium text-foreground">
+                    Is this Facebook video downloader free?
+                  </h3>
+                  <p>
+                    Yes, our Facebook video downloader is completely free to
+                    use. You can download unlimited videos and reels without any
+                    cost.
+                  </p>
+                </div>
+
+                {/* FAQ 2 */}
+                <div>
+                  <h3 className="font-medium text-foreground">
+                    Can I download Facebook reels using this tool?
+                  </h3>
+                  <p>
+                    Yes, you can download Facebook reels and public videos in HD
+                    quality بسهولة and quickly using our tool.
+                  </p>
+                </div>
+
+                {/* FAQ 3 */}
+                <div>
+                  <h3 className="font-medium text-foreground">
+                    Do I need to install any software?
+                  </h3>
+                  <p>
+                    No, this is a fully online tool. You can download Facebook
+                    videos directly from your browser without installing
+                    anything.
+                  </p>
+                </div>
+
+                {/* FAQ 4 */}
+                <div>
+                  <h3 className="font-medium text-foreground">
+                    Is it safe to use this downloader?
+                  </h3>
+                  <p>
+                    Yes, we do not store your data or downloaded videos. Your
+                    privacy and security are our top priorities.
+                  </p>
+                </div>
+
+                {/* FAQ 5 */}
+                <div>
+                  <h3 className="font-medium text-foreground">
+                    Can I download private Facebook videos?
+                  </h3>
+                  <p>
+                    No, this tool only supports publicly available Facebook
+                    videos. You must respect privacy and copyright policies.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
       </div>
     </div>
   );

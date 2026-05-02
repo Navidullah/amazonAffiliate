@@ -5,8 +5,7 @@ import { LoadingFallback } from "@/app/components/tools/LoadingFallback";
 
 // Server-side metadata for SEO
 export const metadata = {
-  title:
-    "Facebook Video Downloader - Download HD Videos & Reels for Free | Shopyor",
+  title: "Facebook Video Downloader – HD & Free",
   description:
     "Download any public Facebook video or reel in HD quality. Fast, free, and easy to use. Save Facebook videos to your device with our powerful downloader tool.",
   keywords:
@@ -51,9 +50,7 @@ export const metadata = {
     address: false,
     telephone: false,
   },
-  verification: {
-    google: "your-google-verification-code",
-  },
+
   other: {
     "application-name": "Facebook Video Downloader",
     "apple-mobile-web-app-title": "FB Video Downloader",
@@ -63,32 +60,76 @@ export const metadata = {
 };
 
 // Structured data for SEO (JSON-LD)
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  name: "Facebook Video Downloader",
-  description: "Download any public Facebook video or reel in HD quality",
-  url: "https://shopyor.com/tools/facebook-video-downloader",
-  applicationCategory: "Utility",
-  operatingSystem: "Web",
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "USD",
+const structuredData = [
+  // Web Application Schema
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Facebook Video Downloader",
+    description: "Download any public Facebook video or reel in HD quality",
+    url: "https://shopyor.com/tools/facebook-video-downloader",
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: "Web",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.8",
+      ratingCount: "1250",
+    },
   },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.8",
-    ratingCount: "1250",
+
+  // FAQ Schema
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Is this Facebook video downloader free?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes, our Facebook video downloader is completely free to use. You can download unlimited videos and reels without any cost.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Can I download Facebook reels using this tool?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes, you can download Facebook reels and public videos in HD quality easily using our tool.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Do I need to install any software?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "No, this is a fully online tool. You can download Facebook videos directly from your browser without installing anything.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Is it safe to use this downloader?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes, we do not store your data or downloaded videos. Your privacy and security are our top priorities.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Can I download private Facebook videos?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "No, this tool only supports publicly available Facebook videos.",
+        },
+      },
+    ],
   },
-  featureList: [
-    "Download HD videos",
-    "Support Facebook Reels",
-    "Fast processing",
-    "No registration required",
-    "Privacy focused",
-  ],
-};
+];
 
 export default function FacebookVideoDownloaderPage() {
   return (

@@ -56,7 +56,7 @@ export const metadata = {
 
   title: {
     default: "Shopyor – Free Facebook, YouTube & TikTok Video Downloader",
-    template: "%s | Shopyor - Free Video Downloader & Online Tools",
+    template: "%s | Shopyor",
   },
 
   description:
