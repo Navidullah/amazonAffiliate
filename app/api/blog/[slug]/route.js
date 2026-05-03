@@ -1,26 +1,43 @@
 // app/api/blog/[slug]/route.js (GET single blog, PUT update, DELETE delete)
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 import { ConnectToDB } from "@/lib/db";
 import Blog from "@/lib/models/Blog";
 import User from "@/lib/models/User";
 
-// GET single blog by slug (public)
-export async function GET(request, { params }) {
+async function resolveParams(params) {
+  return params instanceof Promise ? await params : params;
+}
+
+// GET single blog by slug (public: published only; admin: any slug including drafts)
+export async function GET(request, context) {
   try {
     await ConnectToDB();
 
-    const { slug } = params;
+    const { slug: rawSlug } = await resolveParams(context.params);
+    const slug = decodeURIComponent(rawSlug);
 
-    const blog = await Blog.findOne({ slug, isPublished: true });
+    const session = await getServerSession(authOptions);
+    let isAdmin = false;
+    if (session?.user?.email) {
+      const user = await User.findOne({ email: session.user.email });
+      isAdmin = user?.role === "admin";
+    }
+
+    const blog = isAdmin
+      ? await Blog.findOne({ slug })
+      : await Blog.findOne({ slug, isPublished: true });
 
     if (!blog) {
       return NextResponse.json({ error: "Blog not found" }, { status: 404 });
     }
 
-    // Increment view count
-    blog.views += 1;
-    await blog.save();
+    // Count views only for public visits (not admin loading the editor)
+    if (!isAdmin && blog.isPublished) {
+      blog.views += 1;
+      await blog.save();
+    }
 
     return NextResponse.json(blog);
   } catch (error) {
@@ -33,9 +50,9 @@ export async function GET(request, { params }) {
 }
 
 // PUT update blog (admin only)
-export async function PUT(request, { params }) {
+export async function PUT(request, context) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
 
     if (!session || !session.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -51,7 +68,8 @@ export async function PUT(request, { params }) {
       );
     }
 
-    const { slug } = params;
+    const { slug: rawSlug } = await resolveParams(context.params);
+    const slug = decodeURIComponent(rawSlug);
     const { title, content, excerpt, category, tags, isPublished } =
       await request.json();
 
@@ -82,9 +100,9 @@ export async function PUT(request, { params }) {
 }
 
 // DELETE blog (admin only)
-export async function DELETE(request, { params }) {
+export async function DELETE(request, context) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
 
     if (!session || !session.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -100,7 +118,8 @@ export async function DELETE(request, { params }) {
       );
     }
 
-    const { slug } = params;
+    const { slug: rawSlug } = await resolveParams(context.params);
+    const slug = decodeURIComponent(rawSlug);
 
     const blog = await Blog.findOneAndDelete({ slug });
 

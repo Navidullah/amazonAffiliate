@@ -37,7 +37,9 @@ export default function EditBlogPage() {
 
   const fetchBlog = async () => {
     try {
-      const response = await fetch(`/api/blog/${params.slug}`);
+      const response = await fetch(`/api/blog/${params.slug}`, {
+        credentials: "include",
+      });
       const data = await response.json();
 
       if (response.ok) {
@@ -65,6 +67,7 @@ export default function EditBlogPage() {
       const response = await fetch(`/api/blog/${params.slug}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify(formData),
       });
 

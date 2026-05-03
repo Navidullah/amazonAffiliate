@@ -532,7 +532,8 @@ body {
   transition: transform 0.3s ease;
 }
 
-.hover\:translate-y-[-2px]:hover {
+/* Avoid [-2px] in class name — breaks Lightning CSS parser */
+.hover-translate-y-nudge:hover {
   transform: translateY(-2px);
   transition: transform 0.3s ease;
 }
