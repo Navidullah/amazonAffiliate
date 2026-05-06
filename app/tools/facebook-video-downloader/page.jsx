@@ -5,7 +5,9 @@ import { LoadingFallback } from "@/app/components/tools/LoadingFallback";
 
 // Server-side metadata for SEO
 export const metadata = {
-  title: "Facebook Video Downloader – HD & Free",
+  title: {
+    absolute: "Facebook Video Downloader – HD & Free | Shopyor",
+  },
   description:
     "Download any public Facebook video or reel in HD quality. Fast, free, and easy to use. Save Facebook videos to your device with our powerful downloader tool.",
   keywords:
@@ -40,7 +42,7 @@ export const metadata = {
     site: "@shopyor",
   },
   alternates: {
-    canonical: "https://shopyor.com/tools/facebook-video-downloader",
+    canonical: "https://www.shopyor.com/tools/facebook-video-downloader",
   },
   category: "tools",
   classification: "video downloader tool",

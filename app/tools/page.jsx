@@ -4,9 +4,9 @@ import Link from "next/link";
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
 
 export const metadata = {
-  title: "Free Online Tools | Shopyor",
+  title: "Free Online Tools",
   description:
-    "Use Shopyor’s free online tools: Image Compressor, EXIF Remover, Background Remover, BMI Calculator and more. Fast, secure and browser-based utilities.",
+    "Use Shopyor’s free online tools: social media video downloader(facebook,tiktok),Image Compressor, Background Remover. Fast, secure and browser-based utilities.",
   keywords: [
     "free online tools",
     "facebook video downloader",
@@ -24,7 +24,7 @@ export const metadata = {
     url: `${BASE_URL}/tools`,
     title: "Free Online Tools | Shopyor",
     description:
-      "Fast, privacy-friendly browser tools to compress images, remove backgrounds, strip metadata and more.",
+      "Fast, privacy-friendly browser tools to download social media videos, compress images, remove backgrounds, and many more.",
   },
   twitter: {
     card: "summary_large_image",
