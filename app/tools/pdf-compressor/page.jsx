@@ -1,28 +1,57 @@
 import PdfCompressorClient from "./PdfCompressorClient";
 
 export const metadata = {
-  title: "Free PDF Compressor Online | Reduce PDF File Size Instantly",
+  title: {
+    absolute: "PDF Compressor Online - Reduce PDF File Size Free | Shopyor",
+  },
   description:
-    "Compress PDF files online for free. Reduce PDF size without losing quality. Fast, secure, and easy-to-use PDF compressor tool.",
+    "Compress PDF files online for free with Shopyor. Reduce PDF file size quickly while keeping readable quality. Secure browser-based PDF compression tool.",
   keywords: [
     "PDF compressor",
     "Reduce PDF size",
     "Online PDF compressor",
     "PDF optimization tool",
     "Compress PDF online",
+    "small PDF file",
+    "decrease PDF size",
+    "free PDF reducer",
   ],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
+  alternates: {
+    canonical: "https://www.shopyor.com/tools/pdf-compressor",
+  },
   openGraph: {
-    title: "Free PDF Compressor Online",
+    title: "PDF Compressor Online - Free File Size Reducer",
     description:
-      "Upload your PDF and compress it instantly while keeping quality intact.",
+      "Upload your PDF and compress it in seconds. Reduce file size for faster sharing, email, and uploads.",
     url: "https://www.shopyor.com/tools/pdf-compressor",
     siteName: "Shopyor",
     type: "website",
+    images: [
+      {
+        url: "/og/og-video-downloader-1200x630.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Shopyor PDF Compressor",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free PDF Compressor Online",
-    description: "Reduce PDF file size quickly and securely online.",
+    title: "PDF Compressor Online - Free and Secure",
+    description:
+      "Reduce PDF size online in seconds. No signup, clean interface, quality-focused compression.",
+    images: ["/og/og-video-downloader-1200x630.jpg"],
   },
 };
 
@@ -36,7 +65,7 @@ export default function PdfCompressorPage() {
     operatingSystem: "Web",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     description:
-      "Free online PDF compressor tool. Compress PDF files instantly while maintaining quality.",
+      "Free online PDF compressor tool to reduce file size for sharing, emailing, and faster uploads.",
   };
 
   const faqSchema = {
@@ -56,7 +85,15 @@ export default function PdfCompressorPage() {
         name: "Can I compress multiple PDFs?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes, but one at a time for the best performance.",
+          text: "You can compress one file at a time in this version to keep compression fast and reliable.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Will PDF quality stay readable after compression?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. The tool is tuned for practical compression while keeping text and most graphics clear and readable.",
         },
       },
       {
@@ -72,47 +109,67 @@ export default function PdfCompressorPage() {
 
   return (
     <>
-      <main className="min-h-screen bg-black text-white relative overflow-hidden">
-        {/* Gradient Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 opacity-30 blur-3xl"></div>
+      <main className="relative min-h-screen overflow-hidden bg-slate-950 text-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(59,130,246,.22),transparent_35%),radial-gradient(circle_at_80%_10%,rgba(168,85,247,.18),transparent_30%),radial-gradient(circle_at_70%_80%,rgba(14,165,233,.2),transparent_35%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(15,23,42,.1),rgba(2,6,23,.9))]" />
 
-        <div className="relative max-w-6xl mx-auto px-6 py-24 space-y-16">
-          {/* Header */}
-          <div className="text-center space-y-6">
-            <h1 className="text-5xl md:text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400">
+        <div className="relative mx-auto max-w-6xl space-y-14 px-6 py-20 md:py-24">
+          <section className="text-center">
+            <span className="inline-flex rounded-full border border-cyan-300/25 bg-cyan-300/10 px-4 py-1 text-xs font-semibold uppercase tracking-wider text-cyan-200">
+              Free Online Tool
+            </span>
+            <h1 className="mt-6 text-4xl font-extrabold leading-tight md:text-6xl">
               PDF Compressor
             </h1>
-            <p className="text-gray-200 max-w-2xl mx-auto text-lg md:text-xl">
-              Reduce your PDF file size instantly without losing quality. Fast,
-              secure, and 100% free.
+            <p className="mx-auto mt-5 max-w-3xl text-base text-slate-200 md:text-xl">
+              Reduce PDF file size in seconds with a modern, privacy-focused
+              compressor. Perfect for email attachments, form uploads, and
+              faster sharing.
             </p>
-          </div>
+          </section>
 
-          {/* PDF Compressor Tool */}
           <PdfCompressorClient />
 
-          {/* SEO Content Section */}
-          <section className="prose dark:prose-invert max-w-none text-gray-200">
-            <h2>How to Compress PDF Online?</h2>
-            <ol>
-              <li>Upload your PDF file using the upload button above.</li>
-              <li>
-                Click <strong>Compress PDF</strong>.
-              </li>
-              <li>Download your reduced-size PDF instantly.</li>
+          <section className="grid gap-4 md:grid-cols-3">
+            <article className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur">
+              <h2 className="text-lg font-semibold">Fast Compression</h2>
+              <p className="mt-2 text-sm text-slate-300">
+                Shrink large PDFs quickly so they are easier to upload and send.
+              </p>
+            </article>
+            <article className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur">
+              <h2 className="text-lg font-semibold">Readable Results</h2>
+              <p className="mt-2 text-sm text-slate-300">
+                Optimized to balance smaller file size with practical visual
+                quality.
+              </p>
+            </article>
+            <article className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur">
+              <h2 className="text-lg font-semibold">Private Processing</h2>
+              <p className="mt-2 text-sm text-slate-300">
+                Your files are handled securely and not kept permanently.
+              </p>
+            </article>
+          </section>
+
+          <section className="rounded-3xl border border-white/10 bg-slate-900/50 p-6 md:p-8">
+            <h2 className="text-2xl font-bold">How to Compress PDF Online</h2>
+            <ol className="mt-4 list-decimal space-y-2 pl-5 text-slate-200">
+              <li>Choose your PDF file from your device.</li>
+              <li>Click <strong>Compress PDF</strong> to start optimization.</li>
+              <li>Download the compressed PDF instantly.</li>
             </ol>
 
-            <h2>Why Use Our PDF Compressor?</h2>
-            <ul>
-              <li>⚡ Fast and secure processing</li>
-              <li>📄 Maintain PDF quality</li>
-              <li>🔒 Files are not stored permanently</li>
-              <li>💯 Completely free to use</li>
+            <h3 className="mt-7 text-xl font-semibold">Why use this tool?</h3>
+            <ul className="mt-3 list-disc space-y-2 pl-5 text-slate-200">
+              <li>Works directly in your browser with no sign-up needed.</li>
+              <li>Helps meet upload limits for forms and job portals.</li>
+              <li>Makes document sharing faster over slow connections.</li>
+              <li>Completely free for everyday use.</li>
             </ul>
           </section>
         </div>
 
-        {/* Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
