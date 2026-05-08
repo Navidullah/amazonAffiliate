@@ -77,6 +77,8 @@ module.exports = {
 
     if (path === "/") {
       priority = 1.0;
+    } else if (path === "/portfolio") {
+      priority = 0.8;
     } else if (path === "/tools") {
       priority = 0.8;
     } else if (path.startsWith("/blogs/")) {
