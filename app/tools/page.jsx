@@ -10,6 +10,7 @@ export const metadata = {
   keywords: [
     "free online tools",
     "facebook video downloader",
+    "instagram video downloader",
     "tiktok video downloader",
     "youtube video downloader",
     "image compressor",
