@@ -3,8 +3,7 @@ import { Metadata } from "next";
 import TikTokDownloaderClient from "./TikTokDownloaderClient";
 
 export const metadata = {
-  title:
-    "TikTok Video Downloader - Download TikTok Videos Without Watermark | Shopyor",
+  title: "TikTok Video Downloader - Download TikTok Videos Without Watermark ",
   description:
     "Free TikTok video downloader tool. Download any TikTok video without watermark in high quality. Fast, free, and no registration required.",
   keywords:
