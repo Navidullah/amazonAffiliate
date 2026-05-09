@@ -6,6 +6,7 @@ import {
   Montserrat,
 } from "next/font/google";
 import "./globals.css";
+import "katex/dist/katex.min.css";
 import { Providers } from "./providers/Providers";
 import HeaderComponent from "./components/header/HeaderComponent";
 import Footer from "./components/footer/Footer";
@@ -55,7 +56,7 @@ export const metadata = {
   metadataBase: new URL("https://www.shopyor.com"),
 
   title: {
-    default: "Shopyor – Free Facebook, YouTube & TikTok Video Downloader",
+    default: "Shopyor",
     template: "%s | Shopyor",
   },
 
@@ -131,14 +132,6 @@ export const metadata = {
     images: ["/og/og-video-downloader-1200x630.jpg"],
   },
 
-  alternates: {
-    canonical: "https://www.shopyor.com",
-    languages: {
-      "en-US": "https://www.shopyor.com",
-      "en-GB": "https://www.shopyor.com/en-gb",
-    },
-  },
-
   robots: {
     index: true,
     follow: true,
@@ -149,12 +142,6 @@ export const metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
-  },
-
-  verification: {
-    google: "your-google-verification-code", // Add your Google Search Console code
-    // yandex: "your-yandex-code",
-    // bing: "your-bing-code",
   },
 
   category: "technology",
