@@ -13,7 +13,7 @@ export const metadata = {
     title: "TikTok Video Downloader - Download Without Watermark | Shopyor",
     description:
       "Free TikTok video downloader. Download any TikTok video without watermark in high quality.",
-    url: "https://www.shopyor.com/tools/tiktok-downloader",
+    url: "https://www.shopyor.com/tools/free-tiktok-video-downloader",
     siteName: "Shopyor",
     type: "website",
     locale: "en_US",
@@ -33,7 +33,7 @@ export const metadata = {
     images: ["https://www.shopyor.com/tiktok-twitter.jpg"],
   },
   alternates: {
-    canonical: "https://www.shopyor.com/tools/tiktok-downloader",
+    canonical: "https://www.shopyor.com/tools/free-tiktok-video-downloader",
   },
 };
 
@@ -43,7 +43,7 @@ export default function TikTokDownloaderPage() {
     "@type": "WebApplication",
     name: "TikTok Video Downloader",
     description: "Download TikTok videos without watermark for free",
-    url: "https://www.shopyor.com/tools/tiktok-downloader",
+    url: "https://www.shopyor.com/tools/free-tiktok-video-downloader",
     applicationCategory: "Multimedia",
     operatingSystem: "Any",
     offers: {
