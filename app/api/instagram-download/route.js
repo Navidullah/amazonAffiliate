@@ -1,25 +1,41 @@
-// Server-side proxy for Instagram video downloader.
-// Calling the Render API from the browser causes CORS failures and cold-start
-// timeouts. Running the request on the server avoids both.
+// Server-side proxy for the deployed Instagram downloader on Render.
+// Running the request server-side avoids CORS issues and cold-start timeouts
+// that would occur if the browser called the Render API directly.
+//
+// POST /api/instagram-download  { url }
+// → { success, data: { videoUrl, thumbnail, title, username, duration, type } }
+
+const INSTAGRAM_API = "https://instagram-downloader-ga0k.onrender.com";
+
 export async function POST(req) {
   try {
-    const { url } = await req.json();
+    const body = await req.json().catch(() => ({}));
+    const url = body.url?.trim();
 
-    if (!url || !url.trim()) {
+    if (!url) {
       return Response.json({ error: "URL is required" }, { status: 400 });
     }
 
-    const INSTAGRAM_API_URL =
-      process.env.INSTAGRAM_API_URL ||
-      process.env.NEXT_PUBLIC_INSTAGRAM_API_URL ||
-      "https://instagram-video-downloader.onrender.com";
-
-    const response = await fetch(`${INSTAGRAM_API_URL}/api/download`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url: url.trim(), quality: "best" }),
-      signal: AbortSignal.timeout(35000),
-    });
+    let response;
+    try {
+      response = await fetch(`${INSTAGRAM_API}/api/download`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, quality: "best" }),
+        // Render free tier cold-start can take ~30s
+        signal: AbortSignal.timeout(40_000),
+      });
+    } catch (err) {
+      const isTimeout = err.name === "TimeoutError" || err.name === "AbortError";
+      return Response.json(
+        {
+          error: isTimeout
+            ? "The Instagram API is starting up. Please try again in a few seconds."
+            : err.message || "Failed to reach Instagram API",
+        },
+        { status: 503 },
+      );
+    }
 
     const data = await response.json().catch(() => ({}));
 
@@ -29,7 +45,7 @@ export async function POST(req) {
           error:
             data.detail ||
             data.error ||
-            "Failed to fetch Instagram video. The link may be private or invalid.",
+            "Failed to fetch Instagram video. Make sure the link is public.",
         },
         { status: response.status || 500 },
       );
@@ -37,13 +53,8 @@ export async function POST(req) {
 
     return Response.json(data);
   } catch (err) {
-    const isTimeout = err.name === "TimeoutError" || err.name === "AbortError";
     return Response.json(
-      {
-        error: isTimeout
-          ? "Request timed out. The Instagram API may be starting up — please try again in a few seconds."
-          : err.message || "Internal server error",
-      },
+      { error: err.message || "Internal server error" },
       { status: 500 },
     );
   }

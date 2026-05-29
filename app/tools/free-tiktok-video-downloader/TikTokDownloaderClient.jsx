@@ -24,7 +24,7 @@ export default function TikTokDownloaderClient() {
 
     try {
       const response = await fetch(
-        `/api/tiktok-downloader?url=${encodeURIComponent(url)}&quality=${quality}`,
+        `/api/tiktok-video?url=${encodeURIComponent(url)}&quality=${quality}`,
         { method: "GET" },
       );
 
