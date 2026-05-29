@@ -1,729 +1,1106 @@
-// app/page.jsx (Optimized Version)
 "use client";
 
+import { useState, useRef } from "react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import {
-  ImageIcon,
-  Sparkles,
-  Shield,
-  Scale,
+  Download,
+  Loader2,
   Link2,
-  FileType,
-  Wand,
-  Youtube,
+  AlertCircle,
+  CheckCircle2,
+  Zap,
+  Shield,
+  Monitor,
+  Smartphone,
+  Globe,
+  Lock,
+  ArrowRight,
+  Play,
+  Star,
+  TrendingUp,
+  Clock,
+  Copy,
+  Check,
+  ExternalLink,
+  FileVideo,
+  ImageIcon,
   FileText,
   Tag,
   File,
-  Download,
-  TrendingUp,
-  Clock,
-  Star,
-  CheckCircle2,
-  ArrowRight,
-  Play,
-  Smartphone,
-  Monitor,
-  Zap,
-  Globe,
-  Lock,
+  Sparkles,
+  X,
 } from "lucide-react";
-import { FaFacebook, FaTiktok } from "react-icons/fa";
-import { SiYoutubemusic } from "react-icons/si";
-import AnimatedHero from "./components/home/AnimatedHero";
+import { FaFacebook, FaTiktok, FaInstagram } from "react-icons/fa";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import ToolCards from "./components/home/ToolCards";
-import Features from "./components/home/Features";
-import Faq from "./components/home/Faq";
-import { VideoDownloaderDemo } from "./components/home/VideoDownloaderDemo";
 
-/* ================================
-   TOOLS DATA (Keep existing + add new)
-================================ */
+/* ======================================================
+   CONSTANTS & CONFIG
+====================================================== */
+
+const INSTAGRAM_API_URL =
+  process.env.NEXT_PUBLIC_INSTAGRAM_API_URL ||
+  "https://instagram-video-downloader.onrender.com";
+
+const PLATFORM_CONFIG = {
+  facebook: {
+    name: "Facebook",
+    gradient: "from-blue-600 to-blue-500",
+    iconBg: "bg-blue-600",
+    badge: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
+    border: "border-blue-300 dark:border-blue-700",
+    ring: "focus:ring-blue-400/30",
+    icon: FaFacebook,
+    placeholder: "https://www.facebook.com/reel/... or fb.watch/...",
+    color: "#1877F2",
+  },
+  instagram: {
+    name: "Instagram",
+    gradient: "from-pink-500 via-purple-500 to-orange-400",
+    iconBg: "bg-gradient-to-br from-pink-500 via-purple-500 to-orange-400",
+    badge:
+      "bg-pink-100 text-pink-700 dark:bg-pink-900/40 dark:text-pink-300",
+    border: "border-pink-300 dark:border-pink-700",
+    ring: "focus:ring-pink-400/30",
+    icon: FaInstagram,
+    placeholder: "https://www.instagram.com/reel/...",
+    color: "#E1306C",
+  },
+  tiktok: {
+    name: "TikTok",
+    gradient: "from-gray-900 via-gray-800 to-gray-700",
+    iconBg: "bg-gray-900 dark:bg-gray-700",
+    badge:
+      "bg-gray-100 text-gray-700 dark:bg-gray-800/60 dark:text-gray-200",
+    border: "border-gray-300 dark:border-gray-600",
+    ring: "focus:ring-gray-400/30",
+    icon: FaTiktok,
+    placeholder: "https://www.tiktok.com/@username/video/...",
+    color: "#010101",
+  },
+};
+
+const TIKTOK_QUALITIES = [
+  { value: "360p", label: "360p", desc: "Low" },
+  { value: "720p", label: "720p", desc: "HD" },
+  { value: "1080p", label: "1080p", desc: "Full HD" },
+  { value: "best", label: "Best", desc: "Max" },
+];
+
 const tools = [
   {
-    href: "/tools/facebook-video-downloader",
-    title: "Facebook Video Downloader",
-    desc: "Download Facebook videos & reels in HD quality. Fast & free.",
-    icon: <FaFacebook className="w-6 h-6" />,
-    featured: true,
-    color: "from-blue-600 to-blue-500",
-    downloads: "2.5M+",
-  },
-  {
-    href: "/tools/tiktok-video-downloader",
-    title: "TikTok Video Downloader",
-    desc: "Save TikTok videos without watermark. Coming Soon!",
-    icon: <FaTiktok className="w-6 h-6" />,
-    featured: true,
-    comingSoon: true,
-    color: "from-black to-gray-800",
-  },
-  {
-    href: "/tools/youtube-video-downloader",
-    title: "YouTube Video Downloader",
-    desc: "Download YouTube videos in multiple qualities. Coming Soon!",
-    icon: <SiYoutubemusic className="w-6 h-6" />,
-    featured: false,
-    comingSoon: true,
-    color: "from-red-600 to-red-500",
-  },
-  {
-    title: "Free AI Image Background Remover",
+    title: "Free AI Background Remover",
     desc: "Remove image backgrounds instantly with AI precision.",
     href: "/tools/background-remover-image",
-    icon: <ImageIcon className="w-6 h-6" />,
-    featured: false,
+    icon: <ImageIcon className="w-5 h-5" />,
   },
   {
-    href: "/tools/image-resizer",
     title: "Online Image Resizer",
-    desc: "Reduce or resize images without losing visual quality.",
-    icon: <ImageIcon className="w-6 h-6" />,
-    featured: false,
-  },
-  {
-    title: "HD Background Remover (High Quality)",
-    desc: "Get clean, transparent PNG images in high resolution.",
-    href: "/tools/bg-remover",
-    icon: <ImageIcon className="w-6 h-6" />,
-    featured: false,
+    desc: "Resize images without losing quality.",
+    href: "/tools/resizer",
+    icon: <ImageIcon className="w-5 h-5" />,
   },
   {
     title: "Online Image Compressor",
-    desc: "Compress images without losing visual quality.",
+    desc: "Compress images without visible quality loss.",
     href: "/tools/image-compressor",
-    icon: <Sparkles className="w-6 h-6" />,
-    featured: false,
+    icon: <Sparkles className="w-5 h-5" />,
   },
   {
     title: "EXIF Metadata Remover",
-    desc: "Remove hidden metadata from images for privacy.",
+    desc: "Strip hidden metadata from images for privacy.",
     href: "/tools/exif-remover",
-    icon: <Shield className="w-6 h-6" />,
-    featured: false,
+    icon: <Shield className="w-5 h-5" />,
   },
   {
-    title: "Free BMI Calculator",
-    desc: "Calculate your body mass index instantly online.",
-    href: "/tools/bmi",
-    icon: <Scale className="w-6 h-6" />,
-    featured: false,
-  },
-  {
-    title: "Affiliate Link Generator Tool",
-    desc: "Create clean and trackable affiliate links easily.",
-    href: "/tools/affiliate-link-generator",
-    icon: <Link2 className="w-6 h-6" />,
-    featured: false,
-  },
-  {
-    title: "PDF to Word Converter Online",
-    desc: "Convert PDF files to editable Word documents instantly.",
+    title: "PDF to Word Converter",
+    desc: "Convert PDF files to editable Word documents.",
     href: "/tools/pdf-to-word",
-    icon: <FileType className="w-6 h-6" />,
-    featured: false,
+    icon: <FileText className="w-5 h-5" />,
   },
   {
     title: "YouTube Thumbnail Downloader",
     desc: "Download high-quality thumbnails from any YouTube video.",
     href: "/tools/youtube-thumbnail",
-    icon: <Youtube className="w-6 h-6" />,
-    featured: false,
-  },
-  {
-    title: "YouTube Tags Extractor",
-    desc: "Extract tags from any YouTube video instantly.",
-    href: "/tools/youtube-tags",
-    icon: <Youtube className="w-6 h-6" />,
-    featured: false,
+    icon: <FileVideo className="w-5 h-5" />,
   },
   {
     title: "PDF Compressor",
-    desc: "Reduce PDF file size quickly using modern compression.",
+    desc: "Reduce PDF file size with modern compression.",
     href: "/tools/pdf-compress",
-    icon: <FileText className="w-6 h-6" />,
-    featured: false,
+    icon: <FileText className="w-5 h-5" />,
   },
   {
+    title: "Meta Tag Generator",
+    desc: "Generate perfect SEO meta tags for any page.",
     href: "/tools/meta-tag-generator",
-    title: "Meta Tag Generator Tool for SEO",
-    desc: "Meta tags help search engines understand your webpage content.",
-    icon: <Tag className="w-6 h-6" />,
-    featured: false,
+    icon: <Tag className="w-5 h-5" />,
   },
   {
+    title: "Robots.txt Generator",
+    desc: "Create a robots.txt file for better crawl efficiency.",
     href: "/tools/robots-txt-generator",
-    title: "Robots.txt File Generator for SEO",
-    desc: "Robots.txt improves crawl efficiency and overall SEO health.",
-    icon: <File className="w-6 h-6" />,
-    featured: false,
+    icon: <File className="w-5 h-5" />,
   },
 ];
 
-// Featured tools for the hero section
 const featuredStats = [
-  { label: "Videos Downloaded", value: "2.5M+", icon: Download },
+  { label: "Downloads", value: "2.5M+", icon: Download },
   { label: "Happy Users", value: "500K+", icon: Star },
-  { label: "Avg. Download Speed", value: "< 3s", icon: Clock },
-  { label: "Success Rate", value: "99.9%", icon: TrendingUp },
+  { label: "Avg Speed", value: "< 3s", icon: Clock },
+  { label: "Success Rate", value: "99%", icon: TrendingUp },
 ];
 
-// Features specific to video downloaders
-const videoDownloaderFeatures = [
+const features = [
   {
     icon: <Zap className="h-5 w-5" />,
     title: "Lightning Fast",
-    description: "Download videos in seconds with our optimized servers",
+    desc: "Videos processed and ready in seconds",
   },
   {
     icon: <Monitor className="h-5 w-5" />,
     title: "HD Quality",
-    description: "Save videos in original quality up to 4K resolution",
+    desc: "Download in original quality up to 1080p",
   },
   {
     icon: <Smartphone className="h-5 w-5" />,
     title: "Mobile Friendly",
-    description: "Works perfectly on all Android and iOS devices",
+    desc: "Optimized for all Android and iOS devices",
   },
   {
     icon: <Globe className="h-5 w-5" />,
-    title: "No Limits",
-    description: "Unlimited downloads with no file size restrictions",
+    title: "Multi-Platform",
+    desc: "Supports Facebook, Instagram & TikTok",
   },
   {
     icon: <Lock className="h-5 w-5" />,
-    title: "Privacy Protected",
-    description: "We don't store any of your videos or personal data",
+    title: "Privacy First",
+    desc: "We never store your videos or data",
   },
   {
     icon: <CheckCircle2 className="h-5 w-5" />,
     title: "No Registration",
-    description: "Use instantly without signing up or logging in",
+    desc: "Use instantly — no sign-up required",
   },
 ];
 
-/* ================================
-   JSON-LD Structured Data (Enhanced for Video Downloader)
-================================ */
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebSite",
-      name: "Shopyor",
-      url: "https://www.shopyor.com",
-      potentialAction: {
-        "@type": "SearchAction",
-        target: "https://www.shopyor.com/?q={search_term_string}",
-        "query-input": "required name=search_term_string",
-      },
-    },
-    {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: "https://www.shopyor.com/",
-        },
-      ],
-    },
-    {
-      "@type": "SoftwareApplication",
-      name: "Facebook Video Downloader",
-      applicationCategory: "MultimediaApplication",
-      operatingSystem: "Web, Android, iOS",
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "USD",
-      },
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: "4.8",
-        ratingCount: "12500",
-      },
-      featureList: [
-        "Download Facebook videos",
-        "Save Facebook Reels",
-        "HD quality downloads",
-        "No watermark",
-        "Mobile compatible",
-      ],
-    },
-    {
-      "@type": "ItemList",
-      name: "Shopyor – facebook,tiktok & youtube video downloader",
-      itemListElement: tools.map((tool, i) => ({
-        "@type": "SoftwareApplication",
-        position: i + 1,
-        name: tool.title,
-        applicationCategory: "UtilityApplication",
-        operatingSystem: "Web",
-        url: `https://www.shopyor.com${tool.href}`,
-      })),
-    },
-    {
-      "@type": "FAQPage",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "How do I download Facebook videos?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Simply copy the Facebook video URL, paste it in our downloader, click analyze, and choose your preferred quality to download.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Can I download Facebook Reels?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Yes, our tool supports both Facebook videos and Reels. Just paste the Reel URL and download instantly.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Is it legal to download Facebook videos?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Downloading public Facebook videos for personal use is generally acceptable. However, always respect copyright and content ownership.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Are these tools free to use?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Yes, all tools on Shopyor are completely free and require no registration.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Do you store uploaded files?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "No, files are processed securely and are not stored on our servers.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Do these tools work on mobile devices?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Yes, all tools are fully responsive and work on mobile, tablet, and desktop devices.",
-          },
-        },
-      ],
-    },
-  ],
-};
+/* ======================================================
+   PLATFORM DETECTION
+====================================================== */
+function detectPlatform(url) {
+  if (!url || !url.trim()) return null;
+  const u = url.trim().toLowerCase();
+  if (u.includes("facebook.com") || u.includes("fb.watch")) return "facebook";
+  if (u.includes("instagram.com")) return "instagram";
+  if (u.includes("tiktok.com")) return "tiktok";
+  return null;
+}
 
-/* ================================
-   HOME PAGE COMPONENT
-================================ */
-export default function HomePage() {
+/* ======================================================
+   UNIVERSAL DOWNLOADER COMPONENT
+====================================================== */
+function UniversalVideoDownloader() {
+  const [url, setUrl] = useState("");
+  const [platform, setPlatform] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [downloading, setDownloading] = useState(false);
+  const [error, setError] = useState("");
+  const [result, setResult] = useState(null);
+  const [tiktokQuality, setTiktokQuality] = useState("best");
+  const [copied, setCopied] = useState(false);
+  const videoRef = useRef(null);
+
+  const handleUrlChange = (e) => {
+    const val = e.target.value;
+    setUrl(val);
+    setPlatform(detectPlatform(val));
+    setError("");
+    setResult(null);
+  };
+
+  const handlePaste = async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      if (text) {
+        setUrl(text);
+        setPlatform(detectPlatform(text));
+        setError("");
+        setResult(null);
+      }
+    } catch {
+      /* clipboard access denied */
+    }
+  };
+
+  const handleClear = () => {
+    setUrl("");
+    setPlatform(null);
+    setError("");
+    setResult(null);
+  };
+
+  const handleDownload = async () => {
+    if (!url.trim()) {
+      setError("Please paste a video URL first.");
+      return;
+    }
+    const detected = detectPlatform(url);
+    if (!detected) {
+      setError(
+        "Could not detect platform. Please use a Facebook, Instagram, or TikTok link.",
+      );
+      return;
+    }
+
+    setError("");
+    setResult(null);
+    setLoading(true);
+
+    try {
+      if (detected === "facebook") {
+        await analyzeFacebook(url.trim());
+      } else if (detected === "instagram") {
+        await analyzeInstagram(url.trim());
+      } else if (detected === "tiktok") {
+        await downloadTikTok(url.trim(), tiktokQuality);
+      }
+    } catch (err) {
+      setError(err.message || "Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  /* --- Facebook --- */
+  const analyzeFacebook = async (videoUrl) => {
+    const response = await fetch("/api/analyze", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url: videoUrl }),
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || "Failed to analyze video");
+    if (!data.qualities || data.qualities.length === 0)
+      throw new Error("No downloadable qualities found for this video.");
+    setResult({ type: "facebook", ...data });
+  };
+
+  const downloadFacebookQuality = async (downloadUrl, label) => {
+    setDownloading(true);
+    try {
+      const res = await fetch("/api/download", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: downloadUrl, quality: label }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || "Download failed");
+      }
+      const blob = await res.blob();
+      triggerBlobDownload(blob, `facebook_video_${label}.mp4`);
+    } catch {
+      window.open(downloadUrl, "_blank");
+    } finally {
+      setDownloading(false);
+    }
+  };
+
+  /* --- Instagram --- */
+  const analyzeInstagram = async (videoUrl) => {
+    const response = await fetch(`${INSTAGRAM_API_URL}/api/download`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url: videoUrl, quality: "best" }),
+    });
+    const data = await response.json();
+    if (!response.ok || !data.success)
+      throw new Error(data.detail || data.error || "Failed to fetch Instagram video");
+    setResult({ type: "instagram", ...data.data });
+  };
+
+  const downloadInstagramVideo = async (videoUrl, title) => {
+    setDownloading(true);
+    try {
+      const res = await fetch(videoUrl);
+      const blob = await res.blob();
+      const clean = (title || "video").replace(/[^a-z0-9]/gi, "_").toLowerCase();
+      triggerBlobDownload(blob, `${clean}.mp4`);
+    } catch {
+      window.open(videoUrl, "_blank");
+    } finally {
+      setDownloading(false);
+    }
+  };
+
+  /* --- TikTok --- */
+  const downloadTikTok = async (videoUrl, quality) => {
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `/api/tiktok-downloader?url=${encodeURIComponent(videoUrl)}&quality=${quality}`,
+        { method: "GET" },
+      );
+      if (!response.ok) {
+        const err = await response.json().catch(() => ({}));
+        throw new Error(err.error || "TikTok download failed");
+      }
+      const blob = await response.blob();
+      triggerBlobDownload(blob, `tiktok_video_${quality}.mp4`);
+      setResult({ type: "tiktok", success: true });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  /* --- Helpers --- */
+  const triggerBlobDownload = (blob, filename) => {
+    const blobUrl = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = blobUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(blobUrl);
+  };
+
+  const copyToClipboard = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {}
+  };
+
+  const config = platform ? PLATFORM_CONFIG[platform] : null;
+  const PlatformIcon = config?.icon;
+
   return (
-    <>
-      {/* JSON-LD Structured Data for SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+    <div className="w-full max-w-2xl mx-auto">
+      <Card className="shadow-2xl border-2 border-border/60 overflow-hidden">
+        {/* Card Header */}
+        <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-transparent px-6 pt-6 pb-4 border-b border-border/40">
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-xl bg-primary/10 text-primary">
+              <Download className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="font-semibold text-base">Universal Video Downloader</p>
+              <p className="text-xs text-muted-foreground">
+                Supports Facebook · Instagram · TikTok
+              </p>
+            </div>
+          </div>
+        </div>
 
-      <main className="min-h-screen">
-        {/* Enhanced Hero Section with Video Downloader Focus */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-background via-background to-primary/5">
-          <div className="absolute inset-0 bg-grid-primary/5 [mask-image:radial-gradient(ellipse_at_center,white,transparent)]" />
-
-          <div className="container mx-auto px-4 py-12 md:py-20 lg:py-24">
-            <div className="text-center max-w-4xl mx-auto mb-12">
-              <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary mb-6 animate-in fade-in slide-in-from-top-4 duration-500">
-                <Sparkles className="h-4 w-4" />
-                <span>Most Popular Tool</span>
+        <CardContent className="p-6 space-y-4">
+          {/* URL Input */}
+          <div className="space-y-2">
+            <div className="relative">
+              {/* Platform icon or generic link icon */}
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                {PlatformIcon ? (
+                  <PlatformIcon
+                    className="h-5 w-5"
+                    style={{ color: config.color }}
+                  />
+                ) : (
+                  <Link2 className="h-5 w-5 text-muted-foreground" />
+                )}
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
-                Download Facebook Videos &{" "}
-                <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-                  Reels Instantly
-                </span>
-              </h1>
+              <input
+                type="url"
+                value={url}
+                onChange={handleUrlChange}
+                onKeyDown={(e) => e.key === "Enter" && handleDownload()}
+                placeholder="Paste Facebook, Instagram, or TikTok link here..."
+                disabled={loading}
+                className={`w-full rounded-xl border bg-background pl-11 pr-24 py-4 text-sm
+                  focus:outline-none focus:ring-2 ${config?.ring || "focus:ring-primary/20"}
+                  focus:border-primary transition-all disabled:opacity-60
+                  ${config ? config.border : "border-border"}`}
+              />
 
-              <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100">
-                Free tool to download any Facebook video or reel in HD quality.
-                Works on desktop and mobile. No registration required.
+              {/* Right side: paste/clear */}
+              <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                {url ? (
+                  <button
+                    onClick={handleClear}
+                    className="p-1.5 rounded-lg hover:bg-muted transition-colors text-muted-foreground"
+                    title="Clear"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                ) : (
+                  <button
+                    onClick={handlePaste}
+                    className="px-3 py-1.5 text-xs font-medium rounded-lg bg-muted hover:bg-muted/80 transition-colors text-foreground"
+                  >
+                    Paste
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Detected platform badge */}
+            {platform && config && (
+              <div
+                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium ${config.badge}`}
+              >
+                <PlatformIcon className="h-3 w-3" />
+                {config.name} detected
+              </div>
+            )}
+          </div>
+
+          {/* TikTok Quality Picker */}
+          {platform === "tiktok" && (
+            <div>
+              <p className="text-xs font-medium text-muted-foreground mb-2">
+                Select Quality
               </p>
-
-              {/* Stats Row */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto mb-12 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
-                {featuredStats.map((stat, idx) => (
-                  <div key={idx} className="text-center">
-                    <stat.icon className="h-6 w-6 mx-auto mb-2 text-primary" />
-                    <div className="text-2xl font-bold">{stat.value}</div>
-                    <div className="text-xs text-muted-foreground">
-                      {stat.label}
-                    </div>
-                  </div>
+              <div className="grid grid-cols-4 gap-2">
+                {TIKTOK_QUALITIES.map((q) => (
+                  <button
+                    key={q.value}
+                    onClick={() => setTiktokQuality(q.value)}
+                    className={`py-2 rounded-lg text-center text-xs font-semibold transition-all
+                      ${
+                        tiktokQuality === q.value
+                          ? "bg-primary text-primary-foreground shadow-sm"
+                          : "bg-muted hover:bg-muted/80 text-foreground"
+                      }`}
+                  >
+                    <div>{q.label}</div>
+                    <div className="opacity-60 font-normal">{q.desc}</div>
+                  </button>
                 ))}
               </div>
             </div>
+          )}
 
-            {/* Live Facebook Video Downloader Demo */}
-            <div className="max-w-3xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
-              <VideoDownloaderDemo />
+          {/* Download Button */}
+          <button
+            onClick={handleDownload}
+            disabled={loading || !url.trim()}
+            className={`w-full h-12 rounded-xl font-semibold text-white text-sm flex items-center justify-center gap-2
+              transition-all shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed
+              ${
+                config
+                  ? `bg-gradient-to-r ${config.gradient} hover:opacity-90`
+                  : "bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
+              }`}
+          >
+            {loading ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                {platform === "tiktok" ? "Downloading..." : "Analyzing..."}
+              </>
+            ) : (
+              <>
+                {PlatformIcon ? (
+                  <PlatformIcon className="h-4 w-4" />
+                ) : (
+                  <Download className="h-4 w-4" />
+                )}
+                {platform
+                  ? `Download ${config.name} Video`
+                  : "Paste a URL to Download"}
+              </>
+            )}
+          </button>
+
+          {/* Error */}
+          {error && (
+            <div className="flex items-start gap-2 rounded-xl bg-destructive/10 border border-destructive/20 p-3 text-destructive animate-in fade-in slide-in-from-top-2 duration-300">
+              <AlertCircle className="h-4 w-4 mt-0.5 flex-shrink-0" />
+              <p className="text-sm">{error}</p>
             </div>
-          </div>
-        </section>
+          )}
 
-        {/* Coming Soon Section - TikTok & YouTube */}
-        <section className="py-16 px-4 bg-muted/30">
-          <div className="container mx-auto max-w-6xl">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">
-                More Video Downloaders Coming Soon
-              </h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                We're expanding our video downloader tools to support more
-                platforms
+          {/* Results: TikTok success */}
+          {result?.type === "tiktok" && result.success && (
+            <div className="flex items-center gap-2 rounded-xl bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 p-3 text-green-700 dark:text-green-400 animate-in fade-in duration-300">
+              <CheckCircle2 className="h-4 w-4 flex-shrink-0" />
+              <p className="text-sm font-medium">
+                TikTok video downloaded successfully!
               </p>
             </div>
+          )}
 
-            <div className="grid gap-6 md:grid-cols-2">
-              {/* TikTok Card */}
-              <Card className="relative overflow-hidden group hover:shadow-xl transition-all duration-300">
-                <div className="absolute top-0 right-0 bg-gradient-to-l from-primary/20 to-transparent px-4 py-2 rounded-bl-lg">
-                  <span className="text-xs font-medium text-primary">
-                    Available
-                  </span>
-                </div>
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="p-3 rounded-xl bg-gradient-to-br from-black to-gray-800 text-white">
-                      <FaTiktok className="h-8 w-8" />
-                    </div>
-                    <div>
-                      <Link href="/tools/free-tiktok-video-downloader">
-                        <h3 className="text-xl font-semibold">
-                          TikTok Video Downloader
-                        </h3>
-                      </Link>
-
-                      <p className="text-sm text-muted-foreground">
-                        Save TikTok videos without watermark
-                      </p>
-                    </div>
+          {/* Results: Facebook */}
+          {result?.type === "facebook" && (
+            <div className="rounded-xl border bg-muted/20 overflow-hidden animate-in fade-in slide-in-from-bottom-2 duration-300">
+              <div className="flex items-center gap-2 px-4 py-3 border-b bg-muted/40">
+                <CheckCircle2 className="h-4 w-4 text-green-500" />
+                <span className="text-sm font-semibold">
+                  Video Ready — Choose Quality
+                </span>
+              </div>
+              <div className="p-4">
+                {result.thumbnail && (
+                  <div className="relative mb-3 rounded-lg overflow-hidden bg-black/10 max-h-48">
+                    <img
+                      src={result.thumbnail}
+                      alt={result.title || "Facebook video"}
+                      className="w-full object-cover max-h-48"
+                    />
                   </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Clock className="h-4 w-4" />
-                      <span>Launched</span>
-                    </div>
-                    <Button
-                      variant="outline"
-                      disabled
-                      className="cursor-not-allowed"
+                )}
+                {result.title && (
+                  <p className="text-sm font-medium line-clamp-1 mb-3">
+                    {result.title}
+                  </p>
+                )}
+                <div className="grid gap-2 sm:grid-cols-2">
+                  {result.qualities.map((q, i) => (
+                    <button
+                      key={i}
+                      onClick={() => downloadFacebookQuality(q.url, q.label)}
+                      disabled={downloading}
+                      className="flex items-center justify-between rounded-lg border p-3 text-sm hover:border-primary hover:bg-primary/5 transition-all disabled:opacity-50"
                     >
-                      Try it now <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* YouTube Card */}
-              <Card className="relative overflow-hidden group hover:shadow-xl transition-all duration-300">
-                <div className="absolute top-0 right-0 bg-gradient-to-l from-primary/20 to-transparent px-4 py-2 rounded-bl-lg">
-                  <span className="text-xs font-medium text-primary">
-                    Coming Soon
-                  </span>
+                      <div className="flex items-center gap-2">
+                        {q.type === "hd" ? (
+                          <Monitor className="h-4 w-4 text-primary" />
+                        ) : (
+                          <Smartphone className="h-4 w-4 text-primary" />
+                        )}
+                        <span className="font-medium">{q.label}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-muted-foreground">
+                          {q.size}
+                        </span>
+                        {downloading ? (
+                          <Loader2 className="h-4 w-4 animate-spin" />
+                        ) : (
+                          <Download className="h-4 w-4 text-primary" />
+                        )}
+                      </div>
+                    </button>
+                  ))}
                 </div>
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="p-3 rounded-xl bg-gradient-to-br from-red-600 to-red-500 text-white">
-                      <SiYoutubemusic className="h-8 w-8" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-semibold">
-                        YouTube Video Downloader
-                      </h3>
-                      <p className="text-sm text-muted-foreground">
-                        Download YouTube videos in multiple qualities
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Clock className="h-4 w-4" />
-                      <span>Launching in 3 weeks</span>
-                    </div>
-                    <Button
-                      variant="outline"
-                      disabled
-                      className="cursor-not-allowed"
-                    >
-                      Get Notified <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+              </div>
             </div>
-          </div>
-        </section>
+          )}
 
-        {/* Features Section for Video Downloader */}
-        <section className="py-16 px-4">
-          <div className="container mx-auto max-w-6xl">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">
-                Why Choose Our Video Downloader?
-              </h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                The most reliable and feature-rich Facebook video downloader
-                available
-              </p>
-            </div>
-
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {videoDownloaderFeatures.map((feature, idx) => (
-                <Card
-                  key={idx}
-                  className="group hover:shadow-lg transition-all duration-300"
-                >
-                  <CardContent className="p-6">
-                    <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:scale-110 transition-transform duration-300">
-                      {feature.icon}
-                    </div>
-                    <h3 className="text-lg font-semibold mb-2">
-                      {feature.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      {feature.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* How It Works Section */}
-        <section className="py-16 px-4 bg-muted/30">
-          <div className="container mx-auto max-w-6xl">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">
-                How to Download Facebook Videos
-              </h2>
-              <p className="text-muted-foreground">
-                Download any Facebook video in 3 simple steps
-              </p>
-            </div>
-
-            <div className="grid gap-8 md:grid-cols-3">
-              {[
-                {
-                  step: "01",
-                  title: "Copy URL",
-                  desc: "Open Facebook and copy the URL of the video or reel you want to download",
-                  icon: Link2,
-                },
-                {
-                  step: "02",
-                  title: "Paste & Analyze",
-                  desc: "Paste the link in our downloader and click the analyze button",
-                  icon: Play,
-                },
-                {
-                  step: "03",
-                  title: "Download",
-                  desc: "Choose your preferred quality and click download to save the video",
-                  icon: Download,
-                },
-              ].map((item, idx) => (
-                <div key={idx} className="text-center group">
-                  <div className="relative mb-6">
-                    <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 text-2xl font-bold text-primary group-hover:scale-110 transition-transform duration-300">
-                      {item.step}
-                    </div>
-                    {idx < 2 && (
-                      <div className="hidden md:block absolute top-1/2 left-full w-full h-0.5 bg-gradient-to-r from-primary/20 to-transparent -translate-y-1/2" />
+          {/* Results: Instagram */}
+          {result?.type === "instagram" && result.videoUrl && (
+            <div className="rounded-xl border bg-muted/20 overflow-hidden animate-in fade-in slide-in-from-bottom-2 duration-300">
+              <div className="flex items-center gap-2 px-4 py-3 border-b bg-muted/40">
+                <CheckCircle2 className="h-4 w-4 text-green-500" />
+                <span className="text-sm font-semibold">Video Ready</span>
+              </div>
+              <div className="p-4 space-y-3">
+                {result.title && (
+                  <p className="text-sm font-medium line-clamp-2">
+                    {result.title}
+                  </p>
+                )}
+                {result.username && (
+                  <p className="text-xs text-muted-foreground">
+                    @{result.username}
+                  </p>
+                )}
+                <video
+                  ref={videoRef}
+                  src={result.videoUrl}
+                  controls
+                  poster={result.thumbnail}
+                  playsInline
+                  controlsList="nodownload"
+                  className="w-full rounded-lg max-h-64 object-contain bg-black/10"
+                />
+                <div className="flex gap-2">
+                  <button
+                    onClick={() =>
+                      downloadInstagramVideo(result.videoUrl, result.title)
+                    }
+                    disabled={downloading}
+                    className="flex-1 flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-pink-500 to-purple-500 py-2.5 text-sm font-semibold text-white hover:opacity-90 transition-all disabled:opacity-50"
+                  >
+                    {downloading ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <Download className="h-4 w-4" />
                     )}
-                  </div>
-                  <div className="inline-flex p-3 rounded-xl bg-primary/10 text-primary mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <item.icon className="h-6 w-6" />
-                  </div>
-                  <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                  <p className="text-muted-foreground">{item.desc}</p>
+                    {downloading ? "Downloading..." : "Download Video"}
+                  </button>
+                  <button
+                    onClick={() => copyToClipboard(result.videoUrl)}
+                    className="flex items-center gap-1.5 rounded-lg border px-3 py-2.5 text-sm font-medium hover:bg-muted transition-all"
+                  >
+                    {copied ? (
+                      <Check className="h-4 w-4 text-green-500" />
+                    ) : (
+                      <Copy className="h-4 w-4" />
+                    )}
+                    {copied ? "Copied!" : "Copy Link"}
+                  </button>
+                  <button
+                    onClick={() => window.open(result.videoUrl, "_blank")}
+                    className="flex items-center gap-1.5 rounded-lg border px-3 py-2.5 text-sm font-medium hover:bg-muted transition-all"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                  </button>
                 </div>
-              ))}
+              </div>
+            </div>
+          )}
+
+          {/* Feature Badges */}
+          <div className="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-border/40 text-xs text-muted-foreground">
+            {["HD Quality", "No Watermark", "100% Free", "No Login"].map(
+              (label) => (
+                <div key={label} className="flex items-center gap-1.5">
+                  <div className="h-1.5 w-1.5 rounded-full bg-green-500" />
+                  {label}
+                </div>
+              ),
+            )}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+/* ======================================================
+   PLATFORM CARDS
+====================================================== */
+function PlatformCards() {
+  const platforms = [
+    {
+      key: "facebook",
+      name: "Facebook",
+      desc: "Download Facebook videos & reels in HD quality",
+      href: "/tools/facebook-video-downloader",
+      Icon: FaFacebook,
+      gradient: "from-blue-600 to-blue-500",
+      features: ["Videos & Reels", "HD Quality", "No Software"],
+    },
+    {
+      key: "instagram",
+      name: "Instagram",
+      desc: "Save Instagram reels and videos instantly",
+      href: "/tools/instagram-video-downloader",
+      Icon: FaInstagram,
+      gradient: "from-pink-500 via-purple-500 to-orange-400",
+      features: ["Reels & Posts", "Best Quality", "Mobile Ready"],
+    },
+    {
+      key: "tiktok",
+      name: "TikTok",
+      desc: "Download TikTok videos without watermark",
+      href: "/tools/free-tiktok-video-downloader",
+      Icon: FaTiktok,
+      gradient: "from-gray-900 to-gray-700",
+      features: ["No Watermark", "Up to 1080p", "All Regions"],
+    },
+  ];
+
+  return (
+    <div className="grid gap-5 sm:grid-cols-3">
+      {platforms.map((p) => (
+        <Link key={p.key} href={p.href} className="group block">
+          <Card className="h-full border-2 border-border/50 hover:border-primary/30 hover:shadow-xl transition-all duration-300 overflow-hidden">
+            <CardContent className="p-5">
+              <div
+                className={`inline-flex p-3 rounded-2xl bg-gradient-to-br ${p.gradient} text-white mb-4 group-hover:scale-110 transition-transform duration-300 shadow-md`}
+              >
+                <p.Icon className="h-6 w-6" />
+              </div>
+              <h3 className="font-bold text-base mb-1">{p.name} Downloader</h3>
+              <p className="text-sm text-muted-foreground mb-3">{p.desc}</p>
+              <ul className="space-y-1">
+                {p.features.map((f) => (
+                  <li
+                    key={f}
+                    className="flex items-center gap-2 text-xs text-muted-foreground"
+                  >
+                    <CheckCircle2 className="h-3 w-3 text-green-500 flex-shrink-0" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-4 flex items-center gap-1 text-primary text-xs font-semibold group-hover:gap-2 transition-all">
+                Open Tool <ArrowRight className="h-3 w-3" />
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
+      ))}
+    </div>
+  );
+}
+
+/* ======================================================
+   MAIN PAGE
+====================================================== */
+export default function HomePageClient() {
+  return (
+    <main className="min-h-screen">
+      {/* ── HERO ─────────────────────────────────────── */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-background via-background to-primary/5 pt-6 pb-20">
+        {/* Background decoration */}
+        <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+          <div className="absolute -top-40 -right-40 h-96 w-96 rounded-full bg-primary/8 blur-3xl" />
+          <div className="absolute -bottom-20 -left-40 h-80 w-80 rounded-full bg-blue-500/8 blur-3xl" />
+        </div>
+
+        <div className="container mx-auto max-w-5xl px-4">
+          {/* Badge */}
+          <div className="flex justify-center mb-6">
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/8 px-4 py-1.5 text-sm font-medium text-primary">
+              <Sparkles className="h-4 w-4" />
+              Free Universal Video Downloader
             </div>
           </div>
-        </section>
 
-        {/* Tools Section (Other Tools) */}
-        <section id="tools" className="py-20 px-6 max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">More Free Online Tools</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Explore our collection of free tools for images, PDFs, SEO, and
-              more
+          {/* Headline */}
+          <div className="text-center mb-10">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight mb-5">
+              Download Any Social{" "}
+              <span className="bg-gradient-to-r from-primary via-blue-500 to-purple-500 bg-clip-text text-transparent">
+                Video Instantly
+              </span>
+            </h1>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              Paste any link from{" "}
+              <span className="font-semibold text-blue-500">Facebook</span>,{" "}
+              <span className="font-semibold text-pink-500">Instagram</span>, or{" "}
+              <span className="font-semibold text-foreground">TikTok</span> —
+              our tool auto-detects the platform and downloads in HD for free.
             </p>
           </div>
-          <ToolCards
-            tools={tools.filter((t) => !t.featured && !t.comingSoon)}
-          />
-        </section>
 
-        {/* Content Section for SEO */}
-        <section className="py-20 px-6 max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold mb-8 text-center">
-            Free Facebook Video Downloader & Online Tools
+          {/* Universal Downloader */}
+          <div className="flex justify-center mb-10">
+            <UniversalVideoDownloader />
+          </div>
+
+          {/* Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
+            {featuredStats.map((s, i) => (
+              <div key={i} className="text-center">
+                <s.icon className="h-5 w-5 mx-auto mb-1.5 text-primary" />
+                <p className="text-xl font-bold">{s.value}</p>
+                <p className="text-xs text-muted-foreground">{s.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── PLATFORM CARDS ───────────────────────────── */}
+      <section className="py-16 px-4 bg-muted/30">
+        <div className="container mx-auto max-w-5xl">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-bold mb-3">
+              Supported Platforms
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto text-sm">
+              One universal downloader — three major platforms. Each tool page
+              offers the full dedicated experience.
+            </p>
+          </div>
+          <PlatformCards />
+        </div>
+      </section>
+
+      {/* ── HOW IT WORKS ─────────────────────────────── */}
+      <section className="py-16 px-4">
+        <div className="container mx-auto max-w-5xl">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold mb-3">
+              How to Download in 3 Steps
+            </h2>
+            <p className="text-muted-foreground text-sm">
+              Works for Facebook, Instagram & TikTok
+            </p>
+          </div>
+
+          <div className="grid gap-8 md:grid-cols-3 relative">
+            {/* connector lines */}
+            <div className="hidden md:block absolute top-10 left-1/3 right-1/3 h-0.5 bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+
+            {[
+              {
+                step: "01",
+                icon: Link2,
+                title: "Copy the Video URL",
+                desc: "Open Facebook, Instagram, or TikTok. Find the video and copy its link from your browser or the share menu.",
+              },
+              {
+                step: "02",
+                icon: Play,
+                title: "Paste & Auto-Detect",
+                desc: "Paste the link into our input box. The tool instantly recognizes the platform and prepares the download.",
+              },
+              {
+                step: "03",
+                icon: Download,
+                title: "Download in HD",
+                desc: "Click the download button. Choose your preferred quality if prompted, and save the video to your device.",
+              },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="text-center group px-4"
+              >
+                <div className="relative mb-5 flex justify-center">
+                  <div className="h-20 w-20 rounded-full bg-primary/10 flex items-center justify-center text-2xl font-bold text-primary group-hover:bg-primary/20 transition-colors duration-300">
+                    {item.step}
+                  </div>
+                </div>
+                <div className="inline-flex p-3 rounded-xl bg-muted mb-4">
+                  <item.icon className="h-5 w-5 text-primary" />
+                </div>
+                <h3 className="text-lg font-bold mb-2">{item.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FEATURES ─────────────────────────────────── */}
+      <section className="py-16 px-4 bg-muted/30">
+        <div className="container mx-auto max-w-5xl">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold mb-3">
+              Why Choose Shopyor Video Downloader?
+            </h2>
+            <p className="text-muted-foreground text-sm max-w-xl mx-auto">
+              Built for speed, privacy, and reliability across all devices
+            </p>
+          </div>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {features.map((f, i) => (
+              <Card
+                key={i}
+                className="group hover:shadow-lg hover:border-primary/20 transition-all duration-300"
+              >
+                <CardContent className="p-5">
+                  <div className="mb-3 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:scale-110 transition-transform duration-300">
+                    {f.icon}
+                  </div>
+                  <h3 className="font-bold text-base mb-1">{f.title}</h3>
+                  <p className="text-sm text-muted-foreground">{f.desc}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── MORE TOOLS ───────────────────────────────── */}
+      <section className="py-16 px-4">
+        <div className="container mx-auto max-w-5xl">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold mb-3">
+              More Free Online Tools
+            </h2>
+            <p className="text-muted-foreground text-sm max-w-xl mx-auto">
+              Image editors, PDF converters, SEO tools and more — all free, no
+              sign-up required
+            </p>
+          </div>
+          <ToolCards tools={tools} />
+        </div>
+      </section>
+
+      {/* ── SEO CONTENT ──────────────────────────────── */}
+      <section className="py-16 px-4 bg-muted/20">
+        <div className="container mx-auto max-w-4xl">
+          <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">
+            The Best Free Social Video Downloader Online
           </h2>
 
-          <div className="prose prose-lg dark:prose-invert max-w-none">
-            <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-              Shopyor offers a powerful{" "}
-              <strong>Facebook video downloader</strong> that lets you save any
-              public Facebook video or reel directly to your device. Whether
-              you're using an Android phone, iPhone, Windows PC, or Mac, our
-              tool works seamlessly across all platforms. Simply paste the
-              Facebook video URL, and our system will fetch the highest quality
-              version available for download.
+          <div className="prose prose-sm md:prose-base dark:prose-invert max-w-none space-y-4">
+            <p className="text-muted-foreground leading-relaxed">
+              Shopyor is a free, universal{" "}
+              <strong>social media video downloader</strong> that supports{" "}
+              <strong>Facebook</strong>, <strong>Instagram</strong>, and{" "}
+              <strong>TikTok</strong>. Simply paste any video link and our
+              intelligent platform detection automatically identifies whether
+              it's a Facebook reel, an Instagram video, or a TikTok clip —
+              then downloads it in the best available quality, all without
+              requiring any software installation or account login.
             </p>
 
-            <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-              Unlike other tools, our Facebook video saver doesn't require any
-              software installation or browser extensions. It's completely
-              web-based and works instantly. You can download Facebook videos in
-              HD quality, save Facebook Reels without watermark, and even
-              download videos from private groups (provided you have access to
-              them).
+            <p className="text-muted-foreground leading-relaxed">
+              Unlike other tools that only support one platform, Shopyor handles
+              all three major social networks from a single input box. Our{" "}
+              <strong>Facebook video downloader</strong> supports videos, reels,
+              and shared content in HD. The{" "}
+              <strong>Instagram video downloader</strong> works with reels,
+              posts, and IGTV content. Our{" "}
+              <strong>TikTok downloader</strong> removes watermarks and lets
+              you choose from 360p up to 1080p quality.
             </p>
 
-            <h3 className="text-2xl font-semibold mt-10 mb-4">
-              Why Use Shopyor Facebook Video Downloader?
+            <h3 className="text-xl font-bold mt-8 mb-3">
+              Why Shopyor Ranks as the Best Free Video Downloader
             </h3>
-
-            <ul className="list-disc list-inside text-muted-foreground space-y-3 text-lg">
-              <li>100% Free with no hidden charges or premium tiers</li>
-              <li>No registration or login required</li>
-              <li>Download in original HD quality (up to 4K)</li>
-              <li>Works on all devices: Android, iOS, Windows, Mac</li>
-              <li>No file size limits or download restrictions</li>
-              <li>Fast processing with instant download links</li>
-              <li>Privacy-focused - we don't store any videos</li>
+            <ul className="list-none space-y-2 text-muted-foreground">
+              {[
+                "Auto-detects Facebook, Instagram, and TikTok URLs automatically",
+                "100% free with no hidden fees, subscriptions, or premium tiers",
+                "No registration or account creation required",
+                "Downloads videos in original HD quality (up to 1080p)",
+                "Works seamlessly on Android, iPhone, Windows, and Mac",
+                "Privacy-focused — we never store your URLs or downloaded videos",
+                "TikTok videos downloaded without the TikTok watermark",
+              ].map((item, i) => (
+                <li key={i} className="flex items-start gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                  <span>{item}</span>
+                </li>
+              ))}
             </ul>
 
-            <p className="text-muted-foreground text-lg leading-relaxed mt-8">
-              In addition to our Facebook video downloader, Shopyor provides a
-              comprehensive suite of free online tools. Use our{" "}
+            <p className="text-muted-foreground leading-relaxed mt-6">
+              Beyond video downloading, Shopyor provides a full suite of free
+              tools including an{" "}
               <Link
                 href="/tools/background-remover-image"
-                className="text-primary hover:underline"
+                className="text-primary hover:underline font-medium"
               >
                 AI Image Background Remover
-              </Link>{" "}
-              to create transparent PNGs, compress images with our{" "}
+              </Link>
+              ,{" "}
               <Link
                 href="/tools/image-compressor"
-                className="text-primary hover:underline"
+                className="text-primary hover:underline font-medium"
               >
                 Image Compressor
               </Link>
-              , convert PDFs to editable Word documents using our{" "}
+              ,{" "}
               <Link
                 href="/tools/pdf-to-word"
-                className="text-primary hover:underline"
+                className="text-primary hover:underline font-medium"
               >
                 PDF to Word Converter
               </Link>
-              , and much more.
+              , and SEO tools like our{" "}
+              <Link
+                href="/tools/meta-tag-generator"
+                className="text-primary hover:underline font-medium"
+              >
+                Meta Tag Generator
+              </Link>
+              .
             </p>
-
-            <h3 className="text-2xl font-semibold mt-10 mb-4">
-              Frequently Asked Questions About Facebook Video Downloader
-            </h3>
-
-            <div className="space-y-4 mt-4">
-              <div className="bg-muted/30 p-4 rounded-lg">
-                <h4 className="font-semibold mb-2">
-                  Can I download Facebook Reels?
-                </h4>
-                <p className="text-muted-foreground">
-                  Yes! Our tool supports both Facebook videos and Facebook
-                  Reels. Just paste the Reel URL and download instantly.
-                </p>
-              </div>
-
-              <div className="bg-muted/30 p-4 rounded-lg">
-                <h4 className="font-semibold mb-2">
-                  Is it legal to download Facebook videos?
-                </h4>
-                <p className="text-muted-foreground">
-                  Downloading public Facebook videos for personal use is
-                  generally acceptable. However, always respect copyright laws
-                  and the content owner's rights. Do not redistribute downloaded
-                  videos without permission.
-                </p>
-              </div>
-
-              <div className="bg-muted/30 p-4 rounded-lg">
-                <h4 className="font-semibold mb-2">
-                  Does this work on mobile phones?
-                </h4>
-                <p className="text-muted-foreground">
-                  Absolutely! Our tool is fully responsive and works perfectly
-                  on all smartphones, including Android and iOS devices.
-                </p>
-              </div>
-
-              <div className="bg-muted/30 p-4 rounded-lg">
-                <h4 className="font-semibold mb-2">
-                  What video qualities are available?
-                </h4>
-                <p className="text-muted-foreground">
-                  You can download videos in HD (1080p, 720p), SD (480p), and
-                  mobile-optimized qualities when available.
-                </p>
-              </div>
-            </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* CTA Section */}
-        <section className="py-20 text-center bg-gradient-to-r from-primary/5 via-transparent to-primary/5">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-6">
-              Ready to Download Facebook Videos?
-            </h2>
-            <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
-              Start using our free Facebook video downloader now. No sign-up
-              required, no hidden fees.
-            </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Button size="lg" asChild className="group">
-                <Link href="/tools/facebook-video-downloader">
-                  Try Facebook Video Downloader
-                  <Download className="ml-2 h-4 w-4 group-hover:translate-y-0.5 transition-transform" />
-                </Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild>
-                <Link href="/tools">
-                  Explore All Tools
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
+      {/* ── FAQ ──────────────────────────────────────── */}
+      <section className="py-16 px-4">
+        <div className="container mx-auto max-w-4xl">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">
+            Frequently Asked Questions
+          </h2>
+          <div className="grid gap-4 md:grid-cols-2">
+            {[
+              {
+                q: "How do I download a Facebook video?",
+                a: "Copy the Facebook video or reel URL, paste it in the input above, and click Download. Our tool fetches the video in HD quality automatically.",
+              },
+              {
+                q: "Can I download Instagram reels?",
+                a: "Yes. Paste any public Instagram reel or video URL and our tool will detect it as Instagram and download the video for you.",
+              },
+              {
+                q: "Does the TikTok downloader remove the watermark?",
+                a: "Yes. Our TikTok downloader returns a clean version of the video without the TikTok logo watermark.",
+              },
+              {
+                q: "Is this video downloader free?",
+                a: "Completely free. No registration, no subscription, and no hidden charges. Use it as many times as you want.",
+              },
+              {
+                q: "What video quality can I download?",
+                a: "For Facebook and Instagram we download the best available quality (up to 1080p). For TikTok you can select from 360p, 720p, 1080p, or Best.",
+              },
+              {
+                q: "Does it work on mobile?",
+                a: "Yes. The tool is fully responsive and works on all smartphones and tablets, including iPhone and Android devices.",
+              },
+              {
+                q: "Do you store my data or videos?",
+                a: "No. We never store any URLs, videos, or personal data. All processing is done in real-time and nothing is saved on our servers.",
+              },
+              {
+                q: "Can I download private videos?",
+                a: "No. This tool only works with publicly available videos. Downloading private content is not supported for privacy and legal reasons.",
+              },
+            ].map((faq, i) => (
+              <div
+                key={i}
+                className="rounded-xl border bg-card p-5 hover:shadow-md transition-shadow duration-200"
+              >
+                <h3 className="font-semibold text-sm mb-2">{faq.q}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {faq.a}
+                </p>
+              </div>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* FEATURES */}
-        <Features />
+      {/* ── CTA ──────────────────────────────────────── */}
+      <section className="py-20 px-4 bg-gradient-to-r from-primary/8 via-transparent to-primary/8">
+        <div className="container mx-auto max-w-3xl text-center">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">
+            Ready to Download Any Social Video?
+          </h2>
+          <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
+            Free, fast, and private. No sign-up required. Works on all devices.
+          </p>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Button
+              size="lg"
+              onClick={() =>
+                window.scrollTo({ top: 0, behavior: "smooth" })
+              }
+              className="group"
+            >
+              <Download className="mr-2 h-4 w-4 group-hover:translate-y-0.5 transition-transform" />
+              Download a Video Now
+            </Button>
+            <Button size="lg" variant="outline" asChild>
+              <Link href="/tools">
+                Explore All Tools
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
 
-        {/* FAQ */}
-        <Faq />
-      </main>
-    </>
+      {/* ── LEGAL ────────────────────────────────────── */}
+      <div className="py-8 px-4 border-t">
+        <div className="container mx-auto max-w-4xl">
+          <p className="text-xs text-center text-muted-foreground leading-relaxed">
+            Shopyor is not affiliated with Facebook, Meta, Instagram, or TikTok
+            (ByteDance). This tool is intended for downloading{" "}
+            <strong>publicly available</strong> videos for{" "}
+            <strong>personal, non-commercial use only</strong>. By using this
+            tool, you agree to respect all applicable copyright laws and each
+            platform&apos;s terms of service. We do not host, store, or
+            redistribute any downloaded content.
+          </p>
+        </div>
+      </div>
+    </main>
   );
 }
