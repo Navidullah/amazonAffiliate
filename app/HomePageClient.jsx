@@ -328,9 +328,19 @@ function UniversalVideoDownloader() {
   const downloadInstagramVideo = async (videoUrl, title) => {
     setDownloading(true);
     try {
-      const res = await fetch(videoUrl);
-      const blob = await res.blob();
+      // Must proxy through our server — Instagram CDN blocks direct browser fetches (CORS)
       const clean = (title || "video").replace(/[^a-z0-9]/gi, "_").toLowerCase();
+      const res = await fetch("/api/proxy-video", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: videoUrl, filename: `${clean}.mp4` }),
+      });
+      if (!res.ok) {
+        // Fallback: open in new tab so user can long-press save on mobile
+        window.open(videoUrl, "_blank");
+        return;
+      }
+      const blob = await res.blob();
       triggerBlobDownload(blob, `${clean}.mp4`);
     } catch {
       window.open(videoUrl, "_blank");

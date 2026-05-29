@@ -1,9 +1,6 @@
 // Server-side proxy for the deployed Instagram downloader on Render.
-// Running the request server-side avoids CORS issues and cold-start timeouts
-// that would occur if the browser called the Render API directly.
-//
 // POST /api/instagram-download  { url }
-// → { success, data: { videoUrl, thumbnail, title, username, duration, type } }
+// → { success, data: { videoUrl, thumbnail, title, fullTitle, username, duration, type } }
 
 const INSTAGRAM_API = "https://instagram-downloader-ga0k.onrender.com";
 
@@ -20,17 +17,20 @@ export async function POST(req) {
     try {
       response = await fetch(`${INSTAGRAM_API}/api/download`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
         body: JSON.stringify({ url, quality: "best" }),
-        // Render free tier cold-start can take ~30s
-        signal: AbortSignal.timeout(40_000),
+        // Render free tier cold-start: ~30s; allow 45s total
+        signal: AbortSignal.timeout(45_000),
       });
     } catch (err) {
       const isTimeout = err.name === "TimeoutError" || err.name === "AbortError";
       return Response.json(
         {
           error: isTimeout
-            ? "The Instagram API is starting up. Please try again in a few seconds."
+            ? "The Instagram server is starting up. Please try again in a few seconds."
             : err.message || "Failed to reach Instagram API",
         },
         { status: 503 },
@@ -40,14 +40,22 @@ export async function POST(req) {
     const data = await response.json().catch(() => ({}));
 
     if (!response.ok || !data.success) {
+      const detail = data.detail || data.error || "";
       return Response.json(
         {
           error:
-            data.detail ||
-            data.error ||
-            "Failed to fetch Instagram video. Make sure the link is public.",
+            detail ||
+            "Could not fetch this Instagram video. Make sure the post is public and the link is correct.",
         },
         { status: response.status || 500 },
+      );
+    }
+
+    // Ensure the nested data object has videoUrl
+    if (!data.data?.videoUrl) {
+      return Response.json(
+        { error: "No video URL returned by the Instagram API." },
+        { status: 500 },
       );
     }
 
