@@ -207,7 +207,7 @@ function UniversalVideoDownloader() {
   const [downloading, setDownloading] = useState(false);
   const [error, setError] = useState("");
   const [result, setResult] = useState(null);
-  const [tiktokQuality, setTiktokQuality] = useState("best");
+  const [tiktokQuality] = useState("best"); // kept for compat, not shown as picker
   const [copied, setCopied] = useState(false);
   const videoRef = useRef(null);
 
@@ -263,7 +263,7 @@ function UniversalVideoDownloader() {
       } else if (detected === "instagram") {
         await analyzeInstagram(url.trim());
       } else if (detected === "tiktok") {
-        await downloadTikTok(url.trim(), tiktokQuality);
+        await analyzeTikTok(url.trim());
       }
     } catch (err) {
       setError(err.message || "Something went wrong. Please try again.");
@@ -307,16 +307,18 @@ function UniversalVideoDownloader() {
     }
   };
 
-  /* --- Instagram --- */
+  /* --- Instagram (via server-side proxy to avoid CORS) --- */
   const analyzeInstagram = async (videoUrl) => {
-    const response = await fetch(`${INSTAGRAM_API_URL}/api/download`, {
+    const response = await fetch("/api/instagram-download", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url: videoUrl, quality: "best" }),
+      body: JSON.stringify({ url: videoUrl }),
     });
     const data = await response.json();
     if (!response.ok || !data.success)
-      throw new Error(data.detail || data.error || "Failed to fetch Instagram video");
+      throw new Error(
+        data.error || "Failed to fetch Instagram video. Make sure the link is public.",
+      );
     setResult({ type: "instagram", ...data.data });
   };
 
@@ -334,23 +336,40 @@ function UniversalVideoDownloader() {
     }
   };
 
-  /* --- TikTok --- */
-  const downloadTikTok = async (videoUrl, quality) => {
-    setLoading(true);
+  /* --- TikTok (analyze first, then show quality options to download) --- */
+  const analyzeTikTok = async (videoUrl) => {
+    const response = await fetch("/api/tiktok/analyze", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url: videoUrl }),
+    });
+    const data = await response.json();
+    if (!response.ok || data.error)
+      throw new Error(data.error || "Failed to analyze TikTok video.");
+    if (!data.qualities || data.qualities.length === 0)
+      throw new Error("No downloadable video found.");
+    setResult({ type: "tiktok", ...data });
+  };
+
+  const downloadTikTokQuality = async (videoUrl, label) => {
+    setDownloading(true);
     try {
-      const response = await fetch(
-        `/api/tiktok-downloader?url=${encodeURIComponent(videoUrl)}&quality=${quality}`,
-        { method: "GET" },
-      );
+      const response = await fetch("/api/tiktok/download", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: videoUrl }),
+      });
       if (!response.ok) {
         const err = await response.json().catch(() => ({}));
-        throw new Error(err.error || "TikTok download failed");
+        throw new Error(err.error || "Download failed");
       }
       const blob = await response.blob();
-      triggerBlobDownload(blob, `tiktok_video_${quality}.mp4`);
-      setResult({ type: "tiktok", success: true });
+      const isAudio = label.toLowerCase().includes("audio");
+      triggerBlobDownload(blob, `tiktok_${isAudio ? "audio" : "video"}.${isAudio ? "mp3" : "mp4"}`);
+    } catch {
+      window.open(videoUrl, "_blank");
     } finally {
-      setLoading(false);
+      setDownloading(false);
     }
   };
 
@@ -387,7 +406,7 @@ function UniversalVideoDownloader() {
               <Download className="h-5 w-5" />
             </div>
             <div>
-              <p className="font-semibold text-base">Universal Video Downloader</p>
+              <p className="font-semibold text-base">Shopyor Video Downloader</p>
               <p className="text-xs text-muted-foreground">
                 Supports Facebook · Instagram · TikTok
               </p>
@@ -456,32 +475,6 @@ function UniversalVideoDownloader() {
             )}
           </div>
 
-          {/* TikTok Quality Picker */}
-          {platform === "tiktok" && (
-            <div>
-              <p className="text-xs font-medium text-muted-foreground mb-2">
-                Select Quality
-              </p>
-              <div className="grid grid-cols-4 gap-2">
-                {TIKTOK_QUALITIES.map((q) => (
-                  <button
-                    key={q.value}
-                    onClick={() => setTiktokQuality(q.value)}
-                    className={`py-2 rounded-lg text-center text-xs font-semibold transition-all
-                      ${
-                        tiktokQuality === q.value
-                          ? "bg-primary text-primary-foreground shadow-sm"
-                          : "bg-muted hover:bg-muted/80 text-foreground"
-                      }`}
-                  >
-                    <div>{q.label}</div>
-                    <div className="opacity-60 font-normal">{q.desc}</div>
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
           {/* Download Button */}
           <button
             onClick={handleDownload}
@@ -497,7 +490,7 @@ function UniversalVideoDownloader() {
             {loading ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin" />
-                {platform === "tiktok" ? "Downloading..." : "Analyzing..."}
+                Analyzing...
               </>
             ) : (
               <>
@@ -521,13 +514,56 @@ function UniversalVideoDownloader() {
             </div>
           )}
 
-          {/* Results: TikTok success */}
-          {result?.type === "tiktok" && result.success && (
-            <div className="flex items-center gap-2 rounded-xl bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 p-3 text-green-700 dark:text-green-400 animate-in fade-in duration-300">
-              <CheckCircle2 className="h-4 w-4 flex-shrink-0" />
-              <p className="text-sm font-medium">
-                TikTok video downloaded successfully!
-              </p>
+          {/* Results: TikTok */}
+          {result?.type === "tiktok" && result.qualities && (
+            <div className="rounded-xl border bg-muted/20 overflow-hidden animate-in fade-in slide-in-from-bottom-2 duration-300">
+              <div className="flex items-center gap-2 px-4 py-3 border-b bg-muted/40">
+                <CheckCircle2 className="h-4 w-4 text-green-500" />
+                <span className="text-sm font-semibold">
+                  TikTok Video Ready — Choose Format
+                </span>
+              </div>
+              <div className="p-4 space-y-3">
+                {result.thumbnail && (
+                  <div className="relative rounded-lg overflow-hidden bg-black/10 max-h-48">
+                    <img
+                      src={result.thumbnail}
+                      alt={result.title || "TikTok video"}
+                      className="w-full object-cover max-h-48"
+                    />
+                  </div>
+                )}
+                {result.title && (
+                  <p className="text-sm font-medium line-clamp-2">{result.title}</p>
+                )}
+                {result.author && (
+                  <p className="text-xs text-muted-foreground">@{result.author}</p>
+                )}
+                <div className="grid gap-2 sm:grid-cols-2">
+                  {result.qualities.map((q, i) => (
+                    <button
+                      key={i}
+                      onClick={() => downloadTikTokQuality(q.url, q.label)}
+                      disabled={downloading}
+                      className="flex items-center justify-between rounded-lg border p-3 text-sm hover:border-primary hover:bg-primary/5 transition-all disabled:opacity-50"
+                    >
+                      <div className="flex items-center gap-2">
+                        {q.type === "audio" ? (
+                          <Smartphone className="h-4 w-4 text-primary" />
+                        ) : (
+                          <Monitor className="h-4 w-4 text-primary" />
+                        )}
+                        <span className="font-medium">{q.label}</span>
+                      </div>
+                      {downloading ? (
+                        <Loader2 className="h-4 w-4 animate-spin text-primary" />
+                      ) : (
+                        <Download className="h-4 w-4 text-primary" />
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           )}
 
@@ -757,7 +793,7 @@ export default function HomePageClient() {
           <div className="flex justify-center mb-6">
             <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/8 px-4 py-1.5 text-sm font-medium text-primary">
               <Sparkles className="h-4 w-4" />
-              Free Universal Video Downloader
+              Free Shopyor Video Downloader
             </div>
           </div>
 

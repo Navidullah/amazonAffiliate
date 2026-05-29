@@ -1,12 +1,28 @@
-// app/admin/blogs/[slug]/edit/page.jsx
 "use client";
 
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Save, Eye, X } from "lucide-react";
+import dynamic from "next/dynamic";
+import {
+  ArrowLeft,
+  Save,
+  Send,
+  Tag,
+  X,
+  FileText,
+  AlignLeft,
+  Loader2,
+  ExternalLink,
+  RefreshCw,
+} from "lucide-react";
 
-const categories = [
+const TiptapEditor = dynamic(
+  () => import("@/app/components/blogeditor/TiptapEditor"),
+  { ssr: false, loading: () => <div className="h-64 bg-muted animate-pulse rounded-xl" /> },
+);
+
+const CATEGORIES = [
   "Video Downloading",
   "Facebook Tips",
   "YouTube Tips",
@@ -16,256 +32,408 @@ const categories = [
   "General",
 ];
 
+function slugify(str) {
+  return String(str)
+    .toLowerCase()
+    .trim()
+    .replace(/[\s\W-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function FormField({ label, hint, required, children }) {
+  return (
+    <div className="space-y-1.5">
+      <div className="flex items-baseline justify-between">
+        <label className="text-sm font-semibold">
+          {label} {required && <span className="text-destructive">*</span>}
+        </label>
+        {hint && <span className="text-xs text-muted-foreground">{hint}</span>}
+      </div>
+      {children}
+    </div>
+  );
+}
+
 export default function EditBlogPage() {
   const router = useRouter();
   const params = useParams();
-  const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
-  const [formData, setFormData] = useState({
+  const [saving, setSaving] = useState(false);
+  const [fetchError, setFetchError] = useState("");
+  const [toast, setToast] = useState(null);
+  const [form, setForm] = useState({
     title: "",
     content: "",
     excerpt: "",
     category: "General",
     tags: [],
-    isPublished: true,
+    isPublished: false,
   });
+  const [slug, setSlug] = useState("");
   const [tagInput, setTagInput] = useState("");
 
-  useEffect(() => {
-    fetchBlog();
-  }, [params.slug]);
+  const set = (key, val) => setForm((f) => ({ ...f, [key]: val }));
+
+  const showToast = (msg, type = "success") => {
+    setToast({ msg, type });
+    setTimeout(() => setToast(null), 3500);
+  };
 
   const fetchBlog = async () => {
+    setFetching(true);
+    setFetchError("");
     try {
-      const response = await fetch(`/api/blog/${params.slug}`, {
+      const res = await fetch(`/api/blog/${params.slug}`, {
         credentials: "include",
       });
-      const data = await response.json();
-
-      if (response.ok) {
-        setFormData({
-          title: data.title,
-          content: data.content,
-          excerpt: data.excerpt,
-          category: data.category,
-          tags: data.tags || [],
-          isPublished: data.isPublished,
-        });
-      }
-    } catch (error) {
-      console.error("Error fetching blog:", error);
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to load blog");
+      setForm({
+        title: data.title || "",
+        content: data.content || "",
+        excerpt: data.excerpt || "",
+        category: data.category || "General",
+        tags: data.tags || [],
+        isPublished: data.isPublished ?? false,
+      });
+      setSlug(data.slug || params.slug);
+    } catch (e) {
+      setFetchError(e.message);
     } finally {
       setFetching(false);
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      const response = await fetch(`/api/blog/${params.slug}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        router.push("/admin/blogs");
-      } else {
-        const error = await response.json();
-        alert(error.error || "Failed to update blog");
-      }
-    } catch (error) {
-      console.error("Error updating blog:", error);
-      alert("Failed to update blog");
-    } finally {
-      setLoading(false);
-    }
-  };
+  useEffect(() => { fetchBlog(); }, [params.slug]);
 
   const addTag = () => {
-    if (tagInput && !formData.tags.includes(tagInput)) {
-      setFormData({
-        ...formData,
-        tags: [...formData.tags, tagInput],
-      });
+    const t = tagInput.trim();
+    if (t && !form.tags.includes(t)) {
+      set("tags", [...form.tags, t]);
       setTagInput("");
     }
   };
 
-  const removeTag = (tagToRemove) => {
-    setFormData({
-      ...formData,
-      tags: formData.tags.filter((tag) => tag !== tagToRemove),
-    });
+  const removeTag = (tag) => set("tags", form.tags.filter((t) => t !== tag));
+
+  const handleSubmit = async (publish) => {
+    if (!form.title.trim()) return showToast("Title is required", "error");
+    if (!form.excerpt.trim()) return showToast("Excerpt is required", "error");
+    if (!form.content || form.content === "<p></p>")
+      return showToast("Content cannot be empty", "error");
+
+    setSaving(true);
+    try {
+      const res = await fetch(`/api/blog/${params.slug}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ ...form, isPublished: publish }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to update blog");
+      showToast(publish ? "Post published!" : "Draft saved!");
+      setTimeout(() => router.push("/admin/blogs"), 800);
+    } catch (e) {
+      showToast(e.message || "Something went wrong", "error");
+    } finally {
+      setSaving(false);
+    }
   };
 
+  /* ── LOADING ── */
   if (fetching) {
     return (
-      <div className="min-h-screen bg-background py-16 px-4">
-        <div className="container mx-auto max-w-4xl">
-          <div className="animate-pulse">Loading...</div>
+      <div className="min-h-screen bg-background">
+        <div className="sticky top-0 z-40 border-b bg-background h-14 flex items-center px-4">
+          <div className="container mx-auto max-w-7xl flex items-center justify-between">
+            <div className="h-4 w-32 bg-muted animate-pulse rounded" />
+            <div className="flex gap-2">
+              <div className="h-9 w-24 bg-muted animate-pulse rounded-lg" />
+              <div className="h-9 w-24 bg-muted animate-pulse rounded-lg" />
+            </div>
+          </div>
+        </div>
+        <div className="container mx-auto max-w-7xl px-4 py-8">
+          <div className="flex flex-col lg:flex-row gap-8">
+            <div className="flex-1 space-y-6">
+              <div className="h-12 bg-muted animate-pulse rounded-xl" />
+              <div className="h-64 bg-muted animate-pulse rounded-xl" />
+            </div>
+            <div className="w-full lg:w-72 space-y-5">
+              <div className="h-24 bg-muted animate-pulse rounded-xl" />
+              <div className="h-40 bg-muted animate-pulse rounded-xl" />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  /* ── FETCH ERROR ── */
+  if (fetchError) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center px-4">
+        <div className="text-center max-w-sm">
+          <p className="text-destructive font-medium mb-4">{fetchError}</p>
+          <div className="flex gap-3 justify-center">
+            <button
+              onClick={fetchBlog}
+              className="inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm hover:bg-muted transition-colors"
+            >
+              <RefreshCw className="h-4 w-4" /> Retry
+            </button>
+            <Link
+              href="/admin/blogs"
+              className="inline-flex items-center gap-2 rounded-lg bg-primary text-primary-foreground px-4 py-2 text-sm hover:bg-primary/90 transition-colors"
+            >
+              <ArrowLeft className="h-4 w-4" /> Back
+            </Link>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background py-16 px-4">
-      <div className="container mx-auto max-w-4xl">
-        <Link
-          href="/admin/blogs"
-          className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors mb-6"
+    <div className="min-h-screen bg-background">
+      {/* Toast */}
+      {toast && (
+        <div
+          className={`fixed top-6 right-6 z-50 flex items-center gap-3 rounded-xl px-5 py-3 text-sm font-medium shadow-xl animate-in slide-in-from-top-2 duration-300
+            ${toast.type === "error"
+              ? "bg-destructive text-destructive-foreground"
+              : "bg-green-600 text-white"
+            }`}
         >
-          <ArrowLeft className="h-4 w-4" />
-          Back to Blogs
-        </Link>
+          {toast.msg}
+        </div>
+      )}
 
-        <h1 className="text-3xl font-bold mb-8">Edit Blog</h1>
-
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Title */}
-          <div>
-            <label className="block text-sm font-medium mb-2">Title *</label>
-            <input
-              type="text"
-              value={formData.title}
-              onChange={(e) =>
-                setFormData({ ...formData, title: e.target.value })
-              }
-              className="w-full rounded-lg border bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20"
-              required
-            />
-          </div>
-
-          {/* Category */}
-          <div>
-            <label className="block text-sm font-medium mb-2">Category *</label>
-            <select
-              value={formData.category}
-              onChange={(e) =>
-                setFormData({ ...formData, category: e.target.value })
-              }
-              className="w-full rounded-lg border bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20"
-            >
-              {categories.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Excerpt */}
-          <div>
-            <label className="block text-sm font-medium mb-2">
-              Excerpt * (Short summary, max 300 chars)
-            </label>
-            <textarea
-              value={formData.excerpt}
-              onChange={(e) =>
-                setFormData({ ...formData, excerpt: e.target.value })
-              }
-              rows={3}
-              maxLength={300}
-              className="w-full rounded-lg border bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20"
-              required
-            />
-            <p className="text-xs text-muted-foreground mt-1">
-              {formData.excerpt.length}/300 characters
-            </p>
-          </div>
-
-          {/* Content */}
-          <div>
-            <label className="block text-sm font-medium mb-2">Content *</label>
-            <textarea
-              value={formData.content}
-              onChange={(e) =>
-                setFormData({ ...formData, content: e.target.value })
-              }
-              rows={15}
-              className="w-full rounded-lg border bg-background px-4 py-2 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
-              required
-            />
-          </div>
-
-          {/* Tags */}
-          <div>
-            <label className="block text-sm font-medium mb-2">Tags</label>
-            <div className="flex gap-2 mb-2">
-              <input
-                type="text"
-                value={tagInput}
-                onChange={(e) => setTagInput(e.target.value)}
-                onKeyPress={(e) =>
-                  e.key === "Enter" && (e.preventDefault(), addTag())
-                }
-                placeholder="Add tags..."
-                className="flex-1 rounded-lg border bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20"
-              />
-              <button
-                type="button"
-                onClick={addTag}
-                className="px-4 py-2 bg-muted rounded-lg hover:bg-muted/80 transition-colors"
-              >
-                Add
-              </button>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {formData.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="inline-flex items-center gap-1 px-2 py-1 text-sm bg-primary/10 text-primary rounded-full"
-                >
-                  {tag}
-                  <button
-                    type="button"
-                    onClick={() => removeTag(tag)}
-                    className="hover:text-red-500"
-                  >
-                    <X className="h-3 w-3" />
-                  </button>
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Publish Status */}
-          <div className="flex items-center gap-4">
-            <label className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                checked={formData.isPublished}
-                onChange={(e) =>
-                  setFormData({ ...formData, isPublished: e.target.checked })
-                }
-                className="rounded border-primary/20 text-primary focus:ring-primary/20"
-              />
-              <span className="text-sm">Publish immediately</span>
-            </label>
-          </div>
-
-          {/* Submit Buttons */}
-          <div className="flex gap-4 pt-4">
-            <button
-              type="submit"
-              disabled={loading}
-              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
-            >
-              <Save className="h-4 w-4" />
-              {loading ? "Saving..." : "Save Changes"}
-            </button>
+      {/* Top bar */}
+      <div className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur">
+        <div className="container mx-auto max-w-7xl px-4 h-14 flex items-center justify-between">
+          <div className="flex items-center gap-3">
             <Link
               href="/admin/blogs"
-              className="px-6 py-2 border rounded-lg hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
-              Cancel
+              <ArrowLeft className="h-4 w-4" />
+              Blog Manager
             </Link>
+            <span className="text-muted-foreground/40">/</span>
+            <span className="text-sm font-medium line-clamp-1 max-w-[200px]">
+              {form.title || "Edit Post"}
+            </span>
           </div>
-        </form>
+          <div className="flex items-center gap-2">
+            {slug && (
+              <Link
+                href={`/blog/${slug}`}
+                target="_blank"
+                title="View live post"
+                className="p-2 rounded-lg text-muted-foreground hover:bg-muted transition-colors"
+              >
+                <ExternalLink className="h-4 w-4" />
+              </Link>
+            )}
+            <button
+              onClick={() => handleSubmit(false)}
+              disabled={saving}
+              className="inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium hover:bg-muted transition-colors disabled:opacity-50"
+            >
+              {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+              Save Draft
+            </button>
+            <button
+              onClick={() => handleSubmit(true)}
+              disabled={saving}
+              className="inline-flex items-center gap-2 rounded-lg bg-primary text-primary-foreground px-4 py-2 text-sm font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 shadow-sm"
+            >
+              {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+              {form.isPublished ? "Update Post" : "Publish"}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Page body */}
+      <div className="container mx-auto max-w-7xl px-4 py-8">
+        <div className="flex flex-col lg:flex-row gap-8">
+
+          {/* ── Main Column ── */}
+          <div className="flex-1 min-w-0 space-y-6">
+            <div className="rounded-xl border bg-card p-6 space-y-5">
+              <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground border-b pb-3">
+                <FileText className="h-4 w-4" /> Post Content
+              </div>
+
+              {/* Title */}
+              <FormField label="Title" required>
+                <input
+                  type="text"
+                  value={form.title}
+                  onChange={(e) => set("title", e.target.value)}
+                  placeholder="Blog post title..."
+                  className="w-full rounded-xl border bg-background px-4 py-3 text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder:font-normal placeholder:text-muted-foreground/60"
+                />
+                {slug && (
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Slug:{" "}
+                    <span className="font-mono text-primary">{slug}</span>
+                  </p>
+                )}
+              </FormField>
+
+              {/* Content Editor */}
+              <FormField label="Content" required>
+                <TiptapEditor
+                  value={form.content}
+                  onChange={(html) => set("content", html)}
+                />
+              </FormField>
+            </div>
+
+            {/* Excerpt */}
+            <div className="rounded-xl border bg-card p-6 space-y-4">
+              <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground border-b pb-3">
+                <AlignLeft className="h-4 w-4" /> SEO Excerpt
+              </div>
+              <FormField
+                label="Excerpt"
+                required
+                hint={`${form.excerpt.length}/300`}
+              >
+                <textarea
+                  value={form.excerpt}
+                  onChange={(e) => set("excerpt", e.target.value)}
+                  rows={3}
+                  maxLength={300}
+                  placeholder="Short summary shown in search results and blog cards..."
+                  className="w-full rounded-xl border bg-background px-4 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                />
+              </FormField>
+            </div>
+          </div>
+
+          {/* ── Sidebar ── */}
+          <div className="w-full lg:w-72 xl:w-80 shrink-0 space-y-5">
+
+            {/* Status */}
+            <div className="rounded-xl border bg-card p-5 space-y-4">
+              <p className="text-sm font-semibold border-b pb-3">Post Settings</p>
+              <label className="flex items-center gap-3 cursor-pointer">
+                <div
+                  onClick={() => set("isPublished", !form.isPublished)}
+                  className={`relative w-10 h-5 rounded-full transition-colors cursor-pointer ${
+                    form.isPublished ? "bg-green-500" : "bg-muted-foreground/30"
+                  }`}
+                >
+                  <div
+                    className={`absolute top-0.5 left-0.5 h-4 w-4 rounded-full bg-white shadow transition-transform ${
+                      form.isPublished ? "translate-x-5" : "translate-x-0"
+                    }`}
+                  />
+                </div>
+                <div>
+                  <p className="text-sm font-medium">
+                    {form.isPublished ? "Published" : "Draft"}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {form.isPublished
+                      ? "Visible to everyone"
+                      : "Only admins can see this"}
+                  </p>
+                </div>
+              </label>
+            </div>
+
+            {/* Category */}
+            <div className="rounded-xl border bg-card p-5 space-y-3">
+              <p className="text-sm font-semibold border-b pb-3">Category</p>
+              <div className="grid grid-cols-2 gap-2">
+                {CATEGORIES.map((c) => (
+                  <button
+                    key={c}
+                    type="button"
+                    onClick={() => set("category", c)}
+                    className={`px-3 py-2 rounded-lg text-xs font-medium text-left transition-all ${
+                      form.category === c
+                        ? "bg-primary text-primary-foreground shadow-sm"
+                        : "bg-muted hover:bg-muted/80 text-foreground"
+                    }`}
+                  >
+                    {c}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Tags */}
+            <div className="rounded-xl border bg-card p-5 space-y-3">
+              <div className="flex items-center gap-2 text-sm font-semibold border-b pb-3">
+                <Tag className="h-4 w-4" /> Tags
+              </div>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={tagInput}
+                  onChange={(e) => setTagInput(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") { e.preventDefault(); addTag(); }
+                  }}
+                  placeholder="Add a tag..."
+                  className="flex-1 rounded-lg border bg-background px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                />
+                <button
+                  type="button"
+                  onClick={addTag}
+                  className="px-3 py-2 bg-primary text-primary-foreground text-xs rounded-lg hover:bg-primary/90 transition-colors"
+                >
+                  Add
+                </button>
+              </div>
+              {form.tags.length > 0 && (
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {form.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-primary/10 text-primary rounded-full font-medium"
+                    >
+                      {tag}
+                      <button
+                        type="button"
+                        onClick={() => removeTag(tag)}
+                        className="hover:text-red-500 transition-colors"
+                      >
+                        <X className="h-3 w-3" />
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Mobile action buttons */}
+            <div className="lg:hidden flex gap-3">
+              <button
+                onClick={() => handleSubmit(false)}
+                disabled={saving}
+                className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-medium hover:bg-muted transition-colors disabled:opacity-50"
+              >
+                <Save className="h-4 w-4" /> Save Draft
+              </button>
+              <button
+                onClick={() => handleSubmit(true)}
+                disabled={saving}
+                className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground px-4 py-2.5 text-sm font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50"
+              >
+                <Send className="h-4 w-4" />
+                {form.isPublished ? "Update" : "Publish"}
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

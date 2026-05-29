@@ -29,7 +29,7 @@ export const metadata = {
         url: "/og/og-video-downloader-1200x630.jpg",
         width: 1200,
         height: 630,
-        alt: "Shopyor Universal Video Downloader – Facebook, Instagram & TikTok",
+        alt: "Shopyor Video Downloader – Facebook, Instagram & TikTok",
       },
     ],
   },
@@ -59,7 +59,7 @@ const structuredData = [
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Shopyor Universal Video Downloader",
+    name: "Shopyor Video Downloader",
     description:
       "Download videos from Facebook, Instagram, and TikTok for free in HD quality. Auto-detects the platform from the URL.",
     url: "https://www.shopyor.com",
