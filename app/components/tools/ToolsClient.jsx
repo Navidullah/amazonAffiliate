@@ -29,6 +29,13 @@ export default function ToolsClient() {
       icon: FaFacebook,
       category: "video downloader",
     },
+    {
+      href: "/tools/youtube-video-downloader",
+      title: "Download youtube videos",
+      desc: "Free download the youtube reels and videos",
+      icon: FaFacebook,
+      category: "video downloader",
+    },
     // Add TikTok downloader to your tools array
     {
       href: "/tools/free-tiktok-video-downloader",
