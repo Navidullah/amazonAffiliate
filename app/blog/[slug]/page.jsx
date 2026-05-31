@@ -1,10 +1,6 @@
-// app/blog/[slug]/page.jsx
-"use client";
-
-import { useState, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
+// app/blog/[slug]/page.jsx  (Server Component)
 import Link from "next/link";
-import { motion, useScroll } from "framer-motion";
+import { notFound } from "next/navigation";
 import {
   Calendar,
   Clock,
@@ -12,11 +8,7 @@ import {
   ArrowLeft,
   ArrowRight,
   Tag,
-  Twitter,
   Facebook,
-  Linkedin,
-  Link as LinkIcon,
-  Check,
   Download,
   Youtube,
   Music2,
@@ -24,6 +16,12 @@ import {
   BookOpen,
   Newspaper,
 } from "lucide-react";
+import { getBlogBySlug, getRelatedBlogs } from "@/lib/actions/blog";
+import { ReadingProgressBar, ShareRow } from "./ArticleClient";
+
+export const dynamic = "force-dynamic";
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
 
 /* Visual identity per category (matches the blog list page) */
 const CATEGORY_STYLE = {
@@ -42,117 +40,88 @@ const styleFor = (category) =>
     Icon: Newspaper,
   };
 
-export default function SingleBlogPage() {
-  const params = useParams();
-  const router = useRouter();
-  const [blog, setBlog] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [relatedBlogs, setRelatedBlogs] = useState([]);
-  const [copied, setCopied] = useState(false);
-  const { scrollYProgress } = useScroll();
+const formatDate = (date) =>
+  new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
-  useEffect(() => {
-    if (params.slug) {
-      fetchBlog();
-    }
-  }, [params.slug]);
+/* ── SEO metadata (server-rendered, indexable) ── */
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const blog = await getBlogBySlug(slug);
 
-  const fetchBlog = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch(`/api/blog/${params.slug}`);
-      const data = await response.json();
-
-      if (response.ok) {
-        setBlog(data);
-        // Fetch related blogs
-        fetchRelatedBlogs(data.category, data._id);
-      } else {
-        router.push("/blog");
-      }
-    } catch (error) {
-      console.error("Error fetching blog:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const fetchRelatedBlogs = async (category, currentId) => {
-    try {
-      const response = await fetch(`/api/blog?category=${category}&limit=3`);
-      const data = await response.json();
-      const filtered = data.blogs.filter((b) => b._id !== currentId);
-      setRelatedBlogs(filtered.slice(0, 3));
-    } catch (error) {
-      console.error("Error fetching related blogs:", error);
-    }
-  };
-
-  const formatDate = (date) => {
-    return new Date(date).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  };
-
-  const shareOnTwitter = () => {
-    window.open(
-      `https://twitter.com/intent/tweet?text=${encodeURIComponent(blog.title)}&url=${encodeURIComponent(window.location.href)}`,
-      "_blank",
-    );
-  };
-
-  const shareOnFacebook = () => {
-    window.open(
-      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`,
-      "_blank",
-    );
-  };
-
-  const shareOnLinkedin = () => {
-    window.open(
-      `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent(blog.title)}`,
-      "_blank",
-    );
-  };
-
-  const copyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(window.location.href);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {}
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-background py-16 px-4">
-        <div className="mx-auto max-w-[720px]">
-          <div className="animate-pulse space-y-4">
-            <div className="h-5 w-24 rounded bg-muted" />
-            <div className="h-10 w-full rounded bg-muted" />
-            <div className="h-10 w-2/3 rounded bg-muted" />
-            <div className="mt-8 h-4 w-full rounded bg-muted" />
-            <div className="h-4 w-full rounded bg-muted" />
-            <div className="h-4 w-5/6 rounded bg-muted" />
-          </div>
-        </div>
-      </div>
-    );
+  if (!blog) {
+    return { title: "Article not found | Shopyor Blog" };
   }
 
-  if (!blog) return null;
+  const url = `${BASE_URL}/blog/${blog.slug}`;
+  const description =
+    blog.excerpt || `${blog.title} — read it on the Shopyor blog.`;
 
+  return {
+    title: `${blog.title} | Shopyor Blog`,
+    description,
+    keywords:
+      blog.tags && blog.tags.length ? blog.tags.join(", ") : undefined,
+    authors: blog.author ? [{ name: blog.author }] : undefined,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      url,
+      title: blog.title,
+      description,
+      siteName: "Shopyor",
+      publishedTime: blog.publishedAt,
+      modifiedTime: blog.updatedAt,
+      authors: blog.author ? [blog.author] : undefined,
+      tags: blog.tags,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: blog.title,
+      description,
+    },
+  };
+}
+
+export default async function SingleBlogPage({ params }) {
+  const { slug } = await params;
+  const blog = await getBlogBySlug(slug);
+
+  if (!blog) notFound();
+
+  const relatedBlogs = await getRelatedBlogs(blog.category, blog.slug);
   const { gradient, Icon } = styleFor(blog.category);
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: blog.title,
+    description: blog.excerpt,
+    author: { "@type": "Person", name: blog.author || "Shopyor" },
+    publisher: {
+      "@type": "Organization",
+      name: "Shopyor",
+      url: BASE_URL,
+    },
+    datePublished: blog.publishedAt,
+    dateModified: blog.updatedAt || blog.publishedAt,
+    mainEntityOfPage: `${BASE_URL}/blog/${blog.slug}`,
+    keywords: (blog.tags || []).join(", "),
+    articleSection: blog.category,
+  };
 
   return (
     <div className="relative min-h-screen bg-background">
-      {/* Reading progress bar */}
-      <motion.div
-        style={{ scaleX: scrollYProgress }}
-        className="fixed inset-x-0 top-0 z-50 h-1 origin-left bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500"
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+
+      {/* Reading progress bar (client island) */}
+      <ReadingProgressBar />
 
       {/* ── Article ── */}
       <article className="mx-auto max-w-[720px] px-5 pb-20 pt-10 sm:px-6">
@@ -166,11 +135,7 @@ export default function SingleBlogPage() {
         </Link>
 
         {/* Header (editorial, left-aligned) */}
-        <motion.header
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        >
+        <header>
           {/* Category */}
           <Link
             href="/blog"
@@ -221,50 +186,10 @@ export default function SingleBlogPage() {
               </div>
             </div>
           </div>
-        </motion.header>
+        </header>
 
-        {/* Inline share row */}
-        <div className="mt-7 flex items-center gap-2 border-y py-3">
-          <span className="mr-1 text-xs font-medium text-muted-foreground">
-            Share
-          </span>
-          <button
-            onClick={shareOnTwitter}
-            aria-label="Share on Twitter"
-            className="rounded-full p-2 text-muted-foreground transition-all hover:scale-110 hover:bg-muted hover:text-[#1DA1F2]"
-          >
-            <Twitter className="h-4 w-4" />
-          </button>
-          <button
-            onClick={shareOnFacebook}
-            aria-label="Share on Facebook"
-            className="rounded-full p-2 text-muted-foreground transition-all hover:scale-110 hover:bg-muted hover:text-[#4267B2]"
-          >
-            <Facebook className="h-4 w-4" />
-          </button>
-          <button
-            onClick={shareOnLinkedin}
-            aria-label="Share on LinkedIn"
-            className="rounded-full p-2 text-muted-foreground transition-all hover:scale-110 hover:bg-muted hover:text-[#0077B5]"
-          >
-            <Linkedin className="h-4 w-4" />
-          </button>
-          <button
-            onClick={copyLink}
-            aria-label="Copy link"
-            className="ml-auto inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-          >
-            {copied ? (
-              <>
-                <Check className="h-3.5 w-3.5 text-green-500" /> Copied
-              </>
-            ) : (
-              <>
-                <LinkIcon className="h-3.5 w-3.5" /> Copy link
-              </>
-            )}
-          </button>
-        </div>
+        {/* Inline share row (client island) */}
+        <ShareRow title={blog.title} />
 
         {/* Blog Content — Medium-style typography */}
         <div
