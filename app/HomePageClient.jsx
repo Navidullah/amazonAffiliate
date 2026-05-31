@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import {
   Download,
   Loader2,
@@ -34,6 +35,36 @@ import { FaFacebook, FaTiktok, FaInstagram } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import ToolCards from "./components/home/ToolCards";
+
+/* ======================================================
+   MOTION HELPERS
+====================================================== */
+const EASE = [0.22, 1, 0.36, 1];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
+};
+
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1 } },
+};
+
+/** Scroll-triggered reveal wrapper */
+function Reveal({ children, className = "", delay = 0, y = 28 }) {
+  return (
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.6, ease: EASE, delay }}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 /* ======================================================
    CONSTANTS & CONFIG
@@ -146,7 +177,7 @@ const tools = [
 ];
 
 const featuredStats = [
-  { label: "Downloads", value: "2.5M+", icon: Download },
+  { label: "Videos Downloaded", value: "2.5M+", icon: Download },
   { label: "Happy Users", value: "500K+", icon: Star },
   { label: "Avg Speed", value: "< 3s", icon: Clock },
   { label: "Success Rate", value: "99%", icon: TrendingUp },
@@ -438,15 +469,20 @@ function UniversalVideoDownloader() {
         </div>
       )}
 
-      <Card className="shadow-2xl border-2 border-border/60 overflow-hidden">
+      <Card className="relative shadow-2xl border border-border/60 overflow-hidden rounded-2xl bg-card/80 backdrop-blur-xl ring-1 ring-white/5">
+        {/* Gradient top accent line */}
+        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500" />
+
         {/* Card Header */}
         <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-transparent px-6 pt-6 pb-4 border-b border-border/40">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-primary/10 text-primary">
+            <div className="p-2.5 rounded-xl bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/20">
               <Download className="h-5 w-5" />
             </div>
             <div>
-              <p className="font-semibold text-base">Shopyor Video Downloader</p>
+              <p className="font-bold text-base">
+                Shopyor Universal Video Downloader
+              </p>
               <p className="text-xs text-muted-foreground">
                 Supports Facebook · Instagram · TikTok
               </p>
@@ -477,6 +513,7 @@ function UniversalVideoDownloader() {
                 onKeyDown={(e) => e.key === "Enter" && handleDownload()}
                 placeholder="Paste Facebook, Instagram, or TikTok link here..."
                 disabled={loading}
+                aria-label="Video URL to download"
                 className={`w-full rounded-xl border bg-background pl-11 pr-24 py-4 text-sm
                   focus:outline-none focus:ring-2 ${config?.ring || "focus:ring-primary/20"}
                   focus:border-primary transition-all disabled:opacity-60
@@ -490,6 +527,7 @@ function UniversalVideoDownloader() {
                     onClick={handleClear}
                     className="p-1.5 rounded-lg hover:bg-muted transition-colors text-muted-foreground"
                     title="Clear"
+                    aria-label="Clear input"
                   >
                     <X className="h-4 w-4" />
                   </button>
@@ -506,17 +544,22 @@ function UniversalVideoDownloader() {
 
             {/* Detected platform badge */}
             {platform && config && (
-              <div
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.25, ease: EASE }}
                 className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium ${config.badge}`}
               >
                 <PlatformIcon className="h-3 w-3" />
                 {config.name} detected
-              </div>
+              </motion.div>
             )}
           </div>
 
           {/* Download Button */}
-          <button
+          <motion.button
+            whileHover={{ scale: loading || !url.trim() ? 1 : 1.01 }}
+            whileTap={{ scale: loading || !url.trim() ? 1 : 0.98 }}
             onClick={handleDownload}
             disabled={loading || !url.trim()}
             className={`w-full h-12 rounded-xl font-semibold text-white text-sm flex items-center justify-center gap-2
@@ -524,7 +567,7 @@ function UniversalVideoDownloader() {
               ${
                 config
                   ? `bg-gradient-to-r ${config.gradient} hover:opacity-90`
-                  : "bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
+                  : "bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:opacity-90"
               }`}
           >
             {loading ? (
@@ -544,7 +587,7 @@ function UniversalVideoDownloader() {
                   : "Paste a URL to Download"}
               </>
             )}
-          </button>
+          </motion.button>
 
           {/* Error */}
           {error && (
@@ -737,37 +780,45 @@ function PlatformCards() {
   ];
 
   return (
-    <div className="grid gap-5 sm:grid-cols-3">
+    <motion.div
+      className="grid gap-5 sm:grid-cols-3"
+      variants={stagger}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-80px" }}
+    >
       {platforms.map((p) => (
-        <Link key={p.key} href={p.href} className="group block">
-          <Card className="h-full border-2 border-border/50 hover:border-primary/30 hover:shadow-xl transition-all duration-300 overflow-hidden">
-            <CardContent className="p-5">
-              <div
-                className={`inline-flex p-3 rounded-2xl bg-gradient-to-br ${p.gradient} text-white mb-4 group-hover:scale-110 transition-transform duration-300 shadow-md`}
-              >
-                <p.Icon className="h-6 w-6" />
-              </div>
-              <h3 className="font-bold text-base mb-1">{p.name} Downloader</h3>
-              <p className="text-sm text-muted-foreground mb-3">{p.desc}</p>
-              <ul className="space-y-1">
-                {p.features.map((f) => (
-                  <li
-                    key={f}
-                    className="flex items-center gap-2 text-xs text-muted-foreground"
-                  >
-                    <CheckCircle2 className="h-3 w-3 text-green-500 flex-shrink-0" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-4 flex items-center gap-1 text-primary text-xs font-semibold group-hover:gap-2 transition-all">
-                Open Tool <ArrowRight className="h-3 w-3" />
-              </div>
-            </CardContent>
-          </Card>
-        </Link>
+        <motion.div key={p.key} variants={fadeUp}>
+          <Link href={p.href} className="group block h-full">
+            <Card className="h-full border border-border/50 hover:border-primary/40 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden rounded-2xl">
+              <CardContent className="p-5">
+                <div
+                  className={`inline-flex p-3 rounded-2xl bg-gradient-to-br ${p.gradient} text-white mb-4 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300 shadow-md`}
+                >
+                  <p.Icon className="h-6 w-6" />
+                </div>
+                <h3 className="font-bold text-base mb-1">{p.name} Downloader</h3>
+                <p className="text-sm text-muted-foreground mb-3">{p.desc}</p>
+                <ul className="space-y-1">
+                  {p.features.map((f) => (
+                    <li
+                      key={f}
+                      className="flex items-center gap-2 text-xs text-muted-foreground"
+                    >
+                      <CheckCircle2 className="h-3 w-3 text-green-500 flex-shrink-0" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-4 flex items-center gap-1 text-primary text-xs font-semibold group-hover:gap-2 transition-all">
+                  Open Tool <ArrowRight className="h-3 w-3" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+        </motion.div>
       ))}
-    </div>
+    </motion.div>
   );
 }
 
@@ -778,61 +829,126 @@ export default function HomePageClient() {
   return (
     <main className="min-h-screen">
       {/* ── HERO ─────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-background via-background to-primary/5 pt-6 pb-20">
-        {/* Background decoration */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-background via-background to-primary/5 pt-10 pb-24">
+        {/* Animated background decoration */}
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-          <div className="absolute -top-40 -right-40 h-96 w-96 rounded-full bg-primary/8 blur-3xl" />
-          <div className="absolute -bottom-20 -left-40 h-80 w-80 rounded-full bg-blue-500/8 blur-3xl" />
+          <motion.div
+            className="absolute -top-40 -right-40 h-96 w-96 rounded-full bg-purple-500/10 blur-3xl"
+            animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
+            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute -bottom-20 -left-40 h-80 w-80 rounded-full bg-blue-500/10 blur-3xl"
+            animate={{ scale: [1, 1.15, 1], opacity: [0.4, 0.7, 0.4] }}
+            transition={{
+              duration: 11,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1,
+            }}
+          />
+          <motion.div
+            className="absolute top-1/3 left-1/2 -translate-x-1/2 h-72 w-72 rounded-full bg-pink-500/8 blur-3xl"
+            animate={{ scale: [1, 1.25, 1], opacity: [0.3, 0.6, 0.3] }}
+            transition={{
+              duration: 13,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2,
+            }}
+          />
         </div>
 
         <div className="container mx-auto max-w-5xl px-4">
-          {/* Badge */}
-          <div className="flex justify-center mb-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/8 px-4 py-1.5 text-sm font-medium text-primary">
-              <Sparkles className="h-4 w-4" />
-              Free Shopyor Video Downloader
-            </div>
-          </div>
-
-          {/* Headline */}
-          <div className="text-center mb-10">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight mb-5">
-              Download Any Social{" "}
-              <span className="bg-gradient-to-r from-primary via-blue-500 to-purple-500 bg-clip-text text-transparent">
-                Video Instantly
-              </span>
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              Paste any link from{" "}
-              <span className="font-semibold text-blue-500">Facebook</span>,{" "}
-              <span className="font-semibold text-pink-500">Instagram</span>, or{" "}
-              <span className="font-semibold text-foreground">TikTok</span> —
-              our tool auto-detects the platform and downloads in HD for free.
-            </p>
-          </div>
-
-          {/* Universal Downloader */}
-          <div className="flex justify-center mb-10">
-            <UniversalVideoDownloader />
-          </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
-            {featuredStats.map((s, i) => (
-              <div key={i} className="text-center">
-                <s.icon className="h-5 w-5 mx-auto mb-1.5 text-primary" />
-                <p className="text-xl font-bold">{s.value}</p>
-                <p className="text-xs text-muted-foreground">{s.label}</p>
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            animate="visible"
+          >
+            {/* Badge */}
+            <motion.div variants={fadeUp} className="flex justify-center mb-6">
+              <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/8 px-4 py-1.5 text-sm font-medium text-primary backdrop-blur-sm">
+                <Sparkles className="h-4 w-4" />
+                Shopyor Universal Video Downloader — 100% Free
               </div>
-            ))}
-          </div>
+            </motion.div>
+
+            {/* Headline */}
+            <div className="text-center mb-10">
+              <motion.h1
+                variants={fadeUp}
+                className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-5"
+              >
+                Universal Video Downloader for{" "}
+                <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                  Facebook, Instagram &amp; TikTok
+                </span>
+              </motion.h1>
+              <motion.p
+                variants={fadeUp}
+                className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+              >
+                Paste any link from{" "}
+                <span className="font-semibold text-blue-500">Facebook</span>,{" "}
+                <span className="font-semibold text-pink-500">Instagram</span>,
+                or{" "}
+                <span className="font-semibold text-foreground">TikTok</span> —
+                the Shopyor Universal Video Downloader auto-detects the platform
+                and saves your video in HD, free and without a watermark.
+              </motion.p>
+            </div>
+
+            {/* Universal Downloader */}
+            <motion.div
+              variants={fadeUp}
+              className="flex justify-center mb-8"
+            >
+              <UniversalVideoDownloader />
+            </motion.div>
+
+            {/* Trust bar */}
+            <motion.div
+              variants={fadeUp}
+              className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mb-10 text-xs sm:text-sm text-muted-foreground"
+            >
+              {[
+                "No Sign-Up Required",
+                "No App to Install",
+                "Works on All Devices",
+                "Unlimited Downloads",
+              ].map((t) => (
+                <div key={t} className="flex items-center gap-1.5">
+                  <CheckCircle2 className="h-4 w-4 text-green-500" />
+                  {t}
+                </div>
+              ))}
+            </motion.div>
+
+            {/* Stats */}
+            <motion.div
+              variants={stagger}
+              className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto"
+            >
+              {featuredStats.map((s, i) => (
+                <motion.div
+                  key={i}
+                  variants={fadeUp}
+                  className="text-center rounded-2xl border border-border/40 bg-card/40 backdrop-blur-sm py-4 hover:border-primary/30 hover:shadow-md transition-all duration-300"
+                >
+                  <s.icon className="h-5 w-5 mx-auto mb-1.5 text-primary" />
+                  <p className="text-xl font-bold">{s.value}</p>
+                  <p className="text-xs text-muted-foreground">{s.label}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* ── PLATFORM CARDS ───────────────────────────── */}
       <section className="py-16 px-4 bg-muted/30">
         <div className="container mx-auto max-w-5xl">
-          <div className="text-center mb-10">
+          <Reveal className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl font-bold mb-3">
               Supported Platforms
             </h2>
@@ -840,7 +956,7 @@ export default function HomePageClient() {
               One universal downloader — three major platforms. Each tool page
               offers the full dedicated experience.
             </p>
-          </div>
+          </Reveal>
           <PlatformCards />
         </div>
       </section>
@@ -848,16 +964,22 @@ export default function HomePageClient() {
       {/* ── HOW IT WORKS ─────────────────────────────── */}
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-5xl">
-          <div className="text-center mb-12">
+          <Reveal className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl font-bold mb-3">
-              How to Download in 3 Steps
+              How to Download a Video in 3 Steps
             </h2>
             <p className="text-muted-foreground text-sm">
-              Works for Facebook, Instagram & TikTok
+              Works for Facebook, Instagram &amp; TikTok
             </p>
-          </div>
+          </Reveal>
 
-          <div className="grid gap-8 md:grid-cols-3 relative">
+          <motion.div
+            className="grid gap-8 md:grid-cols-3 relative"
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+          >
             {/* connector lines */}
             <div className="hidden md:block absolute top-10 left-1/3 right-1/3 h-0.5 bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
 
@@ -881,12 +1003,13 @@ export default function HomePageClient() {
                 desc: "Click the download button. Choose your preferred quality if prompted, and save the video to your device.",
               },
             ].map((item, i) => (
-              <div
+              <motion.div
                 key={i}
+                variants={fadeUp}
                 className="text-center group px-4"
               >
                 <div className="relative mb-5 flex justify-center">
-                  <div className="h-20 w-20 rounded-full bg-primary/10 flex items-center justify-center text-2xl font-bold text-primary group-hover:bg-primary/20 transition-colors duration-300">
+                  <div className="h-20 w-20 rounded-full bg-primary/10 flex items-center justify-center text-2xl font-bold text-primary group-hover:bg-primary/20 group-hover:scale-105 transition-all duration-300">
                     {item.step}
                   </div>
                 </div>
@@ -897,46 +1020,51 @@ export default function HomePageClient() {
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   {item.desc}
                 </p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* ── FEATURES ─────────────────────────────────── */}
       <section className="py-16 px-4 bg-muted/30">
         <div className="container mx-auto max-w-5xl">
-          <div className="text-center mb-12">
+          <Reveal className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl font-bold mb-3">
-              Why Choose Shopyor Video Downloader?
+              Why Choose the Shopyor Universal Video Downloader?
             </h2>
             <p className="text-muted-foreground text-sm max-w-xl mx-auto">
               Built for speed, privacy, and reliability across all devices
             </p>
-          </div>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          </Reveal>
+          <motion.div
+            className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+          >
             {features.map((f, i) => (
-              <Card
-                key={i}
-                className="group hover:shadow-lg hover:border-primary/20 transition-all duration-300"
-              >
-                <CardContent className="p-5">
-                  <div className="mb-3 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:scale-110 transition-transform duration-300">
-                    {f.icon}
-                  </div>
-                  <h3 className="font-bold text-base mb-1">{f.title}</h3>
-                  <p className="text-sm text-muted-foreground">{f.desc}</p>
-                </CardContent>
-              </Card>
+              <motion.div key={i} variants={fadeUp}>
+                <Card className="group h-full hover:shadow-lg hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 rounded-2xl">
+                  <CardContent className="p-5">
+                    <div className="mb-3 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:scale-110 group-hover:bg-primary/20 transition-all duration-300">
+                      {f.icon}
+                    </div>
+                    <h3 className="font-bold text-base mb-1">{f.title}</h3>
+                    <p className="text-sm text-muted-foreground">{f.desc}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* ── MORE TOOLS ───────────────────────────────── */}
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-5xl">
-          <div className="text-center mb-12">
+          <Reveal className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl font-bold mb-3">
               More Free Online Tools
             </h2>
@@ -944,104 +1072,119 @@ export default function HomePageClient() {
               Image editors, PDF converters, SEO tools and more — all free, no
               sign-up required
             </p>
-          </div>
-          <ToolCards tools={tools} />
+          </Reveal>
+          <Reveal delay={0.1}>
+            <ToolCards tools={tools} />
+          </Reveal>
         </div>
       </section>
 
       {/* ── SEO CONTENT ──────────────────────────────── */}
       <section className="py-16 px-4 bg-muted/20">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">
-            The Best Free Social Video Downloader Online
-          </h2>
+          <Reveal>
+            <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">
+              The Best Free Universal Video Downloader Online
+            </h2>
+          </Reveal>
 
-          <div className="prose prose-sm md:prose-base dark:prose-invert max-w-none space-y-4">
-            <p className="text-muted-foreground leading-relaxed">
-              Shopyor is a free, universal{" "}
-              <strong>social media video downloader</strong> that supports{" "}
-              <strong>Facebook</strong>, <strong>Instagram</strong>, and{" "}
-              <strong>TikTok</strong>. Simply paste any video link and our
-              intelligent platform detection automatically identifies whether
-              it's a Facebook reel, an Instagram video, or a TikTok clip —
-              then downloads it in the best available quality, all without
-              requiring any software installation or account login.
-            </p>
+          <Reveal delay={0.1}>
+            <div className="prose prose-sm md:prose-base dark:prose-invert max-w-none space-y-4">
+              <p className="text-muted-foreground leading-relaxed">
+                The <strong>Shopyor Universal Video Downloader</strong> is a
+                free, all-in-one{" "}
+                <strong>social media video downloader</strong> that supports{" "}
+                <strong>Facebook</strong>, <strong>Instagram</strong>, and{" "}
+                <strong>TikTok</strong>. Simply paste any video link and our
+                intelligent platform detection automatically identifies whether
+                it's a Facebook reel, an Instagram video, or a TikTok clip —
+                then downloads it in the best available quality, all without
+                requiring any software installation or account login.
+              </p>
 
-            <p className="text-muted-foreground leading-relaxed">
-              Unlike other tools that only support one platform, Shopyor handles
-              all three major social networks from a single input box. Our{" "}
-              <strong>Facebook video downloader</strong> supports videos, reels,
-              and shared content in HD. The{" "}
-              <strong>Instagram video downloader</strong> works with reels,
-              posts, and IGTV content. Our{" "}
-              <strong>TikTok downloader</strong> removes watermarks and lets
-              you choose from 360p up to 1080p quality.
-            </p>
+              <p className="text-muted-foreground leading-relaxed">
+                Unlike other tools that only support one platform, Shopyor
+                handles all three major social networks from a single input
+                box. Our <strong>Facebook video downloader</strong> supports
+                videos, reels, and shared content in HD. The{" "}
+                <strong>Instagram video downloader</strong> works with reels,
+                posts, and IGTV content. Our{" "}
+                <strong>TikTok downloader without watermark</strong> lets you
+                choose from 360p up to 1080p quality.
+              </p>
 
-            <h3 className="text-xl font-bold mt-8 mb-3">
-              Why Shopyor Ranks as the Best Free Video Downloader
-            </h3>
-            <ul className="list-none space-y-2 text-muted-foreground">
-              {[
-                "Auto-detects Facebook, Instagram, and TikTok URLs automatically",
-                "100% free with no hidden fees, subscriptions, or premium tiers",
-                "No registration or account creation required",
-                "Downloads videos in original HD quality (up to 1080p)",
-                "Works seamlessly on Android, iPhone, Windows, and Mac",
-                "Privacy-focused — we never store your URLs or downloaded videos",
-                "TikTok videos downloaded without the TikTok watermark",
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+              <h3 className="text-xl font-bold mt-8 mb-3">
+                Why Shopyor Ranks as the Best Free Video Downloader
+              </h3>
+              <ul className="list-none space-y-2 text-muted-foreground">
+                {[
+                  "Auto-detects Facebook, Instagram, and TikTok URLs automatically",
+                  "100% free with no hidden fees, subscriptions, or premium tiers",
+                  "No registration or account creation required",
+                  "Downloads videos in original HD quality (up to 1080p)",
+                  "Works seamlessly on Android, iPhone, Windows, and Mac",
+                  "Privacy-focused — we never store your URLs or downloaded videos",
+                  "TikTok videos downloaded without the TikTok watermark",
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
 
-            <p className="text-muted-foreground leading-relaxed mt-6">
-              Beyond video downloading, Shopyor provides a full suite of free
-              tools including an{" "}
-              <Link
-                href="/tools/background-remover-image"
-                className="text-primary hover:underline font-medium"
-              >
-                AI Image Background Remover
-              </Link>
-              ,{" "}
-              <Link
-                href="/tools/image-compressor"
-                className="text-primary hover:underline font-medium"
-              >
-                Image Compressor
-              </Link>
-              ,{" "}
-              <Link
-                href="/tools/pdf-to-word"
-                className="text-primary hover:underline font-medium"
-              >
-                PDF to Word Converter
-              </Link>
-              , and SEO tools like our{" "}
-              <Link
-                href="/tools/meta-tag-generator"
-                className="text-primary hover:underline font-medium"
-              >
-                Meta Tag Generator
-              </Link>
-              .
-            </p>
-          </div>
+              <p className="text-muted-foreground leading-relaxed mt-6">
+                Beyond video downloading, Shopyor provides a full suite of free
+                tools including an{" "}
+                <Link
+                  href="/tools/background-remover-image"
+                  className="text-primary hover:underline font-medium"
+                >
+                  AI Image Background Remover
+                </Link>
+                ,{" "}
+                <Link
+                  href="/tools/image-compressor"
+                  className="text-primary hover:underline font-medium"
+                >
+                  Image Compressor
+                </Link>
+                ,{" "}
+                <Link
+                  href="/tools/pdf-to-word"
+                  className="text-primary hover:underline font-medium"
+                >
+                  PDF to Word Converter
+                </Link>
+                , and SEO tools like our{" "}
+                <Link
+                  href="/tools/meta-tag-generator"
+                  className="text-primary hover:underline font-medium"
+                >
+                  Meta Tag Generator
+                </Link>
+                .
+              </p>
+            </div>
+          </Reveal>
         </div>
       </section>
 
       {/* ── FAQ ──────────────────────────────────────── */}
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">
-            Frequently Asked Questions
-          </h2>
-          <div className="grid gap-4 md:grid-cols-2">
+          <Reveal>
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">
+              Frequently Asked Questions
+            </h2>
+          </Reveal>
+          <motion.div
+            className="grid gap-4 md:grid-cols-2"
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+          >
             {[
               {
                 q: "How do I download a Facebook video?",
@@ -1076,23 +1219,24 @@ export default function HomePageClient() {
                 a: "No. This tool only works with publicly available videos. Downloading private content is not supported for privacy and legal reasons.",
               },
             ].map((faq, i) => (
-              <div
+              <motion.div
                 key={i}
-                className="rounded-xl border bg-card p-5 hover:shadow-md transition-shadow duration-200"
+                variants={fadeUp}
+                className="rounded-xl border bg-card p-5 hover:shadow-md hover:border-primary/30 transition-all duration-200"
               >
                 <h3 className="font-semibold text-sm mb-2">{faq.q}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   {faq.a}
                 </p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* ── CTA ──────────────────────────────────────── */}
       <section className="py-20 px-4 bg-gradient-to-r from-primary/8 via-transparent to-primary/8">
-        <div className="container mx-auto max-w-3xl text-center">
+        <Reveal className="container mx-auto max-w-3xl text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">
             Ready to Download Any Social Video?
           </h2>
@@ -1102,9 +1246,7 @@ export default function HomePageClient() {
           <div className="flex flex-wrap gap-4 justify-center">
             <Button
               size="lg"
-              onClick={() =>
-                window.scrollTo({ top: 0, behavior: "smooth" })
-              }
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               className="group"
             >
               <Download className="mr-2 h-4 w-4 group-hover:translate-y-0.5 transition-transform" />
@@ -1117,7 +1259,7 @@ export default function HomePageClient() {
               </Link>
             </Button>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* ── LEGAL ────────────────────────────────────── */}

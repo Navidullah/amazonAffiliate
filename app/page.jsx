@@ -3,12 +3,12 @@ import HomePageClient from "./HomePageClient";
 export const metadata = {
   title: {
     absolute:
-      "Free Video Downloader – Facebook, Instagram & TikTok | Shopyor",
+      "Shopyor Universal Video Downloader – Free HD Facebook, Instagram & TikTok Downloader",
   },
   description:
-    "Download videos from Facebook, Instagram, and TikTok for free. Paste any video link — our smart detector auto-identifies the platform and downloads in HD quality. No registration required.",
+    "Shopyor Universal Video Downloader lets you download videos from Facebook, Instagram, and TikTok for free in HD. Paste any link — our smart auto-detector identifies the platform and saves your video instantly. No watermark, no app, no sign-up.",
   keywords:
-    "video downloader, facebook video downloader, instagram video downloader, tiktok video downloader, download facebook reels, download instagram reels, tiktok no watermark, free video downloader online, social media video downloader",
+    "universal video downloader, shopyor universal video downloader, video downloader, online video downloader, free video downloader, all in one video downloader, social media video downloader, facebook video downloader, facebook reels downloader, instagram video downloader, instagram reels downloader, tiktok video downloader, tiktok downloader no watermark, download reels, save videos online, hd video downloader, mp4 video downloader, download videos without watermark, video downloader without app",
   authors: [{ name: "Shopyor" }],
   creator: "Shopyor",
   publisher: "Shopyor",
@@ -17,9 +17,10 @@ export const metadata = {
     canonical: "https://www.shopyor.com",
   },
   openGraph: {
-    title: "Free Video Downloader – Facebook, Instagram & TikTok | Shopyor",
+    title:
+      "Shopyor Universal Video Downloader – Free HD Facebook, Instagram & TikTok Downloader",
     description:
-      "Paste any video link from Facebook, Instagram, or TikTok. Our tool auto-detects the platform and downloads in HD. Completely free & instant.",
+      "Paste any video link from Facebook, Instagram, or TikTok. The Shopyor Universal Video Downloader auto-detects the platform and downloads in HD — completely free, no watermark, no sign-up.",
     url: "https://www.shopyor.com",
     type: "website",
     siteName: "Shopyor",
@@ -29,7 +30,7 @@ export const metadata = {
         url: "/og/og-video-downloader-1200x630.jpg",
         width: 1200,
         height: 630,
-        alt: "Shopyor Video Downloader – Facebook, Instagram & TikTok",
+        alt: "Shopyor Universal Video Downloader – Facebook, Instagram & TikTok",
       },
     ],
   },
@@ -37,9 +38,10 @@ export const metadata = {
     card: "summary_large_image",
     site: "@shopyor",
     creator: "@shopyor",
-    title: "Free Video Downloader – Facebook, Instagram & TikTok | Shopyor",
+    title:
+      "Shopyor Universal Video Downloader – Free HD Facebook, Instagram & TikTok Downloader",
     description:
-      "Paste any video URL and our smart tool auto-detects whether it's Facebook, Instagram, or TikTok — then downloads it in HD for free.",
+      "Paste any video URL and the Shopyor Universal Video Downloader auto-detects whether it's Facebook, Instagram, or TikTok — then downloads it in HD for free.",
     images: ["/og/og-video-downloader-1200x630.jpg"],
   },
 };
@@ -59,9 +61,9 @@ const structuredData = [
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Shopyor Video Downloader",
+    name: "Shopyor Universal Video Downloader",
     description:
-      "Download videos from Facebook, Instagram, and TikTok for free in HD quality. Auto-detects the platform from the URL.",
+      "The Shopyor Universal Video Downloader downloads videos from Facebook, Instagram, and TikTok for free in HD quality. Auto-detects the platform from the URL — no watermark, no app, no sign-up.",
     url: "https://www.shopyor.com",
     applicationCategory: "MultimediaApplication",
     operatingSystem: "Web, Android, iOS, Windows, Mac",
