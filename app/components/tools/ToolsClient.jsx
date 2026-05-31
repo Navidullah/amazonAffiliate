@@ -20,7 +20,7 @@ import {
   Sparkles,
   SearchX,
 } from "lucide-react";
-import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 
 /* ======================================================
    MOTION HELPERS
@@ -68,7 +68,7 @@ export default function ToolsClient() {
       href: "/tools/youtube-video-downloader",
       title: "Download youtube videos",
       desc: "Free download the youtube reels and videos",
-      icon: FaFacebook,
+      icon: FaYoutube,
       category: "video downloader",
     },
     // Add TikTok downloader to your tools array
@@ -310,7 +310,8 @@ export default function ToolsClient() {
           {category !== "All" && (
             <>
               {" "}
-              in <span className="font-semibold text-foreground">{category}</span>
+              in{" "}
+              <span className="font-semibold text-foreground">{category}</span>
             </>
           )}
         </p>

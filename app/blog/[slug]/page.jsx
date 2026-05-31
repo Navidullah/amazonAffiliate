@@ -4,17 +4,41 @@
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
+import { motion, useScroll } from "framer-motion";
 import {
   Calendar,
   Clock,
   Eye,
   ArrowLeft,
+  ArrowRight,
   Tag,
-  Share2,
   Twitter,
   Facebook,
   Linkedin,
+  Download,
+  Youtube,
+  Music2,
+  TrendingUp,
+  BookOpen,
+  Newspaper,
 } from "lucide-react";
+
+/* Visual identity per category (matches the blog list page) */
+const CATEGORY_STYLE = {
+  "Video Downloading": { gradient: "from-blue-600 to-purple-600", Icon: Download },
+  "Facebook Tips": { gradient: "from-blue-600 to-blue-400", Icon: Facebook },
+  "YouTube Tips": { gradient: "from-red-600 to-orange-500", Icon: Youtube },
+  "TikTok Tips": { gradient: "from-gray-900 to-gray-600", Icon: Music2 },
+  SEO: { gradient: "from-violet-500 to-indigo-600", Icon: TrendingUp },
+  Tutorials: { gradient: "from-emerald-500 to-teal-600", Icon: BookOpen },
+  General: { gradient: "from-cyan-500 to-blue-600", Icon: Newspaper },
+};
+
+const styleFor = (category) =>
+  CATEGORY_STYLE[category] || {
+    gradient: "from-cyan-500 to-blue-600",
+    Icon: Newspaper,
+  };
 
 export default function SingleBlogPage() {
   const params = useParams();
@@ -22,6 +46,7 @@ export default function SingleBlogPage() {
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [relatedBlogs, setRelatedBlogs] = useState([]);
+  const { scrollYProgress } = useScroll();
 
   useEffect(() => {
     if (params.slug) {
@@ -105,53 +130,91 @@ export default function SingleBlogPage() {
 
   if (!blog) return null;
 
+  const { gradient, Icon } = styleFor(blog.category);
+
   return (
-    <div className="min-h-screen bg-background py-16 px-4">
-      <div className="container mx-auto max-w-4xl">
-        {/* Back Button */}
-        <Link
-          href="/blog"
-          className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors mb-6"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to Blog
-        </Link>
+    <div className="relative min-h-screen bg-background">
+      {/* Reading progress bar */}
+      <motion.div
+        style={{ scaleX: scrollYProgress }}
+        className="fixed inset-x-0 top-0 z-50 h-1 origin-left bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500"
+      />
 
-        {/* Blog Header */}
-        <div className="text-center mb-8">
-          {/* Category */}
-          <div className="mb-4">
-            <span className="inline-block px-3 py-1 text-sm font-medium bg-primary/10 text-primary rounded-full">
-              {blog.category}
-            </span>
-          </div>
-
-          {/* Title */}
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            {blog.title}
-          </h1>
-
-          {/* Meta Info */}
-          <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground mb-6">
-            <div className="flex items-center gap-1">
-              <Calendar className="h-4 w-4" />
-              <span>{formatDate(blog.publishedAt)}</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <Clock className="h-4 w-4" />
-              <span>{blog.readingTime} min read</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <Eye className="h-4 w-4" />
-              <span>{blog.views} views</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Blog Content */}
+      {/* ── Hero ── */}
+      <header className="relative overflow-hidden border-b">
         <div
+          className={`absolute inset-0 -z-10 bg-gradient-to-br ${gradient} opacity-10`}
+        />
+        <div
+          className={`pointer-events-none absolute -right-20 -top-20 -z-10 h-72 w-72 rounded-full bg-gradient-to-br ${gradient} opacity-20 blur-3xl`}
+        />
+
+        <div className="container mx-auto max-w-4xl px-4 pt-10 pb-12">
+          {/* Back Button */}
+          <Link
+            href="/blog"
+            className="mb-8 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to Blog
+          </Link>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="text-center"
+          >
+            {/* Category */}
+            <div className="mb-5 flex justify-center">
+              <span
+                className={`inline-flex items-center gap-2 rounded-full bg-gradient-to-r ${gradient} px-4 py-1.5 text-sm font-medium text-white shadow-md`}
+              >
+                <Icon className="h-4 w-4" />
+                {blog.category}
+              </span>
+            </div>
+
+            {/* Title */}
+            <h1 className="mx-auto max-w-3xl text-3xl font-extrabold leading-tight tracking-tight md:text-4xl lg:text-5xl">
+              {blog.title}
+            </h1>
+
+            {/* Author + Meta Info */}
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2">
+                <span
+                  className={`flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br ${gradient} text-xs font-bold text-white`}
+                >
+                  {(blog.author || "A").charAt(0).toUpperCase()}
+                </span>
+                <span className="font-medium text-foreground">
+                  {blog.author || "Admin"}
+                </span>
+              </div>
+              <span className="hidden h-4 w-px bg-border sm:block" />
+              <div className="flex items-center gap-1">
+                <Calendar className="h-4 w-4" />
+                <span>{formatDate(blog.publishedAt)}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Clock className="h-4 w-4" />
+                <span>{blog.readingTime} min read</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Eye className="h-4 w-4" />
+                <span>{blog.views} views</span>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </header>
+
+      <div className="container mx-auto max-w-4xl px-4 py-12">
+        {/* Blog Content */}
+        <article
           className="prose prose-base md:prose-lg dark:prose-invert max-w-none mb-12
-            prose-headings:font-bold prose-headings:tracking-tight
+            prose-headings:font-bold prose-headings:tracking-tight prose-headings:scroll-mt-24
             prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl
             prose-p:leading-relaxed prose-p:text-foreground/90
             prose-a:text-primary prose-a:no-underline hover:prose-a:underline
@@ -165,12 +228,12 @@ export default function SingleBlogPage() {
 
         {/* Tags */}
         {blog.tags && blog.tags.length > 0 && (
-          <div className="flex flex-wrap items-center gap-2 mb-8 pt-6 border-t">
+          <div className="mb-8 flex flex-wrap items-center gap-2 border-t pt-6">
             <Tag className="h-4 w-4 text-muted-foreground" />
             {blog.tags.map((tag, idx) => (
               <span
                 key={idx}
-                className="px-2 py-1 text-xs bg-muted rounded-full"
+                className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-primary/10 hover:text-primary"
               >
                 #{tag}
               </span>
@@ -179,53 +242,76 @@ export default function SingleBlogPage() {
         )}
 
         {/* Share Buttons */}
-        <div className="flex items-center gap-3 mb-12 pb-8 border-b">
-          <span className="text-sm font-medium">Share this article:</span>
-          <button
-            onClick={shareOnTwitter}
-            className="p-2 rounded-full bg-muted hover:bg-[#1DA1F2] hover:text-white transition-colors"
-          >
-            <Twitter className="h-4 w-4" />
-          </button>
-          <button
-            onClick={shareOnFacebook}
-            className="p-2 rounded-full bg-muted hover:bg-[#4267B2] hover:text-white transition-colors"
-          >
-            <Facebook className="h-4 w-4" />
-          </button>
-          <button
-            onClick={shareOnLinkedin}
-            className="p-2 rounded-full bg-muted hover:bg-[#0077B5] hover:text-white transition-colors"
-          >
-            <Linkedin className="h-4 w-4" />
-          </button>
+        <div className="mb-12 flex flex-wrap items-center gap-3 rounded-2xl border bg-card/60 p-5 backdrop-blur-sm">
+          <span className="text-sm font-semibold">Share this article</span>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={shareOnTwitter}
+              aria-label="Share on Twitter"
+              className="rounded-full bg-muted p-2.5 transition-all hover:scale-110 hover:bg-[#1DA1F2] hover:text-white"
+            >
+              <Twitter className="h-4 w-4" />
+            </button>
+            <button
+              onClick={shareOnFacebook}
+              aria-label="Share on Facebook"
+              className="rounded-full bg-muted p-2.5 transition-all hover:scale-110 hover:bg-[#4267B2] hover:text-white"
+            >
+              <Facebook className="h-4 w-4" />
+            </button>
+            <button
+              onClick={shareOnLinkedin}
+              aria-label="Share on LinkedIn"
+              className="rounded-full bg-muted p-2.5 transition-all hover:scale-110 hover:bg-[#0077B5] hover:text-white"
+            >
+              <Linkedin className="h-4 w-4" />
+            </button>
+          </div>
         </div>
 
         {/* Related Blogs */}
         {relatedBlogs.length > 0 && (
           <div>
-            <h2 className="text-2xl font-bold mb-6">Related Articles</h2>
+            <h2 className="mb-6 text-2xl font-bold">Related Articles</h2>
             <div className="grid gap-6 md:grid-cols-3">
-              {relatedBlogs.map((related) => (
-                <Link
-                  key={related._id}
-                  href={`/blog/${related.slug}`}
-                  className="group block"
-                >
-                  <div className="bg-card border rounded-lg p-4 hover:shadow-lg transition-all duration-300">
-                    <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors line-clamp-2">
-                      {related.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground line-clamp-2">
-                      {related.excerpt}
-                    </p>
-                    <div className="flex items-center gap-2 mt-3 text-xs text-muted-foreground">
-                      <Clock className="h-3 w-3" />
-                      <span>{related.readingTime} min read</span>
+              {relatedBlogs.map((related) => {
+                const rs = styleFor(related.category);
+                return (
+                  <Link
+                    key={related._id}
+                    href={`/blog/${related.slug}`}
+                    className="group block"
+                  >
+                    <div className="flex h-full flex-col overflow-hidden rounded-2xl border bg-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg">
+                      <div
+                        className={`flex h-16 items-center gap-2 bg-gradient-to-br ${rs.gradient} px-4`}
+                      >
+                        <rs.Icon className="h-5 w-5 text-white/90" />
+                        <span className="text-xs font-medium text-white/90">
+                          {related.category}
+                        </span>
+                      </div>
+                      <div className="flex flex-1 flex-col p-4">
+                        <h3 className="mb-2 line-clamp-2 font-semibold transition-colors group-hover:text-primary">
+                          {related.title}
+                        </h3>
+                        <p className="line-clamp-2 flex-1 text-sm text-muted-foreground">
+                          {related.excerpt}
+                        </p>
+                        <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
+                          <span className="flex items-center gap-1">
+                            <Clock className="h-3 w-3" />
+                            {related.readingTime} min read
+                          </span>
+                          <span className="flex items-center gap-1 font-semibold text-primary transition-all group-hover:gap-2">
+                            Read <ArrowRight className="h-3.5 w-3.5" />
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                );
+              })}
             </div>
           </div>
         )}
