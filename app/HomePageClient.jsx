@@ -729,7 +729,7 @@ function UniversalVideoDownloader() {
           )}
 
           {/* Feature Badges */}
-          <div className="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-border/40 text-xs text-muted-foreground">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:justify-between pt-3 border-t border-border/40 text-xs text-muted-foreground">
             {["HD Quality", "No Watermark", "100% Free", "No Login"].map(
               (label) => (
                 <div key={label} className="flex items-center gap-1.5">

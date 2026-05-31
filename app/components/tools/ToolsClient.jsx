@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import {
   Image as ImgIcon,
   Wand2,
@@ -14,8 +15,42 @@ import {
   Tag,
   File,
   Video,
+  Search,
+  ArrowRight,
+  Sparkles,
+  SearchX,
 } from "lucide-react";
 import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
+
+/* ======================================================
+   MOTION HELPERS
+====================================================== */
+const EASE = [0.22, 1, 0.36, 1];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
+};
+
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.06 } },
+};
+
+/* Per-category gradient for the icon tile */
+const CATEGORY_GRADIENT = {
+  "video downloader": "from-blue-600 to-purple-600",
+  Image: "from-pink-500 to-rose-500",
+  File: "from-amber-500 to-orange-500",
+  Marketing: "from-green-500 to-emerald-600",
+  Health: "from-teal-500 to-cyan-600",
+  PDF: "from-red-500 to-rose-600",
+  YouTube: "from-red-600 to-orange-500",
+  SEO: "from-violet-500 to-indigo-600",
+};
+
+const gradientFor = (category) =>
+  CATEGORY_GRADIENT[category] || "from-cyan-500 to-blue-600";
 
 export default function ToolsClient() {
   const [search, setSearch] = useState("");
@@ -178,71 +213,176 @@ export default function ToolsClient() {
   });
 
   return (
-    <main className="relative min-h-screen pb-16 pt-28 max-w-6xl mx-auto px-4">
-      {/* Animated Gradient Background */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-cyan-200/30 via-blue-200/20 to-purple-200/30 dark:from-cyan-900/20 dark:via-blue-900/20 dark:to-purple-900/20 animate-[pulse_8s_ease-in-out_infinite]" />
+    <main className="relative min-h-screen overflow-hidden pb-20 pt-24 sm:pt-28">
+      {/* Animated gradient blobs */}
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <motion.div
+          className="absolute -top-32 -right-24 h-80 w-80 rounded-full bg-purple-500/10 blur-3xl"
+          animate={{ scale: [1, 1.2, 1], opacity: [0.4, 0.7, 0.4] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute top-1/2 -left-24 h-80 w-80 rounded-full bg-cyan-500/10 blur-3xl"
+          animate={{ scale: [1, 1.15, 1], opacity: [0.35, 0.6, 0.35] }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1.5,
+          }}
+        />
+      </div>
 
-      <header className="max-w-3xl mb-8">
-        <h1 className="text-3xl font-bold">Free Online Tools</h1>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">
-          Modern browser-based tools to boost your workflow.
+      <div className="mx-auto max-w-6xl px-4">
+        {/* ── Header ── */}
+        <motion.header
+          className="mx-auto mb-10 max-w-2xl text-center"
+          variants={stagger}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div variants={fadeUp} className="flex justify-center mb-4">
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/8 px-4 py-1.5 text-sm font-medium text-primary backdrop-blur-sm">
+              <Sparkles className="h-4 w-4" />
+              {tools.length}+ Free Online Tools
+            </span>
+          </motion.div>
+
+          <motion.h1
+            variants={fadeUp}
+            className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight"
+          >
+            Free Online Tools by{" "}
+            <span className="bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+              Shopyor
+            </span>
+          </motion.h1>
+
+          <motion.p
+            variants={fadeUp}
+            className="mt-3 text-base sm:text-lg text-muted-foreground"
+          >
+            Modern, secure, browser-based utilities to download videos, edit
+            images, convert PDFs, and boost your SEO — all free, no sign-up.
+          </motion.p>
+
+          {/* Search */}
+          <motion.div variants={fadeUp} className="relative mt-7">
+            <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+            <input
+              type="text"
+              placeholder="Search tools..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              aria-label="Search tools"
+              className="w-full rounded-2xl border border-border bg-card/70 py-3.5 pl-12 pr-4 text-sm backdrop-blur-md outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/30"
+            />
+          </motion.div>
+
+          {/* Category Tabs — scrollable on mobile, wraps on larger screens */}
+          <motion.div
+            variants={fadeUp}
+            className="mt-6 flex flex-nowrap gap-2 overflow-x-auto pb-1 sm:flex-wrap sm:justify-center sm:overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setCategory(cat)}
+                className={`shrink-0 cursor-pointer rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-200 ${
+                  category === cat
+                    ? "bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-md shadow-cyan-500/20"
+                    : "bg-muted text-muted-foreground hover:bg-muted/70 hover:text-foreground"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </motion.div>
+        </motion.header>
+
+        {/* Result count */}
+        <p className="mb-5 text-center text-sm text-muted-foreground">
+          Showing{" "}
+          <span className="font-semibold text-foreground">
+            {filteredTools.length}
+          </span>{" "}
+          {filteredTools.length === 1 ? "tool" : "tools"}
+          {category !== "All" && (
+            <>
+              {" "}
+              in <span className="font-semibold text-foreground">{category}</span>
+            </>
+          )}
         </p>
 
-        {/* Search */}
-        <div className="mt-6">
-          <input
-            type="text"
-            placeholder="Search tools..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full px-4 py-2 rounded-xl border border-gray-300 dark:border-white/10 bg-white/70 dark:bg-gray-900/70 backdrop-blur-md focus:ring-2 focus:ring-cyan-400 outline-none transition"
-          />
-        </div>
+        {/* Tools Grid */}
+        {filteredTools.length > 0 ? (
+          <motion.section
+            key={`${category}-${search}`}
+            className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
+            variants={stagger}
+            initial="hidden"
+            animate="visible"
+          >
+            {filteredTools.map((tool, idx) => {
+              const Icon = tool.icon;
+              return (
+                <motion.div key={tool.href + idx} variants={fadeUp}>
+                  <Link
+                    href={tool.href}
+                    className="group relative flex h-full flex-col rounded-2xl border border-border bg-card/70 p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/40 hover:shadow-xl"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div
+                        className={`shrink-0 rounded-xl bg-gradient-to-br ${gradientFor(
+                          tool.category,
+                        )} p-3 text-white shadow-md transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3`}
+                      >
+                        <Icon className="h-6 w-6" />
+                      </div>
 
-        {/* Category Tabs */}
-        <div className="flex flex-wrap gap-3 mt-6">
-          {categories.map((cat) => (
+                      <div className="min-w-0">
+                        <h2 className="font-semibold text-base sm:text-lg leading-snug">
+                          {tool.title}
+                        </h2>
+                        <span className="mt-1 inline-block rounded-full bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
+                          {tool.category}
+                        </span>
+                      </div>
+                    </div>
+
+                    <p className="mt-3 flex-1 text-sm text-muted-foreground">
+                      {tool.desc}
+                    </p>
+
+                    <div className="mt-4 flex items-center gap-1 text-sm font-semibold text-primary transition-all group-hover:gap-2">
+                      Open Tool <ArrowRight className="h-4 w-4" />
+                    </div>
+                  </Link>
+                </motion.div>
+              );
+            })}
+          </motion.section>
+        ) : (
+          /* Empty state */
+          <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border bg-card/40 py-16 text-center">
+            <SearchX className="mb-4 h-10 w-10 text-muted-foreground" />
+            <p className="text-lg font-semibold">No tools found</p>
+            <p className="mt-1 max-w-sm text-sm text-muted-foreground">
+              Try a different search term or category.
+            </p>
             <button
-              key={cat}
-              onClick={() => setCategory(cat)}
-              className={`px-4 py-1.5 rounded-full cursor-pointer text-sm transition ${
-                category === cat
-                  ? "bg-cyan-600 text-white"
-                  : "bg-gray-200 dark:bg-gray-800"
-              }`}
+              onClick={() => {
+                setSearch("");
+                setCategory("All");
+              }}
+              className="mt-5 rounded-full bg-gradient-to-r from-cyan-600 to-blue-600 px-5 py-2 text-sm font-medium text-white transition hover:opacity-90"
             >
-              {cat}
+              Reset filters
             </button>
-          ))}
-        </div>
-      </header>
-
-      {/* Tools Grid */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-        {filteredTools.map((tool, idx) => {
-          const Icon = tool.icon;
-          return (
-            <Link
-              key={idx}
-              href={tool.href}
-              className="group relative rounded-2xl border border-gray-200 dark:border-white/10 p-6 backdrop-blur-xl bg-white/70 dark:bg-gray-900/60 hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
-            >
-              <div className="flex items-center gap-4">
-                <div className="rounded-xl bg-cyan-100 dark:bg-cyan-900 p-3 group-hover:scale-110 transition">
-                  <Icon className="h-6 w-6 text-cyan-600 dark:text-cyan-400" />
-                </div>
-
-                <div>
-                  <h2 className="font-semibold text-lg">{tool.title}</h2>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    {tool.desc}
-                  </p>
-                </div>
-              </div>
-            </Link>
-          );
-        })}
-      </section>
+          </div>
+        )}
+      </div>
     </main>
   );
 }
