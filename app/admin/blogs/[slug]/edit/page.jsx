@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -55,9 +56,15 @@ function FormField({ label, hint, required, children }) {
 }
 
 export default function EditBlogPage() {
+  const { data: session, status } = useSession();
   const router = useRouter();
   const params = useParams();
   const [fetching, setFetching] = useState(true);
+
+  useEffect(() => {
+    if (status === "unauthenticated") router.push("/login");
+    if (status === "authenticated" && session?.user?.role !== "admin") router.push("/");
+  }, [status, session]);
   const [saving, setSaving] = useState(false);
   const [fetchError, setFetchError] = useState("");
   const [toast, setToast] = useState(null);
@@ -104,7 +111,11 @@ export default function EditBlogPage() {
     }
   };
 
-  useEffect(() => { fetchBlog(); }, [params.slug]);
+  useEffect(() => {
+    if (status === "authenticated" && session?.user?.role === "admin") {
+      fetchBlog();
+    }
+  }, [params.slug, status, session]);
 
   const addTag = () => {
     const t = tagInput.trim();

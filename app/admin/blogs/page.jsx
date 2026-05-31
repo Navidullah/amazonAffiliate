@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
   Plus,
@@ -15,6 +17,7 @@ import {
   Search,
   ExternalLink,
   BarChart2,
+  Loader2,
 } from "lucide-react";
 
 const CATEGORIES = [
@@ -29,12 +32,22 @@ const CATEGORIES = [
 ];
 
 export default function AdminBlogsPage() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
   const [filterCat, setFilterCat] = useState("All");
   const [actionId, setActionId] = useState(null); // which row is loading
+
+  // Auth guard — redirect unauthenticated or non-admin users
+  useEffect(() => {
+    if (status === "unauthenticated") router.push("/login");
+    if (status === "authenticated" && session?.user?.role !== "admin") {
+      router.push("/");
+    }
+  }, [status, session]);
 
   const fetchBlogs = async () => {
     setLoading(true);
@@ -51,14 +64,18 @@ export default function AdminBlogsPage() {
     }
   };
 
-  useEffect(() => { fetchBlogs(); }, []);
-
-  const handleDelete = async (id, title) => {
-    if (!confirm(`Delete "${title}"? This cannot be undone.`)) return;
-    setActionId(id);
-    try {
-      await fetch(`/api/blog/${id}`, { method: "DELETE" });
+  useEffect(() => {
+    if (status === "authenticated" && session?.user?.role === "admin") {
       fetchBlogs();
+    }
+  }, [status, session]);
+
+  const handleDelete = async (slug, title) => {
+    if (!confirm(`Delete "${title}"? This cannot be undone.`)) return;
+    setActionId(slug);
+    try {
+      await fetch(`/api/blog/${slug}`, { method: "DELETE" });
+      setBlogs((prev) => prev.filter((b) => b.slug !== slug));
     } catch {
       alert("Failed to delete blog");
     } finally {
@@ -66,15 +83,19 @@ export default function AdminBlogsPage() {
     }
   };
 
-  const handleTogglePublish = async (id, current) => {
-    setActionId(id);
+  const handleTogglePublish = async (slug, current) => {
+    setActionId(slug);
     try {
-      await fetch(`/api/blog/${id}`, {
+      const res = await fetch(`/api/blog/${slug}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ isPublished: !current }),
       });
-      fetchBlogs();
+      if (res.ok) {
+        setBlogs((prev) =>
+          prev.map((b) => (b.slug === slug ? { ...b, isPublished: !current } : b))
+        );
+      }
     } catch {
       alert("Failed to update blog");
     } finally {
@@ -103,7 +124,18 @@ export default function AdminBlogsPage() {
   const published = blogs.filter((b) => b.isPublished).length;
   const drafts = blogs.length - published;
 
-  /* ── LOADING ── */
+  /* ── AUTH LOADING ── */
+  if (status === "loading") {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (status !== "authenticated" || session?.user?.role !== "admin") return null;
+
+  /* ── DATA LOADING ── */
   if (loading) {
     return (
       <div className="min-h-screen bg-background py-10 px-4">
@@ -243,7 +275,7 @@ export default function AdminBlogsPage() {
                 key={blog._id}
                 className={`flex flex-col md:grid md:grid-cols-[1fr_140px_110px_110px_80px_120px] md:items-center gap-3 md:gap-4 px-5 py-4 transition-colors hover:bg-muted/20 ${
                   idx !== 0 ? "border-t" : ""
-                } ${actionId === blog._id ? "opacity-50 pointer-events-none" : ""}`}
+                } ${actionId === blog.slug ? "opacity-50 pointer-events-none" : ""}`}
               >
                 {/* Title + Excerpt */}
                 <div className="min-w-0">
@@ -288,14 +320,14 @@ export default function AdminBlogsPage() {
                 {/* Actions */}
                 <div className="flex items-center gap-1">
                   <Link
-                    href={`/admin/blogs/${blog._id}/edit`}
+                    href={`/admin/blogs/${blog.slug}/edit`}
                     title="Edit"
                     className="p-2 rounded-lg text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-colors"
                   >
                     <Edit2 className="h-4 w-4" />
                   </Link>
                   <button
-                    onClick={() => handleTogglePublish(blog._id, blog.isPublished)}
+                    onClick={() => handleTogglePublish(blog.slug, blog.isPublished)}
                     title={blog.isPublished ? "Unpublish" : "Publish"}
                     className="p-2 rounded-lg text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-950/30 transition-colors"
                   >
@@ -306,7 +338,7 @@ export default function AdminBlogsPage() {
                     )}
                   </button>
                   <button
-                    onClick={() => handleDelete(blog._id, blog.title)}
+                    onClick={() => handleDelete(blog.slug, blog.title)}
                     title="Delete"
                     className="p-2 rounded-lg text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
                   >

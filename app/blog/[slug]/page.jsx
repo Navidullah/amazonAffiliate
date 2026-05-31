@@ -149,13 +149,19 @@ export default function SingleBlogPage() {
         </div>
 
         {/* Blog Content */}
-        <div className="prose prose-lg dark:prose-invert max-w-none mb-12">
-          <div
-            dangerouslySetInnerHTML={{
-              __html: blog.content.replace(/\n/g, "<br/>"),
-            }}
-          />
-        </div>
+        <div
+          className="prose prose-base md:prose-lg dark:prose-invert max-w-none mb-12
+            prose-headings:font-bold prose-headings:tracking-tight
+            prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl
+            prose-p:leading-relaxed prose-p:text-foreground/90
+            prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+            prose-blockquote:border-l-4 prose-blockquote:border-primary/40 prose-blockquote:bg-muted/40 prose-blockquote:rounded-r-lg prose-blockquote:py-1
+            prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:font-mono
+            prose-pre:bg-muted prose-pre:border prose-pre:rounded-xl
+            prose-img:rounded-xl prose-img:shadow-md
+            prose-table:text-sm prose-th:bg-muted/60 prose-td:border prose-th:border"
+          dangerouslySetInnerHTML={{ __html: blog.content }}
+        />
 
         {/* Tags */}
         {blog.tags && blog.tags.length > 0 && (

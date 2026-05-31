@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -53,8 +54,14 @@ function FormField({ label, hint, required, children }) {
 }
 
 export default function NewBlogPage() {
+  const { data: session, status } = useSession();
   const router = useRouter();
   const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    if (status === "unauthenticated") router.push("/login");
+    if (status === "authenticated" && session?.user?.role !== "admin") router.push("/");
+  }, [status, session]);
   const [toast, setToast] = useState(null);
   const [form, setForm] = useState({
     title: "",
@@ -106,6 +113,14 @@ export default function NewBlogPage() {
       setSaving(false);
     }
   };
+
+  if (status === "loading" || status !== "authenticated" || session?.user?.role !== "admin") {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">

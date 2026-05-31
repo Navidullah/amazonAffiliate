@@ -322,7 +322,7 @@ function UniversalVideoDownloader() {
       throw new Error(
         data.error || "Failed to fetch Instagram video. Make sure the link is public.",
       );
-    setResult({ type: "instagram", ...data.data });
+    setResult({ ...data.data, type: "instagram" });
   };
 
   const downloadInstagramVideo = async (videoUrl, title) => {

@@ -63,18 +63,16 @@ export default function InstagramVideoDownloaderClient() {
     setShowMobileHelp(false);
 
     try {
-      const response = await fetch(`${API_URL}/api/download`, {
+      const response = await fetch("/api/instagram-download", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ url: url.trim(), quality: "best" }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: url.trim() }),
       });
 
       const data = await response.json();
 
       if (!response.ok || !data.success) {
-        throw new Error(data.detail || data.error || "Failed to fetch video");
+        throw new Error(data.error || "Failed to fetch video");
       }
 
       setVideoData({
@@ -100,89 +98,27 @@ export default function InstagramVideoDownloaderClient() {
       .toLowerCase();
     const filename = `${cleanTitle}.mp4`;
 
-    // Check if mobile
-    if (isMobile()) {
-      setShowMobileHelp(true);
-
-      // For mobile: Create a visible download link for long-press
-      const downloadLink = document.createElement("a");
-      downloadLink.href = videoUrl;
-      downloadLink.download = filename;
-      downloadLink.textContent = "📥 Tap and hold to save video";
-      downloadLink.style.display = "block";
-      downloadLink.style.marginTop = "10px";
-      downloadLink.style.padding = "12px";
-      downloadLink.style.backgroundColor = "#3b82f6";
-      downloadLink.style.color = "white";
-      downloadLink.style.textAlign = "center";
-      downloadLink.style.borderRadius = "8px";
-      downloadLink.style.textDecoration = "none";
-      downloadLink.style.fontWeight = "bold";
-
-      // Show temporary message with download link
-      const messageDiv = document.createElement("div");
-      messageDiv.innerHTML = `
-        <div style="margin-bottom: 10px;">
-          ⚠️ <strong>Mobile Download</strong><br>
-          On mobile, tap and hold the button below, then select "Save Video" or "Download Linked File"
-        </div>
-      `;
-      messageDiv.appendChild(downloadLink);
-      messageDiv.style.position = "fixed";
-      messageDiv.style.bottom = "20px";
-      messageDiv.style.left = "20px";
-      messageDiv.style.right = "20px";
-      messageDiv.style.backgroundColor = "#1f2937";
-      messageDiv.style.color = "white";
-      messageDiv.style.padding = "15px";
-      messageDiv.style.borderRadius = "10px";
-      messageDiv.style.zIndex = "9999";
-      messageDiv.style.boxShadow = "0 4px 6px rgba(0,0,0,0.1)";
-
-      // Add close button
-      const closeBtn = document.createElement("button");
-      closeBtn.textContent = "×";
-      closeBtn.style.position = "absolute";
-      closeBtn.style.top = "5px";
-      closeBtn.style.right = "10px";
-      closeBtn.style.background = "none";
-      closeBtn.style.border = "none";
-      closeBtn.style.color = "white";
-      closeBtn.style.fontSize = "20px";
-      closeBtn.style.cursor = "pointer";
-      closeBtn.onclick = () => messageDiv.remove();
-      messageDiv.appendChild(closeBtn);
-
-      document.body.appendChild(messageDiv);
-
-      // Auto-remove after 15 seconds
-      setTimeout(() => {
-        if (messageDiv.parentNode) messageDiv.remove();
-      }, 15000);
-
-      return;
-    }
-
-    // Desktop: Direct download
-    // Desktop: Direct download
+    setDownloading(true);
     try {
-      setDownloading(true);
+      // Proxy through our server to avoid CORS and CDN blocks
+      const res = await fetch("/api/proxy-video", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: videoUrl, filename }),
+      });
 
-      const response = await fetch(videoUrl);
-      const blob = await response.blob();
+      if (!res.ok) throw new Error("proxy failed");
+
+      const blob = await res.blob();
       const blobUrl = window.URL.createObjectURL(blob);
-
       const link = document.createElement("a");
       link.href = blobUrl;
       link.download = filename;
-
       document.body.appendChild(link);
       link.click();
-
       document.body.removeChild(link);
       window.URL.revokeObjectURL(blobUrl);
-    } catch (err) {
-      // Fallback: Open in new tab
+    } catch {
       window.open(videoUrl, "_blank");
     } finally {
       setDownloading(false);

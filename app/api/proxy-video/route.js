@@ -11,24 +11,46 @@ export async function POST(req) {
       return Response.json({ error: "URL is required" }, { status: 400 });
     }
 
+    const UA =
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
+
+    // Derive a likely referrer from the URL's own origin, then fall back to Instagram
+    const urlOrigin = (() => {
+      try { return new URL(url.trim()).origin + "/"; } catch { return null; }
+    })();
+    const referrers = [
+      urlOrigin,
+      "https://www.instagram.com/",
+      "https://snapinsta.app/",
+      "https://snapsave.app/",
+      "https://igdownloader.app/",
+    ].filter(Boolean);
+
     let response;
-    try {
-      response = await fetch(url.trim(), {
-        headers: {
-          "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
-          Referer: "https://www.instagram.com/",
-          Accept: "video/mp4,video/*,*/*",
-        },
-        signal: AbortSignal.timeout(60_000),
-      });
-    } catch (err) {
-      const isTimeout = err.name === "TimeoutError" || err.name === "AbortError";
+    let lastErr;
+    for (const referer of referrers) {
+      try {
+        response = await fetch(url.trim(), {
+          headers: {
+            "User-Agent": UA,
+            Referer: referer,
+            Accept: "video/mp4,video/*,*/*",
+          },
+          signal: AbortSignal.timeout(60_000),
+        });
+        if (response.ok) break;
+      } catch (err) {
+        lastErr = err;
+      }
+    }
+
+    if (!response) {
+      const isTimeout = lastErr?.name === "TimeoutError" || lastErr?.name === "AbortError";
       return Response.json(
         {
           error: isTimeout
             ? "Download timed out. Please try again."
-            : err.message || "Failed to fetch video",
+            : lastErr?.message || "Failed to fetch video",
         },
         { status: 503 },
       );

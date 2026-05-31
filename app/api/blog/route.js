@@ -30,7 +30,7 @@ export async function POST(request) {
       );
     }
 
-    const { title, content, excerpt, category, tags } = await request.json();
+    const { title, content, excerpt, category, tags, isPublished } = await request.json();
 
     if (!title || !content || !excerpt) {
       return NextResponse.json(
@@ -45,9 +45,12 @@ export async function POST(request) {
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-|-$/g, "");
 
-    // Calculate reading time
-    const wordCount = content.split(/\s+/).length;
-    const readingTime = Math.ceil(wordCount / 200);
+    // Calculate reading time (strip HTML tags first)
+    const plainText = content.replace(/<[^>]+>/g, " ");
+    const wordCount = plainText.trim().split(/\s+/).filter(Boolean).length;
+    const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+
+    const publish = isPublished !== false; // default true unless explicitly false
 
     // Create blog
     const blog = await Blog.create({
@@ -59,8 +62,8 @@ export async function POST(request) {
       tags: tags || [],
       author: user.name || user.email,
       authorId: user._id,
-      isPublished: true,
-      publishedAt: new Date(),
+      isPublished: publish,
+      publishedAt: publish ? new Date() : undefined,
       readingTime,
     });
 
