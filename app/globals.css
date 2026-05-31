@@ -3,6 +3,10 @@
 @import "react-toastify/dist/ReactToastify.css";
 @import "shadcn/tailwind.css";
 
+/* Tailwind v4 does not auto-load JS-config plugins — register typography here
+   so `prose` classes (blog article formatting) actually generate styles. */
+@plugin "@tailwindcss/typography";
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
