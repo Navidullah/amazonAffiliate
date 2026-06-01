@@ -1,12 +1,24 @@
 import Link from "next/link";
-import { Mic, Sparkles, UploadCloud, Type, AudioLines, ShieldCheck, Zap, Globe, Download, Lock } from "lucide-react";
+import {
+  Mic,
+  Sparkles,
+  UploadCloud,
+  Type,
+  AudioLines,
+  ShieldCheck,
+  Zap,
+  Globe,
+  Download,
+  Lock,
+} from "lucide-react";
 import VoiceCloneClient from "@/app/components/tools/VoiceCloneClient";
 
 const SITE = "https://www.shopyor.com";
 
 export const metadata = {
   title: {
-    absolute: "Free AI Voice Cloner – Clone Any Voice Online in Seconds | Shopyor",
+    absolute:
+      "Free AI Voice Cloner – Clone Any Voice Online in Seconds | Shopyor",
   },
   description:
     "Clone any voice for free with Shopyor's AI voice cloner. Upload a short audio sample, type your text, and download natural-sounding speech in that voice in seconds. No sign-up, works in your browser.",
@@ -64,12 +76,36 @@ const steps = [
 ];
 
 const features = [
-  { icon: Zap, title: "Fast & GPU-powered", desc: "Speech is generated on a dedicated GPU, so results come back in seconds." },
-  { icon: ShieldCheck, title: "Consent-first", desc: "A required consent check keeps cloning ethical — only voices you're allowed to use." },
-  { icon: Lock, title: "Private by design", desc: "Generated audio is streamed straight to you and never stored or shared." },
-  { icon: Globe, title: "Works everywhere", desc: "Runs in any modern browser on desktop, tablet, or phone — nothing to install." },
-  { icon: Download, title: "Instant WAV download", desc: "Save your cloned speech as a high-quality WAV with a single click." },
-  { icon: Sparkles, title: "Completely free", desc: "No sign-up, no subscription, and no hidden fees to clone a voice." },
+  {
+    icon: Zap,
+    title: "Fast & GPU-powered",
+    desc: "Speech is generated on a dedicated GPU, so results come back in seconds.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Consent-first",
+    desc: "A required consent check keeps cloning ethical — only voices you're allowed to use.",
+  },
+  {
+    icon: Lock,
+    title: "Private by design",
+    desc: "Generated audio is streamed straight to you and never stored or shared.",
+  },
+  {
+    icon: Globe,
+    title: "Works everywhere",
+    desc: "Runs in any modern browser on desktop, tablet, or phone — nothing to install.",
+  },
+  {
+    icon: Download,
+    title: "Instant WAV download",
+    desc: "Save your cloned speech as a high-quality WAV with a single click.",
+  },
+  {
+    icon: Sparkles,
+    title: "Completely free",
+    desc: "No sign-up, no subscription, and no hidden fees to clone a voice.",
+  },
 ];
 
 const faqs = [
@@ -146,7 +182,9 @@ const structuredData = [
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: SITE }],
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE },
+    ],
   },
 ];
 
@@ -168,15 +206,15 @@ export default function Page() {
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-violet-500" />
           AI Voice Cloning · 100% Free
         </span>
-        <h1 className="relative mx-auto mt-5 max-w-3xl text-4xl font-black leading-[1.1] tracking-tight md:text-6xl">
+        <h1 className="relative mx-auto mt-5 max-w-3xl text-2xl font-black leading-[1.1] tracking-tight md:text-4xl">
           Free AI Voice Cloner —{" "}
           <span className="bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 bg-clip-text text-transparent">
-            clone any voice in seconds
+            clone any voice in seconds with shopyor
           </span>
         </h1>
         <p className="relative mx-auto mt-5 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-          Upload a short audio sample, type your text, and Shopyor speaks it back in that
-          voice — natural, instant, and free.{" "}
+          Upload a short audio sample, type your text, and Shopyor speaks it
+          back in that voice — natural, instant, and free.{" "}
           <span className="font-medium text-foreground">
             Only clone voices you have permission to use.
           </span>
@@ -210,7 +248,8 @@ export default function Page() {
             How to clone a voice in 3 easy steps
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-            No experience needed — go from a short clip to downloadable speech in under a minute.
+            No experience needed — go from a short clip to downloadable speech
+            in under a minute.
           </p>
         </div>
         <ol className="mx-auto mt-10 grid max-w-5xl gap-6 md:grid-cols-3">
@@ -230,7 +269,9 @@ export default function Page() {
                 <h3 className="mt-4 text-lg font-bold">
                   Step {i + 1}: {s.name}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.text}</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {s.text}
+                </p>
               </li>
             );
           })}
@@ -252,7 +293,8 @@ export default function Page() {
             Why use the Shopyor voice cloner
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-            A fast, free, and privacy-friendly way to turn text into speech in any voice.
+            A fast, free, and privacy-friendly way to turn text into speech in
+            any voice.
           </p>
         </div>
         <div className="mx-auto mt-10 grid max-w-5xl gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -267,7 +309,9 @@ export default function Page() {
                   <Icon className="h-5 w-5" />
                 </span>
                 <h3 className="mt-4 font-semibold">{f.title}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{f.desc}</p>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                  {f.desc}
+                </p>
               </div>
             );
           })}
@@ -297,7 +341,9 @@ export default function Page() {
                     +
                   </span>
                 </summary>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  {f.a}
+                </p>
               </details>
             ))}
           </div>
