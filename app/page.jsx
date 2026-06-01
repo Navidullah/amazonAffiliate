@@ -10,6 +10,8 @@ import {
   Globe,
   Download,
   Lock,
+  BookOpen,
+  ArrowRight,
 } from "lucide-react";
 import VoiceCloneClient from "@/app/components/tools/VoiceCloneClient";
 
@@ -358,6 +360,32 @@ export default function Page() {
               </details>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ===== Guide / internal link to the blog ===== */}
+      <section className="px-4 pb-16">
+        <div className="mx-auto max-w-3xl">
+          <Link
+            href="/blog/voice-cloning-tool-online-free"
+            className="group flex items-center gap-4 rounded-2xl border border-violet-500/20 bg-gradient-to-br from-violet-500/10 to-fuchsia-500/5 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-500/40"
+          >
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 to-fuchsia-600 text-white">
+              <BookOpen className="h-6 w-6" />
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-semibold uppercase tracking-wide text-violet-600 dark:text-violet-300">
+                Full guide
+              </p>
+              <h2 className="mt-0.5 font-bold leading-snug text-foreground">
+                Voice Cloning Tool Online: How to Clone Any Voice in Minutes
+              </h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                A step-by-step 2026 guide — how AI voice cloning works, use cases, tips, and FAQs.
+              </p>
+            </div>
+            <ArrowRight className="h-5 w-5 shrink-0 text-violet-500 transition-transform group-hover:translate-x-1" />
+          </Link>
         </div>
       </section>
     </>
