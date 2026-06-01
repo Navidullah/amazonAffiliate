@@ -1,9 +1,11 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Mic,
+  Square,
+  RotateCcw,
   UploadCloud,
   Sparkles,
   Loader2,
@@ -19,6 +21,10 @@ import {
  * Voice-clone tool UI.
  * Talks ONLY to same-origin proxy routes (/api/voice/*); the backend API key
  * is injected server-side and never reaches this browser code.
+ *
+ * Two ways to provide a sample: upload a file, or record from the mic.
+ * Mic recordings are decoded and re-encoded to WAV in the browser so the
+ * Python backend (torchaudio) always receives a format it can read.
  */
 
 const container = {
@@ -30,7 +36,10 @@ const item = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
 };
 
+const MAX_RECORD_SECONDS = 60;
+
 export default function VoiceCloneClient() {
+  const [mode, setMode] = useState("upload"); // "upload" | "record"
   const [file, setFile] = useState(null);
   const [voiceId, setVoiceId] = useState(null);
   const [text, setText] = useState("Hello! This is my cloned voice, generated on shopyor.");
@@ -39,7 +48,36 @@ export default function VoiceCloneClient() {
   const [status, setStatus] = useState(null); // { kind: "info"|"error"|"success", msg }
   const [busy, setBusy] = useState(false);
   const [dragOver, setDragOver] = useState(false);
-  const inputRef = useRef(null);
+
+  // recording state
+  const [canRecord, setCanRecord] = useState(true);
+  const [recording, setRecording] = useState(false);
+  const [processing, setProcessing] = useState(false);
+  const [elapsed, setElapsed] = useState(0);
+
+  const mediaRecorderRef = useRef(null);
+  const chunksRef = useRef([]);
+  const streamRef = useRef(null);
+  const timerRef = useRef(null);
+  const elapsedRef = useRef(0);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && (!navigator.mediaDevices || !window.MediaRecorder)) {
+      setCanRecord(false);
+    }
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+      stopStream();
+      if (audioUrl) URL.revokeObjectURL(audioUrl);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function setSample(f) {
+    setFile(f);
+    setVoiceId(null);
+    setAudioUrl(null);
+  }
 
   function pickFile(f) {
     if (!f) return;
@@ -47,14 +85,78 @@ export default function VoiceCloneClient() {
       setStatus({ kind: "error", msg: "Please choose an audio file." });
       return;
     }
-    setFile(f);
-    setVoiceId(null);
-    setAudioUrl(null);
+    setSample(f);
     setStatus(null);
   }
 
+  /* ---------- mic recording ---------- */
+  function stopStream() {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach((t) => t.stop());
+      streamRef.current = null;
+    }
+  }
+
+  async function startRecording() {
+    setStatus(null);
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      streamRef.current = stream;
+      const mr = new MediaRecorder(stream);
+      chunksRef.current = [];
+      mr.ondataavailable = (e) => {
+        if (e.data && e.data.size > 0) chunksRef.current.push(e.data);
+      };
+      mr.onstop = async () => {
+        const blob = new Blob(chunksRef.current, { type: mr.mimeType || "audio/webm" });
+        stopStream();
+        setProcessing(true);
+        setStatus({ kind: "info", msg: "Processing your recording…" });
+        try {
+          const wav = await blobToWavFile(blob);
+          setSample(wav);
+          setStatus({
+            kind: "success",
+            msg: `Recorded ${formatTime(elapsedRef.current)} — ready to clone.`,
+          });
+        } catch {
+          setStatus({ kind: "error", msg: "Couldn't process the recording. Please try again." });
+        } finally {
+          setProcessing(false);
+        }
+      };
+      mr.start();
+      mediaRecorderRef.current = mr;
+      setSample(null);
+      setRecording(true);
+      setElapsed(0);
+      elapsedRef.current = 0;
+      timerRef.current = setInterval(() => {
+        setElapsed((prev) => {
+          const next = prev + 1;
+          elapsedRef.current = next;
+          if (next >= MAX_RECORD_SECONDS) stopRecording();
+          return next;
+        });
+      }, 1000);
+    } catch {
+      setStatus({ kind: "error", msg: "Microphone access was denied or is unavailable." });
+    }
+  }
+
+  function stopRecording() {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+    setRecording(false);
+    const mr = mediaRecorderRef.current;
+    if (mr && mr.state !== "inactive") mr.stop();
+  }
+
+  /* ---------- network ---------- */
   async function handleUpload() {
-    if (!file) return setStatus({ kind: "error", msg: "Pick an audio file first." });
+    if (!file) return setStatus({ kind: "error", msg: "Add a voice sample first." });
     if (!consent)
       return setStatus({
         kind: "error",
@@ -72,10 +174,7 @@ export default function VoiceCloneClient() {
       if (!res.ok) throw new Error(data.detail || data.error || "Upload failed");
       setVoiceId(data.voice_id);
       const warn = data.warnings?.length ? ` ${data.warnings.join(" ")}` : "";
-      setStatus({
-        kind: "success",
-        msg: `Voice ready — ${data.duration_sec}s sample.${warn}`,
-      });
+      setStatus({ kind: "success", msg: `Voice ready — ${data.duration_sec}s sample.${warn}` });
     } catch (err) {
       setStatus({ kind: "error", msg: err.message });
     } finally {
@@ -84,7 +183,7 @@ export default function VoiceCloneClient() {
   }
 
   async function handleGenerate() {
-    if (!voiceId) return setStatus({ kind: "error", msg: "Upload a voice sample first." });
+    if (!voiceId) return setStatus({ kind: "error", msg: "Add a voice sample first." });
     if (!text.trim()) return setStatus({ kind: "error", msg: "Enter some text to speak." });
     setBusy(true);
     setStatus({ kind: "info", msg: "Generating speech on the GPU…" });
@@ -109,6 +208,7 @@ export default function VoiceCloneClient() {
   }
 
   const stepDone = voiceId ? 2 : file ? 1 : 0;
+  const recordingBusy = recording || processing;
 
   return (
     <motion.div
@@ -129,60 +229,139 @@ export default function VoiceCloneClient() {
         <GlassCard glow={stepDone === 0}>
           <CardHeader
             icon={<Mic className="h-5 w-5" />}
-            title="Upload a voice sample"
-            subtitle="A clean 10–30s clip clones best. WAV, MP3, FLAC…"
+            title="Add a voice sample"
+            subtitle="Upload a file or record from your mic — a clean 10–30s clip works best."
           />
 
-          <label
-            onDragOver={(e) => {
-              e.preventDefault();
-              setDragOver(true);
-            }}
-            onDragLeave={() => setDragOver(false)}
-            onDrop={(e) => {
-              e.preventDefault();
-              setDragOver(false);
-              pickFile(e.dataTransfer.files?.[0]);
-            }}
-            className={`group relative mt-4 flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed px-6 py-9 text-center transition-all duration-300 ${
-              dragOver
-                ? "border-violet-500 bg-violet-500/10 scale-[1.01]"
-                : "border-black/10 bg-black/[0.02] hover:border-violet-400/60 hover:bg-violet-500/5 dark:border-white/10 dark:bg-white/[0.02]"
-            }`}
-          >
-            <input
-              ref={inputRef}
-              type="file"
-              accept="audio/*"
-              className="sr-only"
-              onChange={(e) => pickFile(e.target.files?.[0])}
+          {/* Mode toggle */}
+          <div className="mt-4 grid grid-cols-2 gap-1 rounded-xl border border-black/10 bg-black/[0.03] p-1 dark:border-white/10 dark:bg-white/[0.03]">
+            <ToggleTab
+              active={mode === "upload"}
+              disabled={recordingBusy}
+              onClick={() => setMode("upload")}
+              icon={<UploadCloud className="h-4 w-4" />}
+              label="Upload"
             />
-            <motion.span
-              animate={{ y: dragOver ? -4 : 0 }}
-              className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl border border-violet-500/30 bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 text-violet-500 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3 dark:text-violet-300"
+            <ToggleTab
+              active={mode === "record"}
+              disabled={recordingBusy || !canRecord}
+              onClick={() => setMode("record")}
+              icon={<Mic className="h-4 w-4" />}
+              label="Record"
+            />
+          </div>
+
+          {/* Upload mode */}
+          {mode === "upload" && (
+            <label
+              onDragOver={(e) => {
+                e.preventDefault();
+                setDragOver(true);
+              }}
+              onDragLeave={() => setDragOver(false)}
+              onDrop={(e) => {
+                e.preventDefault();
+                setDragOver(false);
+                pickFile(e.dataTransfer.files?.[0]);
+              }}
+              className={`group relative mt-4 flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed px-6 py-9 text-center transition-all duration-300 ${
+                dragOver
+                  ? "scale-[1.01] border-violet-500 bg-violet-500/10"
+                  : "border-black/10 bg-black/[0.02] hover:border-violet-400/60 hover:bg-violet-500/5 dark:border-white/10 dark:bg-white/[0.02]"
+              }`}
             >
-              <UploadCloud className="h-7 w-7" />
-            </motion.span>
-            {file ? (
-              <span className="flex items-center gap-2 text-sm font-medium text-foreground">
-                <FileAudio2 className="h-4 w-4 text-violet-500" />
-                {file.name}
-                <span className="text-muted-foreground">
-                  ({(file.size / 1024 / 1024).toFixed(1)} MB)
-                </span>
-              </span>
-            ) : (
-              <>
-                <span className="text-sm font-semibold text-foreground">
-                  Drag & drop, or{" "}
-                  <span className="bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent">
-                    browse
+              <input
+                type="file"
+                accept="audio/*"
+                className="sr-only"
+                onChange={(e) => pickFile(e.target.files?.[0])}
+              />
+              <motion.span
+                animate={{ y: dragOver ? -4 : 0 }}
+                className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl border border-violet-500/30 bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 text-violet-500 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3 dark:text-violet-300"
+              >
+                <UploadCloud className="h-7 w-7" />
+              </motion.span>
+              {file ? (
+                <SampleChip file={file} />
+              ) : (
+                <>
+                  <span className="text-sm font-semibold text-foreground">
+                    Drag & drop, or{" "}
+                    <span className="bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent">
+                      browse
+                    </span>
                   </span>
+                  <span className="mt-1 text-xs text-muted-foreground">WAV, MP3, FLAC · Max 25 MB</span>
+                </>
+              )}
+            </label>
+          )}
+
+          {/* Record mode */}
+          {mode === "record" && (
+            <div className="mt-4 flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-black/10 bg-black/[0.02] px-6 py-8 text-center dark:border-white/10 dark:bg-white/[0.02]">
+              <button
+                type="button"
+                onClick={recording ? stopRecording : startRecording}
+                disabled={processing}
+                aria-label={recording ? "Stop recording" : "Start recording"}
+                className="relative flex h-20 w-20 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-violet-500/50 disabled:opacity-60"
+              >
+                {recording && (
+                  <>
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500/40" />
+                    <span className="absolute inline-flex h-[120%] w-[120%] animate-pulse rounded-full bg-red-500/10" />
+                  </>
+                )}
+                <span
+                  className={`relative flex h-20 w-20 items-center justify-center rounded-full text-white shadow-lg transition-all duration-300 ${
+                    recording
+                      ? "bg-gradient-to-br from-red-500 to-rose-600 shadow-red-500/40"
+                      : "bg-gradient-to-br from-violet-600 to-fuchsia-600 shadow-violet-500/30 hover:scale-105"
+                  }`}
+                >
+                  {processing ? (
+                    <Loader2 className="h-7 w-7 animate-spin" />
+                  ) : recording ? (
+                    <Square className="h-6 w-6 fill-current" />
+                  ) : (
+                    <Mic className="h-8 w-8" />
+                  )}
                 </span>
-                <span className="mt-1 text-xs text-muted-foreground">Max 25 MB</span>
-              </>
-            )}
-          </label>
+              </button>
+
+              <div className="mt-4">
+                {recording ? (
+                  <div className="flex flex-col items-center">
+                    <span className="font-mono text-lg font-bold tabular-nums text-red-500">
+                      {formatTime(elapsed)}
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      Recording… tap to stop (auto-stops at 1:00)
+                    </span>
+                  </div>
+                ) : processing ? (
+                  <span className="text-sm text-muted-foreground">Processing…</span>
+                ) : file ? (
+                  <div className="flex flex-col items-center gap-1.5">
+                    <SampleChip file={file} />
+                    <button
+                      type="button"
+                      onClick={startRecording}
+                      className="inline-flex items-center gap-1.5 text-xs font-medium text-violet-600 hover:text-fuchsia-600 dark:text-violet-300"
+                    >
+                      <RotateCcw className="h-3.5 w-3.5" /> Record again
+                    </button>
+                  </div>
+                ) : (
+                  <span className="text-sm font-semibold text-foreground">
+                    Tap the mic to start recording
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
 
           {/* Consent */}
           <label className="mt-4 flex cursor-pointer items-start gap-3 rounded-xl border border-black/5 bg-black/[0.02] p-3 dark:border-white/5 dark:bg-white/[0.02]">
@@ -202,8 +381,12 @@ export default function VoiceCloneClient() {
             </span>
           </label>
 
-          <GradientButton onClick={handleUpload} disabled={busy || !file} busy={busy && !voiceId}>
-            {voiceId ? "Re-upload sample" : "Upload sample"}
+          <GradientButton
+            onClick={handleUpload}
+            disabled={busy || !file || recordingBusy}
+            busy={busy && !voiceId}
+          >
+            {voiceId ? "Re-clone this sample" : "Clone this voice"}
           </GradientButton>
         </GlassCard>
       </motion.div>
@@ -300,7 +483,98 @@ export default function VoiceCloneClient() {
   );
 }
 
+/* ---------- audio helpers (browser WAV encoding) ---------- */
+
+function formatTime(s) {
+  const m = Math.floor(s / 60);
+  const sec = s % 60;
+  return `${m}:${String(sec).padStart(2, "0")}`;
+}
+
+/** Decode any recorded blob and re-encode to a mono 16-bit PCM WAV File. */
+async function blobToWavFile(blob) {
+  const arrayBuf = await blob.arrayBuffer();
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  const ctx = new AudioCtx();
+  try {
+    const audioBuffer = await ctx.decodeAudioData(arrayBuf);
+    const wavBlob = encodeWav(audioBuffer);
+    return new File([wavBlob], `recording-${Date.now()}.wav`, { type: "audio/wav" });
+  } finally {
+    ctx.close();
+  }
+}
+
+function encodeWav(audioBuffer) {
+  const numCh = audioBuffer.numberOfChannels;
+  const sampleRate = audioBuffer.sampleRate;
+  const length = audioBuffer.length;
+
+  // Down-mix to mono.
+  const mono = new Float32Array(length);
+  for (let ch = 0; ch < numCh; ch++) {
+    const data = audioBuffer.getChannelData(ch);
+    for (let i = 0; i < length; i++) mono[i] += data[i] / numCh;
+  }
+
+  const buffer = new ArrayBuffer(44 + length * 2);
+  const view = new DataView(buffer);
+  const writeStr = (off, str) => {
+    for (let i = 0; i < str.length; i++) view.setUint8(off + i, str.charCodeAt(i));
+  };
+
+  writeStr(0, "RIFF");
+  view.setUint32(4, 36 + length * 2, true);
+  writeStr(8, "WAVE");
+  writeStr(12, "fmt ");
+  view.setUint32(16, 16, true); // subchunk size
+  view.setUint16(20, 1, true); // PCM
+  view.setUint16(22, 1, true); // mono
+  view.setUint32(24, sampleRate, true);
+  view.setUint32(28, sampleRate * 2, true); // byte rate
+  view.setUint16(32, 2, true); // block align
+  view.setUint16(34, 16, true); // bits per sample
+  writeStr(36, "data");
+  view.setUint32(40, length * 2, true);
+
+  let off = 44;
+  for (let i = 0; i < length; i++) {
+    const s = Math.max(-1, Math.min(1, mono[i]));
+    view.setInt16(off, s < 0 ? s * 0x8000 : s * 0x7fff, true);
+    off += 2;
+  }
+  return new Blob([view], { type: "audio/wav" });
+}
+
 /* ---------- small presentational helpers ---------- */
+
+function SampleChip({ file }) {
+  return (
+    <span className="flex items-center gap-2 text-sm font-medium text-foreground">
+      <FileAudio2 className="h-4 w-4 text-violet-500" />
+      {file.name}
+      <span className="text-muted-foreground">({(file.size / 1024 / 1024).toFixed(1)} MB)</span>
+    </span>
+  );
+}
+
+function ToggleTab({ active, disabled, onClick, icon, label }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      className={`inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-40 ${
+        active
+          ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-sm"
+          : "text-muted-foreground hover:text-foreground"
+      }`}
+    >
+      {icon}
+      {label}
+    </button>
+  );
+}
 
 function GlassCard({ children, glow, dim }) {
   return (
@@ -359,11 +633,7 @@ function StepDot({ active, done, label }) {
       >
         {done ? <CheckCircle2 className="h-4 w-4" /> : label[0]}
       </span>
-      <span
-        className={`text-xs font-medium ${
-          active ? "text-foreground" : "text-muted-foreground"
-        }`}
-      >
+      <span className={`text-xs font-medium ${active ? "text-foreground" : "text-muted-foreground"}`}>
         {label}
       </span>
     </div>
