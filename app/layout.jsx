@@ -61,32 +61,27 @@ export const metadata = {
   },
 
   description:
-    "Download videos from Facebook, YouTube & TikTok for free. Best online video downloader - save reels, shorts, and videos in HD quality. No registration required.",
+    "Clone any voice for free with Shopyor's AI voice cloner. Upload a short audio sample, type your text, and download natural-sounding speech in that voice in seconds. No sign-up required.",
 
   keywords: [
-    // Video Downloader Keywords
-    "facebook video downloader",
-    "youtube video downloader",
-    "tiktok video downloader",
-    "download facebook reels",
-    "save youtube videos",
-    "tiktok video saver",
-    "fb video downloader",
-    "online video downloader",
-    "free video downloader",
-    "download reels from facebook",
-    "youtube shorts downloader",
-    "tiktok no watermark",
+    // Voice cloning keywords
+    "ai voice cloner",
+    "voice cloning",
+    "free voice cloner",
+    "voice clone online",
+    "clone my voice",
+    "ai voice generator",
+    "text to speech",
+    "realistic ai voice",
+    "tts voice generator",
+    "custom voice generator",
+    "speech synthesis",
     // General tool keywords
     "free online tools",
     "background remover online",
     "image compressor",
-    "remove image background",
-    "EXIF data remover",
-    "BMI calculator",
     "online utility tools",
     "web tools free",
-    "productivity tools online",
   ],
 
   authors: [{ name: "Shopyor", url: "https://www.shopyor.com" }],
@@ -104,9 +99,9 @@ export const metadata = {
   openGraph: {
     type: "website",
     url: "https://www.shopyor.com",
-    title: "Shopyor — Free Facebook, YouTube & TikTok Video Downloader",
+    title: "Shopyor — Free AI Voice Cloner",
     description:
-      "Download videos from Facebook, YouTube & TikTok in HD quality. Free, fast, and secure video downloader. No registration needed.",
+      "Clone any voice from a short sample and generate natural speech from text. Free, fast, and private — no sign-up needed.",
     siteName: "Shopyor",
     images: [
       {
@@ -126,9 +121,9 @@ export const metadata = {
     card: "summary_large_image",
     site: "@shopyor",
     creator: "@shopyor",
-    title: "Shopyor — Free Video Downloader for Facebook, YouTube & TikTok",
+    title: "Shopyor — Free AI Voice Cloner",
     description:
-      "Download videos from Facebook, YouTube & TikTok for free. Save reels, shorts, and videos in HD quality. No registration required.",
+      "Clone a voice from a short sample and generate natural speech from text — free and instant. No sign-up required.",
     images: ["/og/og-video-downloader-1200x630.jpg"],
   },
 
@@ -146,7 +141,7 @@ export const metadata = {
 
   category: "technology",
 
-  classification: "Video Downloader, Online Tools",
+  classification: "AI Voice Cloning, Online Tools",
 
   referrer: "strict-origin-when-cross-origin",
 
@@ -200,7 +195,7 @@ const jsonLdSchemas = {
   softwareApplication: {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Shopyor Video Downloader",
+    name: "Shopyor AI Voice Cloner",
     applicationCategory: "MultimediaApplication",
     operatingSystem: "Web, Android, iOS, Windows, Mac",
     offers: {
@@ -208,19 +203,13 @@ const jsonLdSchemas = {
       price: "0",
       priceCurrency: "USD",
     },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      ratingCount: "15000",
-    },
     featureList: [
-      "Download Facebook videos and reels",
-      "Download YouTube videos and shorts",
-      "Download TikTok videos without watermark",
-      "HD quality downloads",
+      "Clone a voice from a short audio sample",
+      "Generate speech from text in the cloned voice",
+      "Download results as WAV",
+      "Consent-required and privacy-friendly",
       "No registration required",
-      "Mobile compatible",
-      "Fast download speeds",
+      "Works on mobile and desktop",
     ],
   },
 
@@ -229,7 +218,7 @@ const jsonLdSchemas = {
     "@type": "WebSite",
     name: "Shopyor",
     url: "https://www.shopyor.com",
-    description: "Free video downloader for Facebook, YouTube, and TikTok",
+    description: "Free AI voice cloner and online tools",
     potentialAction: {
       "@type": "SearchAction",
       target: {
@@ -364,9 +353,9 @@ export default function RootLayout({ children }) {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebPage",
-              name: "Shopyor Video Downloader",
+              name: "Shopyor AI Voice Cloner",
               description:
-                "Download videos from Facebook, YouTube, and TikTok for free",
+                "Clone any voice from a short sample and generate natural speech from text — free.",
               url: "https://www.shopyor.com",
               inLanguage: "en-US",
             }),
