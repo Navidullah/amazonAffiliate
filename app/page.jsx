@@ -21,14 +21,25 @@ export const metadata = {
       "Free AI Voice Cloner – Clone Any Voice Online in Seconds | Shopyor",
   },
   description:
-    "Clone any voice for free with Shopyor's AI voice cloner. Upload a short audio sample, type your text, and download natural-sounding speech in that voice in seconds. No sign-up, works in your browser.",
+    "Clone any voice online for free with Shopyor's AI voice cloner. Upload a short sample, type your text, and get natural-sounding speech in seconds — a free AI voice generator and text-to-speech tool, no sign-up required.",
   keywords:
-    "voice cloning, ai voice cloner, free voice cloner, voice clone online, clone my voice, ai voice generator, text to speech, realistic ai voice, tts voice generator, custom voice generator, voice cloning tool, speech synthesis",
+    "voice cloning, ai voice cloner, free ai voice cloning, free voice cloner, voice cloner online free, clone any voice, clone my voice, voice clone online, voice cloning no sign up, clone voice in seconds, ai voice generator, text to speech, tts voice generator, realistic ai voice, custom voice generator, online voice cloning, voice cloning tool, speech synthesis",
   authors: [{ name: "Shopyor" }],
   creator: "Shopyor",
   publisher: "Shopyor",
   robots: "index, follow",
-  alternates: { canonical: SITE },
+  alternates: {
+    canonical: SITE,
+    // hreflang: target the top English-search markets for voice cloning
+    languages: {
+      "en-US": SITE,
+      "en-GB": SITE,
+      "en-IN": SITE,
+      "en-CA": SITE,
+      "en-AU": SITE,
+      "x-default": SITE,
+    },
+  },
   openGraph: {
     title: "Free AI Voice Cloner – Clone Any Voice Online in Seconds | Shopyor",
     description:
@@ -37,6 +48,7 @@ export const metadata = {
     type: "website",
     siteName: "Shopyor",
     locale: "en_US",
+    alternateLocale: ["en_GB", "en_IN", "en_CA", "en_AU"],
   },
   twitter: {
     card: "summary_large_image",
@@ -103,6 +115,14 @@ const faqs = [
   {
     q: "Is the Shopyor voice cloner free?",
     a: "Yes. Shopyor's AI voice cloner is 100% free to use. There is no sign-up, subscription, or hidden fee — upload a sample, type your text, and download the result.",
+  },
+  {
+    q: "Can I clone any voice online with no sign-up?",
+    a: "Yes. You can clone any voice online directly in your browser with no sign-up and no app to install. Just provide a short sample of the voice you have permission to use, type your text, and generate speech instantly.",
+  },
+  {
+    q: "How do I clone a voice in seconds?",
+    a: "Add a 10–30 second voice sample (upload a file or record from your mic), tick the consent box, then click Clone. Type your script and click Generate — the AI returns natural-sounding speech in that voice within seconds.",
   },
   {
     q: "How long should the voice sample be?",
