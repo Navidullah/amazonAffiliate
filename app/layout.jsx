@@ -337,8 +337,8 @@ export default function RootLayout({ children }) {
       >
         <Providers>
           <HeaderComponent />
-          {/* ✅ Corrected to clear the fixed header on all breakpoints */}
-          <main className="pt-24 md:pt-28 lg:pt-32" id="main-content">
+          {/* Clears the fixed 64px (h-16) header consistently on all breakpoints */}
+          <main className="pt-20" id="main-content">
             {children}
           </main>
           <Analytics />

@@ -43,15 +43,15 @@ export default function VoiceClonePage() {
   };
 
   return (
-    <main className="min-h-screen bg-background pt-28 md:pt-32 lg:pt-32">
+    <div className="min-h-screen bg-background">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="mx-auto max-w-4xl px-4 pb-24">
+      <div className="mx-auto max-w-4xl px-4 pb-24 pt-8">
         <VoiceCloneHero />
         <VoiceCloneClient />
       </div>
-    </main>
+    </div>
   );
 }
