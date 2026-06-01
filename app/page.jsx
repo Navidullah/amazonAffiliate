@@ -37,14 +37,6 @@ export const metadata = {
     type: "website",
     siteName: "Shopyor",
     locale: "en_US",
-    images: [
-      {
-        url: "/og/og-video-downloader-1200x630.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Shopyor AI Voice Cloner",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -53,7 +45,6 @@ export const metadata = {
     title: "Free AI Voice Cloner – Clone Any Voice Online | Shopyor",
     description:
       "Clone a voice from a short sample and generate natural speech from text. Free and instant.",
-    images: ["/og/og-video-downloader-1200x630.jpg"],
   },
 };
 

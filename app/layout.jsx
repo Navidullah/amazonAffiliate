@@ -103,14 +103,6 @@ export const metadata = {
     description:
       "Clone any voice from a short sample and generate natural speech from text. Free, fast, and private — no sign-up needed.",
     siteName: "Shopyor",
-    images: [
-      {
-        url: "/og/og-video-downloader-1200x630.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Shopyor - Free Video Downloader for Facebook, YouTube & TikTok",
-      },
-    ],
     locale: "en_US",
     alternateLocale: ["en_GB", "en_AU"],
     countryName: "United States",
@@ -124,7 +116,6 @@ export const metadata = {
     title: "Shopyor — Free AI Voice Cloner",
     description:
       "Clone a voice from a short sample and generate natural speech from text — free and instant. No sign-up required.",
-    images: ["/og/og-video-downloader-1200x630.jpg"],
   },
 
   robots: {

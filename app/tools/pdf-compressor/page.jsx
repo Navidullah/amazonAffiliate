@@ -37,21 +37,12 @@ export const metadata = {
     url: "https://www.shopyor.com/tools/pdf-compressor",
     siteName: "Shopyor",
     type: "website",
-    images: [
-      {
-        url: "/og/og-video-downloader-1200x630.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Shopyor PDF Compressor",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "PDF Compressor Online - Free and Secure",
     description:
       "Reduce PDF size online in seconds. No signup, clean interface, quality-focused compression.",
-    images: ["/og/og-video-downloader-1200x630.jpg"],
   },
 };
 
