@@ -48,13 +48,14 @@ module.exports = {
     let blogs = [];
 
     try {
-      const res = await fetch(`${siteUrl}/api/blogs`);
+      // The blog list endpoint is /api/blog (singular) and returns { blogs: [...] }.
+      const res = await fetch(`${siteUrl}/api/blog?limit=1000`);
       if (res.ok) {
         const data = await res.json();
-        blogs = Array.isArray(data)
-          ? data
-          : Array.isArray(data.items)
-            ? data.items
+        blogs = Array.isArray(data?.blogs)
+          ? data.blogs
+          : Array.isArray(data)
+            ? data
             : [];
       }
     } catch (err) {
@@ -62,9 +63,10 @@ module.exports = {
     }
 
     return blogs.map((blog) => ({
-      loc: `${siteUrl}/blogs/${blog.slug}`,
+      // Posts are served at /blog/<slug> (singular).
+      loc: `${siteUrl}/blog/${blog.slug}`,
       lastmod: new Date(
-        blog.updatedAt || blog.date || Date.now(),
+        blog.updatedAt || blog.publishedAt || blog.date || Date.now(),
       ).toISOString(),
       changefreq: "monthly",
       priority: 0.7,
@@ -81,7 +83,9 @@ module.exports = {
       priority = 0.8;
     } else if (path === "/tools") {
       priority = 0.8;
-    } else if (path.startsWith("/blogs/")) {
+    } else if (path.startsWith("/tools/voice-clone")) {
+      priority = 0.9;
+    } else if (path.startsWith("/blog/")) {
       changefreq = "monthly";
       priority = 0.7;
     } else if (path.startsWith("/tools/image-compressor")) {

@@ -135,6 +135,13 @@ export const metadata = {
 
   category: "technology",
 
+  // Google Search Console verification.
+  // Set GOOGLE_SITE_VERIFICATION in Vercel (the token from Search Console's
+  // "HTML tag" method) and redeploy — it renders the google-site-verification meta tag.
+  verification: process.env.GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.GOOGLE_SITE_VERIFICATION }
+    : undefined,
+
   classification: "AI Voice Cloning, Online Tools",
 
   referrer: "strict-origin-when-cross-origin",
