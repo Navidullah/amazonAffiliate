@@ -1,15 +1,20 @@
 // app/cookie-policy/page.jsx
-import { Metadata } from "next";
-import { Cookie, Shield, Eye, Info } from "lucide-react";
+import { Cookie, Mail } from "lucide-react";
 
 export const metadata = {
   title: "Cookie Policy - Shopyor",
   description:
-    "Cookie policy for Shopyor. Learn how we use cookies to enhance your experience.",
+    "Cookie Policy for Shopyor. Learn what cookies we use across our tools and how to manage them.",
   robots: "noindex, follow",
 };
 
 export default function CookiePolicyPage() {
+  const currentDate = new Date().toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
   return (
     <div className="min-h-screen bg-background py-16 px-4">
       <div className="container mx-auto max-w-4xl">
@@ -20,42 +25,41 @@ export default function CookiePolicyPage() {
 
         <div className="space-y-6">
           <div className="bg-muted/30 rounded-lg p-6 border">
-            <p className="text-muted-foreground">
-              Last Updated: {new Date().toLocaleDateString()}
-            </p>
+            <p className="text-muted-foreground">Last Updated: {currentDate}</p>
           </div>
 
           <section>
             <h2 className="text-xl font-semibold mb-3">What Are Cookies?</h2>
             <p className="text-muted-foreground">
-              Cookies are small text files that are placed on your computer or
-              mobile device when you visit a website. They are widely used to
-              make websites work more efficiently and provide information to
-              website owners.
+              Cookies are small text files placed on your device when you visit a
+              website. They help websites work efficiently, remember your
+              preferences, and provide anonymous, aggregated information to site
+              owners.
             </p>
           </section>
 
           <section>
             <h2 className="text-xl font-semibold mb-3">How We Use Cookies</h2>
             <p className="text-muted-foreground mb-3">
-              Shopyor uses cookies for the following purposes:
+              Shopyor uses cookies across all of its tools for the following
+              purposes:
             </p>
             <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
               <li>
-                <strong>Essential Cookies:</strong> Required for the website to
-                function properly
+                <strong>Essential Cookies:</strong> required for the website and
+                tools to function properly
               </li>
               <li>
-                <strong>Preference Cookies:</strong> Remember your settings and
-                preferences
+                <strong>Preference Cookies:</strong> remember settings such as your
+                light/dark theme
               </li>
               <li>
-                <strong>Analytics Cookies:</strong> Help us understand how
-                visitors use our site
+                <strong>Analytics Cookies:</strong> help us understand how visitors
+                use our site, anonymously and in aggregate
               </li>
               <li>
-                <strong>Security Cookies:</strong> Protect your data and prevent
-                fraud
+                <strong>Security Cookies:</strong> help protect the service and
+                prevent abuse
               </li>
             </ul>
           </section>
@@ -63,18 +67,40 @@ export default function CookiePolicyPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3">Third-Party Cookies</h2>
             <p className="text-muted-foreground">
-              We use Google Analytics to analyze website traffic. Google
-              Analytics may set cookies on your device. These cookies do not
-              collect personal information that identifies you.
+              We use Google Analytics to measure traffic, and we may serve ads
+              through advertising partners (such as Google AdSense) that can set
+              cookies to deliver and measure ads. These cookies do not collect
+              information that personally identifies you. For more, see our{" "}
+              <a href="/privacy" className="text-primary hover:underline">
+                Privacy Policy
+              </a>
+              .
             </p>
           </section>
 
           <section>
             <h2 className="text-xl font-semibold mb-3">Managing Cookies</h2>
             <p className="text-muted-foreground">
-              You can control and manage cookies in your browser settings.
+              You can control and delete cookies through your browser settings.
               Please note that disabling cookies may affect the functionality of
-              our website.
+              some features.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
+              <Mail className="h-5 w-5 text-primary" />
+              Contact
+            </h2>
+            <p className="text-muted-foreground">
+              Questions about our use of cookies? Contact us at{" "}
+              <a
+                href="mailto:shopyor.com@gmail.com"
+                className="text-primary hover:underline"
+              >
+                shopyor.com@gmail.com
+              </a>
+              .
             </p>
           </section>
 

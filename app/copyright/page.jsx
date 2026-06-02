@@ -1,5 +1,4 @@
 // app/copyright/page.jsx
-import { Metadata } from "next";
 import {
   Copyright,
   FileText,
@@ -9,12 +8,13 @@ import {
   Clock,
   Shield,
   CheckCircle,
+  Mic,
 } from "lucide-react";
 
 export const metadata = {
-  title: "Copyright Policy - Shopyor Video Downloader",
+  title: "Copyright & Rights Policy - Shopyor",
   description:
-    "Copyright policy and DMCA compliance information for Shopyor - Respecting intellectual property rights.",
+    "Copyright, voice, and likeness rights policy for Shopyor. How we respect intellectual property and personal rights across our AI and media tools.",
   robots: "noindex, follow",
 };
 
@@ -31,7 +31,9 @@ export default function CopyrightPage() {
         {/* Header */}
         <div className="flex items-center gap-3 mb-8">
           <Copyright className="h-8 w-8 text-primary" />
-          <h1 className="text-3xl md:text-4xl font-bold">Copyright Policy</h1>
+          <h1 className="text-3xl md:text-4xl font-bold">
+            Copyright &amp; Rights Policy
+          </h1>
         </div>
 
         <div className="space-y-8">
@@ -46,65 +48,85 @@ export default function CopyrightPage() {
               <Shield className="h-5 w-5 text-blue-600 dark:text-blue-500 flex-shrink-0 mt-0.5" />
               <div className="text-sm">
                 <p className="font-medium text-blue-800 dark:text-blue-400">
-                  Our Commitment to Copyright Compliance
+                  Our Commitment
                 </p>
                 <p className="text-blue-700 dark:text-blue-500 mt-1">
-                  Shopyor respects intellectual property rights and complies
-                  with the Digital Millennium Copyright Act (DMCA) and other
-                  applicable copyright laws. We respond promptly to valid
-                  copyright infringement notices.
+                  Shopyor respects intellectual property rights and personal
+                  rights — including the right people have in their own voice and
+                  likeness. We comply with the Digital Millennium Copyright Act
+                  (DMCA) and respond promptly to valid infringement notices.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* What We Do */}
+          {/* Our Stance */}
           <section>
-            <h2 className="text-xl font-semibold mb-3">
-              1. Our Copyright Stance
-            </h2>
+            <h2 className="text-xl font-semibold mb-3">1. Our Stance</h2>
             <p className="text-muted-foreground mb-3">
-              Shopyor provides tools to download publicly available videos for
-              personal use. We:
+              Shopyor provides tools that process content you supply. We:
             </p>
             <ul className="space-y-2 text-muted-foreground">
-              <li className="flex items-start gap-2">
-                <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                <span>
-                  Do NOT host, store, or distribute any copyrighted content
-                </span>
+              {[
+                "Do NOT host, store, or distribute copyrighted media",
+                "Do NOT claim ownership of content you upload, download, or generate",
+                "Do NOT encourage or facilitate infringement or impersonation",
+                "Do NOT bypass copyright protection or platform security",
+              ].map((t) => (
+                <li key={t} className="flex items-start gap-2">
+                  <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                  <span>{t}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* Voice & Likeness Rights */}
+          <section>
+            <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
+              <Mic className="h-5 w-5 text-primary" />
+              2. Voice, Likeness &amp; Publicity Rights
+            </h2>
+            <p className="text-muted-foreground mb-3">
+              A person's voice is protected by privacy, publicity, and (in some
+              regions) biometric laws. When using our AI voice cloning tool, you
+              agree that:
+            </p>
+            <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
+              <li>
+                You will only clone a voice you own or have explicit permission to
+                use.
               </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                <span>Do NOT claim ownership of any downloaded content</span>
+              <li>
+                You will not impersonate, defame, or deceive using a generated
+                voice.
               </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                <span>
-                  Do NOT encourage or facilitate copyright infringement
-                </span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                <span>Do NOT bypass any copyright protection mechanisms</span>
+              <li>
+                You are solely responsible for obtaining any consent or release
+                required for the voice and the content you create.
               </li>
             </ul>
+            <p className="text-muted-foreground mt-3">
+              If someone has cloned your voice without permission using our tool,
+              you can report it using the contact details below and we will act
+              promptly.
+            </p>
           </section>
 
           {/* User Responsibilities */}
           <section>
             <h2 className="text-xl font-semibold mb-3">
-              2. User Responsibilities
+              3. User Responsibilities
             </h2>
             <p className="text-muted-foreground mb-3">
               Users of our service are solely responsible for:
             </p>
             <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
-              <li>Ensuring they have the right to download any content</li>
-              <li>Complying with copyright laws in their jurisdiction</li>
-              <li>Obtaining necessary permissions from content owners</li>
-              <li>Using downloaded content only for permitted purposes</li>
-              <li>Not redistributing or selling downloaded content</li>
+              <li>Having the right or consent to use any content they process</li>
+              <li>Complying with copyright and personal-rights laws in their jurisdiction</li>
+              <li>Obtaining permissions or releases from rights holders</li>
+              <li>Using content only for lawful, permitted purposes</li>
+              <li>Not redistributing or selling content they don't own</li>
             </ul>
           </section>
 
@@ -112,99 +134,70 @@ export default function CopyrightPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <FileText className="h-5 w-5 text-primary" />
-              3. DMCA Compliance
+              4. DMCA &amp; Takedown Requests
             </h2>
             <p className="text-muted-foreground">
-              In accordance with the Digital Millennium Copyright Act (DMCA), we
-              will respond promptly to claims of copyright infringement that are
-              reported to our designated copyright agent.
+              In accordance with the DMCA and similar laws, we respond promptly to
+              valid notices of copyright or rights infringement reported to our
+              designated agent. See our{" "}
+              <a href="/dmca" className="text-primary hover:underline">
+                DMCA Notice
+              </a>{" "}
+              for the full procedure.
             </p>
 
             <div className="mt-4 bg-muted/30 p-4 rounded-lg">
-              <h3 className="font-semibold mb-2">
-                To File a DMCA Notice, Please Provide:
-              </h3>
+              <h3 className="font-semibold mb-2">A valid notice should include:</h3>
               <ul className="space-y-2 text-sm text-muted-foreground ml-6 list-disc">
-                <li>
-                  Identification of the copyrighted work claimed to have been
-                  infringed
-                </li>
-                <li>
-                  Identification of the material that is claimed to be
-                  infringing
-                </li>
-                <li>
-                  Your contact information (name, address, email, phone number)
-                </li>
-                <li>
-                  A statement of good faith belief that use is not authorized
-                </li>
-                <li>
-                  A statement under penalty of perjury that information is
-                  accurate
-                </li>
+                <li>Identification of the work or rights claimed to be infringed</li>
+                <li>Identification of the infringing material or activity</li>
+                <li>Your contact information (name, address, email, phone)</li>
+                <li>A statement of good-faith belief that use is not authorized</li>
+                <li>A statement, under penalty of perjury, that the information is accurate</li>
                 <li>Your physical or electronic signature</li>
               </ul>
             </div>
           </section>
 
-          {/* Reporting Infringement */}
+          {/* Reporting */}
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <Mail className="h-5 w-5 text-primary" />
-              4. Reporting Copyright Infringement
+              5. Reporting Infringement
             </h2>
             <p className="text-muted-foreground">
-              If you believe your copyrighted work has been used or displayed on
-              our service in a way that constitutes copyright infringement,
-              please contact our Copyright Agent:
+              To report copyright infringement or misuse of your voice/likeness,
+              contact our agent:
             </p>
             <div className="mt-4 p-4 bg-muted/30 rounded-lg">
               <p className="font-mono text-sm">
-                <strong>Copyright Agent</strong>
+                <strong>Copyright &amp; Rights Agent</strong>
                 <br />
                 Shopyor
                 <br />
                 Email:{" "}
                 <a
-                  href="mailto:dmca@shopyor.com"
+                  href="mailto:shopyor.com@gmail.com"
                   className="text-primary hover:underline"
                 >
-                  dmca@shopyor.com
+                  shopyor.com@gmail.com
                 </a>
                 <br />
                 Response Time: 24-48 hours
               </p>
             </div>
-            <p className="text-muted-foreground mt-3 text-sm">
-              Please allow 24-48 hours for a response. We take all copyright
-              claims seriously and will investigate promptly.
-            </p>
           </section>
 
           {/* Counter-Notification */}
           <section>
-            <h2 className="text-xl font-semibold mb-3">
-              5. Counter-Notification
-            </h2>
+            <h2 className="text-xl font-semibold mb-3">6. Counter-Notification</h2>
             <p className="text-muted-foreground">
-              If you believe your content was removed due to a mistake or
-              misidentification, you may file a counter-notification. Your
-              counter-notification must include:
-            </p>
-            <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4 mt-3">
-              <li>Identification of the material that was removed</li>
-              <li>
-                A statement under penalty of perjury that you have a good faith
-                belief the material was removed due to mistake
-              </li>
-              <li>Your name, address, and telephone number</li>
-              <li>A statement consenting to jurisdiction of federal court</li>
-              <li>Your physical or electronic signature</li>
-            </ul>
-            <p className="text-muted-foreground mt-3">
-              We will review and respond according to DMCA procedures within
-              10-14 business days.
+              If you believe content was removed by mistake or misidentification,
+              you may submit a counter-notification including: identification of
+              the removed material; a statement under penalty of perjury of your
+              good-faith belief; your name, address, and phone number; consent to
+              the jurisdiction of the appropriate court; and your signature. We
+              review counter-notices according to DMCA procedures.
             </p>
           </section>
 
@@ -212,55 +205,38 @@ export default function CopyrightPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <AlertCircle className="h-5 w-5 text-primary" />
-              6. Repeat Infringers
+              7. Repeat Infringers
             </h2>
             <p className="text-muted-foreground">
-              We reserve the right to terminate access to our service for users
-              who are determined to be repeat infringers of copyright laws. This
-              includes blocking IP addresses and preventing future access to our
-              tools.
+              We reserve the right to terminate access for users determined to be
+              repeat infringers, including blocking IP addresses and preventing
+              future use of our tools.
             </p>
           </section>
 
-          {/* Fair Use Notice */}
+          {/* Fair Use */}
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <Scale className="h-5 w-5 text-primary" />
-              7. Fair Use Notice
+              8. Fair Use Notice
             </h2>
             <p className="text-muted-foreground">
-              Some content on third-party platforms may be used under the "fair
-              use" doctrine for purposes such as criticism, comment, news
-              reporting, teaching, scholarship, or research. We encourage users
-              to evaluate whether their use of downloaded content qualifies as
-              fair use under applicable laws.
+              Some uses of content may qualify as "fair use" for purposes such as
+              criticism, comment, news reporting, teaching, scholarship, or
+              research. You are responsible for evaluating whether your use
+              qualifies under applicable law.
             </p>
           </section>
 
-          {/* Limitation of Liability */}
-          <section>
-            <h2 className="text-xl font-semibold mb-3">
-              8. Limitation of Liability
-            </h2>
-            <p className="text-muted-foreground">
-              Shopyor shall not be liable for any copyright infringement
-              committed by users of our service. Users assume all responsibility
-              for ensuring their use of downloaded content complies with
-              copyright laws.
-            </p>
-          </section>
-
-          {/* Changes to Policy */}
+          {/* Changes */}
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <Clock className="h-5 w-5 text-primary" />
               9. Changes to This Policy
             </h2>
             <p className="text-muted-foreground">
-              We may update this copyright policy from time to time. Changes
-              will be posted on this page with an updated effective date.
-              Continued use of our service after changes constitutes acceptance
-              of the new policy.
+              We may update this policy from time to time. Changes are posted on
+              this page with an updated date. Continued use constitutes acceptance.
             </p>
           </section>
 
@@ -273,10 +249,10 @@ export default function CopyrightPage() {
                   Important Legal Notice
                 </p>
                 <p className="text-red-700 dark:text-red-500">
-                  We take copyright infringement seriously. False claims of
-                  copyright infringement may result in legal liability. Please
-                  consult with legal counsel before filing a DMCA notice if you
-                  are unsure about your rights.
+                  We take infringement and voice misuse seriously. Knowingly false
+                  claims may result in legal liability. Please consult legal
+                  counsel if you are unsure about your rights before filing a
+                  notice.
                 </p>
               </div>
             </div>

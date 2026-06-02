@@ -31,8 +31,9 @@ export default function Footer() {
               Shopyor
             </h3>
             <p className="text-sm text-muted-foreground mb-4">
-              Free online video downloader for Facebook, YouTube, and TikTok.
-              Download videos in HD quality without registration.
+              Free online tools — AI voice cloning, video downloaders, image,
+              YouTube and SEO utilities. Fast, private, and no registration
+              required.
             </p>
             <p className="text-xs text-muted-foreground">
               © {currentYear} Shopyor. All rights reserved.
@@ -103,10 +104,18 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
-                  href="/tools/facebook-video-downloader"
+                  href="/tools/voice-clone"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
-                  Facebook Video Downloader
+                  AI Voice Cloner
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/tools"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  All Tools
                 </Link>
               </li>
               <li>
@@ -165,15 +174,16 @@ export default function Footer() {
             <Scale className="h-5 w-5 text-amber-600 dark:text-amber-500 flex-shrink-0 mt-0.5" />
             <div className="text-xs">
               <p className="font-medium text-amber-800 dark:text-amber-400 mb-1">
-                Copyright & Fair Use Disclaimer
+                Copyright, Consent & Fair Use Disclaimer
               </p>
               <p className="text-amber-700 dark:text-amber-500">
-                Shopyor provides tools to download publicly available videos for
-                personal, non-commercial use only. Users are solely responsible
-                for ensuring they have the necessary rights or permissions to
-                download any content. We do not host, store, or distribute any
-                copyrighted content. All trademarks and copyrighted materials
-                belong to their respective owners.
+                Shopyor provides tools for personal, non-commercial use. Users are
+                solely responsible for ensuring they have the necessary rights,
+                permissions, or consent for any content they download, upload, or
+                generate — including the right to clone any voice with our AI tool.
+                We do not host, store, or distribute copyrighted content. All
+                trademarks and copyrighted materials belong to their respective
+                owners.
               </p>
             </div>
           </div>
