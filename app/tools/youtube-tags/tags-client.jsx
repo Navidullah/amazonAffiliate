@@ -1,168 +1,249 @@
 "use client";
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import { Loader2, Copy, Download } from "lucide-react";
+import { useState, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Loader2,
+  Copy,
+  Check,
+  Download,
+  Youtube,
+  Tag,
+  AlertCircle,
+  FileText,
+  Sparkles,
+} from "lucide-react";
 
 export default function TagsClient() {
   const [url, setUrl] = useState("");
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [copiedAll, setCopiedAll] = useState(false);
+  const [copiedTag, setCopiedTag] = useState(null);
 
-  const extractVideoId = (url) => {
+  const extractVideoId = (value) => {
     const regExp =
-      /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-    const match = url.match(regExp);
+      /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|shorts\/)([^#&?]*).*/;
+    const match = value.match(regExp);
     return match && match[2].length === 11 ? match[2] : null;
   };
 
   const handleFetch = async () => {
     setError("");
+    setData(null);
     const videoId = extractVideoId(url);
-
     if (!videoId) {
-      setError("Enter a valid YouTube URL.");
+      setError("Please enter a valid YouTube video or Shorts URL.");
       return;
     }
 
     setLoading(true);
-
-    const response = await fetch("/api/youtube-tags", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ videoId }),
-    });
-
-    const result = await response.json();
-
-    if (!response.ok) {
-      setError(result.error || "Failed to fetch tags.");
-      setLoading(false);
-      return;
+    try {
+      const response = await fetch("/api/youtube-tags", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ videoId }),
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        setError(result.error || "Failed to fetch tags.");
+        setLoading(false);
+        return;
+      }
+      setData({ ...result, videoId });
+    } catch {
+      setError("Something went wrong. Please try again.");
     }
-
-    setData(result);
     setLoading(false);
   };
 
-  const copyTags = () => {
-    if (!data?.tags) return;
-    navigator.clipboard.writeText(data.tags.join(", "));
+  const tags = data?.tags || [];
+  const charCount = useMemo(() => tags.join(", ").length, [tags]);
+
+  const copyAll = async () => {
+    if (!tags.length) return;
+    await navigator.clipboard.writeText(tags.join(", "));
+    setCopiedAll(true);
+    setTimeout(() => setCopiedAll(false), 1800);
   };
 
-  const exportCSV = () => {
-    if (!data?.tags) return;
+  const copyOne = async (tag, i) => {
+    await navigator.clipboard.writeText(tag);
+    setCopiedTag(i);
+    setTimeout(() => setCopiedTag(null), 1200);
+  };
 
-    const csvContent = data.tags.join(",");
-    const blob = new Blob([csvContent], { type: "text/csv" });
-    const url = URL.createObjectURL(blob);
-
+  const exportFile = (type) => {
+    if (!tags.length) return;
+    const content = type === "csv" ? tags.join(",") : tags.join("\n");
+    const blob = new Blob([content], {
+      type: type === "csv" ? "text/csv" : "text/plain",
+    });
+    const href = URL.createObjectURL(blob);
     const a = document.createElement("a");
-    a.href = url;
-    a.download = "youtube-tags.csv";
+    a.href = href;
+    a.download = `youtube-tags.${type === "csv" ? "csv" : "txt"}`;
     a.click();
-    URL.revokeObjectURL(url);
+    URL.revokeObjectURL(href);
   };
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/30 via-purple-600/20 to-pink-600/30 blur-3xl opacity-40"></div>
-
-      <div className="relative max-w-6xl mx-auto px-6 py-24 space-y-16">
-        <div className="text-center space-y-6">
-          <Badge className="bg-white/10 border border-white/20">
-            Creator Tool
-          </Badge>
-
-          <h1 className="text-5xl font-extrabold">
-            Extract YouTube Tags <br />
-            <span className="bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
-              Instantly
-            </span>
-          </h1>
-
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            Get video tags, title, and description in seconds. Perfect for
-            YouTube SEO optimization.
-          </p>
-        </div>
-
-        <Card className="bg-white/5 border border-white/10 backdrop-blur-xl">
-          <CardContent className="p-10 space-y-6">
-            <div className="flex flex-col md:flex-row gap-4">
-              <Input
-                placeholder="Paste YouTube URL..."
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-                className="h-14 bg-black/40 border-white/20"
-              />
-
-              <Button
-                onClick={handleFetch}
-                size="lg"
-                className="h-14 px-10 bg-gradient-to-r from-purple-500 to-pink-500"
-                disabled={loading}
-              >
-                {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Extract
-              </Button>
-            </div>
-
-            {error && <p className="text-sm text-red-400">{error}</p>}
-          </CardContent>
-        </Card>
-
-        {data && (
-          <div className="space-y-10">
-            <Card className="bg-white/5 border border-white/10">
-              <CardContent className="p-6 space-y-4">
-                <h2 className="text-2xl font-bold">{data.title}</h2>
-                <p className="text-gray-400">{data.channel}</p>
-                <p className="text-gray-500 whitespace-pre-line">
-                  {data.description}
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white/5 border border-white/10">
-              <CardContent className="p-6 space-y-6">
-                <div className="flex justify-between items-center">
-                  <h3 className="text-xl font-semibold">
-                    Tags ({data.tags.length})
-                  </h3>
-
-                  <div className="flex gap-3">
-                    <Button variant="outline" size="icon" onClick={copyTags}>
-                      <Copy className="h-4 w-4" />
-                    </Button>
-
-                    <Button variant="outline" size="icon" onClick={exportCSV}>
-                      <Download className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap gap-3">
-                  {data.tags.map((tag, index) => (
-                    <Badge
-                      key={index}
-                      className="bg-purple-600/20 border border-purple-500/30 text-purple-300"
-                    >
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+    <div className="space-y-8">
+      {/* Input */}
+      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-5 sm:p-7">
+        <div className="flex flex-col md:flex-row gap-3">
+          <div className="relative flex-1">
+            <Youtube className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-red-500" />
+            <input
+              type="text"
+              placeholder="Paste YouTube video or Shorts URL..."
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleFetch()}
+              className="w-full h-14 pl-12 pr-4 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition"
+            />
           </div>
+          <motion.button
+            whileTap={{ scale: 0.98 }}
+            onClick={handleFetch}
+            disabled={loading}
+            className="h-14 px-8 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold flex items-center justify-center gap-2 transition-all shadow-lg disabled:opacity-70"
+          >
+            {loading ? (
+              <Loader2 className="w-5 h-5 animate-spin" />
+            ) : (
+              <Tag className="w-5 h-5" />
+            )}
+            Extract Tags
+          </motion.button>
+        </div>
+        {error && (
+          <p className="flex items-center gap-1.5 text-sm text-red-500 mt-3">
+            <AlertCircle className="w-4 h-4" /> {error}
+          </p>
         )}
       </div>
+
+      {/* Results */}
+      <AnimatePresence mode="wait">
+        {data && (
+          <motion.div
+            key="result"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-6"
+          >
+            {/* Video meta */}
+            <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-lg flex flex-col sm:flex-row">
+              <img
+                src={`https://img.youtube.com/vi/${data.videoId}/mqdefault.jpg`}
+                alt={data.title}
+                className="w-full sm:w-56 aspect-video object-cover"
+              />
+              <div className="p-5 flex flex-col justify-center">
+                <h2 className="text-lg font-bold leading-snug line-clamp-2">
+                  {data.title}
+                </h2>
+                <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                  {data.channel}
+                </p>
+              </div>
+            </div>
+
+            {/* Tags */}
+            <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-lg p-5 sm:p-6">
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
+                <div className="flex items-center gap-3">
+                  <h3 className="text-lg font-semibold">
+                    {tags.length} {tags.length === 1 ? "Tag" : "Tags"}
+                  </h3>
+                  {tags.length > 0 && (
+                    <span
+                      className={`text-xs font-medium px-2 py-1 rounded-md ${
+                        charCount > 500
+                          ? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300"
+                          : "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300"
+                      }`}
+                    >
+                      {charCount}/500 characters
+                    </span>
+                  )}
+                </div>
+
+                {tags.length > 0 && (
+                  <div className="flex gap-2">
+                    <button
+                      onClick={copyAll}
+                      className="flex items-center gap-1.5 text-sm bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 rounded-lg transition"
+                    >
+                      {copiedAll ? (
+                        <>
+                          <Check className="w-4 h-4" /> Copied
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-4 h-4" /> Copy all
+                        </>
+                      )}
+                    </button>
+                    <button
+                      onClick={() => exportFile("csv")}
+                      className="flex items-center gap-1.5 text-sm bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 px-3 py-2 rounded-lg transition"
+                      title="Export as CSV"
+                    >
+                      <Download className="w-4 h-4" /> CSV
+                    </button>
+                    <button
+                      onClick={() => exportFile("txt")}
+                      className="flex items-center gap-1.5 text-sm bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 px-3 py-2 rounded-lg transition"
+                      title="Export as TXT"
+                    >
+                      <FileText className="w-4 h-4" /> TXT
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {tags.length > 0 ? (
+                <div className="flex flex-wrap gap-2">
+                  {tags.map((tag, i) => (
+                    <button
+                      key={i}
+                      onClick={() => copyOne(tag, i)}
+                      className="group flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 text-purple-700 dark:text-purple-300 hover:bg-purple-100 dark:hover:bg-purple-900/40 transition"
+                      title="Click to copy"
+                    >
+                      {tag}
+                      {copiedTag === i ? (
+                        <Check className="w-3.5 h-3.5 text-emerald-500" />
+                      ) : (
+                        <Copy className="w-3.5 h-3.5 opacity-0 group-hover:opacity-60 transition" />
+                      )}
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <div className="flex flex-col items-center text-center py-10 text-slate-500 dark:text-slate-400">
+                  <Tag className="w-8 h-8 mb-2 opacity-50" />
+                  <p className="font-medium">This video has no public tags.</p>
+                  <p className="text-sm mt-1">
+                    Many creators leave tags empty — try another video, or use
+                    the tag ideas below for inspiration.
+                  </p>
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {!data && (
+        <div className="flex items-center justify-center gap-2 text-sm text-slate-400 dark:text-slate-500">
+          <Sparkles className="w-4 h-4" />
+          Paste any YouTube link to reveal its tags, title and channel.
+        </div>
+      )}
     </div>
   );
 }
