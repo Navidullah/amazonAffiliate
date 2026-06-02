@@ -12,6 +12,7 @@ import {
   Settings2,
   Search,
   Sparkles,
+  Globe,
 } from "lucide-react";
 
 /* --------------------------- SEO METADATA --------------------------- */
@@ -143,24 +144,36 @@ const schemas = {
       {
         "@type": "HowToStep",
         position: 1,
-        name: "Choose a template",
-        text: "Select a quick-start template for WordPress, Shopify, Blogger, or block AI bots.",
+        name: "Pick a template",
+        text: "Click a quick-start template (WordPress, Shopify, Blogger or Block AI Bots) at the top of the generator, or start from scratch.",
       },
       {
         "@type": "HowToStep",
         position: 2,
-        name: "Add domain and rules",
-        text: "Enter your domain, set Allow/Disallow paths and add your XML sitemap URL.",
+        name: "Enter your domain",
+        text: "On the Basic tab, enter your domain so the tool auto-adds your sitemap URL.",
       },
       {
         "@type": "HowToStep",
         position: 3,
-        name: "Copy or download",
-        text: "Copy the generated robots.txt or download the file.",
+        name: "Set your rules",
+        text: "Use the Basic and Advanced tabs to choose folders to block and add custom Allow/Disallow paths and a crawl-delay.",
       },
       {
         "@type": "HowToStep",
         position: 4,
+        name: "Block AI bots",
+        text: "Optionally open the AI Bots tab and toggle crawlers like GPTBot and ClaudeBot to block AI scrapers.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 5,
+        name: "Copy or download",
+        text: "Review the live preview and SEO validation, then copy the robots.txt or download the file.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 6,
         name: "Upload to root",
         text: "Upload robots.txt to your site root so it loads at yourdomain.com/robots.txt.",
       },
@@ -245,22 +258,32 @@ const steps = [
   {
     icon: Sparkles,
     title: "Pick a template",
-    text: "Choose WordPress, Shopify, Blogger, Block AI Bots, or start from scratch.",
+    text: "Click a quick-start template at the top of the tool — WordPress, Shopify, Blogger or Block AI Bots — or leave it blank to build from scratch.",
+  },
+  {
+    icon: Globe,
+    title: "Enter your domain",
+    text: "On the Basic tab, type your domain (e.g. example.com). The tool auto-adds your Sitemap URL and uses it across the file.",
   },
   {
     icon: Settings2,
-    title: "Configure rules",
-    text: "Add your domain, Allow/Disallow paths, crawl-delay and sitemap URLs.",
+    title: "Set your rules",
+    text: "Use the Basic and Advanced tabs to toggle folders to block, add custom Disallow / Allow paths and a crawl-delay.",
+  },
+  {
+    icon: Bot,
+    title: "Block AI bots (optional)",
+    text: "Open the AI Bots tab and toggle crawlers like GPTBot or ClaudeBot to keep AI scrapers out while Google stays allowed.",
   },
   {
     icon: FileCode2,
     title: "Copy or download",
-    text: "Grab your optimized robots.txt with one click — fully formatted.",
+    text: "Check the live preview and the SEO validation panel, then hit Copy or Download to grab your robots.txt.",
   },
   {
     icon: Upload,
-    title: "Upload to root",
-    text: "Place it at yourdomain.com/robots.txt and you're live.",
+    title: "Upload to your root",
+    text: "Place the file in your site root so it loads at yourdomain.com/robots.txt — done.",
   },
 ];
 
@@ -390,6 +413,33 @@ export default function Page() {
             </div>
           </div>
 
+          {/* Quick how-to (above the tool) */}
+          <div className="max-w-4xl mx-auto mb-8">
+            <div className="bg-white/70 dark:bg-slate-800/60 backdrop-blur rounded-2xl border border-slate-200 dark:border-slate-700 p-5 md:p-6">
+              <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-blue-600" />
+                How to use this robots.txt generator
+              </h2>
+              <ol className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {steps.map((s, i) => (
+                  <li key={s.title} className="flex items-start gap-3">
+                    <span className="shrink-0 w-7 h-7 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xs font-bold flex items-center justify-center">
+                      {i + 1}
+                    </span>
+                    <div>
+                      <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">
+                        {s.title}
+                      </p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-snug">
+                        {s.text}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+
           {/* Tool */}
           <Suspense
             fallback={
@@ -435,10 +485,14 @@ export default function Page() {
 
           {/* How to */}
           <section className="mt-20">
-            <h2 className="text-3xl font-bold text-center mb-10">
-              How to create a robots.txt file in 4 steps
+            <h2 className="text-3xl font-bold text-center mb-3">
+              How to make a robots.txt file step by step
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <p className="text-center text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-10">
+              Follow these six steps to generate and publish your robots.txt
+              with the tool above.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {steps.map((s, i) => {
                 const Icon = s.icon;
                 return (
