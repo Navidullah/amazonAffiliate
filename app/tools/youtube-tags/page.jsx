@@ -2,6 +2,7 @@ import TagsClient from "./tags-client";
 import Link from "next/link";
 import {
   Tag,
+  Search,
   Copy,
   TrendingUp,
   Check,
