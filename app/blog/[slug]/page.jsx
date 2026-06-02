@@ -205,8 +205,9 @@ export default async function SingleBlogPage({ params }) {
             prose-a:font-medium prose-a:text-foreground prose-a:underline prose-a:decoration-foreground/30 prose-a:underline-offset-[3px] hover:prose-a:decoration-foreground
             prose-strong:font-semibold prose-strong:text-foreground
             prose-blockquote:font-serif prose-blockquote:not-italic prose-blockquote:border-l-[3px] prose-blockquote:border-foreground prose-blockquote:pl-6 prose-blockquote:text-[1.35rem] prose-blockquote:leading-relaxed prose-blockquote:text-foreground/80 prose-blockquote:my-8
-            prose-code:rounded prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:font-mono prose-code:text-[0.9em] prose-code:before:content-[''] prose-code:after:content-['']
-            prose-pre:rounded-xl prose-pre:border prose-pre:bg-muted prose-pre:text-[0.95rem]
+            prose-code:rounded prose-code:bg-muted prose-code:text-foreground prose-code:px-1.5 prose-code:py-0.5 prose-code:font-mono prose-code:text-[0.9em] prose-code:before:content-[''] prose-code:after:content-['']
+            prose-pre:rounded-xl prose-pre:border prose-pre:border-border prose-pre:bg-muted prose-pre:text-foreground prose-pre:text-[0.95rem] prose-pre:p-4 prose-pre:overflow-x-auto
+            [&_pre_code]:bg-transparent [&_pre_code]:text-foreground [&_pre_code]:p-0
             prose-img:rounded-xl prose-img:shadow-sm
             prose-hr:my-12 prose-hr:border-border
             prose-table:text-base prose-th:bg-muted/60 prose-th:border prose-td:border prose-td:p-2 prose-th:p-2"
