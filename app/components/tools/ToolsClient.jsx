@@ -15,6 +15,7 @@ import {
   Tag,
   File,
   Video,
+  Mail,
   Search,
   ArrowRight,
   Sparkles,
@@ -47,6 +48,7 @@ const CATEGORY_GRADIENT = {
   PDF: "from-red-500 to-rose-600",
   YouTube: "from-red-600 to-orange-500",
   SEO: "from-violet-500 to-indigo-600",
+  Productivity: "from-sky-500 to-blue-600",
 };
 
 const gradientFor = (category) =>
@@ -191,6 +193,13 @@ export default function ToolsClient() {
       icon: File,
       category: "SEO",
     },
+    {
+      href: "/tools/email-generator",
+      title: "Email Generator (Random & Professional)",
+      desc: "Generate random test emails or professional business email addresses instantly.",
+      icon: Mail,
+      category: "Productivity",
+    },
   ];
 
   const categories = [
@@ -202,6 +211,7 @@ export default function ToolsClient() {
     "SEO",
     "PDF",
     "YouTube",
+    "Productivity",
   ];
 
   const filteredTools = tools.filter((tool) => {
