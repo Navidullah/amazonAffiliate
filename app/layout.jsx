@@ -178,7 +178,7 @@ const jsonLdSchemas = {
     "@type": "Organization",
     name: "Shopyor",
     url: "https://www.shopyor.com",
-    logo: "https://www.shopyor.com/logo.png",
+    logo: "/shopyor.png",
     sameAs: [
       "https://www.facebook.com/shopyor",
       "https://twitter.com/shopyor",
