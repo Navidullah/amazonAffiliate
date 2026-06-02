@@ -99,7 +99,7 @@ const schemas = {
         name: "How do I create a custom robots.txt file for my website?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Pick a template (WordPress, Shopify, Blogger or Custom) in the generator above, add your domain and sitemap, choose which folders or AI bots to block, then copy or download the file and upload it to your root directory at www.shopyor.com/robots.txt.",
+          text: "Pick a template (WordPress, Shopify, Blogger or Custom) in the generator above, add your domain and sitemap, choose which folders or AI bots to block, then copy or download the file and upload it to your root directory at yourdomain.com/robots.txt.",
         },
       },
       {
@@ -115,7 +115,7 @@ const schemas = {
         name: "Where should I upload the robots.txt file?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Upload it to the root of your domain so it is reachable at https://www.shopyor.com/robots.txt. Search engines only read robots.txt from the root — it will not work inside a sub-folder.",
+          text: "Upload it to the root of your domain so it is reachable at https://yourdomain.com/robots.txt. Search engines only read robots.txt from the root — it will not work inside a sub-folder.",
         },
       },
       {
@@ -175,7 +175,7 @@ const schemas = {
         "@type": "HowToStep",
         position: 6,
         name: "Upload to root",
-        text: "Upload robots.txt to your site root so it loads at www.shopyor.com/robots.txt.",
+        text: "Upload robots.txt to your site root so it loads at yourdomain.com/robots.txt.",
       },
     ],
   },
@@ -293,7 +293,7 @@ const steps = [
   {
     icon: Upload,
     title: "Upload to your root",
-    text: "Place the file in your site root so it loads at www.shopyor.com/robots.txt — done.",
+    text: "Place the file in your site root so it loads at yourdomain.com/robots.txt — done.",
   },
 ];
 
