@@ -193,27 +193,6 @@ const jsonLdSchemas = {
     },
   },
 
-  softwareApplication: {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    name: "Shopyor AI Voice Cloner",
-    applicationCategory: "MultimediaApplication",
-    operatingSystem: "Web, Android, iOS, Windows, Mac",
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "USD",
-    },
-    featureList: [
-      "Clone a voice from a short audio sample",
-      "Generate speech from text in the cloned voice",
-      "Download results as WAV",
-      "Consent-required and privacy-friendly",
-      "No registration required",
-      "Works on mobile and desktop",
-    ],
-  },
-
   webSite: {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -267,12 +246,6 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(jsonLdSchemas.organization),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLdSchemas.softwareApplication),
           }}
         />
         <script
@@ -346,22 +319,6 @@ export default function RootLayout({ children }) {
           <SpeedInsights />
           <Footer />
         </Providers>
-
-        {/* Schema for scroll to top functionality */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebPage",
-              name: "Shopyor AI Voice Cloner",
-              description:
-                "Clone any voice from a short sample and generate natural speech from text — free.",
-              url: "https://www.shopyor.com",
-              inLanguage: "en-US",
-            }),
-          }}
-        />
       </body>
     </html>
   );

@@ -97,8 +97,36 @@ export default async function BlogPage({ searchParams }) {
     search,
   });
 
+  /* Page-specific structured data so search engines snippet the blog itself
+     instead of falling back to site-wide footer boilerplate. */
+  const blogSchema = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: "Shopyor Blog",
+    description: metadata.description,
+    url: `${BASE_URL}/blog`,
+    publisher: {
+      "@type": "Organization",
+      name: "Shopyor",
+      url: BASE_URL,
+    },
+    blogPost: blogs.map((blog) => ({
+      "@type": "BlogPosting",
+      headline: blog.title,
+      description: blog.excerpt,
+      url: `${BASE_URL}/blog/${blog.slug}`,
+      datePublished: blog.publishedAt,
+      author: { "@type": "Person", name: blog.author || "Shopyor" },
+      articleSection: blog.category,
+    })),
+  };
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-background py-16 px-4">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
+      />
       {/* Decorative gradient blobs (CSS-only) */}
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute -top-32 right-0 h-80 w-80 rounded-full bg-purple-500/10 blur-3xl animate-[pulse_10s_ease-in-out_infinite]" />
@@ -121,8 +149,9 @@ export default async function BlogPage({ searchParams }) {
             </span>
           </h1>
           <p className="mx-auto max-w-2xl text-lg text-muted-foreground md:text-xl">
-            Everything about downloading videos from social media — plus SEO,
-            tutorials, and creator tips.
+            Tips, tutorials, and step-by-step guides for downloading videos from
+            Facebook, Instagram, TikTok and YouTube — plus SEO advice and creator
+            tips from the Shopyor blog. New how-tos added regularly.
           </p>
         </div>
 
