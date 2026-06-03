@@ -136,6 +136,22 @@ export default function ToolsPage() {
               and image utilities across this tools directory.
             </p>
           </div>
+          <div>
+            <h3 className="font-semibold text-gray-900 dark:text-white">
+              Need to control how search engines crawl your site?
+            </h3>
+            <p className="mt-1">
+              Use our free{" "}
+              <Link
+                href="/tools/robots-txt-generator"
+                className="font-medium text-cyan-600 hover:underline dark:text-cyan-400"
+              >
+                robots.txt generator
+              </Link>{" "}
+              to create a custom robots file for WordPress, Shopify or Blogger,
+              add your sitemap, and block AI bots in one click.
+            </p>
+          </div>
         </div>
       </section>
     </>

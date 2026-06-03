@@ -23,6 +23,10 @@ export const metadata = {
     "Free robots.txt generator to create a custom, SEO-friendly robots.txt file in seconds. WordPress, Shopify & Blogger templates, sitemap support, crawl-delay, and one-click blocking of AI bots like GPTBot, ChatGPT & ClaudeBot. No signup.",
   keywords: [
     "robots.txt generator",
+    "robots file generator",
+    "robot file generator",
+    "robots txt generator google",
+    "google robots.txt generator",
     "custom robots.txt generator",
     "robots.txt generator for blogger",
     "robots.txt generator for wordpress",
@@ -402,7 +406,11 @@ export default function Page() {
             </h1>
 
             <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
-              Create a custom, SEO-friendly{" "}
+              A free{" "}
+              <strong className="font-semibold text-slate-800 dark:text-slate-100">
+                robots file generator
+              </strong>{" "}
+              that builds a custom, SEO-friendly{" "}
               <strong className="font-semibold text-slate-800 dark:text-slate-100">
                 robots.txt file
               </strong>{" "}
@@ -621,6 +629,38 @@ export default function Page() {
                   </li>
                 ))}
               </ul>
+            </div>
+          </section>
+
+          {/* Google-specific */}
+          <section className="mt-20 grid md:grid-cols-2 gap-8">
+            <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700">
+              <h2 className="text-xl font-semibold mb-3">
+                Robots.txt generator for Google (Googlebot)
+              </h2>
+              <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                This robots file generator produces a file Googlebot reads
+                exactly the way Google documents it. Add your sitemap so Google
+                discovers every URL, keep CSS and JavaScript allowed so Google
+                can render your pages, and use Disallow only for the sections you
+                truly want kept out of crawling. Remember that Googlebot ignores
+                crawl-delay — set your crawl rate in Google Search Console
+                instead — and that blocking a URL here stops crawling but does
+                not remove an already-indexed page (use a noindex tag for that).
+              </p>
+            </div>
+            <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700">
+              <h2 className="text-xl font-semibold mb-3">
+                Robot file generator for any platform
+              </h2>
+              <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                Whether you call it a robots file generator, a robot file
+                generator or a robots.txt maker, the goal is the same: a clean,
+                valid file at the root of your domain. Pick a WordPress, Shopify
+                or Blogger template above, generate your file, and validate it
+                with the built-in SEO checks before you upload it to{" "}
+                <span className="font-mono">yourdomain.com/robots.txt</span>.
+              </p>
             </div>
           </section>
 
