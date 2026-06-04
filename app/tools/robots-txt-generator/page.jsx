@@ -43,6 +43,12 @@ export const metadata = {
     "sitemap robots.txt generator",
     "googlebot disallow generator",
     "robots.txt example for seo",
+    "generate robots.txt shopyor",
+    "online robots.txt shopyor",
+    "online robots.txt shopyor",
+    "robots.txt example shopyor",
+    "robots.txt validator shopyor",
+    "robots.txt file shopyor",
   ],
   alternates: {
     canonical: "https://www.shopyor.com/tools/robots-txt-generator",
@@ -642,11 +648,12 @@ export default function Page() {
                 This robots file generator produces a file Googlebot reads
                 exactly the way Google documents it. Add your sitemap so Google
                 discovers every URL, keep CSS and JavaScript allowed so Google
-                can render your pages, and use Disallow only for the sections you
-                truly want kept out of crawling. Remember that Googlebot ignores
-                crawl-delay — set your crawl rate in Google Search Console
-                instead — and that blocking a URL here stops crawling but does
-                not remove an already-indexed page (use a noindex tag for that).
+                can render your pages, and use Disallow only for the sections
+                you truly want kept out of crawling. Remember that Googlebot
+                ignores crawl-delay — set your crawl rate in Google Search
+                Console instead — and that blocking a URL here stops crawling
+                but does not remove an already-indexed page (use a noindex tag
+                for that).
               </p>
             </div>
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700">

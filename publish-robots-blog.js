@@ -92,8 +92,18 @@ const BREADCRUMB_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.shopyor.com" },
-    { "@type": "ListItem", position: 2, name: "Blog", item: "https://www.shopyor.com/blog" },
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://www.shopyor.com",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Blog",
+      item: "https://www.shopyor.com/blog",
+    },
     {
       "@type": "ListItem",
       position: 3,
@@ -384,11 +394,20 @@ async function run() {
     );
 
     console.log("Author:", authorName, authorId ? `(${authorId})` : "(no id)");
-    console.log("Word count:", wordCount, "| Reading time:", readingTime, "min");
+    console.log(
+      "Word count:",
+      wordCount,
+      "| Reading time:",
+      readingTime,
+      "min",
+    );
     if (result.upsertedId) {
       console.log("✅ Published NEW post:", result.upsertedId);
     } else {
-      console.log("✅ Updated existing post (matched:", result.matchedCount + ")");
+      console.log(
+        "✅ Updated existing post (matched:",
+        result.matchedCount + ")",
+      );
     }
     console.log("URL: https://www.shopyor.com/blog/" + SLUG);
   } finally {
