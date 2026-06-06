@@ -62,18 +62,13 @@ const structuredData = [
     name: "YouTube Video Downloader",
     description:
       "Download YouTube videos and Shorts as MP4 (144p–4K) or extract MP3 audio at up to 320kbps. Free, no sign-in required.",
-    url: "https://shopyor.com/tools/youtube-video-downloader",
+    url: "https://www.shopyor.com/tools/youtube-video-downloader",
     applicationCategory: "MultimediaApplication",
     operatingSystem: "Web",
     offers: {
       "@type": "Offer",
       price: "0",
       priceCurrency: "USD",
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.9",
-      ratingCount: "3200",
     },
   },
   {
@@ -119,6 +114,63 @@ const structuredData = [
           "@type": "Answer",
           text: "No. This is a fully browser-based tool. Just paste the URL and download.",
         },
+      },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to download a YouTube video as MP4 or MP3",
+    description:
+      "Save any public YouTube video or Short as an MP4 or MP3 in four steps using the Shopyor YouTube Video Downloader.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Copy the YouTube link",
+        text: "Copy the URL of any YouTube video or Short from your browser or the share menu.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Paste and analyze",
+        text: "Paste the link into the input box on this page and click Analyze Video.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Choose format and quality",
+        text: "Pick MP4 for video or MP3 for audio, then select your preferred quality from 144p to 4K.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 4,
+        name: "Download the file",
+        text: "Click Download and the file saves automatically to your device.",
+      },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.shopyor.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Tools",
+        item: "https://www.shopyor.com/tools",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "YouTube Video Downloader",
+        item: "https://www.shopyor.com/tools/youtube-video-downloader",
       },
     ],
   },

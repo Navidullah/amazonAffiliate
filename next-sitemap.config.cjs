@@ -83,6 +83,8 @@ module.exports = {
     const prioritizedDownloaders = [
       "/tools/instagram-video-downloader",
       "/tools/free-tiktok-video-downloader",
+      "/tools/facebook-video-downloader",
+      "/tools/youtube-video-downloader",
     ];
 
     if (path === "/") {

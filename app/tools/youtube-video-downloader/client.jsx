@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import {
   Download,
@@ -537,6 +538,53 @@ export default function YoutubeVideoDownloaderClient() {
               </div>
             </CardContent>
           </Card>
+        </section>
+
+        {/* ── Related tools & guides — internal linking ──────────────────── */}
+        <section className="mt-10 border-t pt-8">
+          <h2 className="text-lg font-semibold mb-4">
+            Related downloaders &amp; guides
+          </h2>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Link
+              href="/tools/instagram-video-downloader"
+              className="rounded-lg border p-4 hover:bg-muted transition-colors"
+            >
+              <span className="font-medium">Instagram Video Downloader</span>
+              <span className="block text-sm text-muted-foreground">
+                Save public Instagram reels and videos.
+              </span>
+            </Link>
+            <Link
+              href="/tools/free-tiktok-video-downloader"
+              className="rounded-lg border p-4 hover:bg-muted transition-colors"
+            >
+              <span className="font-medium">TikTok Video Downloader</span>
+              <span className="block text-sm text-muted-foreground">
+                Save TikTok videos without a watermark.
+              </span>
+            </Link>
+            <Link
+              href="/tools/facebook-video-downloader"
+              className="rounded-lg border p-4 hover:bg-muted transition-colors"
+            >
+              <span className="font-medium">Facebook Video Downloader</span>
+              <span className="block text-sm text-muted-foreground">
+                Download public Facebook videos and reels.
+              </span>
+            </Link>
+            <Link
+              href="/blog/how-to-download-videos-from-facebook-instagram-tiktok"
+              className="rounded-lg border p-4 hover:bg-muted transition-colors"
+            >
+              <span className="font-medium">
+                Guide: Download videos from Facebook, Instagram &amp; TikTok
+              </span>
+              <span className="block text-sm text-muted-foreground">
+                Step-by-step walkthrough for every platform.
+              </span>
+            </Link>
+          </div>
         </section>
 
       </div>

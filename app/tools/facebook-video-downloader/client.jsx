@@ -1,6 +1,7 @@
 // app/tools/facebook-video-downloader/client.jsx
 "use client";
 
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
@@ -288,7 +289,7 @@ export default function FacebookVideoDownloaderClient() {
                   </h3>
                   <p>
                     Yes, you can download Facebook reels and public videos in HD
-                    quality بسهولة and quickly using our tool.
+                    quality easily and quickly using our tool.
                   </p>
                 </div>
 
@@ -328,6 +329,56 @@ export default function FacebookVideoDownloaderClient() {
               </div>
             </CardContent>
           </Card>
+        </section>
+
+        {/* Related tools & guides — internal linking */}
+        <section
+          aria-labelledby="related-heading"
+          className="mt-12 border-t pt-8"
+        >
+          <h2 id="related-heading" className="text-lg font-semibold mb-4">
+            Related downloaders &amp; guides
+          </h2>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Link
+              href="/tools/instagram-video-downloader"
+              className="rounded-lg border p-4 hover:bg-muted transition-colors"
+            >
+              <span className="font-medium">Instagram Video Downloader</span>
+              <span className="block text-sm text-muted-foreground">
+                Save public Instagram reels and videos.
+              </span>
+            </Link>
+            <Link
+              href="/tools/free-tiktok-video-downloader"
+              className="rounded-lg border p-4 hover:bg-muted transition-colors"
+            >
+              <span className="font-medium">TikTok Video Downloader</span>
+              <span className="block text-sm text-muted-foreground">
+                Save TikTok videos without a watermark.
+              </span>
+            </Link>
+            <Link
+              href="/tools/youtube-video-downloader"
+              className="rounded-lg border p-4 hover:bg-muted transition-colors"
+            >
+              <span className="font-medium">YouTube Video Downloader</span>
+              <span className="block text-sm text-muted-foreground">
+                Download YouTube videos as MP4 or MP3.
+              </span>
+            </Link>
+            <Link
+              href="/blog/how-to-download-videos-from-facebook-instagram-tiktok"
+              className="rounded-lg border p-4 hover:bg-muted transition-colors"
+            >
+              <span className="font-medium">
+                Guide: Download videos from Facebook, Instagram &amp; TikTok
+              </span>
+              <span className="block text-sm text-muted-foreground">
+                Step-by-step walkthrough for every platform.
+              </span>
+            </Link>
+          </div>
         </section>
       </div>
     </div>

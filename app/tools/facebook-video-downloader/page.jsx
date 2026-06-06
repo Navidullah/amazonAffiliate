@@ -69,18 +69,13 @@ const structuredData = [
     "@type": "SoftwareApplication",
     name: "Facebook Video Downloader",
     description: "Download any public Facebook video or reel in HD quality",
-    url: "https://shopyor.com/tools/facebook-video-downloader",
+    url: "https://www.shopyor.com/tools/facebook-video-downloader",
     applicationCategory: "MultimediaApplication",
     operatingSystem: "Web",
     offers: {
       "@type": "Offer",
       price: "0",
       priceCurrency: "USD",
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      ratingCount: "1250",
     },
   },
 
@@ -128,6 +123,61 @@ const structuredData = [
           "@type": "Answer",
           text: "No, this tool only supports publicly available Facebook videos.",
         },
+      },
+    ],
+  },
+
+  // HowTo Schema
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to download a Facebook video or reel",
+    description:
+      "Save any public Facebook video or reel to your device in three steps using the Shopyor Facebook Video Downloader.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Copy the Facebook video link",
+        text: "Open the Facebook video or reel and copy its URL from the share menu or browser address bar.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Paste and analyze",
+        text: "Paste the link into the input field on this page and click Analyze Video.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Choose quality and download",
+        text: "Select your preferred HD quality and click download to save the MP4 file.",
+      },
+    ],
+  },
+
+  // Breadcrumb Schema
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.shopyor.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Tools",
+        item: "https://www.shopyor.com/tools",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Facebook Video Downloader",
+        item: "https://www.shopyor.com/tools/facebook-video-downloader",
       },
     ],
   },
