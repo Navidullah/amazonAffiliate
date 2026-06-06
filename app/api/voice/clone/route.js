@@ -20,6 +20,8 @@ export async function POST(req) {
   const out = new FormData();
   out.append("sample", sample, sample.name || "sample.wav");
   out.append("consent", String(incoming.get("consent") ?? "false"));
+  const name = incoming.get("name");
+  if (name) out.append("name", String(name));
 
   const res = await fetch(backendUrl("/api/clone"), {
     method: "POST",
