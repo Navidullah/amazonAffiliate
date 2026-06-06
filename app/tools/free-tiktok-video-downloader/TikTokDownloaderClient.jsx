@@ -1,6 +1,7 @@
-// app/tools/tiktok-downloader/client.js
+// app/tools/free-tiktok-video-downloader/client.js
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 export default function TikTokDownloaderClient() {
@@ -398,6 +399,113 @@ export default function TikTokDownloaderClient() {
             </div>
           </div>
         </div>
+
+        {/* In-depth content for SEO & helpfulness */}
+        <section className="mt-12 max-w-none">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+            About the Shopyor TikTok Video Downloader
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300">
+            Every video you save inside the TikTok app keeps the creator's
+            username stamped across it as a moving watermark. That is fine for
+            re-sharing on TikTok itself, but it gets in the way when you want a
+            clean copy for offline viewing, a presentation, or editing into your
+            own project. The Shopyor TikTok downloader fetches the original MP4
+            without that watermark, in the quality you choose — from a small
+            360p file right up to full 1080p HD. There is no app to install, no
+            sign-up, and no limit on how many videos you save.
+          </p>
+          <p className="text-gray-600 dark:text-gray-300 mt-4">
+            It runs entirely in your browser, so it works the same on an iPhone,
+            an Android phone, a Mac, or a Windows PC. Paste a standard
+            tiktok.com link or a short vm.tiktok.com share link, pick a quality,
+            and the watermark-free file downloads straight to your device in a
+            few seconds.
+          </p>
+
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">
+            Supported links and formats
+          </h2>
+          <ul className="text-gray-600 dark:text-gray-300 space-y-2 list-disc pl-5">
+            <li>
+              Full video links such as{" "}
+              <code className="text-sm">tiktok.com/@username/video/...</code>
+            </li>
+            <li>
+              Short share links such as{" "}
+              <code className="text-sm">vm.tiktok.com/...</code>
+            </li>
+            <li>
+              Output is a standard <strong>MP4</strong> file that plays
+              everywhere, with no TikTok watermark.
+            </li>
+          </ul>
+
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">
+            Is it safe and legal?
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300">
+            Shopyor never asks you to log in to TikTok and never stores the
+            videos you download. The tool is meant for personal use — saving
+            your own clips, keeping a reference copy, or downloading content you
+            have permission to reuse. Always credit the original creator and
+            follow TikTok's terms of service. Do not download or redistribute
+            copyrighted videos for commercial use without the owner's consent.
+          </p>
+        </section>
+
+        {/* Related tools & guides — internal linking */}
+        <section className="mt-12 border-t border-gray-200 dark:border-gray-700 pt-8">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            Related downloaders &amp; guides
+          </h2>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Link
+              href="/tools/instagram-video-downloader"
+              className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+            >
+              <span className="font-medium text-gray-900 dark:text-white">
+                Instagram Video Downloader
+              </span>
+              <span className="block text-sm text-gray-600 dark:text-gray-400">
+                Save public Instagram reels and videos.
+              </span>
+            </Link>
+            <Link
+              href="/tools/facebook-video-downloader"
+              className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+            >
+              <span className="font-medium text-gray-900 dark:text-white">
+                Facebook Video Downloader
+              </span>
+              <span className="block text-sm text-gray-600 dark:text-gray-400">
+                Download public Facebook videos and reels.
+              </span>
+            </Link>
+            <Link
+              href="/tools/youtube-video-downloader"
+              className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+            >
+              <span className="font-medium text-gray-900 dark:text-white">
+                YouTube Video Downloader
+              </span>
+              <span className="block text-sm text-gray-600 dark:text-gray-400">
+                Grab YouTube clips for offline viewing.
+              </span>
+            </Link>
+            <Link
+              href="/blog/easy-guide-download-tiktok-facebook-videos-using-shopyor"
+              className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+            >
+              <span className="font-medium text-gray-900 dark:text-white">
+                Guide: Download TikTok &amp; Facebook videos
+              </span>
+              <span className="block text-sm text-gray-600 dark:text-gray-400">
+                A simple step-by-step walkthrough.
+              </span>
+            </Link>
+          </div>
+        </section>
 
         {/* Disclaimer */}
         <div className="mt-8 text-center text-xs text-gray-500 dark:text-gray-400">

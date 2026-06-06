@@ -76,6 +76,14 @@ module.exports = {
   transform: async (config, path) => {
     let changefreq = "weekly";
     let priority = 0.7;
+    let lastmod = undefined;
+
+    // Pages we are actively trying to get indexed/crawled: bump priority and
+    // give a real lastmod so Google sees them as fresh and important.
+    const prioritizedDownloaders = [
+      "/tools/instagram-video-downloader",
+      "/tools/free-tiktok-video-downloader",
+    ];
 
     if (path === "/") {
       priority = 1.0;
@@ -85,6 +93,9 @@ module.exports = {
       priority = 0.8;
     } else if (path.startsWith("/tools/voice-clone")) {
       priority = 0.9;
+    } else if (prioritizedDownloaders.includes(path)) {
+      priority = 0.9;
+      lastmod = new Date().toISOString();
     } else if (path.startsWith("/blog/")) {
       changefreq = "monthly";
       priority = 0.7;
@@ -103,7 +114,7 @@ module.exports = {
       loc: `${siteUrl}${path}`,
       changefreq,
       priority,
-      lastmod: undefined,
+      lastmod,
     };
   },
 };

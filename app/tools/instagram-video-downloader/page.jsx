@@ -37,6 +37,31 @@ export const metadata = {
   classification: "video downloader tool",
 };
 
+const pageUrl = "https://www.shopyor.com/tools/instagram-video-downloader";
+
+const faqs = [
+  {
+    q: "Is this Instagram video downloader free?",
+    a: "Yes, it is completely free to use with no registration required.",
+  },
+  {
+    q: "Can I download private Instagram content?",
+    a: "No. Only publicly available reels, posts and IGTV links work. This tool is intended for lawful personal use only.",
+  },
+  {
+    q: "Do I need to install software?",
+    a: "No installation is required. The tool runs directly in your browser on any device.",
+  },
+  {
+    q: "What video quality is supported?",
+    a: "The tool automatically fetches the best available quality, up to 1080p.",
+  },
+  {
+    q: "How do I download on mobile?",
+    a: "Tap and hold the download button, then select 'Save Video' or 'Download Linked File' from the menu.",
+  },
+];
+
 const structuredData = [
   {
     "@context": "https://schema.org",
@@ -44,7 +69,7 @@ const structuredData = [
     name: "Instagram Video Downloader",
     description:
       "Download public Instagram videos and reels online with a fast and easy workflow.",
-    url: "https://www.shopyor.com/tools/instagram-video-downloader",
+    url: pageUrl,
     applicationCategory: "MultimediaApplication",
     operatingSystem: "Web",
     offers: {
@@ -56,30 +81,60 @@ const structuredData = [
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to download an Instagram reel or video",
+    description:
+      "Save any public Instagram reel, post or IGTV video to your device in three steps.",
+    step: [
       {
-        "@type": "Question",
-        name: "Is this Instagram video downloader free?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes. You can use this Instagram downloader tool for free.",
-        },
+        "@type": "HowToStep",
+        position: 1,
+        name: "Copy the Instagram link",
+        text: "Open the reel or video, tap the share icon and choose Copy Link.",
       },
       {
-        "@type": "Question",
-        name: "Can I download private Instagram videos?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "No. This page is intended only for publicly available content and lawful personal use.",
-        },
+        "@type": "HowToStep",
+        position: 2,
+        name: "Paste the link",
+        text: "Paste the copied link into the input box on this page.",
       },
       {
-        "@type": "Question",
-        name: "Do I need to install an app?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "No installation is required. The tool runs directly in your browser.",
-        },
+        "@type": "HowToStep",
+        position: 3,
+        name: "Download the video",
+        text: "Click Download Video, preview the result and save the MP4 to your device.",
+      },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.shopyor.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Tools",
+        item: "https://www.shopyor.com/tools",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Instagram Video Downloader",
+        item: pageUrl,
       },
     ],
   },

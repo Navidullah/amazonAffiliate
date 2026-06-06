@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -466,6 +467,116 @@ export default function InstagramVideoDownloaderClient() {
               </div>
             </CardContent>
           </Card>
+        </section>
+
+        {/* In-depth content for SEO & helpfulness */}
+        <section className="mt-12 prose prose-sm dark:prose-invert max-w-none">
+          <h2 className="text-2xl font-bold mb-4">
+            About the Shopyor Instagram Video Downloader
+          </h2>
+          <p className="text-muted-foreground">
+            Instagram keeps videos, reels and IGTV clips locked inside its app —
+            there is no built-in "save to device" button for someone else's
+            post. Our free Instagram video downloader closes that gap. Paste a
+            public reel or video link and Shopyor fetches the original MP4 file
+            so you can keep it on your phone or computer for offline viewing,
+            re-sharing with credit, or saving inspiration for a moodboard. There
+            is nothing to install, no account to create, and no watermark added
+            to the file you download.
+          </p>
+          <p className="text-muted-foreground mt-4">
+            The tool works entirely in your browser and is optimised for mobile.
+            On iPhone and Android the preview player lets you confirm you grabbed
+            the right clip before saving, and the downloader automatically pulls
+            the highest resolution Instagram makes available for that post —
+            usually up to 1080p. Because everything runs through a single
+            copy-paste-download flow, the whole process takes just a few seconds.
+          </p>
+
+          <h2 className="text-2xl font-bold mt-8 mb-4">
+            What you can download
+          </h2>
+          <ul className="text-muted-foreground space-y-2 list-disc pl-5">
+            <li>
+              <strong>Instagram Reels</strong> — short-form vertical videos
+              shared publicly.
+            </li>
+            <li>
+              <strong>Feed videos</strong> — standard video posts from public
+              profiles.
+            </li>
+            <li>
+              <strong>IGTV / long videos</strong> — longer public uploads.
+            </li>
+          </ul>
+          <p className="text-muted-foreground mt-4">
+            Private accounts, stories behind a follow-wall, and any content you
+            do not have permission to reuse are intentionally not supported.
+            Always credit the original creator and only download content you are
+            allowed to use.
+          </p>
+
+          <h2 className="text-2xl font-bold mt-8 mb-4">
+            Why creators and marketers use it
+          </h2>
+          <p className="text-muted-foreground">
+            Social media managers save reference clips for client moodboards,
+            small businesses archive their own posts before deleting drafts, and
+            everyday users keep a copy of a favourite recipe or workout reel for
+            offline use. Whatever the reason, Shopyor keeps the workflow simple
+            and free — no pop-ups, no fake "generate" buttons, and no surprise
+            paywall after processing.
+          </p>
+        </section>
+
+        {/* Related tools & guides — internal linking */}
+        <section
+          aria-labelledby="related-heading"
+          className="mt-12 border-t pt-8"
+        >
+          <h2 id="related-heading" className="text-lg font-semibold mb-4">
+            Related downloaders &amp; guides
+          </h2>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Link
+              href="/tools/free-tiktok-video-downloader"
+              className="rounded-lg border p-4 hover:bg-muted transition-colors"
+            >
+              <span className="font-medium">TikTok Video Downloader</span>
+              <span className="block text-sm text-muted-foreground">
+                Save TikTok videos without a watermark.
+              </span>
+            </Link>
+            <Link
+              href="/tools/facebook-video-downloader"
+              className="rounded-lg border p-4 hover:bg-muted transition-colors"
+            >
+              <span className="font-medium">Facebook Video Downloader</span>
+              <span className="block text-sm text-muted-foreground">
+                Download public Facebook videos and reels.
+              </span>
+            </Link>
+            <Link
+              href="/tools/youtube-video-downloader"
+              className="rounded-lg border p-4 hover:bg-muted transition-colors"
+            >
+              <span className="font-medium">YouTube Video Downloader</span>
+              <span className="block text-sm text-muted-foreground">
+                Grab YouTube clips for offline viewing.
+              </span>
+            </Link>
+            <Link
+              href="/blog/how-to-download-videos-from-facebook-instagram-tiktok"
+              className="rounded-lg border p-4 hover:bg-muted transition-colors"
+            >
+              <span className="font-medium">
+                Guide: Download videos from Facebook, Instagram &amp; TikTok
+              </span>
+              <span className="block text-sm text-muted-foreground">
+                Step-by-step walkthrough for every platform.
+              </span>
+            </Link>
+          </div>
         </section>
       </div>
     </div>
