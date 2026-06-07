@@ -143,7 +143,7 @@ export default function ToolsClient() {
       category: "Image",
     },
     {
-      href: "/tools/pdf-to-word",
+      href: "/tools/online-pdf-to-word-converter",
       title: "PDF to Word Converter Online",
       desc: "Convert PDF files to editable Word documents instantly.",
       icon: FileText,
