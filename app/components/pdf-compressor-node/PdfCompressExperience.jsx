@@ -90,8 +90,16 @@ const CONTENT = {
           text: "Our compressor optimizes the internal structure of your PDF and re-encodes heavy elements like images, removing redundant data and metadata. The result is a smaller file that still opens perfectly in any PDF reader. For scanned or image-heavy PDFs you will usually see the biggest savings.",
         },
         {
-          h3: "Need to send it as an editable file?",
-          text: 'If you also need to edit the document, try our <crosslink href="/tools/pdf-to-word">PDF to Word converter</crosslink>. To compress specifically for email attachments and upload limits, see our <crosslink href="/tools/pdf-compress">Compress PDF</crosslink> guide.',
+          h3: "Compress a PDF for email attachments",
+          text: "Most email services cap attachments at around 25 MB. If your PDF is too big to send, compress it here first and then attach the smaller version — no cloud links or splitting required.",
+        },
+        {
+          h3: "Compress a PDF for uploads and forms",
+          text: "Job portals, visa applications, and government websites often limit PDF uploads to a few megabytes. Reduce your file size to meet those limits while keeping the text clear and legible.",
+        },
+        {
+          h3: "Need to edit the file instead?",
+          text: 'If you also need to change the content, try our <crosslink href="/tools/pdf-to-word">PDF to Word converter</crosslink> to get an editable DOCX.',
         },
       ],
     },
@@ -99,6 +107,10 @@ const CONTENT = {
       {
         q: "Is this PDF compressor free?",
         a: "Yes, it is completely free with no signup, no watermarks, and no daily limits.",
+      },
+      {
+        q: "How can I compress a PDF to send it by email?",
+        a: "Compress the file here to get it under your email provider's attachment limit (usually 25 MB), then attach the smaller version as normal.",
       },
       {
         q: "Will my PDF quality stay readable after compression?",
@@ -228,10 +240,26 @@ const STEPS = [
 ];
 
 const RELATED = [
-  { icon: "FileText", label: "Convert PDF to Word", href: "/tools/pdf-to-word" },
-  { icon: "ImageDown", label: "Compress an image", href: "/tools/image-compressor" },
-  { icon: "Eraser", label: "Remove image background", href: "/tools/background-remover-image" },
-  { icon: "ShieldOff", label: "Remove image metadata (EXIF)", href: "/tools/exif-remover" },
+  {
+    icon: "FileText",
+    label: "Convert PDF to Word",
+    href: "/tools/online-pdf-to-word-converter",
+  },
+  {
+    icon: "ImageDown",
+    label: "Compress an image",
+    href: "/tools/image-compressor",
+  },
+  {
+    icon: "Eraser",
+    label: "Remove image background",
+    href: "/tools/background-remover-image",
+  },
+  {
+    icon: "ShieldOff",
+    label: "Remove image metadata (EXIF)",
+    href: "/tools/exif-remover",
+  },
   { icon: "LayoutGrid", label: "Browse all free tools", href: "/tools" },
 ];
 
@@ -348,13 +376,16 @@ export default function PdfCompressExperience({ variant = "compressor" }) {
             className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-medium text-gray-500 dark:text-gray-400"
           >
             <span className="inline-flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> No signup
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> No
+              signup
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Secure processing
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />{" "}
+              Secure processing
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Up to 50 MB
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Up to
+              50 MB
             </span>
           </motion.div>
         </motion.header>

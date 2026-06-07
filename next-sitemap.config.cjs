@@ -20,6 +20,7 @@ module.exports = {
     "/robots.txt",
     "/pinterest",
     "/pinterest/*",
+    "/tools/pdf-compress", // 301 -> /tools/pdf-compressor (consolidated)
   ],
 
   robotsTxtOptions: {

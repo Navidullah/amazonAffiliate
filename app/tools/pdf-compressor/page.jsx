@@ -38,6 +38,10 @@ export const metadata = {
     "free pdf compressor",
     "compress pdf without losing quality",
     "compress pdf on mobile",
+    "compress pdf for email",
+    "compress pdf for upload",
+    "make pdf smaller",
+    "compress pdf to send by email",
   ],
   authors: [{ name: "Shopyor" }],
   creator: "Shopyor",
@@ -72,6 +76,10 @@ const FAQS = [
   {
     q: "Is this PDF compressor free?",
     a: "Yes, it is completely free with no signup, no watermarks, and no daily limits.",
+  },
+  {
+    q: "How can I compress a PDF to send it by email?",
+    a: "Compress the file here to get it under your email provider's attachment limit (usually 25 MB), then attach the smaller version as normal.",
   },
   {
     q: "Will my PDF quality stay readable after compression?",

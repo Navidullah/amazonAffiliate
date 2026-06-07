@@ -164,16 +164,9 @@ export default function ToolsClient() {
       category: "YouTube",
     },
     {
-      href: "/tools/pdf-compress",
-      title: "PDF Compressor",
-      desc: "Reduce PDF file size quickly using modern compression.",
-      icon: FileText,
-      category: "PDF",
-    },
-    {
       href: "/tools/pdf-compressor",
       title: "PDF Compressor",
-      desc: "Compress PDF files securely with advanced API processing.",
+      desc: "Reduce PDF file size for email and uploads — fast, secure compression.",
       icon: FileText,
       category: "PDF",
     },

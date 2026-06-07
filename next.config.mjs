@@ -20,6 +20,17 @@ const nextConfig = {
       { protocol: "https", hostname: "**" },
     ],
   },
+  async redirects() {
+    return [
+      // Consolidate the duplicate PDF compress page into the canonical one
+      // (301 passes ranking signals to /tools/pdf-compressor).
+      {
+        source: "/tools/pdf-compress",
+        destination: "/tools/pdf-compressor",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       // ✅ YouTube allowed on editor & blog pages (COEP OFF there)
