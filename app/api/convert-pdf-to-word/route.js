@@ -214,7 +214,13 @@ export async function POST(req) {
 
     const providerRunners = [
       {
-        name: "primary",
+        name: "cloudconvert",
+        enabled: Boolean(cloudConvertApiKey),
+        run: () => convertWithCloudConvert({ file, apiKey: cloudConvertApiKey }),
+        isDirectResponse: false,
+      },
+      {
+        name: "render",
         enabled: Boolean(primaryUrl),
         run: () =>
           convertWithDirectProvider({
@@ -224,12 +230,6 @@ export async function POST(req) {
             authHeaderValue: process.env.PDF_PRIMARY_AUTH_HEADER_VALUE,
           }),
         isDirectResponse: true,
-      },
-      {
-        name: "cloudconvert",
-        enabled: Boolean(cloudConvertApiKey),
-        run: () => convertWithCloudConvert({ file, apiKey: cloudConvertApiKey }),
-        isDirectResponse: false,
       },
       {
         name: "fallback",
