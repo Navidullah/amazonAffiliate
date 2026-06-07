@@ -278,19 +278,21 @@ export default function RootLayout({ children }) {
         <meta name="twitter:site" content="@shopyor" />
         <meta name="twitter:creator" content="@shopyor" />
 
-        {/* Pinterest verification */}
-        <meta
-          name="p:domain_verify"
-          content="your-pinterest-verification-code"
-        />
+        {/* Pinterest / Facebook domain verification:
+            add real values via env when available — placeholders removed so
+            invalid tags don't ship. */}
+        {process.env.PINTEREST_DOMAIN_VERIFY && (
+          <meta
+            name="p:domain_verify"
+            content={process.env.PINTEREST_DOMAIN_VERIFY}
+          />
+        )}
+        {process.env.FB_PAGES_ID && (
+          <meta property="fb:pages" content={process.env.FB_PAGES_ID} />
+        )}
 
-        {/* Facebook Domain Verification */}
-        <meta property="fb:pages" content="your-facebook-page-id" />
-
-        {/* Geo meta tags */}
-        <meta name="geo.region" content="US" />
-        <meta name="geo.position" content="37.09024;-95.712891" />
-        <meta name="ICBM" content="37.09024, -95.712891" />
+        {/* Geo meta tags intentionally omitted: this is a global tool, so
+            pinning it to one country would mislead local-search signals. */}
 
         {/* Mobile optimization */}
         <meta name="format-detection" content="telephone=no" />

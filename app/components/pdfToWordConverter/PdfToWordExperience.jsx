@@ -2,14 +2,19 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   ArrowRight,
   ChevronDown,
+  Eraser,
+  FileArchive,
   FileDown,
   Gauge,
+  ImageDown,
+  LayoutGrid,
   Lock,
   MousePointerClick,
+  ShieldOff,
   Sparkles,
   UploadCloud,
   Zap,
@@ -65,30 +70,74 @@ const steps = [
   },
 ];
 
+const relatedTools = [
+  {
+    icon: FileArchive,
+    label: "Compress a PDF file",
+    href: "/tools/pdf-compressor",
+  },
+  {
+    icon: ImageDown,
+    label: "Compress an image",
+    href: "/tools/image-compressor",
+  },
+  {
+    icon: Eraser,
+    label: "Remove image background",
+    href: "/tools/background-remover-image",
+  },
+  {
+    icon: ShieldOff,
+    label: "Remove image metadata (EXIF)",
+    href: "/tools/exif-remover",
+  },
+  {
+    icon: LayoutGrid,
+    label: "Browse all free tools",
+    href: "/tools",
+  },
+];
+
 const faqs = [
   {
     q: "Is this PDF to Word converter free?",
-    a: "Yes, it is completely free to use and does not require any sign up. Convert as many PDF files to Word as you need.",
+    a: "Yes, it is completely free to use with no signup, no daily limits, and no hidden fees. Convert as many PDF files to Word as you need.",
   },
   {
     q: "Can I convert a scanned PDF to Word?",
-    a: "Yes. The converter applies OCR (optical character recognition) to scanned and image-based PDFs so the text becomes editable in the Word file. Results depend on the quality of the scan.",
+    a: "Yes. The converter applies OCR (optical character recognition) to scanned and image-based PDFs so the text becomes editable and searchable in the Word file. Results depend on the quality of the scan.",
   },
   {
     q: "Will my PDF formatting stay accurate after conversion?",
-    a: "The engine preserves layout, fonts, tables, and text styles as closely as possible, so your DOCX looks like the original PDF.",
+    a: "The engine preserves layout, fonts, tables, bullet points, and text styles as closely as possible, so your DOCX looks like the original PDF. Complex multi-column layouts may need minor adjustments in Word.",
+  },
+  {
+    q: "How do I convert a PDF to Word without losing formatting?",
+    a: "Upload your PDF, click Convert, and download the DOCX. For the cleanest result use text-based PDFs rather than scans, and avoid copy-pasting from a PDF reader because that strips formatting.",
   },
   {
     q: "Can I convert PDF to Word on my phone?",
     a: "Yes. The tool is fully mobile-friendly and works in any browser on Android and iPhone — no app installation required.",
   },
   {
-    q: "What is the difference between DOC and DOCX?",
-    a: "DOCX is the modern Word format used since Word 2007 and works in Word, Google Docs, and LibreOffice. This tool outputs DOCX, which opens in all current word processors.",
+    q: "What is the maximum file size I can convert?",
+    a: "You can convert PDF files up to 25 MB. For larger documents, split the PDF into smaller parts and convert each section separately.",
   },
   {
-    q: "What if the primary conversion API is unavailable?",
-    a: "The converter includes provider fallback support, so conversion can continue through a secondary engine when the primary service is down.",
+    q: "Are my files private and secure?",
+    a: "Yes. Files are transferred over a secure connection and are not permanently stored on our servers — they are processed and then removed after conversion.",
+  },
+  {
+    q: "Can I convert multiple PDFs at once?",
+    a: "The tool processes one PDF at a time. To convert several files, upload and convert each one individually — conversion usually takes just a few seconds per file.",
+  },
+  {
+    q: "What format is the output, and will it open in Google Docs?",
+    a: "The output is a standard .docx file, which opens in Microsoft Word (all versions), Google Docs, LibreOffice Writer, and Apple Pages.",
+  },
+  {
+    q: "What if the primary conversion service is unavailable?",
+    a: "The converter uses a multi-provider engine with automatic fallback, so if the primary service is temporarily down it switches to a backup provider to keep working.",
   },
 ];
 
@@ -115,20 +164,19 @@ function FaqItem({ faq, isOpen, onToggle }) {
           <ChevronDown className="h-4 w-4" />
         </motion.span>
       </button>
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-          >
-            <p className="px-5 pb-5 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
-              {faq.a}
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Answer stays mounted (height-animated) so the text is always in the
+          DOM and indexable by Google, even when visually collapsed. */}
+      <motion.div
+        initial={false}
+        animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className="overflow-hidden"
+        aria-hidden={!isOpen}
+      >
+        <p className="px-5 pb-5 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+          {faq.a}
+        </p>
+      </motion.div>
     </motion.div>
   );
 }
@@ -163,11 +211,11 @@ export default function PdfToWordExperience() {
             variants={fadeUp}
             className="mx-auto mt-6 max-w-3xl text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-6xl"
           >
-            Convert{" "}
+            Free{" "}
             <span className="bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-500 bg-clip-text text-transparent dark:from-indigo-300 dark:via-blue-300 dark:to-cyan-200">
               PDF to Word
             </span>{" "}
-            in seconds
+            Converter
           </motion.h1>
 
           <motion.p
@@ -396,6 +444,46 @@ export default function PdfToWordExperience() {
                 isOpen={openFaq === i}
                 onToggle={() => setOpenFaq(openFaq === i ? -1 : i)}
               />
+            ))}
+          </div>
+        </motion.section>
+
+        {/* Related tools (internal links) */}
+        <motion.section
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          className="mb-20"
+        >
+          <motion.h2
+            variants={fadeUp}
+            className="text-center text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl"
+          >
+            Related free tools
+          </motion.h2>
+          <motion.p
+            variants={fadeUp}
+            className="mx-auto mt-3 max-w-xl text-center text-sm text-gray-600 dark:text-gray-400"
+          >
+            More handy document and image utilities — all free, no signup.
+          </motion.p>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {relatedTools.map((tool) => (
+              <motion.div key={tool.href} variants={fadeUp}>
+                <Link
+                  href={tool.href}
+                  className="group flex items-center gap-3 rounded-2xl border border-gray-200/70 bg-white/70 p-4 backdrop-blur-xl transition-all hover:-translate-y-1 hover:border-indigo-300 hover:shadow-lg dark:border-white/10 dark:bg-white/[0.03] dark:hover:border-indigo-400/50"
+                >
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500/15 to-cyan-500/15 text-indigo-600 ring-1 ring-indigo-500/20 dark:text-indigo-300">
+                    <tool.icon className="h-5 w-5" />
+                  </span>
+                  <span className="text-sm font-semibold text-gray-800 dark:text-gray-100">
+                    {tool.label}
+                  </span>
+                  <ArrowRight className="ml-auto h-4 w-4 text-gray-400 transition-transform group-hover:translate-x-0.5 group-hover:text-indigo-500" />
+                </Link>
+              </motion.div>
             ))}
           </div>
         </motion.section>

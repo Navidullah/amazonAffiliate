@@ -3,7 +3,11 @@ import PdfToWordExperience from "@/app/components/pdfToWordConverter/PdfToWordEx
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
 
 export const metadata = {
-  title: "PDF to Word Converter — Free, Online & Accurate (No Signup) | Shopyor",
+  // `absolute` bypasses the root layout's "%s | Shopyor" template so the
+  // brand isn't duplicated. Kept under 60 chars to avoid SERP truncation.
+  title: {
+    absolute: "PDF to Word Converter — Free, Fast & Accurate | Shopyor",
+  },
   description:
     "Convert PDF to Word (DOCX) online for free — no signup. Editable Word in seconds with formatting preserved, OCR for scanned PDFs, and secure processing. Works on mobile & desktop.",
   keywords: [
@@ -213,34 +217,10 @@ export default function PdfToWordPage() {
         mainEntity: [
           {
             "@type": "Question",
-            name: "Is this PDF to Word converter really free?",
+            name: "Is this PDF to Word converter free?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Yes. You can convert PDF files to Word for free without creating an account.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Will my PDF formatting stay accurate after conversion?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Our conversion engine aims to preserve layout, text styles, and structure as accurately as possible.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Is my file secure when I use this tool?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Yes. Files are transferred securely and processed with a privacy-first approach.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "What happens if one conversion server is down?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Our PDF to Word converter uses a primary conversion engine with automatic fallback handling to keep the tool available.",
+              text: "Yes, it is completely free to use with no signup, no daily limits, and no hidden fees. Convert as many PDF files to Word as you need.",
             },
           },
           {
@@ -248,15 +228,23 @@ export default function PdfToWordPage() {
             name: "Can I convert a scanned PDF to Word?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Yes. The converter applies OCR (optical character recognition) to scanned and image-based PDFs so the text becomes editable in the Word file. Results depend on the scan quality.",
+              text: "Yes. The converter applies OCR (optical character recognition) to scanned and image-based PDFs so the text becomes editable and searchable in the Word file. Results depend on the quality of the scan.",
             },
           },
           {
             "@type": "Question",
-            name: "Does it keep my PDF formatting in the Word file?",
+            name: "Will my PDF formatting stay accurate after conversion?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Yes. The engine preserves layout, fonts, tables, and text styles as closely as possible so your DOCX looks like the original PDF.",
+              text: "The engine preserves layout, fonts, tables, bullet points, and text styles as closely as possible, so your DOCX looks like the original PDF. Complex multi-column layouts may need minor adjustments in Word.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "How do I convert a PDF to Word without losing formatting?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Upload your PDF, click Convert, and download the DOCX. For the cleanest result use text-based PDFs rather than scans, and avoid copy-pasting from a PDF reader because that strips formatting.",
             },
           },
           {
@@ -269,10 +257,42 @@ export default function PdfToWordPage() {
           },
           {
             "@type": "Question",
-            name: "What is the difference between DOC and DOCX?",
+            name: "What is the maximum file size I can convert?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "DOCX is the modern Microsoft Word format used since Word 2007 and is supported by Word, Google Docs, and LibreOffice. This tool outputs DOCX, which opens in all current word processors.",
+              text: "You can convert PDF files up to 25 MB. For larger documents, split the PDF into smaller parts and convert each section separately.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Are my files private and secure?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Yes. Files are transferred over a secure connection and are not permanently stored on our servers — they are processed and then removed after conversion.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Can I convert multiple PDFs at once?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "The tool processes one PDF at a time. To convert several files, upload and convert each one individually — conversion usually takes just a few seconds per file.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "What format is the output, and will it open in Google Docs?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "The output is a standard .docx file, which opens in Microsoft Word (all versions), Google Docs, LibreOffice Writer, and Apple Pages.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "What if the primary conversion service is unavailable?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "The converter uses a multi-provider engine with automatic fallback, so if the primary service is temporarily down it switches to a backup provider to keep working.",
             },
           },
         ],
