@@ -68,19 +68,23 @@ const steps = [
 const faqs = [
   {
     q: "Is this PDF to Word converter free?",
-    a: "Yes, it is completely free to use and does not require any sign up.",
+    a: "Yes, it is completely free to use and does not require any sign up. Convert as many PDF files to Word as you need.",
+  },
+  {
+    q: "Can I convert a scanned PDF to Word?",
+    a: "Yes. The converter applies OCR (optical character recognition) to scanned and image-based PDFs so the text becomes editable in the Word file. Results depend on the quality of the scan.",
   },
   {
     q: "Will my PDF formatting stay accurate after conversion?",
-    a: "Our conversion engine aims to preserve layout, text styles, and structure as accurately as possible.",
+    a: "The engine preserves layout, fonts, tables, and text styles as closely as possible, so your DOCX looks like the original PDF.",
   },
   {
-    q: "Can it convert scanned PDFs?",
-    a: "It works best with text-based PDFs. Results for scanned files can vary based on document quality.",
+    q: "Can I convert PDF to Word on my phone?",
+    a: "Yes. The tool is fully mobile-friendly and works in any browser on Android and iPhone — no app installation required.",
   },
   {
-    q: "Is the tool mobile friendly?",
-    a: "Yes, the interface is responsive and works across phones, tablets, and desktop browsers.",
+    q: "What is the difference between DOC and DOCX?",
+    a: "DOCX is the modern Word format used since Word 2007 and works in Word, Google Docs, and LibreOffice. This tool outputs DOCX, which opens in all current word processors.",
   },
   {
     q: "What if the primary conversion API is unavailable?",
@@ -272,6 +276,102 @@ export default function PdfToWordExperience() {
               </motion.div>
             ))}
           </div>
+        </motion.section>
+
+        {/* SEO content */}
+        <motion.section
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          className="mb-20 rounded-3xl border border-gray-200/70 bg-white/70 p-7 backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.03] sm:p-10"
+        >
+          <motion.h2
+            variants={fadeUp}
+            className="text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl"
+          >
+            Free PDF to Word converter — online, accurate, no signup
+          </motion.h2>
+          <motion.p
+            variants={fadeUp}
+            className="mt-4 text-sm leading-relaxed text-gray-600 dark:text-gray-300"
+          >
+            Need to edit a PDF? The fastest way is to convert your PDF to an
+            editable Word document. This free online{" "}
+            <strong>PDF to Word converter</strong> turns any PDF into a clean,
+            editable <strong>DOCX</strong> file in seconds — no software to
+            install, no account to create, and no watermarks. It works directly
+            in your browser on Windows, macOS, Android, and iPhone, so you can
+            convert PDF to Word on your phone or laptop anywhere.
+          </motion.p>
+
+          <motion.h3
+            variants={fadeUp}
+            className="mt-8 text-lg font-semibold text-gray-900 dark:text-white"
+          >
+            Convert scanned PDFs to Word with OCR
+          </motion.h3>
+          <motion.p
+            variants={fadeUp}
+            className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300"
+          >
+            Got a scanned document or an image-based PDF? Our converter applies{" "}
+            <strong>OCR (optical character recognition)</strong> to recognise the
+            text inside scans and pictures, so the words become fully editable in
+            Word instead of locked-in images. Learn more in our guide on{" "}
+            <Link
+              href="/blog/how-to-convert-a-scanned-pdf-to-word-with-ocr"
+              className="font-medium text-indigo-600 underline-offset-2 hover:underline dark:text-indigo-400"
+            >
+              converting a scanned PDF to Word with OCR
+            </Link>
+            .
+          </motion.p>
+
+          <motion.h3
+            variants={fadeUp}
+            className="mt-8 text-lg font-semibold text-gray-900 dark:text-white"
+          >
+            Keep your formatting intact
+          </motion.h3>
+          <motion.p
+            variants={fadeUp}
+            className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300"
+          >
+            Layout matters. The conversion engine preserves fonts, headings,
+            tables, lists, and spacing so your Word file looks like the original
+            PDF and needs minimal cleanup. For best results, read our tips on{" "}
+            <Link
+              href="/blog/how-to-convert-pdf-to-word-without-losing-formatting"
+              className="font-medium text-indigo-600 underline-offset-2 hover:underline dark:text-indigo-400"
+            >
+              converting PDF to Word without losing formatting
+            </Link>
+            .
+          </motion.p>
+
+          <motion.h3
+            variants={fadeUp}
+            className="mt-8 text-lg font-semibold text-gray-900 dark:text-white"
+          >
+            Convert PDF to Word on mobile
+          </motion.h3>
+          <motion.p
+            variants={fadeUp}
+            className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300"
+          >
+            Most people convert documents on their phones. This tool is built
+            mobile-first with a touch-friendly upload area, so converting a PDF
+            to Word on Android or iPhone takes just a few taps. See the full
+            walkthrough on{" "}
+            <Link
+              href="/blog/how-to-convert-pdf-to-word-on-mobile-for-free"
+              className="font-medium text-indigo-600 underline-offset-2 hover:underline dark:text-indigo-400"
+            >
+              how to convert PDF to Word on mobile for free
+            </Link>
+            .
+          </motion.p>
         </motion.section>
 
         {/* FAQ */}

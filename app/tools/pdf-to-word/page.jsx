@@ -3,27 +3,59 @@ import PdfToWordExperience from "@/app/components/pdfToWordConverter/PdfToWordEx
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
 
 export const metadata = {
-  title: "PDF to Word Converter Online (Free, Fast & Accurate) | Shopyor",
+  title: "PDF to Word Converter — Free, Online & Accurate (No Signup) | Shopyor",
   description:
-    "Convert PDF to Word online for free. Upload any PDF and download an editable DOCX in seconds with accurate formatting, secure processing, and no signup.",
+    "Convert PDF to Word (DOCX) online for free — no signup. Editable Word in seconds with formatting preserved, OCR for scanned PDFs, and secure processing. Works on mobile & desktop.",
   keywords: [
     "pdf to word converter",
+    "convert pdf to word online",
+    "pdf to word free",
+    "pdf to docx converter",
     "convert pdf to docx online",
-    "free pdf to word",
-    "best pdf to word converter",
-    "accurate pdf conversion",
-    "editable word from pdf",
+    "free pdf to word converter no signup",
+    "pdf to word converter online free",
+    "scanned pdf to word",
+    "pdf to word with ocr",
+    "convert scanned pdf to editable word",
+    "pdf to word keep formatting",
+    "accurate pdf to word converter",
+    "pdf to word on mobile",
+    "convert pdf to word on phone",
+    "pdf to editable word document",
+    "best free pdf to word converter",
   ],
+  authors: [{ name: "Shopyor" }],
+  creator: "Shopyor",
+  publisher: "Shopyor",
+  robots: "index, follow",
+  category: "tools",
+  classification: "PDF to Word converter tool",
   alternates: {
     canonical: `${BASE_URL}/tools/pdf-to-word`,
+    languages: {
+      "x-default": `${BASE_URL}/tools/pdf-to-word`,
+      en: `${BASE_URL}/tools/pdf-to-word`,
+      "en-US": `${BASE_URL}/tools/pdf-to-word`,
+      "en-GB": `${BASE_URL}/tools/pdf-to-word`,
+      "en-IN": `${BASE_URL}/tools/pdf-to-word`,
+      "en-PK": `${BASE_URL}/tools/pdf-to-word`,
+      "en-NG": `${BASE_URL}/tools/pdf-to-word`,
+      "en-PH": `${BASE_URL}/tools/pdf-to-word`,
+      "en-ID": `${BASE_URL}/tools/pdf-to-word`,
+      "en-BD": `${BASE_URL}/tools/pdf-to-word`,
+      "en-CA": `${BASE_URL}/tools/pdf-to-word`,
+      "en-AU": `${BASE_URL}/tools/pdf-to-word`,
+      "en-ZA": `${BASE_URL}/tools/pdf-to-word`,
+    },
   },
   openGraph: {
-    title: "PDF to Word Converter Online (Free, Fast & Accurate)",
+    title: "Free PDF to Word Converter Online — Editable DOCX in Seconds",
     description:
-      "Reliable PDF to DOCX conversion with modern UI and secure file handling. No registration needed.",
+      "Convert PDF to Word for free with formatting preserved and OCR for scanned files. No signup, secure, and mobile-friendly.",
     url: `${BASE_URL}/tools/pdf-to-word`,
     siteName: "Shopyor",
     type: "website",
+    locale: "en_US",
     images: [
       {
         url: `${BASE_URL}/images/pdf-to-word-og.png`,
@@ -35,9 +67,11 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "PDF to Word Converter Online | Shopyor",
+    title: "Free PDF to Word Converter Online | Shopyor",
     description:
-      "Convert PDFs into editable Word documents quickly and securely.",
+      "Convert PDFs into editable Word documents in seconds — free, no signup, OCR for scanned PDFs.",
+    creator: "@shopyor",
+    site: "@shopyor",
     images: [`${BASE_URL}/images/pdf-to-word-og.png`],
   },
 };
@@ -52,13 +86,22 @@ export default function PdfToWordPage() {
         url: `${BASE_URL}/tools/pdf-to-word`,
         applicationCategory: "Utility",
         operatingSystem: "Web",
+        inLanguage: "en",
+        featureList: [
+          "Convert PDF to editable Word (DOCX)",
+          "OCR for scanned and image-based PDFs",
+          "Preserves layout and formatting",
+          "Works on mobile and desktop",
+          "Free with no signup",
+          "Secure processing with provider fallback",
+        ],
         offers: {
           "@type": "Offer",
           price: "0",
           priceCurrency: "USD",
         },
         description:
-          "Free online PDF to Word converter for turning PDF files into editable DOCX documents quickly with high accuracy.",
+          "Free online PDF to Word converter for turning PDF files into editable DOCX documents quickly with high accuracy and OCR for scanned PDFs.",
         aggregateRating: {
           "@type": "AggregateRating",
           ratingValue: "4.8",
@@ -198,6 +241,38 @@ export default function PdfToWordPage() {
             acceptedAnswer: {
               "@type": "Answer",
               text: "Our PDF to Word converter uses a primary conversion engine with automatic fallback handling to keep the tool available.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Can I convert a scanned PDF to Word?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Yes. The converter applies OCR (optical character recognition) to scanned and image-based PDFs so the text becomes editable in the Word file. Results depend on the scan quality.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Does it keep my PDF formatting in the Word file?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Yes. The engine preserves layout, fonts, tables, and text styles as closely as possible so your DOCX looks like the original PDF.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Can I convert PDF to Word on my phone?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Yes. The tool is fully mobile-friendly and works in any browser on Android and iPhone — no app installation required.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "What is the difference between DOC and DOCX?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "DOCX is the modern Microsoft Word format used since Word 2007 and is supported by Word, Google Docs, and LibreOffice. This tool outputs DOCX, which opens in all current word processors.",
             },
           },
         ],

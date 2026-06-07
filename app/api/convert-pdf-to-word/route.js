@@ -76,6 +76,8 @@ async function convertWithCloudConvert({ file, apiKey }) {
             input: ["import-my-file"],
             input_format: "pdf",
             output_format: "docx",
+            // OCR scanned/image-based PDFs so the resulting DOCX is editable text
+            images_ocr: true,
           },
           "export-my-file": {
             operation: "export/url",
