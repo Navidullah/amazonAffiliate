@@ -120,6 +120,46 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/tools/online-pdf-to-word-converter"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  PDF to Word Converter
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/tools/image-compressor"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  Compress Image Online
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/tools/background-remover-image"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  Remove Background from Image
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/tools/pdf-compressor"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  Compress PDF File
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/tools/youtube-video-downloader"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  YouTube Video Downloader
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/about"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >

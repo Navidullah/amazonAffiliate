@@ -12,6 +12,12 @@ import {
   Lock,
   BookOpen,
   ArrowRight,
+  FileText,
+  FileArchive,
+  Scissors,
+  Eraser,
+  Image as ImageIcon,
+  LayoutGrid,
 } from "lucide-react";
 import VoiceCloneClient from "@/app/components/tools/VoiceCloneClient";
 
@@ -19,13 +25,12 @@ const SITE = "https://www.shopyor.com";
 
 export const metadata = {
   title: {
-    absolute:
-      "Free AI Voice Cloner – Clone Any Voice Online in Seconds | Shopyor",
+    absolute: "Free AI Voice Cloner – Clone Any Voice Online | Shopyor",
   },
   description:
-    "Clone any voice online for free with Shopyor's AI voice cloner. Upload a short sample, type your text, and get natural-sounding speech in seconds — a free AI voice generator and text-to-speech tool, no sign-up required.",
+    "Free AI voice cloner — clone any voice or your own voice online in seconds, no sign-up and no watermark. Upload a short sample, type your text, and download natural speech as WAV. A free alternative to ElevenLabs and Speechify for YouTube voiceovers, podcasts, and text to speech in your own voice.",
   keywords:
-    "voice cloning, ai voice cloner, free ai voice cloning, free voice cloner, voice cloner online free, clone any voice, clone my voice, voice clone online, voice cloning no sign up, clone voice in seconds, ai voice generator, text to speech, tts voice generator, realistic ai voice, custom voice generator, online voice cloning, voice cloning tool, speech synthesis",
+    "voice cloning, ai voice cloner, free ai voice cloning, free voice cloner, voice cloner online free, free elevenlabs alternative, elevenlabs alternative free, free alternative to elevenlabs, speechify alternative, clone any voice, clone my voice, clone your own voice, text to speech my own voice, text to speech with your own voice, voice cloner no sign up, voice cloner no watermark, free voice cloning no watermark, voice cloning for youtube, ai voiceover free, voice clone online, voice cloning no sign up, clone voice in seconds, ai voice generator, text to speech, tts voice generator, realistic ai voice, custom voice generator, online voice cloning, voice cloning tool, free voice cloning download wav",
   authors: [{ name: "Shopyor" }],
   creator: "Shopyor",
   publisher: "Shopyor",
@@ -43,9 +48,9 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: "Free AI Voice Cloner – Clone Any Voice Online in Seconds | Shopyor",
+    title: "Free AI Voice Cloner – Clone Any Voice Online | Shopyor",
     description:
-      "Upload a short voice sample, type your script, and Shopyor's AI speaks it back in that voice. Free, fast, and private — no sign-up required.",
+      "Upload a short voice sample, type your script, and Shopyor's AI speaks it back in that voice. A free, no-watermark alternative to ElevenLabs and Speechify — clone your own voice for YouTube voiceovers and text to speech.",
     url: SITE,
     type: "website",
     siteName: "Shopyor",
@@ -58,7 +63,7 @@ export const metadata = {
     creator: "@shopyor",
     title: "Free AI Voice Cloner – Clone Any Voice Online | Shopyor",
     description:
-      "Clone a voice from a short sample and generate natural speech from text. Free and instant.",
+      "Clone any voice or your own voice from a short sample and generate natural speech from text. Free, instant, no sign-up — a free ElevenLabs alternative.",
   },
 };
 
@@ -113,10 +118,87 @@ const features = [
   },
 ];
 
+const moreTools = [
+  {
+    icon: FileText,
+    label: "PDF to Word Converter",
+    href: "/tools/online-pdf-to-word-converter",
+    desc: "Convert PDF files to editable Word documents online, free.",
+  },
+  {
+    icon: ImageIcon,
+    label: "Compress Image Online",
+    href: "/tools/image-compressor",
+    desc: "Shrink JPG and PNG file size without losing quality.",
+  },
+  {
+    icon: Eraser,
+    label: "Remove Background from Image",
+    href: "/tools/background-remover-image",
+    desc: "Erase image backgrounds automatically in one click.",
+  },
+  {
+    icon: FileArchive,
+    label: "Compress PDF File",
+    href: "/tools/pdf-compressor",
+    desc: "Reduce PDF size online while keeping it readable.",
+  },
+  {
+    icon: Scissors,
+    label: "Remove Image EXIF Data",
+    href: "/tools/exif-remover",
+    desc: "Strip metadata and location from your photos for privacy.",
+  },
+  {
+    icon: LayoutGrid,
+    label: "Browse All Free Tools",
+    href: "/tools",
+    desc: "Explore every free Shopyor tool in one place.",
+  },
+];
+
+const useCases = [
+  {
+    icon: AudioLines,
+    title: "YouTube voiceovers in your own voice",
+    desc: "Clone your voice once and narrate every video by typing the script — no microphone setup or re-recording.",
+  },
+  {
+    icon: Mic,
+    title: "Podcasts & audiobooks",
+    desc: "Fix a line or narrate long-form audio without going back to the studio. Generate clean speech and download the WAV.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Accessibility & personalized TTS",
+    desc: "Create a personal text-to-speech voice that sounds like you for reading, assistance, and everyday narration.",
+  },
+];
+
 const faqs = [
   {
     q: "Is the Shopyor voice cloner free?",
     a: "Yes. Shopyor's AI voice cloner is 100% free to use. There is no sign-up, subscription, or hidden fee — upload a sample, type your text, and download the result.",
+  },
+  {
+    q: "Is this a free alternative to ElevenLabs and Speechify?",
+    a: "Yes. Shopyor is a free AI voice cloner you can use as an alternative to ElevenLabs and Speechify. You can clone a voice and generate speech with no sign-up, no credit card, and no watermark — and download the audio for free.",
+  },
+  {
+    q: "Can I do text to speech in my own voice?",
+    a: "Yes. Record or upload a short sample of your own voice, tick the consent box, then type any text. Shopyor reads it back in your voice, so you get text to speech using your own voice for narration and voiceovers.",
+  },
+  {
+    q: "Can I use the cloned voice for YouTube videos and podcasts?",
+    a: "Yes. The downloaded WAV works for YouTube voiceovers, podcasts, audiobooks, tutorials, and accessibility narration. You may only use voices you own or have permission to use.",
+  },
+  {
+    q: "Does the cloned audio have a watermark?",
+    a: "No. Shopyor does not add an audible watermark. You download a clean, high-quality WAV file you can use right away.",
+  },
+  {
+    q: "Does the voice cloner work on iPhone and Android?",
+    a: "Yes. It runs entirely in your mobile browser on iPhone and Android, as well as on desktop — there is nothing to download or install.",
   },
   {
     q: "Can I clone any voice online with no sign-up?",
@@ -149,6 +231,30 @@ const faqs = [
 ];
 
 const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Shopyor",
+    url: SITE,
+    logo: `${SITE}/shopyor.png`,
+    description:
+      "Free online tools — AI voice cloning, PDF to Word converter, image compressor, background remover, and more.",
+    sameAs: ["https://twitter.com/shopyor"],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Shopyor",
+    url: SITE,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${SITE}/search?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
+  },
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
@@ -222,12 +328,13 @@ export default function Page() {
         <h1 className="relative mx-auto mt-5 max-w-3xl text-2xl font-black leading-[1.1] tracking-tight md:text-4xl">
           Free AI Voice Cloner —{" "}
           <span className="bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 bg-clip-text text-transparent">
-            clone any voice in seconds with shopyor
+            Clone Any Voice Online
           </span>
         </h1>
         <p className="relative mx-auto mt-5 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-          Upload a short audio sample, type your text, and Shopyor speaks it
-          back in that voice — natural, instant, and free.{" "}
+          Clone any voice — or your own voice — from a short sample, type your
+          text, and Shopyor speaks it back. A free, no-watermark alternative to
+          ElevenLabs and Speechify for YouTube voiceovers and text to speech.{" "}
           <span className="font-medium text-foreground">
             Only clone voices you have permission to use.
           </span>
@@ -331,6 +438,38 @@ export default function Page() {
         </div>
       </section>
 
+      {/* ===== Use cases ===== */}
+      <section className="px-4 py-14">
+        <div className="mx-auto max-w-4xl text-center">
+          <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
+            What you can do with a free voice clone
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
+            From YouTube voiceovers to podcasts and text to speech in your own
+            voice — a free ElevenLabs and Speechify alternative.
+          </p>
+        </div>
+        <div className="mx-auto mt-10 grid max-w-5xl gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {useCases.map((u) => {
+            const Icon = u.icon;
+            return (
+              <div
+                key={u.title}
+                className="group rounded-2xl border border-black/5 bg-white/70 p-6 shadow-sm backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/40 dark:border-white/10 dark:bg-white/[0.04]"
+              >
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-violet-500/30 bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 text-violet-500 transition-transform duration-300 group-hover:scale-110 dark:text-violet-300">
+                  <Icon className="h-5 w-5" />
+                </span>
+                <h3 className="mt-4 font-semibold">{u.title}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                  {u.desc}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
       {/* ===== FAQ ===== */}
       <section className="px-4 py-14">
         <div className="mx-auto max-w-3xl">
@@ -360,6 +499,44 @@ export default function Page() {
               </details>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ===== More free tools (internal linking) ===== */}
+      <section className="px-4 py-14">
+        <div className="mx-auto max-w-4xl text-center">
+          <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
+            More free online tools from Shopyor
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
+            The voice cloner is just the start — Shopyor has free PDF, image,
+            and SEO tools, with no sign-up required.
+          </p>
+        </div>
+        <div className="mx-auto mt-10 grid max-w-5xl gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {moreTools.map((t) => {
+            const Icon = t.icon;
+            return (
+              <Link
+                key={t.href}
+                href={t.href}
+                className="group flex items-start gap-4 rounded-2xl border border-black/5 bg-white/70 p-6 shadow-sm backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/40 dark:border-white/10 dark:bg-white/[0.04]"
+              >
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-violet-500/30 bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 text-violet-500 transition-transform duration-300 group-hover:scale-110 dark:text-violet-300">
+                  <Icon className="h-5 w-5" />
+                </span>
+                <span className="min-w-0">
+                  <span className="flex items-center gap-1 font-semibold text-foreground">
+                    {t.label}
+                    <ArrowRight className="h-4 w-4 shrink-0 text-violet-500 transition-transform group-hover:translate-x-1" />
+                  </span>
+                  <span className="mt-1 block text-sm leading-relaxed text-muted-foreground">
+                    {t.desc}
+                  </span>
+                </span>
+              </Link>
+            );
+          })}
         </div>
       </section>
 
