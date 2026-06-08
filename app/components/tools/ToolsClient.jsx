@@ -19,6 +19,7 @@ import {
   ArrowRight,
   Sparkles,
   SearchX,
+  Paintbrush,
 } from "lucide-react";
 import { FaFacebook, FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 
@@ -47,6 +48,7 @@ const CATEGORY_GRADIENT = {
   PDF: "from-red-500 to-rose-600",
   YouTube: "from-red-600 to-orange-500",
   SEO: "from-violet-500 to-indigo-600",
+  Media: "from-fuchsia-500 to-cyan-500",
 };
 
 const gradientFor = (category) =>
@@ -92,6 +94,13 @@ export default function ToolsClient() {
       desc: "Convert and download your video to GIF using video to GIF converter at Shopyor",
       icon: Video,
       category: "video downloader",
+    },
+    {
+      href: "/tools/whiteboard-animation",
+      title: "Whiteboard Animation Maker",
+      desc: "Turn any image into a hand-drawn speed-paint animation and export it as video or GIF.",
+      icon: Paintbrush,
+      category: "Media",
     },
     {
       href: "/tools/image-compressor",
@@ -189,6 +198,7 @@ export default function ToolsClient() {
   const categories = [
     "All",
     "Image",
+    "Media",
     "Health",
     "Marketing",
     "File",
