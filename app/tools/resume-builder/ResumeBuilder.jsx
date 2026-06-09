@@ -100,7 +100,14 @@ const TEMPLATES = [
   { key: "classic", label: "Classic" },
   { key: "minimal", label: "Minimal" },
   { key: "sidebar", label: "Sidebar" },
+  { key: "paramount", label: "Paramount" },
+  { key: "contemporary", label: "Contempo" },
+  { key: "fresh", label: "Fresh" },
+  { key: "fun", label: "Fun" },
 ];
+
+// Templates that show a profile photo (the "picture templates").
+const PHOTO_TEMPLATES = new Set(["sidebar", "paramount", "contemporary", "fresh", "fun"]);
 
 /* ------------------------------- helpers -------------------------------- */
 const uid = () => Math.random().toString(36).slice(2, 9);
@@ -670,9 +677,9 @@ export default function ResumeBuilder() {
                 <Input label="Website" value={resume.basics.website} onChange={(v) => setBasics("website", v)} placeholder="yoursite.com" />
                 <Input className="col-span-2" label="LinkedIn" value={resume.basics.linkedin} onChange={(v) => setBasics("linkedin", v)} placeholder="linkedin.com/in/you" />
               </div>
-              {settings.template === "sidebar" && (
+              {PHOTO_TEMPLATES.has(settings.template) && (
                 <div className="mt-3">
-                  <Label>Photo (sidebar template)</Label>
+                  <Label>Photo (picture templates)</Label>
                   <div className="flex items-center gap-3">
                     {resume.basics.photo && (
                       // eslint-disable-next-line @next/next/no-img-element
@@ -983,6 +990,14 @@ function ResumeSheet({ resume, settings }) {
       return <TemplateMinimal resume={view} />;
     case "sidebar":
       return <TemplateSidebar resume={view} />;
+    case "paramount":
+      return <TemplateParamount resume={view} />;
+    case "contemporary":
+      return <TemplateContemporary resume={view} />;
+    case "fresh":
+      return <TemplateFresh resume={view} />;
+    case "fun":
+      return <TemplateFun resume={view} />;
     default:
       return <TemplateModern resume={view} />;
   }
@@ -1439,6 +1454,299 @@ function TemplateSidebar({ resume }) {
 
         <Extras resume={resume} H={MainH} />
       </main>
+    </div>
+  );
+}
+
+/* ---- shared bits for picture templates --------------------------------- */
+function Avatar({ src, size = "5em", ring = "rgba(255,255,255,0.65)", radius = "999px" }) {
+  if (!src) return null;
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={src}
+      alt=""
+      style={{ width: size, height: size, borderRadius: radius, objectFit: "cover", border: `3px solid ${ring}`, flexShrink: 0 }}
+    />
+  );
+}
+function Chips({ items, bg = "color-mix(in srgb, var(--accent) 12%, white)", color = "var(--accent)" }) {
+  return (
+    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4em" }}>
+      {items.map((s, i) => (
+        <span key={i} style={{ background: bg, color, padding: "0.18em 0.6em", borderRadius: "999px", fontSize: "0.82em", fontWeight: 600 }}>{s}</span>
+      ))}
+    </div>
+  );
+}
+function RailContact({ b, color = "#374151" }) {
+  return (
+    <div style={{ fontSize: "0.82em", display: "flex", flexDirection: "column", gap: "0.3em", color }}>
+      {b.email && <span style={{ wordBreak: "break-word" }}>{b.email}</span>}
+      {b.phone && <span>{b.phone}</span>}
+      {b.location && <span>{b.location}</span>}
+      {b.website && <span style={{ wordBreak: "break-word" }}>{b.website}</span>}
+      {b.linkedin && <span style={{ wordBreak: "break-word" }}>{b.linkedin}</span>}
+    </div>
+  );
+}
+const EduList = ({ items, accent = "var(--accent)" }) =>
+  items.map((e) => (
+    <div key={e.id} style={{ marginBottom: "0.4em", fontSize: "0.88em" }}>
+      <div style={{ fontWeight: 700 }}>{e.degree}</div>
+      <div style={{ color: accent }}>{e.school}</div>
+      <div style={{ color: "#6b7280" }}>{dateRange(e.start, e.end, false)}</div>
+    </div>
+  ));
+
+/* ---- Paramount (light rail + corporate main) --------------------------- */
+function TemplateParamount({ resume }) {
+  const b = resume.basics;
+  const RailH = ({ children }) => (
+    <h3 style={{ margin: "1em 0 0.4em", fontSize: "0.78em", fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--accent)" }}>{children}</h3>
+  );
+  const MainH = ({ children }) => (
+    <h3 style={{ margin: "var(--gap) 0 0.4em", fontSize: "0.85em", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#1f2937", borderBottom: "2px solid var(--accent)", paddingBottom: "0.15em" }}>{children}</h3>
+  );
+  return (
+    <div style={{ display: "flex", minHeight: "inherit" }}>
+      <aside style={{ width: "32%", background: "#f3f4f6", padding: "11mm 7mm" }}>
+        {b.photo && <div style={{ textAlign: "center", marginBottom: "0.8em" }}><Avatar src={b.photo} size="5.4em" ring="#fff" /></div>}
+        <RailH>Contact</RailH>
+        <RailContact b={b} />
+        {tags(resume.skills).length > 0 && (<><RailH>Skills</RailH><Chips items={tags(resume.skills)} /></>)}
+        {resume.education.length > 0 && (<><RailH>Education</RailH><EduList items={resume.education} /></>)}
+        {resume.languages.length > 0 && (
+          <><RailH>Languages</RailH>
+            <div style={{ fontSize: "0.84em", display: "flex", flexDirection: "column", gap: "0.2em", color: "#374151" }}>
+              {resume.languages.map((l) => (<span key={l.id}>{l.name}{l.level && ` — ${l.level}`}</span>))}
+            </div>
+          </>
+        )}
+      </aside>
+      <main style={{ width: "68%", padding: "11mm 9mm" }}>
+        <header style={{ marginBottom: "0.4em" }}>
+          <h1 style={{ fontSize: "2em", fontWeight: 800, letterSpacing: "0.04em", textTransform: "uppercase", lineHeight: 1.05 }}>{b.fullName || "Your Name"}</h1>
+          {b.title && <div style={{ fontSize: "1.05em", fontWeight: 600, color: "var(--accent)" }}>{b.title}</div>}
+        </header>
+        {b.summary && (<section><MainH>Profile</MainH><p>{b.summary}</p></section>)}
+        {resume.experience.length > 0 && (
+          <section><MainH>Experience</MainH>
+            {resume.experience.map((it) => (
+              <div key={it.id} style={{ marginBottom: "0.6em", breakInside: "avoid" }}>
+                <EntryHead left={it.role} right={dateRange(it.start, it.end, it.current)} sub={it.company} subRight={it.location} />
+                <Bullets text={it.description} />
+              </div>
+            ))}
+          </section>
+        )}
+        {resume.projects.length > 0 && (
+          <section><MainH>Projects</MainH>
+            {resume.projects.map((it) => (
+              <div key={it.id} style={{ marginBottom: "0.4em" }}>
+                <EntryHead left={it.name} right={it.link} />
+                {it.description && <div style={{ fontSize: "0.95em" }}>{it.description}</div>}
+              </div>
+            ))}
+          </section>
+        )}
+        {resume.certifications.length > 0 && (
+          <section><MainH>Certifications</MainH>
+            {resume.certifications.map((c) => (
+              <div key={c.id} style={{ marginBottom: "0.2em" }}>
+                <span style={{ fontWeight: 600 }}>{c.name}</span>
+                {(c.issuer || c.date) && <span style={{ color: "#555" }}> — {[c.issuer, c.date].filter(Boolean).join(", ")}</span>}
+              </div>
+            ))}
+          </section>
+        )}
+        <Extras resume={resume} H={MainH} />
+      </main>
+    </div>
+  );
+}
+
+/* ---- Contemporary (accent header band + two columns) ------------------- */
+function TemplateContemporary({ resume }) {
+  const b = resume.basics;
+  const H = ({ children }) => (
+    <h3 style={{ display: "flex", alignItems: "center", gap: "0.5em", margin: "var(--gap) 0 0.4em", fontSize: "0.82em", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--accent)" }}>
+      <span style={{ width: "0.5em", height: "0.5em", borderRadius: "2px", background: "var(--accent)" }} />{children}
+    </h3>
+  );
+  return (
+    <div>
+      <header style={{ display: "flex", alignItems: "center", gap: "1em", background: "color-mix(in srgb, var(--accent) 12%, white)", padding: "9mm 10mm", borderBottom: "3px solid var(--accent)" }}>
+        <div style={{ flex: 1 }}>
+          <h1 style={{ fontSize: "2em", fontWeight: 800, lineHeight: 1.05 }}>{b.fullName || "Your Name"}</h1>
+          {b.title && <div style={{ fontSize: "1.05em", fontWeight: 600, color: "var(--accent)", marginTop: "0.1em" }}>{b.title}</div>}
+          <ContactRow b={b} style={{ marginTop: "0.4em", fontSize: "0.8em", color: "#444" }} />
+        </div>
+        {b.photo && <Avatar src={b.photo} size="5.2em" ring="#fff" radius="14px" />}
+      </header>
+      <div style={{ display: "flex" }}>
+        <aside style={{ width: "33%", padding: "8mm 7mm" }}>
+          {tags(resume.skills).length > 0 && (<><H>Skills</H><Chips items={tags(resume.skills)} /></>)}
+          {resume.education.length > 0 && (<><H>Education</H><EduList items={resume.education} /></>)}
+          {resume.languages.length > 0 && (
+            <><H>Languages</H>
+              <div style={{ fontSize: "0.86em", display: "flex", flexDirection: "column", gap: "0.2em" }}>
+                {resume.languages.map((l) => (<span key={l.id}>{l.name}{l.level && ` — ${l.level}`}</span>))}
+              </div>
+            </>
+          )}
+          {resume.certifications.length > 0 && (
+            <><H>Certifications</H>
+              <div style={{ fontSize: "0.86em", display: "flex", flexDirection: "column", gap: "0.3em" }}>
+                {resume.certifications.map((c) => (<span key={c.id}>{c.name}{c.date && ` (${c.date})`}</span>))}
+              </div>
+            </>
+          )}
+        </aside>
+        <main style={{ width: "67%", padding: "8mm 9mm 8mm 0" }}>
+          {b.summary && (<section><H>Profile</H><p>{b.summary}</p></section>)}
+          {resume.experience.length > 0 && (
+            <section><H>Experience</H>
+              {resume.experience.map((it) => (
+                <div key={it.id} style={{ marginBottom: "0.6em", breakInside: "avoid" }}>
+                  <EntryHead left={it.role} right={dateRange(it.start, it.end, it.current)} sub={it.company} subRight={it.location} />
+                  <Bullets text={it.description} />
+                </div>
+              ))}
+            </section>
+          )}
+          {resume.projects.length > 0 && (
+            <section><H>Projects</H>
+              {resume.projects.map((it) => (
+                <div key={it.id} style={{ marginBottom: "0.4em" }}>
+                  <EntryHead left={it.name} right={it.link} />
+                  {it.description && <div style={{ fontSize: "0.95em" }}>{it.description}</div>}
+                </div>
+              ))}
+            </section>
+          )}
+          <Extras resume={resume} H={H} />
+        </main>
+      </div>
+    </div>
+  );
+}
+
+/* ---- Fresh (accent name plate, single column) -------------------------- */
+function TemplateFresh({ resume }) {
+  const b = resume.basics;
+  const H = ({ children }) => (
+    <h3 style={{ display: "flex", alignItems: "center", gap: "0.5em", margin: "var(--gap) 0 0.4em", fontSize: "0.82em", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--accent)" }}>
+      {children}<span style={{ flex: 1, height: "1px", background: "color-mix(in srgb, var(--accent) 35%, white)" }} />
+    </h3>
+  );
+  return (
+    <div style={{ padding: PAD }}>
+      <header style={{ display: "flex", alignItems: "center", gap: "1em", background: "var(--accent)", color: "#fff", borderRadius: "14px", padding: "1em 1.2em", marginBottom: "0.7em" }}>
+        {b.photo && <Avatar src={b.photo} size="4.6em" ring="rgba(255,255,255,0.7)" />}
+        <div>
+          <h1 style={{ fontSize: "1.95em", fontWeight: 800, lineHeight: 1.05 }}>{b.fullName || "Your Name"}</h1>
+          {b.title && <div style={{ fontSize: "1em", opacity: 0.92, marginTop: "0.1em" }}>{b.title}</div>}
+        </div>
+      </header>
+      <ContactRow b={b} style={{ justifyContent: "center", fontSize: "0.82em", color: "#444", marginBottom: "0.2em" }} />
+
+      {b.summary && (<section><H>Profile</H><p>{b.summary}</p></section>)}
+      {tags(resume.skills).length > 0 && (<section><H>Skills</H><Chips items={tags(resume.skills)} /></section>)}
+      {resume.experience.length > 0 && (
+        <section><H>Experience</H>
+          {resume.experience.map((it) => (
+            <div key={it.id} style={{ marginBottom: "0.6em", breakInside: "avoid" }}>
+              <EntryHead left={it.role} right={dateRange(it.start, it.end, it.current)} sub={it.company} subRight={it.location} />
+              <Bullets text={it.description} />
+            </div>
+          ))}
+        </section>
+      )}
+      {resume.education.length > 0 && (
+        <section><H>Education</H>
+          {resume.education.map((it) => (
+            <div key={it.id} style={{ marginBottom: "0.4em", breakInside: "avoid" }}>
+              <EntryHead left={it.degree} right={dateRange(it.start, it.end, false)} sub={it.school} subRight={it.location} />
+              {it.details && <div style={{ fontSize: "0.92em", color: "#444" }}>{it.details}</div>}
+            </div>
+          ))}
+        </section>
+      )}
+      {resume.projects.length > 0 && (
+        <section><H>Projects</H>
+          {resume.projects.map((it) => (
+            <div key={it.id} style={{ marginBottom: "0.4em" }}>
+              <EntryHead left={it.name} right={it.link} />
+              {it.description && <div style={{ fontSize: "0.95em" }}>{it.description}</div>}
+            </div>
+          ))}
+        </section>
+      )}
+      <TwoUp resume={resume} />
+      <Extras resume={resume} H={H} />
+    </div>
+  );
+}
+
+/* ---- Fun (centered photo, pill headings, two columns) ------------------ */
+function TemplateFun({ resume }) {
+  const b = resume.basics;
+  const H = ({ children }) => (
+    <h3 style={{ display: "inline-block", margin: "var(--gap) 0 0.4em", fontSize: "0.74em", fontWeight: 800, letterSpacing: "0.08em", textTransform: "uppercase", color: "#fff", background: "var(--accent)", padding: "0.2em 0.7em", borderRadius: "999px" }}>{children}</h3>
+  );
+  return (
+    <div style={{ padding: PAD }}>
+      <header style={{ textAlign: "center", marginBottom: "0.5em" }}>
+        {b.photo && <div style={{ display: "flex", justifyContent: "center", marginBottom: "0.4em" }}><Avatar src={b.photo} size="5em" ring="var(--accent)" /></div>}
+        <h1 style={{ fontSize: "1.95em", fontWeight: 800 }}>{b.fullName || "Your Name"}</h1>
+        {b.title && <div style={{ fontSize: "1em", color: "var(--accent)", fontWeight: 600 }}>{b.title}</div>}
+        <ContactRow b={b} style={{ justifyContent: "center", fontSize: "0.8em", color: "#555", marginTop: "0.4em" }} />
+      </header>
+      <div style={{ display: "flex", gap: "1.5em" }}>
+        <div style={{ flex: "0 0 34%" }}>
+          {tags(resume.skills).length > 0 && (<><H>Skills</H><Chips items={tags(resume.skills)} /></>)}
+          {resume.education.length > 0 && (<div><H>Education</H><EduList items={resume.education} /></div>)}
+          {resume.languages.length > 0 && (
+            <div><H>Languages</H>
+              <div style={{ fontSize: "0.86em", display: "flex", flexDirection: "column", gap: "0.2em" }}>
+                {resume.languages.map((l) => (<span key={l.id}>{l.name}{l.level && ` — ${l.level}`}</span>))}
+              </div>
+            </div>
+          )}
+        </div>
+        <div style={{ flex: 1 }}>
+          {b.summary && (<div><H>About</H><p>{b.summary}</p></div>)}
+          {resume.experience.length > 0 && (
+            <div><H>Experience</H>
+              {resume.experience.map((it) => (
+                <div key={it.id} style={{ marginBottom: "0.6em", breakInside: "avoid" }}>
+                  <EntryHead left={it.role} right={dateRange(it.start, it.end, it.current)} sub={it.company} subRight={it.location} />
+                  <Bullets text={it.description} />
+                </div>
+              ))}
+            </div>
+          )}
+          {resume.projects.length > 0 && (
+            <div><H>Projects</H>
+              {resume.projects.map((it) => (
+                <div key={it.id} style={{ marginBottom: "0.4em" }}>
+                  <EntryHead left={it.name} right={it.link} />
+                  {it.description && <div style={{ fontSize: "0.95em" }}>{it.description}</div>}
+                </div>
+              ))}
+            </div>
+          )}
+          {resume.certifications.length > 0 && (
+            <div><H>Certifications</H>
+              {resume.certifications.map((c) => (
+                <div key={c.id} style={{ marginBottom: "0.2em" }}>{c.name}{(c.issuer || c.date) && <span style={{ color: "#555" }}> — {[c.issuer, c.date].filter(Boolean).join(", ")}</span>}</div>
+              ))}
+            </div>
+          )}
+          <Extras resume={resume} H={H} />
+        </div>
+      </div>
     </div>
   );
 }
