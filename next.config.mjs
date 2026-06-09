@@ -76,6 +76,25 @@ const nextConfig = {
         ],
       },
 
+      // Under COEP: require-corp, every subresource needs a CORP header or it
+      // is blocked (ERR_BLOCKED_BY_RESPONSE). ffmpeg.wasm's internal worker is
+      // served from /_next/static/chunks, and its core/wasm from /ffmpeg — mark
+      // both cross-origin so the isolated tool pages can load them.
+      {
+        source: "/_next/static/:path*",
+        headers: [
+          { key: "Cross-Origin-Resource-Policy", value: "cross-origin" },
+          // A dedicated worker spawned from a require-corp (cross-origin
+          // isolated) document must itself be served with COEP, or Chrome
+          // blocks it (ERR_BLOCKED_BY_RESPONSE). ffmpeg.wasm's worker lives here.
+          { key: "Cross-Origin-Embedder-Policy", value: "require-corp" },
+        ],
+      },
+      {
+        source: "/ffmpeg/:path*",
+        headers: [{ key: "Cross-Origin-Resource-Policy", value: "cross-origin" }],
+      },
+
       // default: no COEP (prevents breaking other embeds)
       {
         source: "/:path*",

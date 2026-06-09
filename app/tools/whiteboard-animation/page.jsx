@@ -3,7 +3,7 @@ import WhiteboardAnimator from "./WhiteboardAnimator";
 export const metadata = {
   title: "Whiteboard Animation Maker — Free Speed Paint / Draw Tool | Shopyor",
   description:
-    "Turn any image into a hand-drawn whiteboard animation online for free. Like Canva's Speed Paint / Draw effect — add a drawing hand and export as video (WebM) or GIF. No sign-up, no watermark, 100% in your browser.",
+    "Turn any image into a hand-drawn whiteboard animation online for free. Like Canva's Speed Paint / Draw effect — add a drawing hand and export as video (MP4) or GIF. No sign-up, no watermark, 100% in your browser.",
   keywords: [
     "whiteboard animation",
     "whiteboard animation maker",
@@ -48,7 +48,7 @@ export default function Page() {
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     url: "https://shopyor.com/tools/whiteboard-animation",
     description:
-      "Free online whiteboard animation maker. Convert any image into a hand-drawn speed-paint animation and export it as a WebM video or animated GIF, right in your browser.",
+      "Free online whiteboard animation maker. Convert any image into a hand-drawn speed-paint animation and export it as an MP4 video or animated GIF, right in your browser.",
   };
 
   const faqJsonLd = {
@@ -76,7 +76,7 @@ export default function Page() {
         name: "Can I download the animation as a video or GIF?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. You can export your whiteboard animation as a WebM video or an animated GIF. Everything is generated in your browser with no watermark.",
+          text: "Yes. You can export your whiteboard animation as an MP4 video or an animated GIF. Everything is generated in your browser with no watermark.",
         },
       },
       {

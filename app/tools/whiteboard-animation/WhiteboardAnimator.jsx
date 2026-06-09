@@ -4,7 +4,7 @@
  * Whiteboard / Speed-Paint Animator
  * ---------------------------------
  * Turns any uploaded PNG/JPG into a "being hand-drawn on a whiteboard" animation
- * (like Canva's Draw / Speed Paint effect) and exports it as WebM video or GIF.
+ * (like Canva's Draw / Speed Paint effect) and exports it as MP4 video or GIF.
  *
  * Technique (works for any raster image, 100% in-browser):
  *  - The image is split into a grid of tiles.
@@ -14,9 +14,10 @@
  *  - For transparent / line-art images we only trace the actual marks; for
  *    photos we reveal the whole image.
  *
- * Export:
- *  - WebM  → canvas.captureStream() + MediaRecorder (real-time capture).
- *  - GIF   → gif.js (deterministic, frame-by-frame) using /public/gif.worker.js.
+ * Export (both deterministic, frame-by-frame via ffmpeg.wasm):
+ *  - MP4 → libx264 / yuv420p, plays everywhere.
+ *  - GIF → palettegen/paletteuse for clean colors.
+ *  Core is self-hosted at /public/ffmpeg/ (works under this page's COEP header).
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -121,6 +122,34 @@ function buildScene(img, detail, mode) {
   return { W, H, tiles, order };
 }
 
+/* --------------------------- output framing ----------------------------- */
+// Letterbox the native-size content (scene.W×scene.H) inside a canvas whose
+// shape matches the chosen aspect ratio. We never upscale the image — we just
+// pad with the background colour to reach the target aspect, so 9:16 / 16:9 /
+// 1:1 exports drop straight into Reels, TikTok, YouTube, slides, etc.
+const ASPECTS = {
+  original: null,
+  "16:9": 16 / 9,
+  "9:16": 9 / 16,
+  "1:1": 1,
+  "4:5": 4 / 5,
+};
+function computeFrame(scene, aspect) {
+  const { W, H } = scene;
+  const target = ASPECTS[aspect];
+  if (!target) return { fw: W, fh: H, dx: 0, dy: 0 };
+  const contentAR = W / H;
+  let fw, fh;
+  if (target >= contentAR) {
+    fh = H;
+    fw = Math.round(H * target); // pad left/right
+  } else {
+    fw = W;
+    fh = Math.round(W / target); // pad top/bottom
+  }
+  return { fw, fh, dx: Math.round((fw - W) / 2), dy: Math.round((fh - H) / 2) };
+}
+
 /* ============================ main component ============================ */
 export default function WhiteboardAnimator() {
   const [imgUrl, setImgUrl] = useState(null);
@@ -132,6 +161,7 @@ export default function WhiteboardAnimator() {
   const [detail, setDetail] = useState(45);
   const [bg, setBg] = useState("#ffffff");
   const [mode, setMode] = useState("auto");
+  const [aspect, setAspect] = useState("original");
   const [handOn, setHandOn] = useState(true);
   const [handStyle, setHandStyle] = useState("marker");
 
@@ -153,6 +183,7 @@ export default function WhiteboardAnimator() {
   const imgRef = useRef(null);
   const sceneRef = useRef(null);
   const handImgs = useRef({});
+  const ffmpegRef = useRef(null);
   const rafRef = useRef(0);
   const playingRef = useRef(false);
   const progressRef = useRef(1);
@@ -160,9 +191,11 @@ export default function WhiteboardAnimator() {
   const bgRef = useRef(bg);
   const handOnRef = useRef(handOn);
   const handStyleRef = useRef(handStyle);
+  const aspectRef = useRef(aspect);
   useEffect(() => void (bgRef.current = bg), [bg]);
   useEffect(() => void (handOnRef.current = handOn), [handOn]);
   useEffect(() => void (handStyleRef.current = handStyle), [handStyle]);
+  useEffect(() => void (aspectRef.current = aspect), [aspect]);
 
   /* preload hand artwork once */
   useEffect(() => {
@@ -225,15 +258,16 @@ export default function WhiteboardAnimator() {
       cctx.drawImage(img, 0, 0, W, H);
       cctx.globalCompositeOperation = "source-over";
 
-      // 3. compose onto visible canvas
+      // 3. compose onto the visible (framed) canvas, padding to the chosen aspect
+      const { fw, fh, dx, dy } = computeFrame(scene, aspectRef.current);
       const ctx = canvas.getContext("2d");
       ctx.fillStyle = bgRef.current;
-      ctx.fillRect(0, 0, W, H);
-      ctx.drawImage(contentRef.current, 0, 0);
+      ctx.fillRect(0, 0, fw, fh);
+      ctx.drawImage(contentRef.current, dx, dy);
 
-      // 4. the drawing hand
+      // 4. the drawing hand (offset into the padded frame)
       if (handOnRef.current && p < 1 && head) {
-        drawHand(ctx, head.cx, headY, H);
+        drawHand(ctx, head.cx + dx, headY + dy, H);
       }
     },
     [drawHand],
@@ -246,10 +280,15 @@ export default function WhiteboardAnimator() {
       if (!img) return;
       const scene = buildScene(img, detail, mode);
       sceneRef.current = scene;
-      [canvasRef, maskRef, contentRef].forEach((r) => {
+      // working canvases stay at native image size; the visible canvas takes
+      // the framed (aspect-padded) size.
+      [maskRef, contentRef].forEach((r) => {
         r.current.width = scene.W;
         r.current.height = scene.H;
       });
+      const { fw, fh } = computeFrame(scene, aspectRef.current);
+      canvasRef.current.width = fw;
+      canvasRef.current.height = fh;
       const p = resetProgress ? 1 : progressRef.current;
       progressRef.current = p;
       setProgress(p);
@@ -261,7 +300,7 @@ export default function WhiteboardAnimator() {
   useEffect(() => {
     if (ready) rebuild(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [detail, mode, bg, handStyle, handOn]);
+  }, [detail, mode, aspect, bg, handStyle, handOn]);
 
   /* ------------------------------ upload ------------------------------ */
   const loadFile = useCallback(
@@ -348,117 +387,128 @@ export default function WhiteboardAnimator() {
   /* ------------------------------ export ------------------------------ */
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-  const exportWebM = useCallback(async () => {
-    const canvas = canvasRef.current;
-    if (!canvas || !sceneRef.current) return;
-    if (typeof MediaRecorder === "undefined") {
-      setError("Your browser doesn't support video recording. Try GIF export, or use Chrome/Edge.");
-      return;
-    }
-    stopLoop();
-    setExporting(true);
-    setExportLabel("Recording video");
-    setExportPct(0);
-    setError("");
-    if (output) URL.revokeObjectURL(output.url);
-    setOutput(null);
+  // Load ffmpeg.wasm once (single-thread core self-hosted in /public/ffmpeg).
+  // Same-origin assets work under this page's COEP: require-corp header.
+  const loadFFmpeg = useCallback(async () => {
+    if (ffmpegRef.current) return ffmpegRef.current;
+    const { FFmpeg } = await import("@ffmpeg/ffmpeg");
+    const { toBlobURL } = await import("@ffmpeg/util");
+    const ff = new FFmpeg();
+    ff.on("log", ({ message }) => console.log("[ffmpeg]", message));
+    const base = "/ffmpeg";
+    await ff.load({
+      coreURL: await toBlobURL(`${base}/ffmpeg-core.js`, "text/javascript"),
+      wasmURL: await toBlobURL(`${base}/ffmpeg-core.wasm`, "application/wasm"),
+    });
+    ffmpegRef.current = ff;
+    return ff;
+  }, []);
 
-    try {
-      const fps = 30;
-      const stream = canvas.captureStream(fps);
-      const mimes = ["video/webm;codecs=vp9", "video/webm;codecs=vp8", "video/webm"];
-      const mimeType = mimes.find((m) => MediaRecorder.isTypeSupported(m)) || "";
-      const rec = new MediaRecorder(stream, {
-        mimeType,
-        videoBitsPerSecond: 8_000_000,
-      });
-      const chunks = [];
-      rec.ondataavailable = (e) => e.data.size && chunks.push(e.data);
-      const stopped = new Promise((res) => (rec.onstop = res));
-      rec.start();
+  // Render the animation frame-by-frame to PNGs, then encode with ffmpeg.
+  // kind: "mp4" | "gif". Deterministic — no real-time capture, no dropped frames.
+  const renderAndEncode = useCallback(
+    async (kind) => {
+      const canvas = canvasRef.current;
+      const scene = sceneRef.current;
+      if (!canvas || !scene) return;
+      stopLoop();
+      setExporting(true);
+      setExportLabel("Loading encoder");
+      setExportPct(0);
+      setError("");
+      if (output) URL.revokeObjectURL(output.url);
+      setOutput(null);
 
-      const durMs = Math.max(0.5, duration) * 1000;
-      const totalMs = durMs + Math.max(0, holdEnd) * 1000;
-      const start = performance.now();
-      await new Promise((res) => {
-        const loop = (now) => {
-          const t = now - start;
-          const p = Math.min(1, t / durMs);
+      try {
+        const ff = await loadFFmpeg();
+
+        const drawSec = Math.max(0.5, duration);
+        const totalSec = drawSec + Math.max(0, holdEnd);
+        let fps = 25;
+        let total = Math.round(totalSec * fps);
+        if (total > 300) {
+          total = 300; // bound memory / encode time for long clips
+          fps = total / totalSec;
+        }
+        total = Math.max(2, total);
+
+        // 1. render every frame and write it into ffmpeg's filesystem
+        setExportLabel("Rendering frames");
+        const pad = (n) => String(n).padStart(4, "0");
+        for (let f = 0; f < total; f++) {
+          const tsec = (f / (total - 1)) * totalSec;
+          const p = Math.min(1, tsec / drawSec);
           renderFrame(p);
-          setExportPct(Math.min(99, Math.round((t / totalMs) * 100)));
-          if (t < totalMs) requestAnimationFrame(loop);
-          else res();
-        };
-        requestAnimationFrame(loop);
-      });
+          const blob = await new Promise((res) => canvas.toBlob(res, "image/png"));
+          await ff.writeFile(`f${pad(f)}.png`, new Uint8Array(await blob.arrayBuffer()));
+          setExportPct(Math.round((f / total) * 60));
+          if (f % 8 === 0) await sleep(0); // keep the UI responsive
+        }
 
-      rec.stop();
-      await stopped;
-      const blob = new Blob(chunks, { type: "video/webm" });
-      const url = URL.createObjectURL(blob);
-      setOutput({ url, type: "webm", name: `whiteboard-${Date.now()}.webm` });
-      setExportPct(100);
-      progressRef.current = 1;
-      setProgress(1);
-    } catch (e) {
-      setError("Video export failed: " + e.message);
-    } finally {
-      setExporting(false);
-    }
-  }, [duration, holdEnd, output, renderFrame]);
+        // 2. encode
+        setExportLabel(kind === "mp4" ? "Encoding MP4" : "Encoding GIF");
+        const onProg = ({ progress }) =>
+          setExportPct(Math.min(99, 60 + Math.round((progress || 0) * 39)));
+        ff.on("progress", onProg);
 
-  const exportGIF = useCallback(async () => {
-    const canvas = canvasRef.current;
-    const scene = sceneRef.current;
-    if (!canvas || !scene) return;
-    stopLoop();
-    setExporting(true);
-    setExportLabel("Rendering GIF");
-    setExportPct(0);
-    setError("");
-    if (output) URL.revokeObjectURL(output.url);
-    setOutput(null);
+        const fr = fps.toFixed(2);
+        const outName = kind === "mp4" ? "out.mp4" : "out.gif";
+        if (kind === "mp4") {
+          await ff.exec([
+            "-framerate", fr,
+            "-i", "f%04d.png",
+            "-vf", "pad=ceil(iw/2)*2:ceil(ih/2)*2", // libx264 needs even dimensions
+            "-c:v", "libx264",
+            "-preset", "ultrafast",
+            "-crf", "20",
+            "-pix_fmt", "yuv420p",
+            outName,
+          ]);
+        } else {
+          await ff.exec([
+            "-framerate", fr,
+            "-i", "f%04d.png",
+            "-vf", "fps=15,split[a][b];[a]palettegen[p];[b][p]paletteuse",
+            outName,
+          ]);
+        }
+        if (ff.off) ff.off("progress", onProg);
 
-    try {
-      const GIF = (await import("gif.js")).default;
-      const fps = 15;
-      const totalSec = Math.max(0.5, duration) + Math.max(0, holdEnd);
-      const frames = Math.min(180, Math.max(2, Math.round(totalSec * fps)));
-      const gif = new GIF({
-        workers: 2,
-        quality: 10,
-        width: scene.W,
-        height: scene.H,
-        workerScript: "/gif.worker.js",
-        background: bg,
-      });
-
-      const ctx = canvas.getContext("2d");
-      for (let f = 0; f < frames; f++) {
-        const tnorm = f / (frames - 1);
-        const tsec = tnorm * totalSec;
-        const p = Math.min(1, tsec / Math.max(0.5, duration));
-        renderFrame(p);
-        gif.addFrame(ctx, { copy: true, delay: 1000 / fps });
-        setExportPct(Math.round((f / frames) * 50));
-        if (f % 6 === 0) await sleep(0); // let the UI breathe
-      }
-
-      gif.on("progress", (pr) => setExportPct(50 + Math.round(pr * 50)));
-      gif.on("finished", (blob) => {
+        const data = await ff.readFile(outName);
+        const blob = new Blob([data], { type: kind === "mp4" ? "video/mp4" : "image/gif" });
         const url = URL.createObjectURL(blob);
-        setOutput({ url, type: "gif", name: `whiteboard-${Date.now()}.gif` });
+        setOutput({ url, type: kind, name: `whiteboard-${Date.now()}.${kind}` });
         setExportPct(100);
-        setExporting(false);
+
+        // 3. tidy the in-memory filesystem so repeat exports stay lean
+        for (let f = 0; f < total; f++) {
+          try {
+            await ff.deleteFile(`f${pad(f)}.png`);
+          } catch {}
+        }
+        try {
+          await ff.deleteFile(outName);
+        } catch {}
+
         progressRef.current = 1;
         setProgress(1);
-      });
-      gif.render();
-    } catch (e) {
-      setError("GIF export failed: " + e.message);
-      setExporting(false);
-    }
-  }, [bg, duration, holdEnd, output, renderFrame]);
+        renderFrame(1);
+      } catch (e) {
+        console.error("[wb] export failed", e);
+        setError(
+          (kind === "mp4" ? "MP4" : "GIF") +
+            " export failed: " +
+            (e?.message || String(e)),
+        );
+      } finally {
+        setExporting(false);
+      }
+    },
+    [duration, holdEnd, output, renderFrame, loadFFmpeg],
+  );
+
+  const exportMP4 = useCallback(() => renderAndEncode("mp4"), [renderAndEncode]);
+  const exportGIF = useCallback(() => renderAndEncode("gif"), [renderAndEncode]);
 
   const download = () => {
     if (!output) return;
@@ -490,6 +540,9 @@ export default function WhiteboardAnimator() {
       stopLoop();
       if (imgUrl) URL.revokeObjectURL(imgUrl);
       if (output) URL.revokeObjectURL(output.url);
+      try {
+        ffmpegRef.current?.terminate?.();
+      } catch {}
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -683,6 +736,23 @@ export default function WhiteboardAnimator() {
                     <option value="none">No hand</option>
                   </select>
                 </div>
+                <div>
+                  <label className="mb-1 block text-sm text-gray-600 dark:text-gray-400">
+                    Aspect ratio
+                  </label>
+                  <select
+                    value={aspect}
+                    onChange={(e) => setAspect(e.target.value)}
+                    disabled={exporting}
+                    className="w-full rounded-lg border border-gray-300 bg-white p-2 dark:border-gray-600 dark:bg-gray-700"
+                  >
+                    <option value="original">Original (image size)</option>
+                    <option value="16:9">16:9 — Landscape / YouTube</option>
+                    <option value="9:16">9:16 — Reels / TikTok / Shorts</option>
+                    <option value="1:1">1:1 — Square / Instagram</option>
+                    <option value="4:5">4:5 — Portrait / feed</option>
+                  </select>
+                </div>
               </div>
             </div>
 
@@ -691,11 +761,11 @@ export default function WhiteboardAnimator() {
               <h2 className="flex items-center gap-2 text-xl font-semibold">⬇️ 3. Export</h2>
               <div className="flex gap-3">
                 <button
-                  onClick={exportWebM}
+                  onClick={exportMP4}
                   disabled={!ready || exporting}
                   className="flex-1 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 py-3 font-semibold text-white transition hover:from-cyan-700 hover:to-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  🎬 Export Video (WebM)
+                  🎬 Export Video (MP4)
                 </button>
                 <button
                   onClick={exportGIF}
@@ -812,13 +882,10 @@ export default function WhiteboardAnimator() {
                     >
                       💾 Download {output.type.toUpperCase()}
                     </button>
-                    {output.type === "webm" && (
+                    {output.type === "mp4" && (
                       <p className="text-center text-xs text-gray-500">
-                        WebM plays everywhere and on social uploads. Need MP4? Drop it into our{" "}
-                        <Link href="/tools/video-to-gif" className="text-cyan-600 hover:underline">
-                          video tools
-                        </Link>{" "}
-                        or any converter.
+                        MP4 (H.264) plays everywhere — YouTube, Reels, TikTok, slides and social
+                        uploads.
                       </p>
                     )}
                   </div>
@@ -851,7 +918,7 @@ export default function WhiteboardAnimator() {
               <div className="mb-2 text-3xl">🎞️</div>
               <h3 className="font-semibold">Video & GIF export</h3>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                Download a WebM video or animated GIF, ready for YouTube, reels, ads and slides.
+                Download an MP4 video or animated GIF, ready for YouTube, reels, ads and slides.
               </p>
             </div>
           </div>
