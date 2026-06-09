@@ -24,9 +24,8 @@
 .DS_Store
 *.pem
 
-# whiteboard-animation local dev/test artifacts
-.wb_*.log
-.wb_*.cjs
+# local dev/test artifacts (throwaway puppeteer scripts, logs, screenshots)
+.wb_*
 
 # debug
 npm-debug.log*

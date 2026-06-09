@@ -20,6 +20,7 @@ import {
   Sparkles,
   SearchX,
   Paintbrush,
+  FileUser,
 } from "lucide-react";
 import { FaFacebook, FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 
@@ -49,6 +50,7 @@ const CATEGORY_GRADIENT = {
   YouTube: "from-red-600 to-orange-500",
   SEO: "from-violet-500 to-indigo-600",
   Media: "from-fuchsia-500 to-cyan-500",
+  Career: "from-violet-600 to-fuchsia-600",
 };
 
 const gradientFor = (category) =>
@@ -101,6 +103,13 @@ export default function ToolsClient() {
       desc: "Turn any image into a hand-drawn speed-paint animation and export it as video or GIF.",
       icon: Paintbrush,
       category: "Media",
+    },
+    {
+      href: "/tools/resume-builder",
+      title: "Resume Builder",
+      desc: "Build a modern, professional resume with premium templates and export a print-perfect PDF.",
+      icon: FileUser,
+      category: "Career",
     },
     {
       href: "/tools/image-compressor",
@@ -199,6 +208,7 @@ export default function ToolsClient() {
     "All",
     "Image",
     "Media",
+    "Career",
     "Health",
     "Marketing",
     "File",
