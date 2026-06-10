@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import dynamic from "next/dynamic";
 import imageCompression from "browser-image-compression";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -15,14 +16,6 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
-import {
   UploadCloud,
   Download,
   Sparkles,
@@ -30,6 +23,20 @@ import {
   ImageDown,
   ArrowRight,
 } from "lucide-react";
+
+// Code-split recharts out of the initial bundle; it only loads after a
+// compression produces a result to chart.
+const SizeComparisonChart = dynamic(
+  () => import("./SizeComparisonChart"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="flex h-64 w-full items-center justify-center text-sm text-muted-foreground">
+        Loading chart…
+      </div>
+    ),
+  },
+);
 
 const easeOut = [0.22, 1, 0.36, 1];
 
@@ -352,21 +359,7 @@ export default function ImageCompressorClient() {
           className="mt-10 rounded-2xl border bg-card p-6"
         >
           <h3 className="mb-4 text-lg font-semibold">Size comparison</h3>
-          <div className="h-64 w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={sizeChartData}>
-                <XAxis dataKey="name" />
-                <YAxis
-                  label={{ value: "MB", angle: -90, position: "insideLeft" }}
-                />
-                <Tooltip
-                  cursor={{ fill: "rgba(16,185,129,0.08)" }}
-                  contentStyle={{ borderRadius: 12, border: "1px solid hsl(var(--border))" }}
-                />
-                <Bar dataKey="size" radius={[6, 6, 0, 0]} fill="#10b981" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
+          <SizeComparisonChart data={sizeChartData} />
         </motion.div>
       )}
     </div>
