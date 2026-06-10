@@ -21,6 +21,7 @@ import {
   SearchX,
   Paintbrush,
   FileUser,
+  Mic,
 } from "lucide-react";
 import { FaFacebook, FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
 
@@ -96,6 +97,13 @@ export default function ToolsClient() {
       desc: "Convert and download your video to GIF using video to GIF converter at Shopyor",
       icon: Video,
       category: "video downloader",
+    },
+    {
+      href: "/tools/voice-clone",
+      title: "Free AI Voice Cloner",
+      desc: "Clone any voice from a short sample and turn text into natural speech — free, no watermark.",
+      icon: Mic,
+      category: "Media",
     },
     {
       href: "/tools/whiteboard-animation",
