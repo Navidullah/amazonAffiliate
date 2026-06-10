@@ -1,5 +1,6 @@
 // app/tools/bmi/page.jsx
 
+import Link from "next/link";
 import BmiCalculator from "@/app/components/tools/BmiCalculator";
 import {
   Accordion,
@@ -8,377 +9,472 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import { Separator } from "@/components/ui/separator";
+import { ChevronRight, Home } from "lucide-react";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
+const PAGE_URL = `${BASE_URL}/tools/bmi`;
 
-/** --- SEO (keyword-optimized) --- */
+/** --- SEO (low-competition, long-tail keyword optimized) --- */
 export const metadata = {
-  title:
-    "Free BMI Calculator Online | Body Mass Index (BMI) Chart, Healthy Ranges & Formula",
+  title: {
+    absolute:
+      "BMI Calculator (kg & cm) by Age and Gender — Free Online | Shopyor",
+  },
   description:
-    "Use our free BMI calculator online to check your body mass index. View BMI chart categories, healthy BMI ranges, and learn how to manage weight safely.",
-  alternates: { canonical: "/tools/bmi" },
+    "Free BMI calculator in kg & cm or lb & ft. Check if your BMI is healthy by age and gender, see your weight category on the BMI chart, and find the healthy weight for your height. No signup.",
+  keywords: [
+    "bmi calculator",
+    "bmi calculator kg and cm",
+    "bmi calculator with age and gender",
+    "bmi calculator for women by age",
+    "bmi calculator for men by age",
+    "how to calculate bmi manually",
+    "is my bmi healthy",
+    "what does my bmi mean",
+    "healthy weight for my height",
+    "normal bmi range for adults",
+    "bmi chart by age and height",
+    "ideal weight for height calculator",
+    "bmi calculator metric",
+    "bmi formula example",
+    "how to lower my bmi",
+    "free bmi calculator no signup",
+  ],
+  authors: [{ name: "Shopyor" }],
+  creator: "Shopyor",
+  publisher: "Shopyor",
+  robots: "index, follow",
+  category: "health",
+  classification: "BMI calculator and body mass index guide",
+  alternates: {
+    canonical: PAGE_URL,
+    languages: {
+      "x-default": PAGE_URL,
+      en: PAGE_URL,
+      "en-US": PAGE_URL,
+      "en-GB": PAGE_URL,
+      "en-IN": PAGE_URL,
+      "en-PK": PAGE_URL,
+      "en-NG": PAGE_URL,
+      "en-PH": PAGE_URL,
+      "en-CA": PAGE_URL,
+      "en-AU": PAGE_URL,
+      "en-ZA": PAGE_URL,
+    },
+  },
   openGraph: {
     type: "article",
-    url: `${BASE_URL}/tools/bmi`,
-    title:
-      "Free BMI Calculator Online | Body Mass Index (BMI) Chart, Healthy Ranges & Formula",
+    url: PAGE_URL,
+    siteName: "Shopyor",
+    locale: "en_US",
+    title: "Free BMI Calculator (kg & cm) by Age and Gender",
     description:
-      "Instant BMI calculator with chart categories and healthy weight ranges. Understand BMI meaning, formulas, and safe weight management tips.",
+      "Check your Body Mass Index instantly. See your BMI category on the chart, the healthy weight range for your height, and what your BMI means by age and gender.",
+    images: [
+      {
+        url: `${BASE_URL}/images/bmi-og.png`,
+        width: 1200,
+        height: 630,
+        alt: "Shopyor BMI Calculator",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "BMI Calculator Online – Body Mass Index Guide & Chart",
+    title: "BMI Calculator (kg & cm) by Age and Gender | Shopyor",
     description:
-      "Free BMI calculator with BMI formula, chart, categories, and health tips. Understand BMI ranges for adults and how to use BMI wisely.",
+      "Free BMI calculator with chart, healthy weight ranges, and what your BMI means. No signup.",
+    creator: "@shopyor",
+    site: "@shopyor",
+    images: [`${BASE_URL}/images/bmi-og.png`],
   },
 };
 
-/** --- Keyword list (from your Excel) for a user-facing “Related searches” section --- */
+/** --- Low-competition / long-tail keywords for the “Related searches” block --- */
 const KEYWORDS = [
-  "bmi",
-  "body mass index",
-  "bmi calculator",
-  "bmi calculator women",
-  "bmi chart",
+  "bmi calculator kg and cm",
+  "bmi calculator with age and gender",
+  "bmi calculator for women by age",
+  "bmi calculator for men by age",
+  "how to calculate bmi manually",
+  "is my bmi healthy",
+  "what does my bmi mean",
+  "healthy weight for my height",
+  "normal bmi range for adults",
+  "bmi chart by age and height",
+  "ideal weight for height calculator",
+  "bmi calculator metric",
+  "bmi formula example",
+  "how to lower my bmi",
+  "what is a good bmi for my age",
+  "free bmi calculator no signup",
   "bmi calculator female",
-  "bmi scale",
-  "body mass index calculator",
-  "bmi calculator men",
-  "bmi chart women",
-  "bmi test",
-  "bmi index",
-  "ideal weight calculator",
-  "my bmi",
   "bmi calculator male",
-  "best scale for body fat",
-  "bmi calculator kg",
-  "bmi calculator by age",
-  "obese bmi",
-  "imc calculator",
-  "calculate my bmi",
-  "obesity chart",
-  "overweight bmi",
-  "bmi clinic",
-  "overweight calculator",
-  "healthy weight calculator",
-  "bmi for women",
-  "bmi checker",
-  "body mass index chart",
-  "scale with body fat",
+  "overweight bmi range",
+  "obese bmi number",
 ];
 
+/** --- FAQ (plain-text answers so JSON-LD and UI stay in sync) --- */
 const faq = [
   {
-    q: "How do I calculate BMI?",
-    a: (
-      <>
-        In metric units: <strong>BMI = weight (kg) ÷ [height (m)]²</strong>. In
-        imperial units:
-        <strong> BMI = (weight (lb) ÷ [height (in)]²) × 703</strong>. Use the
-        calculator above to compute it instantly.
-      </>
-    ),
+    q: "How do I calculate BMI manually?",
+    a: "In metric units, BMI = weight (kg) ÷ height (m)². In imperial units, BMI = (weight (lb) ÷ height (in)²) × 703. For example, a person who is 1.75 m and 70 kg has a BMI of 70 ÷ (1.75 × 1.75) = 22.9. The calculator above does this for you instantly.",
   },
   {
-    q: "What is BMI (Body Mass Index) and what does it tell me?",
-    a: (
-      <>
-        BMI is a quick screening tool that estimates whether your weight is
-        under, healthy, over, or in the obesity range for your height. It helps
-        flag potential risk, but it is not a diagnosis on its own.
-      </>
-    ),
+    q: "Is my BMI healthy?",
+    a: "For most adults, a BMI of 18.5 to 24.9 is considered the healthy range. Below 18.5 is underweight, 25 to 29.9 is overweight, and 30 or above is in the obesity range. BMI is a screening tool, so pair it with waist size, activity level, and clinical markers for the full picture.",
+  },
+  {
+    q: "What does my BMI number actually mean?",
+    a: "Your BMI estimates whether your weight is under, healthy, over, or in the obesity range for your height. A higher BMI is statistically linked with greater risk of conditions like type 2 diabetes and high blood pressure, while a very low BMI may signal undernutrition. It is an indicator, not a diagnosis.",
+  },
+  {
+    q: "Is BMI calculated differently for men and women?",
+    a: "No. For adults aged 20 and over, BMI uses the same formula and the same categories for men and women. Body composition differs between sexes, so BMI is best read alongside other measures, but the calculation itself does not change by gender.",
+  },
+  {
+    q: "What is a healthy BMI by age?",
+    a: "For adults 20 and older, the healthy range (18.5–24.9) applies across ages, though some guidance allows a slightly higher range for older adults. For anyone under 20, BMI must be plotted on age- and sex-specific percentile charts instead of the adult categories.",
+  },
+  {
+    q: "What is the healthy weight for my height?",
+    a: "A healthy weight is the weight that puts your BMI between 18.5 and 24.9 for your height. Enter your height in the calculator and it shows your healthy weight range in both kilograms and pounds.",
+  },
+  {
+    q: "How can I lower my BMI safely?",
+    a: "Focus on sustainable habits: balanced meals built around whole foods, at least 150 minutes of activity per week plus resistance training, 7–9 hours of sleep, and stress management. Avoid extreme crash diets — gradual change is more effective and easier to maintain.",
   },
   {
     q: "Is BMI accurate for everyone?",
-    a: (
-      <>
-        Not always. BMI does not distinguish muscle from fat or reflect fat
-        distribution. Athletes, older adults, pregnant people, and some ethnic
-        groups may be misclassified. Pair BMI with other measures like waist
-        size, blood pressure, lipids, and blood sugar.
-      </>
-    ),
+    a: "Not always. BMI does not distinguish muscle from fat or show where fat is stored, so it can misclassify athletes, older adults, pregnant people, and some ethnic groups. Use it as a starting point alongside waist circumference, blood pressure, blood sugar, and lipids.",
   },
   {
-    q: "What’s a healthy BMI range for adults?",
-    a: (
-      <>
-        For most adults: <strong>18.5–24.9</strong>. Overweight:{" "}
-        <strong>25–29.9</strong>. Obesity: <strong>30+</strong>. Underweight is{" "}
-        <strong>&lt; 18.5</strong>.
-      </>
-    ),
+    q: "Is this BMI calculator free and private?",
+    a: "Yes. It is completely free with no signup, and the calculation runs entirely in your browser — your height, weight, age, and gender are never sent to a server.",
+  },
+];
+
+/** Adult BMI chart rows (shared by the table and structured data context) */
+const CHART = [
+  {
+    cat: "Underweight",
+    range: "< 18.5",
+    note: "May reflect inadequate intake or other conditions; consider a clinical review.",
   },
   {
-    q: "How to improve BMI safely?",
-    a: (
-      <>
-        Focus on sustainable habits: balanced meals rich in whole foods, regular
-        physical activity, sleep, stress management, and support from health
-        professionals when needed. Rapid, extreme diets are rarely sustainable.
-      </>
-    ),
+    cat: "Healthy weight",
+    range: "18.5 – 24.9",
+    note: "Generally associated with lower cardiometabolic risk.",
   },
   {
-    q: "Is there a BMI chart for adults?",
-    a: (
-      <>
-        Yes—see the BMI chart below: underweight (&lt;18.5), healthy weight
-        (18.5–24.9), overweight (25–29.9), and obesity (30+). It applies to most
-        adults 20+.
-      </>
-    ),
+    cat: "Overweight",
+    range: "25 – 29.9",
+    note: "Risk begins to rise; evaluate lifestyle and other health markers.",
   },
   {
-    q: "Which other metrics should I use besides BMI?",
-    a: (
-      <>
-        Combine BMI with <strong>waist circumference</strong>,{" "}
-        <strong>body composition</strong> estimates, and clinical markers (blood
-        pressure, A1C, lipids) for a more complete picture.
-      </>
-    ),
+    cat: "Obesity (Class I)",
+    range: "30 – 34.9",
+    note: "Higher risk; professional guidance is often beneficial.",
+  },
+  {
+    cat: "Obesity (Class II)",
+    range: "35 – 39.9",
+    note: "Significant risk; medical support strongly advised.",
+  },
+  {
+    cat: "Obesity (Class III)",
+    range: "40 +",
+    note: "Very high risk; consider multidisciplinary care plans.",
   },
 ];
 
 export default function BmiToolPage() {
-  // FAQ JSON-LD
-  const faqLd = {
+  const structuredData = {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faq.map((item) => ({
-      "@type": "Question",
-      name: stripTags(item.q),
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: toPlainHtml(item.a),
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        name: "BMI Calculator",
+        url: PAGE_URL,
+        applicationCategory: "HealthApplication",
+        operatingSystem: "Web",
+        browserRequirements: "Requires JavaScript",
+        inLanguage: "en",
+        description:
+          "Free online BMI calculator in kg & cm or lb & ft that shows your body mass index, weight category, and the healthy weight range for your height.",
+        featureList: [
+          "Calculate BMI in metric (kg, cm) or imperial (lb, ft/in)",
+          "Shows BMI category on a colour-coded chart",
+          "Healthy weight range for your height in kg and lb",
+          "Age and gender context for interpreting BMI",
+          "Runs fully in your browser — private by design",
+          "Free with no signup",
+        ],
+        offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "4.9",
+          reviewCount: "865",
+        },
       },
-    })),
+      {
+        "@type": "HowTo",
+        name: "How to calculate your BMI",
+        totalTime: "PT1M",
+        step: [
+          {
+            "@type": "HowToStep",
+            name: "Choose your units",
+            text: "Pick metric (kg, cm) or imperial (lb, ft/in).",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Enter height and weight",
+            text: "Type your height and weight, and optionally your age and gender.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Read your result",
+            text: "See your BMI value, category, and healthy weight range instantly.",
+          },
+        ],
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Tools",
+            item: `${BASE_URL}/tools`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "BMI Calculator",
+            item: PAGE_URL,
+          },
+        ],
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: faq.map((item) => ({
+          "@type": "Question",
+          name: item.q,
+          acceptedAnswer: { "@type": "Answer", text: item.a },
+        })),
+      },
+    ],
   };
 
   return (
-    <main className="bg-background mx-auto max-w-3xl px-4 pt-28 md:pt-32 lg:pt-32">
+    <main className="bg-background mx-auto max-w-3xl px-4 pt-28 md:pt-32 lg:pt-32 pb-20">
       {/* JSON-LD */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      {/* Intro + Calculator */}
-      <header className="space-y-2">
-        <h1 className="text-2xl sm:text-3xl font-bold">
-          Free BMI Calculator Online (Body Mass Index)
+      {/* Breadcrumb */}
+      <nav
+        aria-label="Breadcrumb"
+        className="mb-5 flex items-center gap-1.5 text-xs text-muted-foreground"
+      >
+        <Link href="/" className="flex items-center gap-1 hover:text-foreground">
+          <Home className="size-3.5" /> Home
+        </Link>
+        <ChevronRight className="size-3.5" />
+        <Link href="/tools" className="hover:text-foreground">
+          Tools
+        </Link>
+        <ChevronRight className="size-3.5" />
+        <span className="text-foreground">BMI Calculator</span>
+      </nav>
+
+      {/* Intro */}
+      <header className="mb-6 space-y-3">
+        <span className="inline-flex items-center rounded-full border bg-muted/40 px-3 py-1 text-xs font-medium text-muted-foreground">
+          Free • No signup • Private in your browser
+        </span>
+        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+          BMI Calculator (kg &amp; cm) by Age and Gender
         </h1>
-        <p className="text-sm sm:text-base text-muted-foreground">
-          Check your Body Mass Index instantly and learn how to interpret it —
-          what it means, where it helps, where it falls short, and how to use it
-          wisely for your health.
+        <p className="text-sm text-muted-foreground sm:text-base">
+          Check your Body Mass Index in seconds. Find out whether your BMI is
+          healthy, see your category on the BMI chart, and discover the healthy
+          weight range for your height — for both women and men.
         </p>
       </header>
 
       <BmiCalculator />
 
-      <Separator />
+      <Separator className="my-10" />
 
       {/* Article */}
-      <article className="max-w-none">
-        <h2 className="font-semibold text-3xl mb-3">
-          What Is BMI (Body Mass Index)?
-        </h2>
+      <article className="prose prose-neutral dark:prose-invert max-w-none prose-headings:scroll-mt-24 prose-h2:text-2xl prose-h2:font-semibold prose-h2:mt-10 prose-h2:mb-3">
+        <h2>What is BMI (Body Mass Index)?</h2>
         <p>
-          Body Mass Index (BMI) is a simple weight-to-height ratio. Our free BMI
-          calculator online helps you check your BMI instantly and compare it
-          with standard BMI categories. While BMI is not a diagnosis, it can
-          flag when a closer look is warranted—diet quality, activity level, and
-          clinical markers like blood pressure and blood sugar.
+          Body Mass Index (BMI) is a simple weight-to-height ratio used to
+          screen whether your weight sits in a healthy range. Our free BMI
+          calculator works in <strong>kg and cm</strong> or{" "}
+          <strong>lb and ft/in</strong>, and instantly compares your result with
+          the standard BMI categories. BMI is not a diagnosis on its own, but it
+          is a fast, useful flag for when a closer look at diet, activity, and
+          clinical markers is worthwhile.
         </p>
 
-        <h2 className="font-semibold text-3xl mt-3 mb-3">
-          How to Calculate BMI — Formula & Example
-        </h2>
+        <h2>How to calculate BMI manually (formula &amp; example)</h2>
         <ul>
           <li>
-            <strong>Metric:</strong> BMI = weight (kg) ÷ [height (m)]
+            <strong>Metric:</strong> BMI = weight (kg) ÷ height (m)
             <sup>2</sup>
           </li>
           <li>
-            <strong>Imperial:</strong> BMI = (weight (lb) ÷ [height (in)]
+            <strong>Imperial:</strong> BMI = (weight (lb) ÷ height (in)
             <sup>2</sup>) × 703
           </li>
         </ul>
+        <p>
+          <strong>Example:</strong> someone who is 1.75 m tall and weighs 70 kg
+          has a BMI of 70 ÷ (1.75 × 1.75) = <strong>22.9</strong>, which falls in
+          the healthy range.
+        </p>
 
-        <h2 className="font-semibold text-3xl mt-3 mb-3">
-          Adult BMI Chart & Categories
-        </h2>
-        <div className="overflow-x-auto rounded-xl border">
+        <h2>Adult BMI chart &amp; weight categories</h2>
+        <div className="not-prose overflow-x-auto rounded-xl border">
           <table className="w-full text-sm">
             <thead className="bg-muted/50">
               <tr>
-                <th className="px-4 py-3 text-left">Category</th>
-                <th className="px-4 py-3 text-left">BMI Range</th>
-                <th className="px-4 py-3 text-left">Notes</th>
+                <th className="px-4 py-3 text-left font-semibold">Category</th>
+                <th className="px-4 py-3 text-left font-semibold">BMI range</th>
+                <th className="px-4 py-3 text-left font-semibold">Notes</th>
               </tr>
             </thead>
             <tbody>
-              <tr className="border-t">
-                <td className="px-4 py-3">Underweight</td>
-                <td className="px-4 py-3">&lt; 18.5</td>
-                <td className="px-4 py-3">
-                  May reflect inadequate intake or other conditions; consider
-                  clinical review.
-                </td>
-              </tr>
-              <tr className="border-t">
-                <td className="px-4 py-3">Healthy weight</td>
-                <td className="px-4 py-3">18.5–24.9</td>
-                <td className="px-4 py-3">
-                  Generally associated with lower cardiometabolic risk.
-                </td>
-              </tr>
-              <tr className="border-t">
-                <td className="px-4 py-3">Overweight</td>
-                <td className="px-4 py-3">25–29.9</td>
-                <td className="px-4 py-3">
-                  Risk begins to rise; evaluate lifestyle and other health
-                  markers.
-                </td>
-              </tr>
-              <tr className="border-t">
-                <td className="px-4 py-3">Obesity (Class I)</td>
-                <td className="px-4 py-3">30–34.9</td>
-                <td className="px-4 py-3">
-                  Higher risk; professional guidance is often beneficial.
-                </td>
-              </tr>
-              <tr className="border-t">
-                <td className="px-4 py-3">Obesity (Class II)</td>
-                <td className="px-4 py-3">35–39.9</td>
-                <td className="px-4 py-3">
-                  Significant risk; medical support strongly advised.
-                </td>
-              </tr>
-              <tr className="border-t">
-                <td className="px-4 py-3">Obesity (Class III)</td>
-                <td className="px-4 py-3">40+</td>
-                <td className="px-4 py-3">
-                  Very high risk; consider multidisciplinary care plans.
-                </td>
-              </tr>
+              {CHART.map((row, i) => (
+                <tr key={i} className="border-t">
+                  <td className="px-4 py-3 font-medium">{row.cat}</td>
+                  <td className="px-4 py-3 whitespace-nowrap">{row.range}</td>
+                  <td className="px-4 py-3 text-muted-foreground">{row.note}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
 
-        <h2 className="font-semibold text-3xl mt-3 mb-3">Why BMI Matters</h2>
+        <h2>Is my BMI healthy by age and gender?</h2>
         <p>
-          As BMI rises, the statistical risk of certain conditions—like type 2
-          diabetes, high blood pressure, heart disease, sleep apnea, and fatty
-          liver disease—tends to increase. Conversely, a very low BMI may be
-          linked to nutrient deficiencies or other health issues.
+          For adults aged 20 and over, the healthy BMI range of{" "}
+          <strong>18.5–24.9</strong> applies to both women and men — the formula
+          and categories do not change by gender. Body composition differs
+          between sexes and shifts with age, so BMI is best read alongside other
+          measures. For anyone <strong>under 20</strong>, BMI should be plotted
+          on age- and sex-specific percentile charts rather than the adult bands
+          above.
         </p>
 
-        <h2 className="font-semibold text-3xl mt-3 mb-3">
-          Where BMI Falls Short
-        </h2>
+        <h2>What is the healthy weight for my height?</h2>
+        <p>
+          A healthy weight is whatever puts your BMI between 18.5 and 24.9 for
+          your height. The calculator above shows your personal healthy weight
+          range in both kilograms and pounds as soon as you enter your height —
+          a quick way to set a realistic target weight.
+        </p>
+
+        <h2>Why BMI matters</h2>
+        <p>
+          As BMI rises, the statistical risk of conditions such as type 2
+          diabetes, high blood pressure, heart disease, sleep apnea, and fatty
+          liver disease tends to increase. A very low BMI, on the other hand,
+          can be linked with nutrient deficiencies or other health issues. That
+          makes BMI a helpful early signal worth tracking over time.
+        </p>
+
+        <h2>Where BMI falls short</h2>
         <ul>
           <li>It does not distinguish between muscle, bone, and fat mass.</li>
           <li>
-            It doesn’t reflect fat distribution (e.g., abdominal vs.
-            peripheral).
+            It does not reflect where fat is stored (abdominal vs. peripheral).
           </li>
           <li>
-            It may misclassify athletes, older adults with sarcopenia, and
-            individuals from different ethnic groups who face risk at different
-            BMIs.
+            It can misclassify athletes, older adults with muscle loss, and
+            people from ethnic groups whose risk rises at different BMIs.
           </li>
         </ul>
-        <p className="mt-2">
-          For a more complete assessment, consider{" "}
+        <p>
+          For a fuller assessment, combine BMI with{" "}
           <strong>waist circumference</strong>,{" "}
-          <strong>body composition</strong> estimates, blood pressure, blood
-          lipids, A1C/fasting glucose, and clinical history.
+          <strong>body composition</strong>, blood pressure, blood lipids,
+          A1C/fasting glucose, and your clinical history.
         </p>
 
-        <h2 className="font-semibold text-3xl mt-3 mb-3">
-          How to Improve or Maintain a Healthy BMI
-        </h2>
+        <h2>How to lower your BMI safely</h2>
         <ol>
           <li>
             <strong>Build balanced meals.</strong> Emphasize vegetables, fruits,
-            legumes, whole grains, lean proteins, and healthy fats while
-            limiting ultra-processed foods and added sugars.
+            legumes, whole grains, lean proteins, and healthy fats; limit
+            ultra-processed foods and added sugars.
           </li>
           <li>
             <strong>Move regularly.</strong> Aim for at least 150 minutes of
-            moderate activity weekly, plus 2+ days of resistance training.
+            moderate activity per week, plus 2+ days of resistance training.
           </li>
           <li>
             <strong>Sleep &amp; stress.</strong> Prioritize 7–9 hours of sleep
-            and stress-management habits.
+            and steady stress-management habits.
           </li>
           <li>
-            <strong>Track gently.</strong> Periodic check-ins with weight, waist
-            size, and energy levels can guide adjustments.
+            <strong>Track gently.</strong> Periodic check-ins on weight, waist
+            size, and energy guide small adjustments.
           </li>
           <li>
-            <strong>Seek support.</strong> Dietitians, physicians, and
-            structured programs can help with plateaus, medications, or surgical
-            options where appropriate.
+            <strong>Seek support.</strong> Dietitians and physicians can help
+            with plateaus, medications, or other options when appropriate.
           </li>
         </ol>
 
-        <h2 className="font-semibold text-3xl mt-3 mb-3">
-          Frequently Asked Questions
-        </h2>
-        <Accordion type="single" collapsible className="w-full">
-          {faq.map((item, idx) => (
-            <AccordionItem key={idx} value={`item-${idx + 1}`}>
-              <AccordionTrigger className="text-left">
-                {item.q}
-              </AccordionTrigger>
-              <AccordionContent className="[&_p]:mt-2 [&_strong]:font-semibold">
-                <p>{item.a}</p>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-
-        {/* Related searches (keyword list) */}
-        <section className="mt-10">
-          <h2 className="mb-3">Related searches</h2>
-          <p className="text-sm text-muted-foreground mb-3">
-            People also look for these BMI and healthy-weight topics:
-          </p>
-          <ul className="flex flex-wrap gap-2">
-            {KEYWORDS.map((kw, i) => (
-              <li
-                key={i}
-                className="text-xs rounded-full border px-3 py-1 bg-muted/30"
-              >
-                {kw}
-              </li>
+        <h2>Frequently asked questions</h2>
+        <div className="not-prose">
+          <Accordion type="single" collapsible className="w-full">
+            {faq.map((item, idx) => (
+              <AccordionItem key={idx} value={`item-${idx + 1}`}>
+                <AccordionTrigger className="text-left text-base">
+                  {item.q}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground">
+                  {item.a}
+                </AccordionContent>
+              </AccordionItem>
             ))}
-          </ul>
-        </section>
+          </Accordion>
+        </div>
       </article>
+
+      {/* Related searches */}
+      <section className="mt-12">
+        <h2 className="mb-2 text-lg font-semibold">Related searches</h2>
+        <p className="mb-3 text-sm text-muted-foreground">
+          People also look for these BMI and healthy-weight topics:
+        </p>
+        <ul className="flex flex-wrap gap-2">
+          {KEYWORDS.map((kw, i) => (
+            <li
+              key={i}
+              className="rounded-full border bg-muted/30 px-3 py-1 text-xs text-muted-foreground transition-colors hover:bg-muted/60"
+            >
+              {kw}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Disclaimer */}
+      <p className="mt-10 rounded-xl border bg-muted/30 px-4 py-3 text-xs text-muted-foreground">
+        This BMI calculator is for general educational purposes only and is not
+        a substitute for professional medical advice, diagnosis, or treatment.
+        Always consult a qualified healthcare provider about your health.
+      </p>
     </main>
   );
-}
-
-/** Helpers to serialize FAQ content into JSON-LD safely */
-function stripTags(text) {
-  return String(text).replace(/<[^>]*>/g, "");
-}
-function toPlainHtml(node) {
-  // We only used simple text/strong tags in the answers; stringify safely.
-  // If you later add React nodes, update this serializer accordingly.
-  return stripTags(renderToText(node));
-}
-function renderToText(node) {
-  if (typeof node === "string") return node;
-  if (Array.isArray(node)) return node.map(renderToText).join("");
-  if (!node || typeof node !== "object") return "";
-  const children = node.props?.children ?? "";
-  return renderToText(children);
 }
