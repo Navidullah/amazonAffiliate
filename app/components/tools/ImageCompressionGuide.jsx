@@ -2,12 +2,6 @@
 "use client";
 
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from "@/components/ui/accordion";
 import { Separator } from "@/components/ui/separator";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import {
@@ -27,7 +21,6 @@ export default function ImageCompressionGuide() {
     { href: "#ways-to-compress", label: "Best ways to compress images" },
     { href: "#compress-jpeg", label: "Compress JPEG" },
     { href: "#best-practices", label: "Best practices" },
-    { href: "#faqs", label: "FAQs" },
   ];
 
   return (
@@ -240,46 +233,6 @@ export default function ImageCompressionGuide() {
               </p>
             </li>
           </ul>
-        </CardContent>
-      </Card>
-
-      {/* FAQs */}
-      <Card id="faqs" className="mt-8">
-        <CardHeader>
-          <CardTitle>FAQs</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Accordion type="single" collapsible className="w-full">
-            <AccordionItem value="q1">
-              <AccordionTrigger>
-                How do I reduce image size without losing quality?
-              </AccordionTrigger>
-              <AccordionContent>
-                Use lossless compression for graphics and moderate lossy
-                compression for photos. Resize dimensions to what you actually
-                need, then compress (TinyPNG, Squoosh are excellent).
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="q2">
-              <AccordionTrigger>
-                What format is best: JPEG, PNG, or WebP?
-              </AccordionTrigger>
-              <AccordionContent>
-                JPEG for photos, PNG for graphics with transparency, WebP/AVIF
-                for modern lightweight delivery, and SVG for icons/line art.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="q3">
-              <AccordionTrigger>
-                Does image compression help SEO?
-              </AccordionTrigger>
-              <AccordionContent>
-                Yes. Smaller files speed up pages and support better Core Web
-                Vitals—positively impacting search visibility and user
-                experience.
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
         </CardContent>
       </Card>
 
