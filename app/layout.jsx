@@ -1,4 +1,4 @@
-// app/layout.jsx (Fully SEO Optimized for Video Downloading)
+// app/layout.jsx (Site-wide SEO defaults for the Shopyor free tools hub)
 import {
   JetBrains_Mono,
   Geist,
@@ -51,40 +51,34 @@ export const viewport = {
   userScalable: true,
 };
 
-/** **********  SITE-WIDE SEO DEFAULTS - ENHANCED FOR VIDEO DOWNLOADING  ********** */
+/** **********  SITE-WIDE SEO DEFAULTS — FREE ONLINE TOOLS HUB  **********
+ * These are fallbacks for routes that don't set their own metadata. The
+ * homepage (app/page.jsx) and individual tool pages override title/description/
+ * openGraph/twitter for their own keywords. */
 export const metadata = {
   metadataBase: new URL("https://www.shopyor.com"),
 
   title: {
-    default: "Shopyor",
+    default: "Free Online Tools — Video, PDF, Image, AI & SEO | Shopyor",
     template: "%s | Shopyor",
   },
 
   description:
-    "Clone any voice for free with Shopyor's AI voice cloner. Upload a short audio sample, type your text, and download natural-sounding speech in that voice in seconds. No sign-up required.",
+    "Shopyor is a free online toolbox: download Facebook, Instagram, TikTok & YouTube videos, convert & compress PDFs, remove image backgrounds, compress & resize images, clone a voice, build a resume, calculate BMI, and generate SEO tags. No sign-up, no install — all in your browser.",
 
   keywords: [
-    // Voice cloning keywords (high-intent, English markets)
-    "ai voice cloner",
-    "voice cloning",
-    "free ai voice cloning",
-    "free voice cloner",
-    "voice cloner online free",
-    "clone any voice",
-    "clone my voice",
-    "voice clone online",
-    "voice cloning no sign up",
-    "clone voice in seconds",
-    "ai voice generator",
-    "text to speech",
-    "tts voice generator",
-    "realistic ai voice",
-    "custom voice generator",
-    "speech synthesis",
-    // General tool keywords
     "free online tools",
     "online utility tools",
     "web tools free",
+    "video downloader",
+    "pdf to word converter",
+    "pdf compressor",
+    "image compressor",
+    "background remover",
+    "ai voice cloner",
+    "resume builder",
+    "bmi calculator",
+    "meta tag generator",
   ],
 
   authors: [{ name: "Shopyor", url: "https://www.shopyor.com" }],
@@ -102,23 +96,31 @@ export const metadata = {
   openGraph: {
     type: "website",
     url: "https://www.shopyor.com",
-    title: "Shopyor — Free AI Voice Cloner",
+    title: "Free Online Tools by Shopyor — One Free Toolbox for Everything",
     description:
-      "Clone any voice from a short sample and generate natural speech from text. Free, fast, and private — no sign-up needed.",
+      "Download videos, convert & compress PDFs, remove image backgrounds, clone a voice, build a resume, calculate BMI, and generate SEO tags — 21+ free tools, no sign-up.",
     siteName: "Shopyor",
     locale: "en_US",
     alternateLocale: ["en_GB", "en_IN", "en_CA", "en_AU"],
-    countryName: "United States",
     emails: ["support@shopyor.com"],
+    images: [
+      {
+        url: "/images/shopyor-tools-og.png",
+        width: 1200,
+        height: 630,
+        alt: "Shopyor Free Online Tools",
+      },
+    ],
   },
 
   twitter: {
     card: "summary_large_image",
     site: "@shopyor",
     creator: "@shopyor",
-    title: "Shopyor — Free AI Voice Cloner",
+    title: "Free Online Tools by Shopyor",
     description:
-      "Clone a voice from a short sample and generate natural speech from text — free and instant. No sign-up required.",
+      "21+ free, browser-based tools: video downloaders, PDF & image utilities, AI voice cloner, resume builder, BMI calculator, and SEO tools. No sign-up.",
+    images: ["/images/shopyor-tools-og.png"],
   },
 
   robots: {
@@ -142,7 +144,7 @@ export const metadata = {
     ? { google: process.env.GOOGLE_SITE_VERIFICATION }
     : undefined,
 
-  classification: "AI Voice Cloning, Online Tools",
+  classification: "Free Online Tools",
 
   referrer: "strict-origin-when-cross-origin",
 
@@ -171,14 +173,17 @@ export const metadata = {
   },
 };
 
-// Enhanced JSON-LD with video downloader specific schemas
+// Site-wide JSON-LD: Organization + WebSite, emitted once globally (per the
+// SEO skill). Stable @ids let page-level @graphs reference these entities
+// instead of re-declaring them. BreadcrumbList is per-page, not here.
 const jsonLdSchemas = {
   organization: {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": "https://www.shopyor.com/#organization",
     name: "Shopyor",
     url: "https://www.shopyor.com",
-    logo: "/shopyor.png",
+    logo: "https://www.shopyor.com/shopyor.png",
     sameAs: [
       "https://www.facebook.com/shopyor",
       "https://twitter.com/shopyor",
@@ -196,9 +201,12 @@ const jsonLdSchemas = {
   webSite: {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": "https://www.shopyor.com/#website",
     name: "Shopyor",
     url: "https://www.shopyor.com",
-    description: "Free AI voice cloner and online tools",
+    description:
+      "A free online toolbox with 21+ browser-based tools for video, images, PDFs, AI, and SEO — no sign-up required.",
+    publisher: { "@id": "https://www.shopyor.com/#organization" },
     potentialAction: {
       "@type": "SearchAction",
       target: {
@@ -207,19 +215,6 @@ const jsonLdSchemas = {
       },
       "query-input": "required name=search_term_string",
     },
-  },
-
-  breadcrumb: {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://www.shopyor.com",
-      },
-    ],
   },
 };
 
@@ -252,12 +247,6 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(jsonLdSchemas.webSite),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLdSchemas.breadcrumb),
           }}
         />
 

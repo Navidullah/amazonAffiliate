@@ -210,34 +210,11 @@ const TOOLS = [
   },
 ];
 
+// Organization + WebSite are emitted once globally in app/layout.jsx; this
+// page only declares page-specific schemas and references the global @ids.
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
-    {
-      "@type": "Organization",
-      "@id": `${SITE}/#organization`,
-      name: "Shopyor",
-      url: SITE,
-      logo: `${SITE}/shopyor.png`,
-      description:
-        "Shopyor offers a free suite of online tools — video downloaders, PDF and image utilities, an AI voice cloner, a resume builder, a BMI calculator, and SEO tools.",
-      sameAs: ["https://twitter.com/shopyor"],
-    },
-    {
-      "@type": "WebSite",
-      "@id": `${SITE}/#website`,
-      name: "Shopyor",
-      url: SITE,
-      publisher: { "@id": `${SITE}/#organization` },
-      potentialAction: {
-        "@type": "SearchAction",
-        target: {
-          "@type": "EntryPoint",
-          urlTemplate: `${SITE}/search?q={search_term_string}`,
-        },
-        "query-input": "required name=search_term_string",
-      },
-    },
     {
       "@type": "CollectionPage",
       "@id": `${SITE}/#webpage`,
