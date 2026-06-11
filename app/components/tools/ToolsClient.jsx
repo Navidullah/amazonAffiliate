@@ -183,7 +183,7 @@ export default function ToolsClient() {
       category: "YouTube",
     },
     {
-      href: "/tools/youtube-tags",
+      href: "/tools/youtube-tags-extractor",
       title: "YouTube Tags Extractor",
       desc: "Extract tags from any YouTube video instantly.",
       icon: Youtube,

@@ -21,6 +21,7 @@ module.exports = {
     "/pinterest",
     "/pinterest/*",
     "/tools/pdf-compress", // 301 -> /tools/pdf-compressor (consolidated)
+    "/tools/youtube-tags", // 301 -> /tools/youtube-tags-extractor (renamed)
   ],
 
   robotsTxtOptions: {

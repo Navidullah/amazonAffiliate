@@ -134,7 +134,7 @@ const tools = [
   {
     title: "YouTube Tags Extractor",
     desc: "Extract tags from any YouTube video instantly.",
-    href: "/tools/youtube-tags",
+    href: "/tools/youtube-tags-extractor",
     icon: <Youtube className="w-6 h-6" />,
     featured: false,
   },

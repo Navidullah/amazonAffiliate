@@ -31,13 +31,13 @@ export const metadata = {
     "youtube hashtag extractor",
   ],
   alternates: {
-    canonical: "https://www.shopyor.com/tools/youtube-tags",
+    canonical: "https://www.shopyor.com/tools/youtube-tags-extractor",
   },
   openGraph: {
     title: "Free YouTube Tags Extractor – Find Any Video's Tags",
     description:
       "Reveal the tags, title and description behind any YouTube video. Copy and export for your own YouTube SEO. Free, instant, no signup.",
-    url: "https://www.shopyor.com/tools/youtube-tags",
+    url: "https://www.shopyor.com/tools/youtube-tags-extractor",
     siteName: "ShopYor",
     type: "website",
     locale: "en_US",
@@ -60,7 +60,7 @@ const schemas = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "YouTube Tags Extractor",
-    url: "https://www.shopyor.com/tools/youtube-tags",
+    url: "https://www.shopyor.com/tools/youtube-tags-extractor",
     applicationCategory: "BusinessApplication",
     operatingSystem: "Any",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
@@ -159,7 +159,7 @@ const schemas = {
         "@type": "ListItem",
         position: 3,
         name: "YouTube Tags Extractor",
-        item: "https://www.shopyor.com/tools/youtube-tags",
+        item: "https://www.shopyor.com/tools/youtube-tags-extractor",
       },
     ],
   },

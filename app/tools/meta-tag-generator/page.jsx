@@ -401,7 +401,7 @@ export default function Page() {
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
               {[
                 { href: "/tools/robots-txt-generator", label: "Robots.txt Generator" },
-                { href: "/tools/youtube-tags", label: "YouTube Tag Generator" },
+                { href: "/tools/youtube-tags-extractor", label: "YouTube Tag Generator" },
                 { href: "/tools", label: "All SEO Tools" },
               ].map((l) => (
                 <Link key={l.href} href={l.href} className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 text-center text-sm font-medium hover:border-blue-400 hover:text-blue-600 transition-colors">

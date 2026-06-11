@@ -195,7 +195,7 @@ const TOOLS = [
   },
   {
     name: "YouTube Tags Extractor",
-    url: `${SITE}/tools/youtube-tags`,
+    url: `${SITE}/tools/youtube-tags-extractor`,
     description: "Extract the hidden tags from any YouTube video instantly.",
   },
   {

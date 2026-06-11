@@ -29,6 +29,13 @@ const nextConfig = {
         destination: "/tools/pdf-compressor",
         permanent: true,
       },
+      // Renamed route: keep old indexed URL alive and pass ranking signals
+      // to the new, more descriptive slug.
+      {
+        source: "/tools/youtube-tags",
+        destination: "/tools/youtube-tags-extractor",
+        permanent: true,
+      },
     ];
   },
   async headers() {

@@ -716,7 +716,7 @@ export default function Page() {
                   href: "/tools/meta-tag-generator",
                   label: "Meta Tag Generator",
                 },
-                { href: "/tools/youtube-tags", label: "YouTube Tag Generator" },
+                { href: "/tools/youtube-tags-extractor", label: "YouTube Tag Generator" },
                 { href: "/tools", label: "All SEO Tools" },
               ].map((l) => (
                 <Link

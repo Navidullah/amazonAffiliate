@@ -238,7 +238,7 @@ const GROUPS = [
       {
         id: "youtube-tags",
         name: "YouTube Tags Extractor",
-        href: "/tools/youtube-tags",
+        href: "/tools/youtube-tags-extractor",
         icon: Tags,
         cta: "Open the YouTube Tags Extractor",
         body: "The tags a video uses reveal how its creator targets search and suggested feeds. Our YouTube Tags Extractor pulls the hidden tags from any YouTube video instantly, so you can see exactly which keywords a successful video is ranking for. Use those insights to research your niche, refine your own tags, and improve how your videos get discovered — a fast, free shortcut for content strategy.",

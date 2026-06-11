@@ -420,7 +420,7 @@ export default function Page() {
             <h2 className="text-2xl font-bold text-center mb-8">Related free creator tools</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
               {[
-                { href: "/tools/youtube-tags", label: "YouTube Tag Generator" },
+                { href: "/tools/youtube-tags-extractor", label: "YouTube Tag Generator" },
                 { href: "/tools/youtube-video-downloader", label: "YouTube Video Downloader" },
                 { href: "/tools", label: "All Free Tools" },
               ].map((l) => (

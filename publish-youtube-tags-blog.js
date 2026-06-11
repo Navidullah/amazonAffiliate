@@ -96,7 +96,7 @@ const BREADCRUMB_SCHEMA = {
 const CONTENT = `
 <p>Here's a little secret that successful YouTubers rarely talk about: <strong>before they publish, many of them study the tags of the videos already ranking for their topic.</strong> Those tags are a window into exactly how a creator is telling the algorithm what their video is about — and you can see them for any public video in seconds.</p>
 
-<p>In this guide you'll learn what YouTube tags are, whether they still matter in 2026, and — most importantly — how to find the tags of any video and turn that insight into more views. We'll use a free <a href="/tools/youtube-tags">YouTube tags extractor</a> to do it, no login required.</p>
+<p>In this guide you'll learn what YouTube tags are, whether they still matter in 2026, and — most importantly — how to find the tags of any video and turn that insight into more views. We'll use a free <a href="/tools/youtube-tags-extractor">YouTube tags extractor</a> to do it, no login required.</p>
 
 <p><strong>Table of Contents</strong></p>
 <ol>
@@ -134,16 +134,16 @@ const CONTENT = `
 <hr />
 
 <h2 id="how-to-find">How to Find the Tags of Any YouTube Video</h2>
-<p>YouTube used to show tags right on the watch page years ago, but they removed that. The tags still exist in the page data — you just need a tool to surface them. Here's how with the free <a href="/tools/youtube-tags">YouTube Tags Extractor</a>:</p>
+<p>YouTube used to show tags right on the watch page years ago, but they removed that. The tags still exist in the page data — you just need a tool to surface them. Here's how with the free <a href="/tools/youtube-tags-extractor">YouTube Tags Extractor</a>:</p>
 
 <ol>
   <li><strong>Copy the video link.</strong> Open the YouTube video (or Short) and copy its URL from the address bar or the Share button.</li>
-  <li><strong>Paste it into the tool.</strong> Go to the <a href="/tools/youtube-tags">YouTube Tags Extractor</a> and paste the link.</li>
+  <li><strong>Paste it into the tool.</strong> Go to the <a href="/tools/youtube-tags-extractor">YouTube Tags Extractor</a> and paste the link.</li>
   <li><strong>Click Extract Tags.</strong> In a second you'll see every tag, the video title, the channel, and the total character count.</li>
   <li><strong>Copy what's useful.</strong> Click any single tag to copy it, copy them all at once, or export the full list as CSV or TXT.</li>
 </ol>
 
-<p style="text-align:center;"><strong><a href="/tools/youtube-tags">→ Find any video's tags now</a></strong></p>
+<p style="text-align:center;"><strong><a href="/tools/youtube-tags-extractor">→ Find any video's tags now</a></strong></p>
 
 <p>It works on regular videos and Shorts alike. If a video comes back with no tags, that creator simply didn't add any — which itself tells you something about their strategy.</p>
 
@@ -189,7 +189,7 @@ const CONTENT = `
 <h2 id="faq">Frequently Asked Questions</h2>
 
 <h3>How do I see the tags on a YouTube video?</h3>
-<p>Paste the video URL into a free <a href="/tools/youtube-tags">YouTube tags extractor</a>. It instantly reveals every tag the creator used, along with the title and channel.</p>
+<p>Paste the video URL into a free <a href="/tools/youtube-tags-extractor">YouTube tags extractor</a>. It instantly reveals every tag the creator used, along with the title and channel.</p>
 
 <h3>Do YouTube tags still matter in 2026?</h3>
 <p>They're a minor factor next to title, thumbnail and watch time, but still help for niche topics, brand terms and misspelled keywords. Worth the 60 seconds.</p>
@@ -210,7 +210,7 @@ const CONTENT = `
 
 <p><strong>Start with one video right now.</strong> Extract its tags, study the pattern, and plan your next upload around what actually ranks.</p>
 
-<p style="text-align:center;"><strong><a href="/tools/youtube-tags">→ Open the free YouTube Tags Extractor</a></strong></p>
+<p style="text-align:center;"><strong><a href="/tools/youtube-tags-extractor">→ Open the free YouTube Tags Extractor</a></strong></p>
 
 <p>Level up the rest of your channel with our <a href="/tools/youtube-thumbnail">YouTube Thumbnail Downloader</a>, <a href="/tools/youtube-video-downloader">YouTube Video Downloader</a>, or the full set of <a href="/tools">free creator tools</a>.</p>
 
