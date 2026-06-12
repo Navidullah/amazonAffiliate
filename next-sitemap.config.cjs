@@ -111,6 +111,9 @@ module.exports = {
       priority = 0.9;
     } else if (path.startsWith("/tools/exif-remover")) {
       priority = 0.8;
+    } else if (path.startsWith("/tools/bg-remover")) {
+      priority = 0.8;
+      lastmod = new Date().toISOString();
     } else if (path === "/contact" || path === "/privacy-policy") {
       changefreq = "yearly";
       priority = 0.3;
