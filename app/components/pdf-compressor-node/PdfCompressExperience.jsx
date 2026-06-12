@@ -99,7 +99,7 @@ const CONTENT = {
         },
         {
           h3: "Need to edit the file instead?",
-          text: 'If you also need to change the content, try our <crosslink href="/tools/pdf-to-word">PDF to Word converter</crosslink> to get an editable DOCX.',
+          text: 'If you also need to change the content, try our <crosslink href="/tools/online-pdf-to-word-converter">PDF to Word converter</crosslink> to get an editable DOCX.',
         },
       ],
     },
@@ -136,7 +136,7 @@ const CONTENT = {
     cta: {
       title: "Need to edit your PDF too?",
       desc: "Convert it to an editable Word document, or explore all our free tools.",
-      href: "/tools/pdf-to-word",
+      href: "/tools/online-pdf-to-word-converter",
       label: "Try PDF to Word",
     },
   },
@@ -182,7 +182,7 @@ const CONTENT = {
         },
         {
           h3: "Looking for more PDF tools?",
-          text: 'For advanced options and bigger savings, use our main <crosslink href="/tools/pdf-compressor">PDF compressor</crosslink>. Need to edit the file instead? Try the <crosslink href="/tools/pdf-to-word">PDF to Word converter</crosslink>.',
+          text: 'For advanced options and bigger savings, use our main <crosslink href="/tools/pdf-compressor">PDF compressor</crosslink>. Need to edit the file instead? Try the <crosslink href="/tools/online-pdf-to-word-converter">PDF to Word converter</crosslink>.',
         },
       ],
     },

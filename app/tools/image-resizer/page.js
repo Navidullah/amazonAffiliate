@@ -52,10 +52,11 @@ export const metadata = {
     "resize image size in kb",
     "resize the image in kb",
   ],
+  alternates: { canonical: "/tools/image-resizer" },
   openGraph: {
     title: "Image Resizer Tool - Shopyor",
     description: "Resize any image instantly online.",
-    url: "https://shopyor.com/tools/image-resizer",
+    url: "https://www.shopyor.com/tools/image-resizer",
     type: "website",
   },
 };

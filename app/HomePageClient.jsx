@@ -129,7 +129,7 @@ const tools = [
   {
     title: "Online Image Resizer",
     desc: "Resize images without losing quality.",
-    href: "/tools/resizer",
+    href: "/tools/image-resizer",
     icon: <ImageIcon className="w-5 h-5" />,
   },
   {
@@ -147,7 +147,7 @@ const tools = [
   {
     title: "PDF to Word Converter",
     desc: "Convert PDF files to editable Word documents.",
-    href: "/tools/pdf-to-word",
+    href: "/tools/online-pdf-to-word-converter",
     icon: <FileText className="w-5 h-5" />,
   },
   {
@@ -159,7 +159,7 @@ const tools = [
   {
     title: "PDF Compressor",
     desc: "Reduce PDF file size with modern compression.",
-    href: "/tools/pdf-compress",
+    href: "/tools/pdf-compressor",
     icon: <FileText className="w-5 h-5" />,
   },
   {
@@ -1151,7 +1151,7 @@ export default function HomePageClient() {
                 </Link>
                 ,{" "}
                 <Link
-                  href="/tools/pdf-to-word"
+                  href="/tools/online-pdf-to-word-converter"
                   className="text-primary hover:underline font-medium"
                 >
                   PDF to Word Converter

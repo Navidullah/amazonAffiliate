@@ -120,7 +120,7 @@ const tools = [
   {
     title: "PDF to Word Converter Online",
     desc: "Convert PDF files to editable Word documents instantly.",
-    href: "/tools/pdf-to-word",
+    href: "/tools/online-pdf-to-word-converter",
     icon: <FileType className="w-6 h-6" />,
     featured: false,
   },
@@ -141,7 +141,7 @@ const tools = [
   {
     title: "PDF Compressor",
     desc: "Reduce PDF file size quickly using modern compression.",
-    href: "/tools/pdf-compress",
+    href: "/tools/pdf-compressor",
     icon: <FileText className="w-6 h-6" />,
     featured: false,
   },
@@ -633,7 +633,7 @@ export default function HomePage() {
               </Link>
               , convert PDFs to editable Word documents using our{" "}
               <Link
-                href="/tools/pdf-to-word"
+                href="/tools/online-pdf-to-word-converter"
                 className="text-primary hover:underline"
               >
                 PDF to Word Converter

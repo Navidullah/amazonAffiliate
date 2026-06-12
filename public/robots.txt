@@ -9,7 +9,7 @@ Disallow: /dashboard
 Disallow: /admin/
 Disallow: /api/
 Disallow: /add-product
-Disallow: /write
+Disallow: /write$
 Disallow: /thankYou
 Disallow: /pinterest
 

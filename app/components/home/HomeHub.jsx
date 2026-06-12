@@ -156,7 +156,7 @@ const GROUPS = [
       {
         id: "image-resizer",
         name: "Image Resizer",
-        href: "/tools/resizer",
+        href: "/tools/image-resizer",
         icon: Scaling,
         cta: "Open the Image Resizer",
         body: "Every platform wants a different size — a square thumbnail here, a wide banner there. Our Image Resizer lets you change an image's dimensions precisely without distortion or blurriness. Set your target width and height, preview the result, and download a perfectly sized image for social media, profile photos, website headers, or print, all in a few seconds and completely free.",

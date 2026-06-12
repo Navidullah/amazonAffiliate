@@ -25,7 +25,10 @@ export default function Faq() {
       a: (
         <>
           Use our{" "}
-          <Link href="/tools/pdf-to-word" className="text-primary hover:underline">
+          <Link
+            href="/tools/online-pdf-to-word-converter"
+            className="text-primary hover:underline"
+          >
             PDF to Word Converter
           </Link>{" "}
           to upload your PDF and download an editable DOCX file in seconds.

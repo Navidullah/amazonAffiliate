@@ -22,6 +22,7 @@ module.exports = {
     "/pinterest/*",
     "/tools/pdf-compress", // 301 -> /tools/pdf-compressor (consolidated)
     "/tools/youtube-tags", // 301 -> /tools/youtube-tags-extractor (renamed)
+    "/tools/resizer", // 301 -> /tools/image-resizer (duplicate consolidated)
   ],
 
   robotsTxtOptions: {
@@ -38,7 +39,8 @@ module.exports = {
           "/admin/",
           "/api/",
           "/add-product",
-          "/write",
+          // "$" anchors the rule so it doesn't prefix-block /write-for-us.
+          "/write$",
           "/thankYou",
           "/pinterest",
         ],

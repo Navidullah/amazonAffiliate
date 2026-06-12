@@ -151,7 +151,7 @@ const TOOLS = [
   },
   {
     name: "Image Resizer",
-    url: `${SITE}/tools/resizer`,
+    url: `${SITE}/tools/image-resizer`,
     description: "Resize images to exact dimensions without distortion.",
   },
   {

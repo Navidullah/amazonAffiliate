@@ -36,6 +36,33 @@ const nextConfig = {
         destination: "/tools/youtube-tags-extractor",
         permanent: true,
       },
+      // Several internal links and possibly external/indexed URLs use the
+      // short slug, but the page lives at the long one.
+      {
+        source: "/tools/pdf-to-word",
+        destination: "/tools/online-pdf-to-word-converter",
+        permanent: true,
+      },
+      // Consolidate the duplicate image resizer into the canonical one
+      // (/tools/resizer and /tools/image-resizer were the same tool splitting
+      // ranking signals for "resize image online").
+      {
+        source: "/tools/resizer",
+        destination: "/tools/image-resizer",
+        permanent: true,
+      },
+      // Google still has old /blogs/* URLs indexed from the previous site;
+      // they currently 404. Route them to the current blog.
+      {
+        source: "/blogs",
+        destination: "/blog",
+        permanent: true,
+      },
+      {
+        source: "/blogs/:slug*",
+        destination: "/blog/:slug*",
+        permanent: true,
+      },
     ];
   },
   async headers() {

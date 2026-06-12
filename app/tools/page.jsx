@@ -38,55 +38,74 @@ export const metadata = {
 export default function ToolsPage() {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "ItemList",
-    name: "Shopyor Free Online Tools",
-    itemListElement: [
+    "@graph": [
       {
-        "@type": "SoftwareApplication",
-        name: "Image Compressor",
-        applicationCategory: "Utility",
-        operatingSystem: "Web Browser",
-      },
-      {
-        "@type": "SoftwareApplication",
-        name: "Background Remover",
-        applicationCategory: "Utility",
-        operatingSystem: "Web Browser",
-      },
-      {
-        "@type": "SoftwareApplication",
-        name: "BMI Calculator",
-        applicationCategory: "HealthApplication",
-        operatingSystem: "Web Browser",
-      },
-      {
-        "@type": "SoftwareApplication",
-        name: "PDF to Word Converter",
-        applicationCategory: "BusinessApplication",
-        operatingSystem: "Web Browser",
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: "4.8",
-          reviewCount: "1240",
-        },
+        "@type": "ItemList",
+        name: "Shopyor Free Online Tools",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Image Compressor",
+            url: `${BASE_URL}/tools/image-compressor`,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Background Remover",
+            url: `${BASE_URL}/tools/background-remover-image`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "BMI Calculator",
+            url: `${BASE_URL}/tools/bmi`,
+          },
+          {
+            "@type": "ListItem",
+            position: 4,
+            name: "PDF to Word Converter",
+            url: `${BASE_URL}/tools/online-pdf-to-word-converter`,
+          },
+          {
+            "@type": "ListItem",
+            position: 5,
+            name: "PDF Compressor",
+            url: `${BASE_URL}/tools/pdf-compressor`,
+          },
+          {
+            "@type": "ListItem",
+            position: 6,
+            name: "Robots.txt Generator",
+            url: `${BASE_URL}/tools/robots-txt-generator`,
+          },
+        ],
       },
       {
         "@type": "FAQPage",
         mainEntity: [
           {
             "@type": "Question",
-            name: "Which is the best PDF to Word converter on Shopyor?",
+            name: "Looking for a reliable PDF to Word converter?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Use the Shopyor PDF to Word Converter for fast and accurate DOCX output.",
+              text: "Try our PDF to Word Converter to turn PDF files into editable DOCX documents quickly.",
             },
           },
           {
             "@type": "Question",
-            name: "Are Shopyor tools free to use?",
+            name: "Want to convert other file types too?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Yes, all core tools are free and work directly in your browser.",
+              text: "Explore more document tools like PDF Compressor and image utilities across this tools directory.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Need to control how search engines crawl your site?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Use our free robots.txt generator to create a custom robots file for WordPress, Shopify or Blogger, add your sitemap, and block AI bots in one click.",
             },
           },
         ],
@@ -113,7 +132,7 @@ export default function ToolsPage() {
             <p className="mt-1">
               Try our{" "}
               <Link
-                href="/tools/pdf-to-word"
+                href="/tools/online-pdf-to-word-converter"
                 className="font-medium text-cyan-600 hover:underline dark:text-cyan-400"
               >
                 PDF to Word Converter
@@ -128,7 +147,7 @@ export default function ToolsPage() {
             <p className="mt-1">
               Explore more document tools like{" "}
               <Link
-                href="/tools/pdf-compress"
+                href="/tools/pdf-compressor"
                 className="font-medium text-cyan-600 hover:underline dark:text-cyan-400"
               >
                 PDF Compressor
