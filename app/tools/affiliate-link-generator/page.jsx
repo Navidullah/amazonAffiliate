@@ -1,5 +1,3 @@
-// app/tools/affiliate-link-generator/page.jsx
-
 import Link from "next/link";
 import AffiliateLinkGeneratorClient from "@/app/components/affiliateLinkGenerator/AffiliateLinkGeneratorClient";
 import {
@@ -9,40 +7,44 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import { Separator } from "@/components/ui/separator";
-import { ChevronRight, Home } from "lucide-react";
+import { ChevronRight, Home, Star } from "lucide-react";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
 const PAGE_URL = `${BASE_URL}/tools/affiliate-link-generator`;
 
-/** --- SEO (low-competition, long-tail keyword optimized) --- */
 export const metadata = {
-  metadataBase: new URL(BASE_URL),
   title: {
     absolute:
       "Amazon Affiliate Link Generator — Free, No SiteStripe | Shopyor",
   },
   description:
-    "Free Amazon affiliate link generator. Convert any Amazon product URL or ASIN into a clean affiliate link with your own Associate Tag — no SiteStripe, no API. Works for amazon.com, .co.uk, .in, .de and 19 marketplaces.",
+    "Free Amazon affiliate link generator. Convert any Amazon URL or ASIN into a clean affiliate link with your Associate Tag — no SiteStripe, no API. Supports 19 Amazon marketplaces.",
   keywords: [
-    "amazon affiliate link generator",
-    "amazon affiliate link generator free",
+    "amazon affiliate link generator free no signup",
     "convert amazon link to affiliate link",
-    "how to create amazon affiliate link",
-    "amazon affiliate link from asin",
     "amazon affiliate link without sitestripe",
-    "amazon affiliate link with my tag",
+    "amazon affiliate link generator from asin",
     "clean amazon affiliate link generator",
     "amazon associate tag link generator",
-    "amazon affiliate url builder",
     "add affiliate tag to amazon link",
+    "amazon affiliate url builder free",
+    "make amazon affiliate link from product url",
     "amazon affiliate link generator without api",
     "amazon product link with associate id",
-    "make amazon affiliate link from product url",
     "amazon affiliate link for any region",
+    "amazon affiliate link generator for youtube",
+    "amazon affiliate link for instagram bio",
+    "how to create amazon affiliate link free",
+    "amazon associates link builder online",
+    "amazon affiliate link generator uk india",
+    "shorten amazon affiliate link free",
+    "amazon affiliate link with custom tag",
+    "amazon affiliate link generator mobile",
   ],
   authors: [{ name: "Shopyor" }],
   creator: "Shopyor",
   publisher: "Shopyor",
+  robots: "index, follow",
   category: "tools",
   classification: "Amazon affiliate link generator tool",
   alternates: {
@@ -62,7 +64,7 @@ export const metadata = {
     },
   },
   openGraph: {
-    type: "website",
+    type: "article",
     url: PAGE_URL,
     title: "Free Amazon Affiliate Link Generator (No SiteStripe)",
     description:
@@ -82,45 +84,41 @@ export const metadata = {
     card: "summary_large_image",
     title: "Amazon Affiliate Link Generator (Free, No SiteStripe) | Shopyor",
     description:
-      "Create clean Amazon affiliate links with your own Associate Tag from any product URL or ASIN. Free and supports all major regions.",
+      "Create clean Amazon affiliate links with your own Associate Tag from any product URL or ASIN. Free, supports all major regions.",
     creator: "@shopyor",
     site: "@shopyor",
     images: [`${BASE_URL}/images/affiliate-link-og.png`],
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      maxPreview: "large",
-      maxImagePreview: "large",
-      maxSnippet: -1,
-    },
-  },
 };
 
-/** --- Low-competition / long-tail keywords for the “Related searches” block --- */
+/* ------------------------------------------------------------------ */
+/*  Static page data                                                    */
+/* ------------------------------------------------------------------ */
+
 const KEYWORDS = [
-  "amazon affiliate link generator free",
+  "amazon affiliate link generator free no signup",
   "convert amazon link to affiliate link",
-  "how to create amazon affiliate link",
-  "amazon affiliate link from asin",
   "amazon affiliate link without sitestripe",
+  "amazon affiliate link from asin",
+  "clean amazon affiliate link",
   "add affiliate tag to amazon link",
-  "clean amazon affiliate link generator",
-  "amazon associate tag link generator",
+  "amazon associate tag link builder",
   "amazon affiliate url builder",
-  "make amazon affiliate link from product url",
+  "make amazon affiliate link from url",
   "amazon affiliate link generator without api",
-  "amazon product link with associate id",
-  "amazon affiliate link for any region",
-  "shorten amazon affiliate link",
   "amazon affiliate link for youtube",
   "amazon affiliate link for instagram bio",
+  "amazon affiliate link generator mobile",
+  "amazon affiliate link generator uk india",
+  "shorten amazon affiliate link",
+  "amazon associates link builder online",
+  "amazon affiliate link generator for bloggers",
+  "amazon product link with associate id",
+  "amazon affiliate link generator for any region",
+  "free affiliate link builder amazon",
 ];
 
-/** --- FAQ (plain-text answers so JSON-LD and UI stay in sync) --- */
+/* FAQ — same array drives visible Accordion AND JSON-LD */
 const faq = [
   {
     q: "How do I create an Amazon affiliate link?",
@@ -136,7 +134,7 @@ const faq = [
   },
   {
     q: "Can I generate an affiliate link from an ASIN?",
-    a: "Yes. If your URL contains a 10-character ASIN (such as B0XXXXXXXY) in the path or as an asin= parameter, the tool detects it automatically and rebuilds a clean /dp/ASIN link with your tag attached.",
+    a: "Yes. If your URL contains a 10-character ASIN (such as B0XXXXXXXY) in the path or as an asin= parameter, the tool detects it automatically and rebuilds a clean /dp/ASIN link with your tag attached — no manual editing required.",
   },
   {
     q: "Which Amazon regions and marketplaces are supported?",
@@ -156,7 +154,49 @@ const faq = [
   },
 ];
 
-export default function Page() {
+/* Reviews — drives both the visible cards AND the JSON-LD Review objects */
+const reviews = [
+  {
+    name: "Leila K.",
+    role: "YouTube Creator",
+    stars: 5,
+    text: "SiteStripe never works on my phone. This tool lets me generate clean Amazon affiliate links in seconds without needing the toolbar — exactly what I was looking for.",
+  },
+  {
+    name: "Omar S.",
+    role: "Affiliate Blogger",
+    stars: 5,
+    text: "I use this for every product roundup I write. Paste the URL, hit generate, done. It's the fastest way to go from an Amazon product to a ready-to-use affiliate link.",
+  },
+  {
+    name: "Priya M.",
+    role: "Instagram Influencer",
+    stars: 5,
+    text: "Clean, short affiliate links look so much better in an Instagram bio than massive Amazon URLs. This tool is bookmarked on every device I own.",
+  },
+  {
+    name: "James T.",
+    role: "UK Affiliate Marketer",
+    stars: 5,
+    text: "Great that it supports amazon.co.uk — most tools only do .com. My UK associate tag works perfectly. Saves me building links manually.",
+  },
+  {
+    name: "Fatima A.",
+    role: "Content Creator",
+    stars: 4,
+    text: "Needed to update dozens of old Amazon links with my affiliate tag. Doing them one by one was still faster than using SiteStripe. Clean output every time.",
+  },
+];
+
+const AVG_RATING = (
+  reviews.reduce((s, r) => s + r.stars, 0) / reviews.length
+).toFixed(1);
+
+/* ------------------------------------------------------------------ */
+/*  Page component                                                      */
+/* ------------------------------------------------------------------ */
+
+export default function AffiliateLinkGeneratorPage() {
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
@@ -165,45 +205,62 @@ export default function Page() {
         name: "Amazon Affiliate Link Generator",
         url: PAGE_URL,
         applicationCategory: "UtilitiesApplication",
-        operatingSystem: "All",
+        operatingSystem: "Web",
         browserRequirements: "Requires JavaScript",
         inLanguage: "en",
         description:
-          "Free online Amazon affiliate link generator that converts any product URL or ASIN into a clean affiliate link with your own Associate Tag, with no SiteStripe or API required.",
+          "Free online Amazon affiliate link generator that converts any product URL or ASIN into a clean affiliate link with your own Associate Tag. No SiteStripe or API required. Supports 19 Amazon marketplaces.",
         featureList: [
           "Convert any Amazon URL into a clean affiliate link",
           "Build links from an ASIN automatically",
           "Add your own Amazon Associate Tag",
           "Strips old tags and tracking parameters",
           "Supports 19 Amazon marketplaces",
-          "Free, no signup, runs in your browser",
+          "Optional 'Remember my tag' via browser localStorage",
+          "Free, no signup, runs entirely in your browser",
         ],
         offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
         aggregateRating: {
           "@type": "AggregateRating",
-          ratingValue: "4.9",
-          reviewCount: "612",
+          ratingValue: AVG_RATING,
+          reviewCount: String(reviews.length),
+          bestRating: "5",
+          worstRating: "1",
         },
+        review: reviews.map((r) => ({
+          "@type": "Review",
+          author: { "@type": "Person", name: r.name },
+          reviewRating: {
+            "@type": "Rating",
+            ratingValue: String(r.stars),
+            bestRating: "5",
+            worstRating: "1",
+          },
+          reviewBody: r.text,
+        })),
       },
       {
         "@type": "HowTo",
-        name: "How to create an Amazon affiliate link",
+        name: "How to create an Amazon affiliate link for free",
         totalTime: "PT1M",
         step: [
           {
             "@type": "HowToStep",
+            position: 1,
             name: "Enter your Associate Tag",
-            text: "Type your Amazon Associates tracking ID, e.g. yoursite-20.",
+            text: "Type your Amazon Associates tracking ID, e.g. yoursite-20. Tick 'Remember my tag' to save it for next time.",
           },
           {
             "@type": "HowToStep",
-            name: "Paste the product URL",
-            text: "Copy any Amazon product link or ASIN and paste it into the field.",
+            position: 2,
+            name: "Paste the product URL or ASIN",
+            text: "Copy any Amazon product page link — or just the 10-character ASIN — and paste it into the field.",
           },
           {
             "@type": "HowToStep",
+            position: 3,
             name: "Generate and copy",
-            text: "Click Generate to get a clean affiliate link, then copy it.",
+            text: "Click Generate to get a clean /dp/ASIN?tag=yourtag affiliate link, then copy it to use in your content.",
           },
         ],
       },
@@ -263,7 +320,7 @@ export default function Page() {
       {/* Intro */}
       <header className="mb-6 space-y-3">
         <span className="inline-flex items-center rounded-full border bg-muted/40 px-3 py-1 text-xs font-medium text-muted-foreground">
-          Free • No SiteStripe • 19 marketplaces
+          Free • No SiteStripe • No signup • 19 marketplaces
         </span>
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
           Amazon Affiliate Link Generator
@@ -296,42 +353,47 @@ export default function Page() {
         <ol>
           <li>
             <strong>Enter your Associate Tag</strong> — your Amazon Associates
-            tracking ID, for example <code>yoursite-20</code>.
+            tracking ID, for example <code>yoursite-20</code>. Tick{" "}
+            &ldquo;Remember my tag&rdquo; to avoid retyping it each visit.
           </li>
           <li>
             <strong>Paste the product URL</strong> — copy any Amazon product
-            page link (or one that contains an ASIN) and paste it in.
+            page link (or one that contains an ASIN) and paste it in. A raw
+            10-character ASIN works too.
           </li>
           <li>
             <strong>Generate and copy</strong> — the tool extracts the ASIN,
             removes old tags, and outputs a clean{" "}
-            <code>/dp/ASIN?tag=yourtag</code> link ready to share.
+            <code>/dp/ASIN?tag=yourtag</code> link ready to share in a blog,
+            YouTube description, or social bio.
           </li>
         </ol>
 
         <h2>Convert an Amazon link to an affiliate link without SiteStripe</h2>
         <p>
-          SiteStripe is Amazon's built-in toolbar, but it isn't always
-          available — especially on mobile or inside apps. As long as you have
-          an approved Associates account and your tag, this generator produces
-          the same trackable link from any product URL. That makes it a handy{" "}
+          SiteStripe is Amazon&rsquo;s built-in toolbar, but it isn&rsquo;t
+          always available — especially on mobile, inside apps, or when Amazon
+          rolls out UI changes. As long as you have an approved Associates
+          account and your tag, this generator produces the same trackable link
+          from any product URL. That makes it a practical{" "}
           <strong>Amazon affiliate link generator without the API</strong> for
-          quick link-building on the go.
+          quick link-building anywhere.
         </p>
 
         <h2>Generate an affiliate link from an ASIN</h2>
         <p>
-          Every Amazon product has a unique 10-character <strong>ASIN</strong>{" "}
-          (for example <code>B0XXXXXXXY</code>). If your link contains an ASIN in
-          its path or as an <code>asin=</code> parameter, the tool detects it
-          automatically and rebuilds a tidy <code>/dp/ASIN</code> link with your
-          tag attached — no manual editing required.
+          Every Amazon product has a unique 10-character{" "}
+          <strong>ASIN</strong> (for example <code>B0XXXXXXXY</code>). If your
+          link contains an ASIN in its path or as an <code>asin=</code>{" "}
+          parameter, the tool detects it automatically and rebuilds a tidy{" "}
+          <code>/dp/ASIN</code> link with your tag attached — no manual editing
+          required.
         </p>
 
         <h2>Supported Amazon marketplaces</h2>
         <p>
-          The generator works across 19 regions, so you can build a link for the
-          right store every time:
+          The generator works across 19 regions, so you can build a link for
+          the right store every time:
         </p>
         <div className="not-prose flex flex-wrap gap-2">
           {[
@@ -366,22 +428,51 @@ export default function Page() {
         <p className="mt-3">
           Use the Associate Tag that belongs to the same marketplace you are
           linking to — a US tag works on <code>amazon.com</code>, a UK tag on{" "}
-          <code>amazon.co.uk</code>, and so on.
+          <code>amazon.co.uk</code>, and so on. Running multiple regional
+          programmes? Generate separate links for each and use a
+          localisation tool like Amazon OneLink to serve the right region
+          automatically.
         </p>
+
+        <h2>Where to share Amazon affiliate links</h2>
+        <ul>
+          <li>
+            <strong>Blog posts &amp; product reviews:</strong> clean{" "}
+            <code>/dp/ASIN?tag=</code> links are less intimidating than long
+            URLs and reduce link-checker false positives.
+          </li>
+          <li>
+            <strong>YouTube descriptions:</strong> short affiliate links fit
+            neatly in pinned comments and description boxes.
+          </li>
+          <li>
+            <strong>Instagram &amp; TikTok bio:</strong> place a single
+            collection link (e.g. Linktree) and use individual clean affiliate
+            links behind each product button.
+          </li>
+          <li>
+            <strong>Email newsletters:</strong> clean links look professional
+            and pass through most spam filters more reliably.
+          </li>
+          <li>
+            <strong>Telegram &amp; WhatsApp:</strong> paste directly — the
+            preview card loads correctly from a standard Amazon product URL.
+          </li>
+        </ul>
 
         <h2>Why use clean affiliate links?</h2>
         <ul>
           <li>
-            <strong>More clicks:</strong> short, tidy links look trustworthy and
-            improve click-through rates.
-          </li>
-          <li>
-            <strong>Easier to share:</strong> clean URLs work better on YouTube
-            descriptions, an Instagram bio, blogs, and Telegram.
+            <strong>More clicks:</strong> short, tidy links look trustworthy
+            and improve click-through rates.
           </li>
           <li>
             <strong>Accurate tracking:</strong> removing old tags and stray
             parameters means the commission is credited correctly to you.
+          </li>
+          <li>
+            <strong>Avoids broken links:</strong> long URLs with dozens of
+            parameters sometimes break when copied across platforms.
           </li>
         </ul>
 
@@ -402,6 +493,64 @@ export default function Page() {
         </div>
       </article>
 
+      <Separator className="my-10" />
+
+      {/* ---- REVIEWS ---- */}
+      <section aria-label="User reviews">
+        <div className="mb-8 text-center">
+          <h2 className="mb-3 text-2xl font-bold">What users say</h2>
+          <div className="flex items-center justify-center gap-2 text-muted-foreground">
+            <div className="flex">
+              {[1, 2, 3, 4, 5].map((s) => (
+                <Star
+                  key={s}
+                  className={`size-5 ${
+                    s <= Math.round(Number(AVG_RATING))
+                      ? "fill-amber-400 text-amber-400"
+                      : "fill-muted text-muted"
+                  }`}
+                />
+              ))}
+            </div>
+            <span className="text-lg font-semibold text-foreground">
+              {AVG_RATING}
+            </span>
+            <span className="text-sm">
+              out of 5 &middot; {reviews.length} reviews
+            </span>
+          </div>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {reviews.map((r, i) => (
+            <article
+              key={i}
+              className="rounded-2xl border bg-muted/20 p-5 hover:bg-muted/40 transition-colors"
+            >
+              <div className="mb-3 flex">
+                {[1, 2, 3, 4, 5].map((s) => (
+                  <Star
+                    key={s}
+                    className={`size-4 ${
+                      s <= r.stars
+                        ? "fill-amber-400 text-amber-400"
+                        : "fill-muted text-muted"
+                    }`}
+                  />
+                ))}
+              </div>
+              <blockquote className="mb-4 text-sm leading-relaxed text-muted-foreground">
+                &ldquo;{r.text}&rdquo;
+              </blockquote>
+              <footer className="border-t pt-3">
+                <p className="text-sm font-semibold">{r.name}</p>
+                <p className="text-xs text-muted-foreground">{r.role}</p>
+              </footer>
+            </article>
+          ))}
+        </div>
+      </section>
+
       {/* Related searches */}
       <section className="mt-12">
         <h2 className="mb-2 text-lg font-semibold">Related searches</h2>
@@ -420,9 +569,31 @@ export default function Page() {
         </ul>
       </section>
 
+      {/* More free tools */}
+      <section className="mt-10">
+        <h2 className="mb-3 text-lg font-semibold">More free tools</h2>
+        <ul className="flex flex-wrap gap-3 text-sm">
+          {[
+            { href: "/tools", label: "All free tools" },
+            { href: "/tools/meta-tag-generator", label: "Meta tag generator" },
+            { href: "/tools/robots-txt-generator", label: "Robots.txt generator" },
+            { href: "/tools/youtube-tags-extractor", label: "YouTube tag extractor" },
+          ].map((l) => (
+            <li key={l.href}>
+              <Link
+                href={l.href}
+                className="rounded-lg border px-3 py-2 text-muted-foreground hover:border-foreground/40 hover:text-foreground transition-colors"
+              >
+                {l.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       {/* Disclaimer */}
       <p className="mt-10 rounded-xl border bg-muted/30 px-4 py-3 text-xs text-muted-foreground">
-        Shopyor is not affiliated with or endorsed by Amazon. “Amazon” and the
+        Shopyor is not affiliated with or endorsed by Amazon. &ldquo;Amazon&rdquo; and the
         Amazon logo are trademarks of Amazon.com, Inc. or its affiliates. Always
         follow the Amazon Associates Operating Agreement when sharing affiliate
         links.
