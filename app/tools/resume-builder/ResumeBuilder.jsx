@@ -16,7 +16,6 @@
 
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Mail,
@@ -501,26 +500,15 @@ export default function ResumeBuilder() {
       `}</style>
 
       <div className="rb-no-print mx-auto max-w-[1500px] px-4 py-8">
-        {/* Breadcrumb */}
-        <nav className="mb-5 text-sm text-gray-500 dark:text-gray-400">
-          <ol className="flex flex-wrap items-center gap-2">
-            <li><Link href="/" className="hover:text-violet-600">Home</Link></li>
-            <li>/</li>
-            <li><Link href="/tools" className="hover:text-violet-600">Tools</Link></li>
-            <li>/</li>
-            <li className="font-medium text-gray-900 dark:text-white">Resume Builder</li>
-          </ol>
-        </nav>
-
         {/* Header */}
         <div className="mb-8 text-center">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-violet-500/20 bg-violet-500/10 px-4 py-1.5 text-sm font-medium text-violet-700 dark:text-violet-300">
             <Sparkles className="h-4 w-4" />
             100% Browser-Based — your data never leaves this device
           </div>
-          <h1 className="bg-gradient-to-r from-violet-600 via-fuchsia-600 to-blue-600 bg-clip-text text-4xl font-extrabold tracking-tight text-transparent md:text-5xl">
+          <div className="bg-gradient-to-r from-violet-600 via-fuchsia-600 to-blue-600 bg-clip-text text-4xl font-extrabold tracking-tight text-transparent md:text-5xl">
             Free Resume Builder
-          </h1>
+          </div>
           <p className="mx-auto mt-3 max-w-2xl text-lg text-gray-600 dark:text-gray-300">
             Fill in your details, pick a premium template, and export a print-perfect,
             ATS-friendly PDF — free, instant, no sign-up.
@@ -949,21 +937,6 @@ export default function ResumeBuilder() {
           </div>
         </div>
 
-        {/* SEO content */}
-        <div className="rb-no-print mt-16 grid gap-6 rounded-2xl bg-gradient-to-r from-violet-50 to-blue-50 p-8 dark:from-violet-900/20 dark:to-blue-900/20 md:grid-cols-3">
-          <Feature icon="🎨" title="Premium templates">
-            Four recruiter-ready designs — Modern, Classic, Minimal and Sidebar — with full
-            color and font control.
-          </Feature>
-          <Feature icon="🔒" title="Private & instant">
-            Everything runs in your browser and autosaves locally. No account, no uploads, no
-            watermark.
-          </Feature>
-          <Feature icon="📄" title="ATS-friendly PDF">
-            Export crisp, selectable-text PDFs that applicant tracking systems can actually
-            read.
-          </Feature>
-        </div>
       </div>
 
       {/* print-only copy, portalled to <body> at natural page size */}
