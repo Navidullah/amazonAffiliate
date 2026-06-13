@@ -437,7 +437,7 @@ export default function ImageResizerPage() {
           <p>
             The most common reason people look for an image resizer is that a
             government portal, school application, or job site asks for a photo
-            "under 100KB" or "under 200KB." Here is the fastest way to hit that
+            &quot;under 100KB&quot; or &quot;under 200KB.&quot; Here is the fastest way to hit that
             target with this tool:
           </p>
           <ol>
@@ -461,8 +461,8 @@ export default function ImageResizerPage() {
           <p>
             This approach — combining pixel reduction and quality compression —
             is the same technique used by tools like imresizer.com and
-            simpleimageresizer.com that dominate search results for "resize image
-            to 100kb online free."
+            simpleimageresizer.com that dominate search results for &quot;resize image
+            to 100kb online free.&quot;
           </p>
 
           <h2>
