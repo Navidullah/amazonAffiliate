@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
-import Link from "next/link";
 
 export default function VideoToGifConverter() {
   const [file, setFile] = useState(null);
@@ -221,48 +220,9 @@ export default function VideoToGifConverter() {
   }, [videoPreview, status.outputGif]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+    <div className="w-full">
       {/* Hidden canvas for frame capture */}
       <canvas ref={canvasRef} className="hidden" />
-
-      <div className="container mx-auto px-4 py-8 max-w-6xl">
-        {/* Breadcrumbs */}
-        <nav className="text-sm mb-6 text-gray-600 dark:text-gray-400">
-          <ol className="flex flex-wrap gap-2">
-            <li>
-              <Link href="/" className="hover:text-blue-600">
-                Home
-              </Link>
-            </li>
-            <li>/</li>
-            <li>
-              <Link href="/tools" className="hover:text-blue-600">
-                Tools
-              </Link>
-            </li>
-            <li>/</li>
-            <li className="text-gray-900 dark:text-white font-medium">
-              Video to GIF
-            </li>
-          </ol>
-        </nav>
-
-        {/* Header with privacy badge */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-4 py-2 rounded-full text-sm mb-4">
-            <span className="text-lg">🔒</span>
-            <span>100% Browser-Based - No Upload Required</span>
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-4">
-            Convert Video to GIF
-          </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Transform your videos into GIFs instantly in your browser.
-            <span className="block text-sm mt-1 text-green-600 dark:text-green-400">
-              ✨ Your videos never leave your computer - 100% private
-            </span>
-          </p>
-        </div>
 
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Upload Section */}
@@ -489,36 +449,6 @@ export default function VideoToGifConverter() {
           </div>
         </div>
 
-        {/* SEO Content */}
-        <div className="mt-16 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 rounded-2xl p-8">
-          <h2 className="text-2xl font-bold text-center mb-6">
-            ✨ Why Browser-Based Conversion?
-          </h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="text-center">
-              <div className="text-3xl mb-2">🔒</div>
-              <h3 className="font-semibold">100% Private</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Your videos never leave your computer
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl mb-2">⚡</div>
-              <h3 className="font-semibold">No Upload Time</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Start converting instantly
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl mb-2">💪</div>
-              <h3 className="font-semibold">No File Limits</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Process large videos easily
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
