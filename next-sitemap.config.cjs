@@ -23,6 +23,9 @@ module.exports = {
     "/tools/pdf-compress", // 301 -> /tools/pdf-compressor (consolidated)
     "/tools/youtube-tags", // 301 -> /tools/youtube-tags-extractor (renamed)
     "/tools/resizer", // 301 -> /tools/image-resizer (duplicate consolidated)
+    // Next.js internal image-generation routes — not real pages
+    "/twitter-image",
+    "/opengraph-image",
   ],
 
   robotsTxtOptions: {
