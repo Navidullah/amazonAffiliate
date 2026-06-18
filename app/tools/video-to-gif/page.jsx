@@ -479,6 +479,14 @@ export default function VideoToGifPage() {
             frame capture.
           </li>
         </ul>
+        <p className="mb-8 text-sm leading-relaxed text-muted-foreground">
+          For the full breakdown of FPS, width, and quality trade-offs, see our
+          guide on{" "}
+          <Link href="/blog/how-to-convert-a-video-to-gif-without-losing-quality">
+            how to convert a video to GIF without a huge file size
+          </Link>
+          .
+        </p>
 
         <h2 className="mb-4 text-xl font-bold text-foreground">
           More free tools

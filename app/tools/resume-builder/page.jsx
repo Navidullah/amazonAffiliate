@@ -406,6 +406,14 @@ export default function ResumeBuilderPage() {
               large corporations, Classic or Minimal are the safer bet.
             </li>
           </ul>
+          <p>
+            For a deeper breakdown of what actually breaks ATS parsing and
+            which template fits your field, see our full guide on{" "}
+            <Link href="/blog/how-to-make-an-ats-friendly-resume-for-free">
+              how to make an ATS-friendly resume for free
+            </Link>
+            .
+          </p>
 
           <h2>Resume tips that actually get you interviews</h2>
           <p>

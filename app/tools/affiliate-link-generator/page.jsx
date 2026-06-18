@@ -462,6 +462,17 @@ export default function AffiliateLinkGeneratorPage() {
             parameters sometimes break when copied across platforms.
           </li>
         </ul>
+        <p>
+          For the full walkthrough — including how to avoid the most common
+          mistake that loses affiliates commission — see our guide on{" "}
+          <Link
+            href="/blog/how-to-create-an-amazon-affiliate-link"
+            className="text-violet-600 hover:underline dark:text-violet-400"
+          >
+            how to create an Amazon affiliate link without SiteStripe
+          </Link>
+          .
+        </p>
 
         <h2>Frequently asked questions</h2>
         <div className="not-prose">

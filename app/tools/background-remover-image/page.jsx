@@ -249,6 +249,15 @@ export default function BackgroundRemoverImagePage() {
           <li>Avoid heavy compression or tiny images; higher resolution helps.</li>
           <li>For tricky edges, try a solid background or re-shoot if possible.</li>
         </ul>
+        <p className="text-muted-foreground">
+          For a full walkthrough — including how to get a transparent PNG, clean
+          up a logo background, and pick the right export format — see our guide
+          on{" "}
+          <Link href="/blog/how-to-remove-background-from-an-image" className="text-primary hover:underline">
+            how to remove the background from an image
+          </Link>
+          .
+        </p>
 
         <h2 className="text-2xl font-bold tracking-tight">Frequently asked questions</h2>
         <Accordion type="single" collapsible className="w-full">

@@ -512,6 +512,15 @@ export default function ExifRemoverPage() {
               each site's recommended dimensions exactly.
             </li>
           </ol>
+          <p>
+            For the full picture — including why GPS data in a photo is a
+            real privacy risk and which apps you can't rely on to strip it
+            for you — see our guide on{" "}
+            <Link href="/blog/how-to-remove-exif-data-and-gps-location-from-a-photo">
+              removing EXIF data and GPS location from a photo
+            </Link>
+            .
+          </p>
 
           <h2>Frequently asked questions</h2>
           <div className="not-prose">
