@@ -203,9 +203,9 @@ const RELATED_TOOLS = [
   },
   {
     icon: Layers,
-    name: "HD Background Remover",
+    name: "AI Background Remover",
     desc: "Erase the background and download a transparent PNG cutout.",
-    href: "/tools/bg-remover",
+    href: "/tools/background-remover-image",
   },
   {
     icon: Eye,

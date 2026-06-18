@@ -9,7 +9,6 @@ import {
   Video,
   Paintbrush,
   Wand2,
-  Eraser,
   ImageDown,
   Scaling,
   ShieldCheck,
@@ -138,14 +137,6 @@ const GROUPS = [
         body: "Cutting out a background by hand is slow and fiddly. Our AI Background Remover does it automatically: upload a photo and the AI detects the subject and erases the background in one click, leaving a clean transparent PNG. It's perfect for product shots, profile pictures, logos, and marketplace listings — no Photoshop, no manual masking, and no design experience required.",
       },
       {
-        id: "hd-background-remover",
-        name: "HD Background Remover",
-        href: "/tools/bg-remover",
-        icon: Eraser,
-        cta: "Open the HD Background Remover",
-        body: "When you need maximum quality, our HD Background Remover returns sharp, high-resolution transparent PNGs with crisp edges — ideal for print, large banners, and professional e-commerce photography. Upload your image, let it process the cutout, and download a clean result that keeps fine detail like hair and soft edges intact, so your subject looks natural on any background.",
-      },
-      {
         id: "image-compressor",
         name: "Image Compressor",
         href: "/tools/image-compressor",
@@ -265,7 +256,7 @@ const GROUPS = [
 
 export default function HomeHub() {
   return (
-    <main className="min-h-screen">
+    <div className="min-h-screen">
       {/* ===== Banner / Hero ===== */}
       <section className="relative overflow-hidden px-4 pt-12 pb-14 text-center sm:pt-16">
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
@@ -372,7 +363,7 @@ export default function HomeHub() {
                 const Icon = tool.icon;
                 return (
                   <Reveal key={tool.id} delay={Math.min(ti * 0.05, 0.2)}>
-                    <article
+                    <div
                       id={tool.id}
                       className="group scroll-mt-24 rounded-2xl border border-border bg-card/70 p-6 shadow-sm backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl sm:p-7"
                     >
@@ -399,7 +390,7 @@ export default function HomeHub() {
                           </Link>
                         </div>
                       </div>
-                    </article>
+                    </div>
                   </Reveal>
                 );
               })}
@@ -429,6 +420,6 @@ export default function HomeHub() {
           </div>
         </Reveal>
       </section>
-    </main>
+    </div>
   );
 }

@@ -5,7 +5,6 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Image as ImgIcon,
-  Wand2,
   Scissors,
   Link2,
   Activity,
@@ -139,13 +138,6 @@ export default function ToolsClient() {
       desc: "Remove hidden metadata from images for privacy.",
       icon: Scissors,
       category: "File",
-    },
-    {
-      href: "/tools/bg-remover",
-      title: "HD Background Remover (High Quality)",
-      desc: "Get clean, transparent PNG images in high resolution.",
-      icon: Wand2,
-      category: "Image",
     },
     {
       href: "/tools/affiliate-link-generator",

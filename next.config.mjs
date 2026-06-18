@@ -51,6 +51,14 @@ const nextConfig = {
         destination: "/tools/image-resizer",
         permanent: true,
       },
+      // Consolidate the duplicate background remover into the canonical one
+      // (/tools/bg-remover and /tools/background-remover-image were the same
+      // tool splitting ranking signals for "remove background from image").
+      {
+        source: "/tools/bg-remover",
+        destination: "/tools/background-remover-image",
+        permanent: true,
+      },
       // Google still has old /blogs/* URLs indexed from the previous site;
       // they currently 404. Route them to the current blog.
       {

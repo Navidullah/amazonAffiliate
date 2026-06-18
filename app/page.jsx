@@ -140,11 +140,6 @@ const TOOLS = [
       "Remove image backgrounds automatically with AI and download a transparent PNG.",
   },
   {
-    name: "HD Background Remover",
-    url: `${SITE}/tools/bg-remover`,
-    description: "Get clean, high-resolution transparent PNG cutouts.",
-  },
-  {
     name: "Image Compressor",
     url: `${SITE}/tools/image-compressor`,
     description: "Compress JPG and PNG images without visible quality loss.",

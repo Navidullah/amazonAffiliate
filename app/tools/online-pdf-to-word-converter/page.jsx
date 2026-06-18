@@ -106,66 +106,6 @@ export default function PdfToWordPage() {
         },
         description:
           "Free online PDF to Word converter for turning PDF files into editable DOCX documents quickly with high accuracy and OCR for scanned PDFs.",
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: "4.8",
-          reviewCount: "1240",
-        },
-        review: [
-          {
-            "@type": "Review",
-            author: {
-              "@type": "Person",
-              name: "A. Rahman",
-            },
-            reviewRating: {
-              "@type": "Rating",
-              ratingValue: "5",
-              bestRating: "5",
-            },
-            reviewBody:
-              "Clean conversion and very fast processing for routine business PDFs.",
-          },
-          {
-            "@type": "Review",
-            author: {
-              "@type": "Person",
-              name: "S. Malik",
-            },
-            reviewRating: {
-              "@type": "Rating",
-              ratingValue: "4",
-              bestRating: "5",
-            },
-            reviewBody:
-              "Easy to use UI and the converted Word file was editable right away.",
-          },
-        ],
-      },
-      {
-        "@type": "Product",
-        name: "Shopyor PDF to Word Converter",
-        category: "Document Conversion Software",
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: "4.8",
-          reviewCount: "1240",
-        },
-        review: [
-          {
-            "@type": "Review",
-            author: {
-              "@type": "Person",
-              name: "A. Rahman",
-            },
-            reviewRating: {
-              "@type": "Rating",
-              ratingValue: "5",
-            },
-            reviewBody:
-              "Great quality conversion with a simple and professional flow.",
-          },
-        ],
       },
       {
         "@type": "HowTo",

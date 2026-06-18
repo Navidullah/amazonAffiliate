@@ -80,6 +80,13 @@ export default function ContactPage() {
           <p className="text-xl text-muted-foreground">
             Get in touch with our support team
           </p>
+          <p className="mx-auto mt-4 max-w-2xl text-sm text-muted-foreground">
+            Whether you have a question about one of Shopyor's 21+ free tools,
+            found a bug, want to request a feature, or need to file a DMCA or
+            privacy notice, reach us using the form below or email one of the
+            addresses listed under Contact Information. We read every message
+            and reply within 24-48 hours on business days.
+          </p>
         </div>
 
         <div className="grid gap-8 md:grid-cols-2">

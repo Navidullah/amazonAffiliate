@@ -83,13 +83,6 @@ const tools = [
     featured: false,
   },
   {
-    title: "HD Background Remover (High Quality)",
-    desc: "Get clean, transparent PNG images in high resolution.",
-    href: "/tools/bg-remover",
-    icon: <ImageIcon className="w-6 h-6" />,
-    featured: false,
-  },
-  {
     title: "Online Image Compressor",
     desc: "Compress images without losing visual quality.",
     href: "/tools/image-compressor",

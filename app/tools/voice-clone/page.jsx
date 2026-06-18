@@ -547,7 +547,7 @@ export default function VoiceClonePage() {
           {[
             { href: "/tools/youtube-thumbnail", label: "YouTube Thumbnail Maker" },
             { href: "/tools/image-resizer", label: "Image Resizer" },
-            { href: "/tools/bg-remover", label: "Background Remover" },
+            { href: "/tools/background-remover-image", label: "Background Remover" },
             { href: "/tools/pdf-compressor", label: "PDF Compressor" },
           ].map(({ href, label }) => (
             <li key={href}>

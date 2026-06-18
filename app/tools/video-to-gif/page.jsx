@@ -506,7 +506,7 @@ export default function VideoToGifPage() {
         <ul className="mb-0 grid gap-2 text-sm sm:grid-cols-2">
           {[
             { href: "/tools/image-resizer", label: "Image Resizer" },
-            { href: "/tools/bg-remover", label: "Background Remover" },
+            { href: "/tools/background-remover-image", label: "Background Remover" },
             { href: "/tools/image-compressor", label: "Image Compressor" },
             { href: "/tools/pdf-compressor", label: "PDF Compressor" },
           ].map(({ href, label }) => (
