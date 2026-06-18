@@ -371,7 +371,7 @@ export default function ImageResizerPage() {
   };
 
   return (
-    <main className="min-h-screen bg-background pt-28 md:pt-32 lg:pt-32 pb-20">
+    <div className="min-h-screen bg-background pt-6 md:pt-8 pb-20">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
@@ -746,6 +746,6 @@ export default function ImageResizerPage() {
           </ul>
         </section>
       </div>
-    </main>
+    </div>
   );
 }

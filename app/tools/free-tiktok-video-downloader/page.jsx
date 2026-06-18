@@ -284,7 +284,7 @@ export default function TikTokDownloaderPage() {
   };
 
   return (
-    <main className="bg-background mx-auto max-w-3xl px-4 pt-28 md:pt-32 lg:pt-32 pb-20">
+    <div className="bg-background mx-auto max-w-3xl px-4 pt-6 md:pt-8 pb-20">
       {/* JSON-LD */}
       <script
         type="application/ld+json"
@@ -573,6 +573,35 @@ export default function TikTokDownloaderPage() {
         </div>
       </section>
 
+      {/* Guides */}
+      <section className="mt-12">
+        <h2 className="mb-4 text-lg font-semibold">Guides &amp; tutorials</h2>
+        <div className="grid gap-3 sm:grid-cols-3">
+          {[
+            {
+              href: "/blog/how-to-download-videos-from-facebook-instagram-tiktok",
+              title: "Download Videos from Facebook, Instagram & TikTok",
+            },
+            {
+              href: "/blog/best-facebook-video-downloader-online-free-in-hd-shopyor",
+              title: "Best Facebook Video Downloader Online Free in HD",
+            },
+            {
+              href: "/blog/easy-guide-download-tiktok-facebook-videos-using-shopyor",
+              title: "Easy Guide: Download TikTok & Facebook Videos",
+            },
+          ].map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="rounded-xl border p-4 text-sm font-medium transition-colors hover:bg-muted/40"
+            >
+              {link.title}
+            </Link>
+          ))}
+        </div>
+      </section>
+
       {/* Disclaimer */}
       <p className="mt-10 rounded-xl border bg-muted/30 px-4 py-3 text-xs text-muted-foreground">
         TikTok is a trademark of ByteDance Ltd. Shopyor is not affiliated with
@@ -580,6 +609,6 @@ export default function TikTokDownloaderPage() {
         respect content creators&apos; rights and TikTok&apos;s Terms of
         Service.
       </p>
-    </main>
+    </div>
   );
 }

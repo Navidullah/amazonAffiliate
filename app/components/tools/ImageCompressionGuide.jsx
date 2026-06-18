@@ -1,6 +1,7 @@
 // app/components/tools/ImageCompressionGuide.jsx
 "use client";
 
+import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
@@ -242,7 +243,14 @@ export default function ImageCompressionGuide() {
         <p className="mt-2 text-card-foreground">
           Start simple: resize, then compress. Measure performance, and automate
           where you can. Your pages will load faster, look great, and keep
-          visitors engaged.
+          visitors engaged. For a deeper walkthrough, read our guide on{" "}
+          <Link
+            href="/blog/how-to-reduce-image-file-size"
+            className="font-medium text-primary underline-offset-2 hover:underline"
+          >
+            how to reduce image file size without losing quality
+          </Link>
+          .
         </p>
       </div>
     </section>

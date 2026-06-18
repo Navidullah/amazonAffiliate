@@ -294,7 +294,7 @@ export default function AffiliateLinkGeneratorPage() {
   };
 
   return (
-    <main className="bg-background mx-auto max-w-3xl px-4 pt-28 md:pt-32 lg:pt-32 pb-20">
+    <div className="bg-background mx-auto max-w-3xl px-4 pt-6 md:pt-8 pb-20">
       {/* JSON-LD */}
       <script
         type="application/ld+json"
@@ -598,6 +598,6 @@ export default function AffiliateLinkGeneratorPage() {
         follow the Amazon Associates Operating Agreement when sharing affiliate
         links.
       </p>
-    </main>
+    </div>
   );
 }

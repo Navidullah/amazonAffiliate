@@ -281,7 +281,7 @@ export default function ExifRemoverPage() {
   };
 
   return (
-    <main className="min-h-screen bg-background pt-28 md:pt-32 lg:pt-32 pb-20">
+    <div className="min-h-screen bg-background pt-6 md:pt-8 pb-20">
       {/* JSON-LD */}
       <script
         type="application/ld+json"
@@ -599,6 +599,6 @@ export default function ExifRemoverPage() {
           </ul>
         </section>
       </div>
-    </main>
+    </div>
   );
 }

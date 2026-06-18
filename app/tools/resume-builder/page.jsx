@@ -251,7 +251,7 @@ export default function ResumeBuilderPage() {
       />
 
       {/* Pre-tool: breadcrumb + H1 + intro */}
-      <div className="bg-background mx-auto max-w-3xl px-4 pt-28 md:pt-32">
+      <div className="bg-background mx-auto max-w-3xl px-4 pt-6 md:pt-8">
         <nav
           aria-label="Breadcrumb"
           className="mb-5 flex items-center gap-1.5 text-xs text-muted-foreground"
@@ -290,7 +290,7 @@ export default function ResumeBuilderPage() {
       <ResumeBuilder />
 
       {/* Post-tool: article + FAQ + related searches */}
-      <main className="bg-background mx-auto max-w-3xl px-4 pb-20">
+      <div className="bg-background mx-auto max-w-3xl px-4 pb-20">
         <Separator className="my-10" />
 
         <article className="prose prose-neutral dark:prose-invert max-w-none prose-headings:scroll-mt-24 prose-h2:text-2xl prose-h2:font-semibold prose-h2:mt-10 prose-h2:mb-3">
@@ -560,7 +560,7 @@ export default function ResumeBuilderPage() {
           quality and interview outcomes depend on many factors beyond formatting.
           Always tailor your resume content to each specific job application.
         </p>
-      </main>
+      </div>
     </>
   );
 }

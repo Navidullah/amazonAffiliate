@@ -75,6 +75,51 @@ const nextConfig = {
   },
   async headers() {
     return [
+      // Baseline security headers, site-wide. CSP is shipped Report-Only
+      // first (Next.js inline JSON-LD/bootstrap scripts and Tailwind/inline
+      // styles need 'unsafe-inline', and ffmpeg.wasm needs 'unsafe-eval', so
+      // enforcing it outright would break the app without nonce wiring).
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=()",
+          },
+          {
+            key: "Content-Security-Policy-Report-Only",
+            value: [
+              "default-src 'self';",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval';",
+              "style-src 'self' 'unsafe-inline';",
+              "img-src 'self' data: blob: https:;",
+              "font-src 'self' data: https://fonts.gstatic.com;",
+              "media-src 'self' blob: https:;",
+              "connect-src 'self' https:;",
+              "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com;",
+              "base-uri 'self';",
+              "form-action 'self';",
+              "frame-ancestors 'self';",
+            ].join(" "),
+          },
+        ],
+      },
+
+      // Voice Cloner needs mic access to record a sample in-browser —
+      // override the site-wide Permissions-Policy default just for this tool.
+      {
+        source: "/tools/voice-clone/:path*",
+        headers: [
+          {
+            key: "Permissions-Policy",
+            value: "microphone=(self), camera=(), geolocation=()",
+          },
+        ],
+      },
+
       // ✅ YouTube allowed on editor & blog pages (COEP OFF there)
       {
         source: "/(write|blogs/:path*)",

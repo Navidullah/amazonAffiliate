@@ -168,7 +168,7 @@ export default function PdfToWordPage() {
             name: "Can I convert a scanned PDF to Word?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Yes. The converter applies OCR (optical character recognition) to scanned and image-based PDFs so the text becomes editable and searchable in the Word file. Results depend on the quality of the scan.",
+              text: "Yes. The converter applies OCR (optical character recognition) to scanned and image-based PDFs, analyzing each page as a picture and identifying the individual characters to rebuild them as real, selectable text in the Word file, rather than leaving the page as a flat, uneditable image. This is what lets you search, copy, and edit text from a paper document you scanned or photographed, instead of being stuck with a picture of text. Results depend heavily on the quality of the scan: a clean, high-resolution, straight scan at 300 DPI or higher typically converts with very high accuracy, while a blurry photo taken at an angle, low lighting, or a low-resolution fax-quality scan will produce more recognition errors that need manual correction afterward. For best results, scan at the highest resolution your scanner supports and make sure the page is flat and well-lit.",
             },
           },
           {
@@ -176,7 +176,7 @@ export default function PdfToWordPage() {
             name: "Will my PDF formatting stay accurate after conversion?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "The engine preserves layout, fonts, tables, bullet points, and text styles as closely as possible, so your DOCX looks like the original PDF. Complex multi-column layouts may need minor adjustments in Word.",
+              text: "The conversion engine preserves layout, fonts, tables, bullet points, headings, and text styles as closely as possible, so your DOCX file looks like the original PDF rather than a stripped-down plain-text version. Simple, single-column documents like letters, resumes, and reports typically convert with near-pixel-perfect formatting, since there's little ambiguity in how the layout should map to Word's document model. Complex multi-column layouts, documents with overlapping text boxes, or PDFs with unusual custom fonts not installed on your system may need minor manual adjustments in Word afterward — for example, a three-column newsletter layout sometimes needs its column breaks re-checked. As a general rule, the simpler and more text-based the original PDF, the more reliably the formatting carries over.",
             },
           },
           {
@@ -184,7 +184,7 @@ export default function PdfToWordPage() {
             name: "How do I convert a PDF to Word without losing formatting?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Upload your PDF, click Convert, and download the DOCX. For the cleanest result use text-based PDFs rather than scans, and avoid copy-pasting from a PDF reader because that strips formatting.",
+              text: "Upload your PDF using the box above, click Convert, and download the resulting DOCX file once processing finishes, which typically takes just a few seconds for a standard document. For the cleanest possible result, use text-based PDFs (ones created directly from Word, Google Docs, or similar software) rather than scanned image PDFs, since text-based PDFs already contain real character data that maps cleanly to Word's formatting, while scans require OCR and carry more risk of small recognition errors. Also avoid copy-pasting text directly from a PDF reader like Adobe Acrobat into Word as an alternative method, because that approach strips almost all original formatting, fonts, and layout — the dedicated converter above preserves far more of the original document's structure than a manual copy-paste ever can.",
             },
           },
           {
@@ -192,7 +192,7 @@ export default function PdfToWordPage() {
             name: "Can I convert PDF to Word on my phone?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Yes. The tool is fully mobile-friendly and works in any browser on Android and iPhone — no app installation required.",
+              text: "Yes. The tool is fully mobile-friendly and works in any modern browser on Android and iPhone, including Safari and Chrome, with no app installation required at any point. Tap to upload a PDF directly from your phone's file manager, cloud storage app, or even an email attachment, then tap Convert and the DOCX file downloads straight to your device just as it would on desktop. This is particularly useful when you receive a PDF contract, scanned form, or report on your phone and need an editable Word version immediately, without waiting until you're at a computer.",
             },
           },
           {
@@ -200,7 +200,7 @@ export default function PdfToWordPage() {
             name: "What is the maximum file size I can convert?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "You can convert PDF files up to 25 MB. For larger documents, split the PDF into smaller parts and convert each section separately.",
+              text: "You can convert PDF files up to 25 MB in a single upload, which comfortably covers the vast majority of everyday documents — a typical 20-page text-based PDF report is usually well under 5 MB, and even a 50-page scanned document with images often stays under 20 MB. For larger documents, such as a lengthy scanned book or a PDF packed with high-resolution images, split the file into smaller parts using a free PDF-splitting tool and convert each section separately, then combine the resulting Word documents if needed. This limit exists to keep conversion fast and reliable for everyone using the free tool, rather than letting a handful of very large files slow down processing for other users.",
             },
           },
           {
@@ -208,7 +208,7 @@ export default function PdfToWordPage() {
             name: "Are my files private and secure?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Yes. Files are transferred over a secure connection and are not permanently stored on our servers — they are processed and then removed after conversion.",
+              text: "Yes. Files are transferred to our conversion engine over an encrypted HTTPS connection, the same level of security used for online banking, and are not permanently stored on our servers — each file is processed for conversion and then deleted shortly afterward rather than being kept in long-term storage. We don't open, read, or share the contents of your documents, and no human reviews the files you upload; the entire process is automated from upload to download. This matters especially for sensitive documents like contracts, resumes with personal details, or financial statements, where you want assurance that a copy isn't sitting on a server indefinitely after you've finished converting it.",
             },
           },
           {
@@ -216,7 +216,7 @@ export default function PdfToWordPage() {
             name: "Can I convert multiple PDFs at once?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "The tool processes one PDF at a time. To convert several files, upload and convert each one individually — conversion usually takes just a few seconds per file.",
+              text: "The tool processes one PDF at a time rather than offering a bulk-upload queue, since this keeps each conversion fast and gives you a chance to check the result before moving to the next file. To convert several files, upload and convert each one individually — conversion usually takes just a few seconds per file for standard text-based PDFs, so converting five or six documents back-to-back typically takes well under a couple of minutes total. If you regularly need to convert a large batch of PDFs (for example, archiving dozens of scanned receipts), it's worth doing them in one sitting since there's no daily limit on how many free conversions you can run.",
             },
           },
           {
@@ -224,7 +224,7 @@ export default function PdfToWordPage() {
             name: "What format is the output, and will it open in Google Docs?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "The output is a standard .docx file, which opens in Microsoft Word (all versions), Google Docs, LibreOffice Writer, and Apple Pages.",
+              text: "The output is a standard .docx file — the same modern Word format used by Microsoft Word 2007 and every version since — which opens directly in Microsoft Word (Windows, Mac, and the web version), Google Docs (via upload or Google Drive), LibreOffice Writer, and Apple Pages without needing any file conversion on your part. If you open it in Google Docs, you can also use Google's 'Save as Google Docs' option afterward to keep editing in that format, or leave it as .docx if you need to send it back to someone using Microsoft Word. The .docx format was chosen specifically because it's the most universally compatible editable document format across both desktop and web-based word processors.",
             },
           },
           {
@@ -232,7 +232,7 @@ export default function PdfToWordPage() {
             name: "What if the primary conversion service is unavailable?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "The converter uses a multi-provider engine with automatic fallback, so if the primary service is temporarily down it switches to a backup provider to keep working.",
+              text: "The converter uses a multi-provider engine with automatic fallback built in, so if the primary conversion service is temporarily down or overloaded, the tool automatically switches to a backup provider behind the scenes to keep your conversion working without any extra steps on your end. You won't typically see any difference in output quality between providers for standard documents, since both are tuned to preserve the same layout, fonts, and OCR accuracy. This redundancy exists specifically so a single point of failure (one provider having downtime) doesn't take the whole tool offline for users who need to convert a file right now.",
             },
           },
         ],

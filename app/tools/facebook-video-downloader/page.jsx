@@ -168,31 +168,31 @@ const faq = [
   },
   {
     q: "Do I need to log in to Facebook to use this?",
-    a: "No. Shopyor only accesses publicly available Facebook videos — the same content anyone can view without logging in. You never share your Facebook credentials, session cookies, or any account data with this tool.",
+    a: "No. Shopyor only accesses publicly available Facebook videos — the exact same content anyone can already view in a browser without logging in, the same way Google's crawler can index a public Facebook page without an account. You never share your Facebook username, password, session cookies, or any account data with this tool at any point, because the downloader never asks for them in the first place; it simply reads the public video URL you paste in. This also means the tool can't access anything from your own account, your friends list, or your private messages — it has no connection to your Facebook login at all, which is exactly why it works the same for every visitor regardless of whether they even have a Facebook account.",
   },
   {
     q: "Can I download private Facebook videos?",
-    a: "No. Only public videos, public Reels, and videos shared on public pages or groups are supported. Private videos, videos behind a login wall, and friends-only posts cannot be downloaded — this is intentional.",
+    a: "No, and this is intentional rather than a limitation we plan to remove. Only public videos, public Reels, and videos shared on public pages or public groups are supported — the same content anyone could already watch without logging in. Private videos, anything behind a login wall, friends-only posts, and content inside closed or secret groups cannot be downloaded, because the tool never authenticates as a Facebook user and therefore never gains access to permission-gated content. If you try a private link, the tool will fail to fetch it rather than silently bypassing Facebook's privacy settings. This keeps the tool firmly on the right side of Facebook's terms of service and respects the original poster's chosen audience.",
   },
   {
     q: "What types of Facebook content can I download?",
-    a: "You can download public Facebook video posts, Facebook Reels, Facebook Live replays (after the stream ends), and videos shared on public pages and public groups. Photo posts and Stories are not supported.",
+    a: "You can download public Facebook video posts, Facebook Reels, Facebook Live replays (once the stream has ended and Facebook has finished processing the recording), and videos shared on public pages and public groups — covering the vast majority of shareable Facebook video content. Photo posts, Stories (which expire after 24 hours by design), and audio-only posts are not supported, since the tool is purpose-built for video files specifically. If a video was originally uploaded in HD, the downloader will offer that same HD quality; if the uploader only provided SD, that's the highest quality available to download, since the tool can't generate resolution that doesn't exist in the source file.",
   },
   {
     q: "How do I find the Facebook video link to paste here?",
-    a: "On the Facebook app: tap the three-dot menu on the video post, then tap 'Copy link'. On a desktop browser: click the timestamp on the video post to open it on its own page, then copy the URL from the address bar. Both facebook.com and fb.watch short links work.",
+    a: "On the Facebook mobile app: tap the three-dot menu in the top-right corner of the video post, then tap 'Copy link' — Facebook copies the full URL to your clipboard automatically. On a desktop browser: click the timestamp or date shown on the video post (for example, '3h' or 'June 12') to open the video on its own dedicated page, then copy the full URL from your browser's address bar. Both standard facebook.com video URLs and shortened fb.watch links work equally well — paste either format directly into the input box above and the tool will recognize it. If the link doesn't work, double-check the post is set to public, since the most common cause of a failed download is a private or friends-only video link.",
   },
   {
     q: "What video quality can I download?",
-    a: "The tool offers HD and SD quality options. HD is usually 720p or 1080p depending on what the original uploader chose. SD is a smaller file suitable for mobile storage. Pick the quality before clicking download.",
+    a: "The tool offers HD and SD quality options for every supported video. HD is typically 720p or 1080p, matching whatever resolution the original uploader chose when they posted the video — Shopyor can't upscale a video beyond its source quality. SD is a noticeably smaller file size, generally a fraction of the HD version, which is useful if you're on a limited mobile data plan or want to save phone storage. You'll see the available quality options after the tool analyzes your pasted link, so you can compare the file sizes before committing to a download. For archiving or reposting where quality matters, HD is almost always the better choice if it's available.",
   },
   {
     q: "Do I need to install an app or browser extension?",
-    a: "No. The downloader runs entirely in your web browser. There is nothing to install on your phone, tablet, or computer. It works on iPhone Safari, Android Chrome, and all major desktop browsers.",
+    a: "No — the entire downloader runs inside your existing web browser, with nothing to install on your phone, tablet, or computer and no browser extension to add. This is a deliberate design choice: app-based downloaders often require permissions you may not want to grant, and extensions can quietly track browsing activity across other sites, while a browser-based tool only runs when you have the page open. It works on iPhone Safari, Android Chrome, and all major desktop browsers including Chrome, Firefox, Edge, and Safari on Mac, so the same workflow works whether you're downloading from a phone between scrolling or from a laptop at a desk.",
   },
   {
     q: "Does Shopyor store the videos I download?",
-    a: "No. Shopyor fetches the video from Facebook's servers on your behalf and delivers it to your browser. We do not retain copies of any videos and do not log the Facebook URLs you paste into the tool.",
+    a: "No. Shopyor fetches the video directly from Facebook's own servers on your behalf for that single request and streams it straight to your browser for download — at no point does a copy sit on Shopyor's servers afterward. We do not retain copies of any videos you download, and we do not log or store the Facebook URLs you paste into the tool, so there's no history of what you've downloaded to later request or have exposed in a data breach. This matters particularly for anything you might consider sensitive, since the only record of your download exists on your own device, in your own downloads folder, exactly like a video you saved from any other website.",
   },
 ];
 
@@ -293,7 +293,7 @@ export default function FacebookVideoDownloaderPage() {
   };
 
   return (
-    <main className="bg-background mx-auto max-w-3xl px-4 pt-28 md:pt-32 lg:pt-32 pb-20">
+    <div className="bg-background mx-auto max-w-3xl px-4 pt-6 md:pt-8 pb-20">
       {/* JSON-LD */}
       <script
         type="application/ld+json"
@@ -582,6 +582,35 @@ export default function FacebookVideoDownloaderPage() {
         </div>
       </section>
 
+      {/* Guides */}
+      <section className="mt-12">
+        <h2 className="mb-4 text-lg font-semibold">Guides &amp; tutorials</h2>
+        <div className="grid gap-3 sm:grid-cols-3">
+          {[
+            {
+              href: "/blog/how-to-download-videos-from-facebook-instagram-tiktok",
+              title: "Download Videos from Facebook, Instagram & TikTok",
+            },
+            {
+              href: "/blog/best-facebook-video-downloader-online-free-in-hd-shopyor",
+              title: "Best Facebook Video Downloader Online Free in HD",
+            },
+            {
+              href: "/blog/easy-guide-download-tiktok-facebook-videos-using-shopyor",
+              title: "Easy Guide: Download TikTok & Facebook Videos",
+            },
+          ].map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="rounded-xl border p-4 text-sm font-medium transition-colors hover:bg-muted/40"
+            >
+              {link.title}
+            </Link>
+          ))}
+        </div>
+      </section>
+
       {/* Disclaimer */}
       <p className="mt-10 rounded-xl border bg-muted/30 px-4 py-3 text-xs text-muted-foreground">
         Facebook and Meta are trademarks of Meta Platforms, Inc. Shopyor is
@@ -590,6 +619,6 @@ export default function FacebookVideoDownloaderPage() {
         Facebook&apos;s Terms of Service and applicable copyright law.
         Copyright concerns: dmca@shopyor.com.
       </p>
-    </main>
+    </div>
   );
 }

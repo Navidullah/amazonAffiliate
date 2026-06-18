@@ -177,27 +177,27 @@ const relatedTools = [
 const faq = [
   {
     q: "How do I compress an image without losing quality?",
-    a: "Upload your photo, keep the quality slider in the 60–80% range, and export as JPEG or WebP. At that level the file gets dramatically smaller while the result looks visually identical. For graphics and logos, choose PNG to stay lossless. Everything runs in your browser, so there's no upload wait.",
+    a: "Upload your photo, keep the quality slider in the 60-80% range, and export as JPEG or WebP — at that setting, JPEG's compression algorithm discards mostly-invisible high-frequency detail first, so a 5 MB photo can often drop to under 800 KB while still looking visually identical at normal viewing size. Going much below 60% starts to introduce visible blockiness around sharp edges and gradients, so it's worth comparing the before/after preview rather than guessing. For graphics, logos, and screenshots with flat colors and text, choose PNG instead, since it's lossless and avoids the JPEG artifacts that show up around hard edges. Everything runs locally in your browser via WebAssembly, so there's no upload wait and no quality loss from a round-trip to a server.",
   },
   {
     q: "How can I reduce an image to 100 KB?",
-    a: "Lower the compression quality slider and pick WebP or JPEG output, then compress and check the new size shown next to the result. If it's still above 100 KB, nudge the quality down a little more or resize the image's dimensions first with the image resizer — smaller dimensions make hitting a target KB much easier.",
+    a: "Start by lowering the compression quality slider and choosing WebP output, since WebP typically produces files 25-35% smaller than an equivalent-quality JPEG — then compress and check the new size shown next to the result. If it's still above 100 KB, the fastest second lever is resizing the image's dimensions before compressing: a 4000×3000 photo resized down to 1200×900 with our image resizer can easily cut file size by 80% or more on its own, because file size scales roughly with pixel count, not just compression quality. Combining a moderate quality reduction (around 50-60%) with a smaller dimension is usually far more effective at hitting a strict 100 KB target than pushing the quality slider to its lowest setting alone, which tends to look worse for the same final size.",
   },
   {
     q: "Which format is best — JPG, PNG, or WebP?",
-    a: "Use JPEG for photographs, PNG for graphics, logos, and anything that needs transparency, and WebP when you want the smallest possible file at the same quality. WebP is supported by all modern browsers and typically beats JPEG and PNG on size, making it the best default for the web.",
+    a: "Use JPEG for photographs and anything with smooth color gradients (skies, skin tones, landscapes), since its compression is tuned for that kind of detail. Use PNG for graphics, logos, screenshots, and anything that needs a transparent background, because PNG is lossless and preserves sharp edges and flat colors without artifacts — the tradeoff is larger file size. Use WebP when you want the smallest possible file at a comparable visual quality to JPEG or PNG: it's supported by every modern browser (Chrome, Firefox, Safari, Edge) and typically beats JPEG by 25-35% and PNG by even more at the same perceived quality, which is why it's increasingly the default recommendation for web images in Google's own PageSpeed Insights guidance.",
   },
   {
     q: "Is this image compressor free and private?",
-    a: "Yes. It's completely free with no signup, no watermark, and no file limits. Because compression happens locally in your browser, your images are never sent to or stored on any server — they stay on your device the entire time.",
+    a: "Yes. It's completely free with no signup, no watermark, and no file limits. Because compression happens locally in your browser using WebAssembly rather than on a remote server, your images are never uploaded anywhere — they stay on your device for the entire process, from selecting the file to downloading the compressed result.",
   },
   {
     q: "Does compressing images help SEO and page speed?",
-    a: "Absolutely. Large images are one of the most common causes of slow pages. Compressing them reduces load time and improves Core Web Vitals like Largest Contentful Paint, which Google uses as a ranking signal — so smaller images can directly help both user experience and search visibility.",
+    a: "Yes, directly. Large, uncompressed images are one of the single most common causes of slow-loading pages, and Google's Core Web Vitals explicitly measure Largest Contentful Paint (LCP) — the time it takes for the biggest visible element (often a hero image) to render — as a ranking factor. Shrinking a 3 MB hero image down to 300-400 KB can cut LCP by a full second or more on a typical mobile connection, which both improves the user experience (fewer people bounce while waiting) and helps the page qualify for Google's 'good' Core Web Vitals threshold, a factor Google has confirmed influences search rankings. For image-heavy pages like blog posts or product galleries, compression is often the single highest-leverage speed fix available.",
   },
   {
     q: "Can I compress images on my phone?",
-    a: "Yes. The tool works in any modern mobile browser on iPhone and Android — no app to install. Just tap to select a photo from your gallery, set the quality, compress, and download the smaller version straight to your device.",
+    a: "Yes. The tool works in any modern mobile browser on iPhone and Android — there's no app to install and no extra storage taken up beyond your browser itself. Just open the page, tap to select a photo from your camera roll or gallery, adjust the quality slider, tap compress, and download the smaller version straight to your device's downloads or photos folder. Because processing happens on your phone's own hardware rather than a remote server, there's no upload step waiting on your mobile data or Wi-Fi speed, which makes it noticeably faster than cloud-based compressors when you're compressing several photos in a row before sharing them.",
   },
 ];
 
@@ -256,7 +256,7 @@ const structuredData = {
 
 export default function ImageCompressorPage() {
   return (
-    <main className="bg-background mx-auto max-w-4xl px-4 pt-28 pb-20 md:pt-32">
+    <div className="bg-background mx-auto max-w-4xl px-4 pt-6 pb-20 md:pt-8">
       {/* JSON-LD */}
       <script
         type="application/ld+json"
@@ -414,6 +414,6 @@ export default function ImageCompressorPage() {
           — free, no signup required.
         </p>
       </section>
-    </main>
+    </div>
   );
 }

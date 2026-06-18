@@ -53,7 +53,7 @@ export async function generateMetadata({ params }) {
   const blog = await getBlogBySlug(slug);
 
   if (!blog) {
-    return { title: "Article not found | Shopyor Blog" };
+    return { title: { absolute: "Article not found | Shopyor Blog" } };
   }
 
   const url = `${BASE_URL}/blog/${blog.slug}`;
@@ -61,7 +61,10 @@ export async function generateMetadata({ params }) {
     blog.excerpt || `${blog.title} — read it on the Shopyor blog.`;
 
   return {
-    title: `${blog.title} | Shopyor Blog`,
+    // `absolute` bypasses the root layout's "%s | Shopyor" title template —
+    // without it, that template re-appends "| Shopyor" on top of the
+    // "| Shopyor Blog" suffix below, doubling the site name in SERPs.
+    title: { absolute: `${blog.title} | Shopyor Blog` },
     description,
     keywords:
       blog.tags && blog.tags.length ? blog.tags.join(", ") : undefined,

@@ -274,7 +274,7 @@ export default function VoiceClonePage() {
       />
 
       {/* ── Page header ── */}
-      <div className="mx-auto max-w-4xl px-4 pt-28 md:pt-32">
+      <div className="mx-auto max-w-4xl px-4 pt-6 md:pt-8">
         {/* Breadcrumb */}
         <nav
           aria-label="Breadcrumb"

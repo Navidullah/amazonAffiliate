@@ -258,7 +258,7 @@ export default function HomeHub() {
   return (
     <div className="min-h-screen">
       {/* ===== Banner / Hero ===== */}
-      <section className="relative overflow-hidden px-4 pt-12 pb-14 text-center sm:pt-16">
+      <section className="relative overflow-hidden px-4 pt-4 pb-14 text-center sm:pt-6">
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
           <motion.div
             className="absolute -top-40 left-1/2 h-[460px] w-[460px] -translate-x-1/2 rounded-full bg-cyan-500/15 blur-[130px]"
