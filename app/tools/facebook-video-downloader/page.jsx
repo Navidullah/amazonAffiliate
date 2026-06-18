@@ -403,8 +403,8 @@ export default function FacebookVideoDownloaderPage() {
           is no way to export the video as a file from within the app.
         </p>
         <p>
-          Shopyor works around this by fetching the source MP4 Facebook uses to
-          stream the video and delivering it directly to your browser as a
+          Shopyor fetches the same public source MP4 file Facebook uses to
+          stream the video and delivers it directly to your browser as a
           downloadable file. You get a permanent copy on your device that
           exists independently of the original post.
         </p>

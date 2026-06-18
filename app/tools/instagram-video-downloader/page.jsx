@@ -398,9 +398,9 @@ export default function InstagramVideoDownloaderPage() {
           deletes the post, the bookmarked version disappears too.
         </p>
         <p>
-          Shopyor bridges this gap by fetching the original MP4 file Instagram
-          stores on its servers — the same file the app streams to your
-          screen — and delivering it directly to your Downloads folder.
+          Shopyor fetches the same public MP4 file Instagram stores on its
+          servers — the one the app streams to your screen — and delivers it
+          directly to your Downloads folder.
         </p>
 
         <h2>Is it safe? Do I need my Instagram login?</h2>
