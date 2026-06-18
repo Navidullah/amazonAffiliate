@@ -240,17 +240,6 @@ export default function BackgroundRemoverPage() {
         offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
       },
       {
-        "@type": "HowTo",
-        name: "How to remove the background from an image",
-        totalTime: "PT1M",
-        step: STEPS.map((s, i) => ({
-          "@type": "HowToStep",
-          position: i + 1,
-          name: s.title,
-          text: s.text,
-        })),
-      },
-      {
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },

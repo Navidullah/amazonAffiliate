@@ -230,31 +230,6 @@ export default function TikTokDownloaderPage() {
         })),
       },
       {
-        "@type": "HowTo",
-        name: "How to download a TikTok video without watermark",
-        totalTime: "PT1M",
-        step: [
-          {
-            "@type": "HowToStep",
-            position: 1,
-            name: "Copy the TikTok link",
-            text: "Open TikTok, tap Share on the video and choose Copy link. On desktop, copy the URL from the browser address bar.",
-          },
-          {
-            "@type": "HowToStep",
-            position: 2,
-            name: "Paste the link",
-            text: "Paste the copied TikTok link into the input box on this page.",
-          },
-          {
-            "@type": "HowToStep",
-            position: 3,
-            name: "Choose quality and download",
-            text: "Select your preferred video quality (360p, 720p, 1080p, or Best) and click Download Video. The watermark-free MP4 saves to your device.",
-          },
-        ],
-      },
-      {
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
@@ -315,6 +290,18 @@ export default function TikTokDownloaderPage() {
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
           Free TikTok Video Downloader — No Watermark, No Signup
         </h1>
+        <div className="flex items-center gap-1.5">
+          <div className="flex">
+            {[1, 2, 3, 4, 5].map((s) => (
+              <Star
+                key={s}
+                className={`h-4 w-4 ${s <= Math.round(Number(AVG_RATING)) ? "fill-amber-400 text-amber-400" : "text-muted-foreground/30"}`}
+              />
+            ))}
+          </div>
+          <span className="text-sm font-medium text-foreground">{AVG_RATING}</span>
+          <span className="text-sm text-muted-foreground">({reviews.length} reviews)</span>
+        </div>
         <p className="text-sm text-muted-foreground sm:text-base">
           Paste any public TikTok link and download a clean, watermark-free MP4
           in up to 1080p HD. Works on iPhone, Android, and desktop — no app,

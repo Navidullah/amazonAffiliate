@@ -222,19 +222,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Preconnect for performance */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-
-        {/* DNS Prefetch for third-party domains */}
+        {/* DNS Prefetch for third-party domains. No Google Fonts hints here:
+            next/font/google below self-hosts Montserrat/Geist/JetBrains Mono
+            at build time, so the browser never makes a runtime request to
+            fonts.googleapis.com or fonts.gstatic.com. */}
         <link rel="dns-prefetch" href="https://www.facebook.com" />
         <link rel="dns-prefetch" href="https://www.youtube.com" />
         <link rel="dns-prefetch" href="https://www.tiktok.com" />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
 
         {/* Site JSON-LD Schemas */}
         <script
@@ -248,15 +242,6 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(jsonLdSchemas.webSite),
           }}
-        />
-
-        {/* Preload critical assets */}
-        <link
-          rel="preload"
-          href="/fonts/montserrat.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
         />
 
         {/* Additional meta tags for social sharing */}

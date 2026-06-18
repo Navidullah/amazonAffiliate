@@ -129,22 +129,6 @@ export default function BackgroundRemoverImagePage() {
     })),
   };
 
-  const howToLd = {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    name: "How to remove the background from an image",
-    description:
-      "Remove the background from a photo online for free: upload your image, let the AI erase the background, then download a transparent PNG.",
-    totalTime: "PT30S",
-    step: steps.map((s, i) => ({
-      "@type": "HowToStep",
-      position: i + 1,
-      name: s.name,
-      text: s.text,
-      url: `${PAGE_URL}#how-to`,
-    })),
-  };
-
   const appLd = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
@@ -165,7 +149,7 @@ export default function BackgroundRemoverImagePage() {
   return (
     <div className="mx-auto max-w-5xl px-4 pt-6 pb-16">
       {/* JSON-LD */}
-      {[faqLd, howToLd, appLd].map((schema, i) => (
+      {[faqLd, appLd].map((schema, i) => (
         <script
           key={i}
           type="application/ld+json"

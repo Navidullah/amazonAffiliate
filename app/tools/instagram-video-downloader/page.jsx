@@ -232,31 +232,6 @@ export default function InstagramVideoDownloaderPage() {
         })),
       },
       {
-        "@type": "HowTo",
-        name: "How to download an Instagram Reel or video",
-        totalTime: "PT1M",
-        step: [
-          {
-            "@type": "HowToStep",
-            position: 1,
-            name: "Copy the Instagram link",
-            text: "Open the Reel or video in Instagram, tap the three-dot menu or Share icon, then tap Copy link. On desktop, copy the URL from the address bar.",
-          },
-          {
-            "@type": "HowToStep",
-            position: 2,
-            name: "Paste the link",
-            text: "Paste the copied Instagram link into the input box on this page and click Download Video.",
-          },
-          {
-            "@type": "HowToStep",
-            position: 3,
-            name: "Preview and save",
-            text: "Preview the video in the player that appears, then click Download to save the MP4 to your device.",
-          },
-        ],
-      },
-      {
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
@@ -317,6 +292,18 @@ export default function InstagramVideoDownloaderPage() {
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
           Free Instagram Reel &amp; Video Downloader — No Login, No Watermark
         </h1>
+        <div className="flex items-center gap-1.5">
+          <div className="flex">
+            {[1, 2, 3, 4, 5].map((s) => (
+              <Star
+                key={s}
+                className={`h-4 w-4 ${s <= Math.round(Number(AVG_RATING)) ? "fill-amber-400 text-amber-400" : "text-muted-foreground/30"}`}
+              />
+            ))}
+          </div>
+          <span className="text-sm font-medium text-foreground">{AVG_RATING}</span>
+          <span className="text-sm text-muted-foreground">({reviews.length} reviews)</span>
+        </div>
         <p className="text-sm text-muted-foreground sm:text-base">
           Paste any public Instagram Reel or video link and download a clean
           MP4 in up to 1080p. Preview before you save — works on iPhone,

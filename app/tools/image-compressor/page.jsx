@@ -226,16 +226,6 @@ const structuredData = {
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     },
     {
-      "@type": "HowTo",
-      name: "How to compress an image online",
-      step: steps.map((s, i) => ({
-        "@type": "HowToStep",
-        position: i + 1,
-        name: s.name,
-        text: s.text,
-      })),
-    },
-    {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },

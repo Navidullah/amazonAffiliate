@@ -223,10 +223,10 @@ export default function TermsPage() {
                 <br />
                 Email:{" "}
                 <a
-                  href="mailto:shopyor.com@gmail.com"
+                  href="mailto:copyright@shopyor.com"
                   className="text-primary hover:underline"
                 >
-                  shopyor.com@gmail.com
+                  copyright@shopyor.com
                 </a>
                 <br />
                 Response Time: 24-48 hours
@@ -304,10 +304,10 @@ export default function TermsPage() {
               <p className="text-muted-foreground">
                 Email:{" "}
                 <a
-                  href="mailto:shopyor.com@gmail.com"
+                  href="mailto:support@shopyor.com"
                   className="text-primary hover:underline"
                 >
-                  shopyor.com@gmail.com
+                  support@shopyor.com
                 </a>
               </p>
             </div>

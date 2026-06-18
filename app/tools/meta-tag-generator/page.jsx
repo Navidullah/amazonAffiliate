@@ -278,37 +278,6 @@ export default function MetaTagGeneratorPage() {
         })),
       },
       {
-        "@type": "HowTo",
-        name: "How to generate meta tags for SEO",
-        totalTime: "PT2M",
-        step: [
-          {
-            "@type": "HowToStep",
-            position: 1,
-            name: "Enter your page details",
-            text: "Type your page title, meta description, URL and a social image URL into the form.",
-          },
-          {
-            "@type": "HowToStep",
-            position: 2,
-            name: "Check the live preview",
-            text: "Watch the Google search result and social share previews update as you type. Use the character counters to stay in the SEO-ideal range.",
-          },
-          {
-            "@type": "HowToStep",
-            position: 3,
-            name: "Copy or download the code",
-            text: "Click Copy to copy the generated HTML meta tags to your clipboard, or Download to save as an HTML file.",
-          },
-          {
-            "@type": "HowToStep",
-            position: 4,
-            name: "Paste into your <head>",
-            text: "Paste the tags inside the <head> section of your HTML page, before the closing </head> tag.",
-          },
-        ],
-      },
-      {
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
@@ -377,6 +346,19 @@ export default function MetaTagGeneratorPage() {
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-r from-slate-900 via-blue-800 to-slate-900 dark:from-slate-100 dark:via-blue-300 dark:to-slate-100 bg-clip-text text-transparent">
               Free Meta Tag Generator
             </h1>
+
+            <div className="mb-4 flex items-center justify-center gap-1.5">
+              <div className="flex">
+                {[1, 2, 3, 4, 5].map((s) => (
+                  <Star
+                    key={s}
+                    className={`h-4 w-4 ${s <= Math.round(Number(AVG_RATING)) ? "fill-amber-400 text-amber-400" : "text-muted-foreground/30"}`}
+                  />
+                ))}
+              </div>
+              <span className="text-sm font-medium text-foreground">{AVG_RATING}</span>
+              <span className="text-sm text-muted-foreground">({reviews.length} reviews)</span>
+            </div>
 
             <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
               Create perfect{" "}

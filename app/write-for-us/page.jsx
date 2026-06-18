@@ -48,7 +48,7 @@ export default function WriteForUsPage() {
         name: "How do I submit my pitch?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Email your article idea with a short outline to shopyor.com@gmail.com or use our Contact page to submit your pitch.",
+          text: "Email your article idea with a short outline to support@shopyor.com or use our Contact page to submit your pitch.",
         },
       },
     ],
@@ -82,7 +82,7 @@ export default function WriteForUsPage() {
             {/* Primary CTA */}
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <a
-                href="mailto:shopyor.com@gmail.com?subject=Guest%20Post%20Pitch%20for%20Shopyor&body=Hi%20Shopyor%20Team%2C%0A%0ATitle%3A%20%0AOutline%20(3%E2%80%936%20bullets)%3A%0A%0AWhy%20this%20helps%20readers%3A%0A%0AMy%20bio%20(50%E2%80%93100%20words)%3A%0A%0ASamples%20(links)%3A%0A%0AThanks%2C%0A"
+                href="mailto:support@shopyor.com?subject=Guest%20Post%20Pitch%20for%20Shopyor&body=Hi%20Shopyor%20Team%2C%0A%0ATitle%3A%20%0AOutline%20(3%E2%80%936%20bullets)%3A%0A%0AWhy%20this%20helps%20readers%3A%0A%0AMy%20bio%20(50%E2%80%93100%20words)%3A%0A%0ASamples%20(links)%3A%0A%0AThanks%2C%0A"
                 className="rounded-xl bg-blue-600 px-5 py-2.5 text-white shadow-sm hover:bg-blue-700"
                 rel="noopener"
               >
@@ -159,7 +159,7 @@ export default function WriteForUsPage() {
 
             <div className="mt-8 flex flex-wrap gap-3">
               <a
-                href="mailto:shopyor.com@gmail.com?subject=Guest%20Post%20Pitch%20for%20Shopyor&body=Hi%20Shopyor%20Team%2C%0A%0ATitle%3A%20%0AOutline%20(3%E2%80%936%20bullets)%3A%0A%0AWhy%20this%20helps%20readers%3A%0A%0AMy%20bio%20(50%E2%80%93100%20words)%3A%0A%0ASamples%20(links)%3A%0A%0AThanks%2C%0A"
+                href="mailto:support@shopyor.com?subject=Guest%20Post%20Pitch%20for%20Shopyor&body=Hi%20Shopyor%20Team%2C%0A%0ATitle%3A%20%0AOutline%20(3%E2%80%936%20bullets)%3A%0A%0AWhy%20this%20helps%20readers%3A%0A%0AMy%20bio%20(50%E2%80%93100%20words)%3A%0A%0ASamples%20(links)%3A%0A%0AThanks%2C%0A"
                 className="rounded-xl bg-blue-600 px-5 py-2.5 text-white shadow-sm hover:bg-blue-700"
                 rel="noopener"
               >

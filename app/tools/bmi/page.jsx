@@ -213,28 +213,6 @@ export default function BmiToolPage() {
         offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
       },
       {
-        "@type": "HowTo",
-        name: "How to calculate your BMI",
-        totalTime: "PT1M",
-        step: [
-          {
-            "@type": "HowToStep",
-            name: "Choose your units",
-            text: "Pick metric (kg, cm) or imperial (lb, ft/in).",
-          },
-          {
-            "@type": "HowToStep",
-            name: "Enter height and weight",
-            text: "Type your height and weight, and optionally your age and gender.",
-          },
-          {
-            "@type": "HowToStep",
-            name: "Read your result",
-            text: "See your BMI value, category, and healthy weight range instantly.",
-          },
-        ],
-      },
-      {
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },

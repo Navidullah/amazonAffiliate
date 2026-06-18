@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Home, ChevronRight } from "lucide-react";
+import { Home, ChevronRight, Star } from "lucide-react";
 import VoiceCloneClient from "@/app/components/tools/VoiceCloneClient";
 import {
   Accordion,
@@ -195,44 +195,6 @@ export default function VoiceClonePage() {
         })),
       },
       {
-        "@type": "HowTo",
-        name: "How to Clone a Voice Online for Free",
-        description:
-          "Step-by-step guide to cloning a voice and generating speech with Shopyor's free AI voice cloner.",
-        step: [
-          {
-            "@type": "HowToStep",
-            position: 1,
-            name: "Upload or record your voice sample",
-            text: "Click 'Add a voice', then drag-and-drop a WAV, MP3, or FLAC file (max 25 MB) or tap the mic button to record up to 60 seconds. A clean 10–30s clip gives the best results.",
-          },
-          {
-            "@type": "HowToStep",
-            position: 2,
-            name: "Name your voice and confirm consent",
-            text: "Give the cloned voice a recognisable name, tick the consent checkbox confirming you have permission to clone this voice, then click 'Clone & save voice'.",
-          },
-          {
-            "@type": "HowToStep",
-            position: 3,
-            name: "Select the voice from your library",
-            text: "Your cloned voice appears in the 'Your voices' library. Click it to select it as the active speaker for generation.",
-          },
-          {
-            "@type": "HowToStep",
-            position: 4,
-            name: "Type your script and choose a tone",
-            text: "Enter up to 1,000 characters of text. Pick a tone preset (Neutral, Expressive, Calm, Energetic, Dramatic, Deep, or Bright) and adjust the speed slider as needed.",
-          },
-          {
-            "@type": "HowToStep",
-            position: 5,
-            name: "Generate and download your audio",
-            text: "Click 'Generate speech'. When the waveform player appears, preview the result and click 'Download WAV' or 'Download MP3' to save the file — no account required.",
-          },
-        ],
-      },
-      {
         "@type": "BreadcrumbList",
         itemListElement: [
           {
@@ -318,6 +280,18 @@ export default function VoiceClonePage() {
             No Signup Required
           </span>
         </h1>
+        <div className="mt-2 flex items-center gap-1.5">
+          <div className="flex">
+            {[1, 2, 3, 4, 5].map((s) => (
+              <Star
+                key={s}
+                className={`h-4 w-4 ${s <= Math.round(Number(AVG_RATING)) ? "fill-amber-400 text-amber-400" : "text-muted-foreground/30"}`}
+              />
+            ))}
+          </div>
+          <span className="text-sm font-medium text-foreground">{AVG_RATING}</span>
+          <span className="text-sm text-muted-foreground">({reviews.length} reviews)</span>
+        </div>
         <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground">
           Upload a 10–30-second audio sample (or record live from your mic),
           type your script, and download natural-sounding speech in that voice.

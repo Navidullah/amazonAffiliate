@@ -1,5 +1,47 @@
 const siteUrl = "https://www.shopyor.com";
 
+// Real last-edited dates (from `git log -1 --format=%cI -- <file>` on each
+// page's source file), not a build timestamp — a lastmod that just means
+// "the sitemap was rebuilt" carries no genuine freshness signal and Google
+// discounts that pattern when detected at scale. Update an entry's date
+// here when you meaningfully edit that page's content.
+// `priority`/`changefreq` are intentionally omitted sitewide: Google has
+// confirmed both fields are ignored for ranking/crawling.
+const LAST_MODIFIED = {
+  "/": "2026-06-18T11:58:31+05:00",
+  "/tools": "2026-06-12T11:45:53+05:00",
+  "/portfolio": "2026-05-09T12:41:39+05:00",
+  "/about": "2026-04-17T15:08:15+05:00",
+  "/contact": "2026-06-18T11:58:31+05:00",
+  "/privacy": "2026-06-02T14:52:31+05:00",
+  "/terms": "2026-06-02T14:52:31+05:00",
+  "/cookie-policy": "2026-06-02T14:52:31+05:00",
+  "/copyright": "2026-06-02T14:52:31+05:00",
+  "/disclaimer": "2026-06-02T14:52:31+05:00",
+  "/dmca": "2026-06-02T14:52:31+05:00",
+  "/write-for-us": "2026-03-01T21:35:45+05:00",
+  "/tools/affiliate-link-generator": "2026-06-18T12:24:12+05:00",
+  "/tools/background-remover-image": "2026-06-01T17:08:33+05:00",
+  "/tools/bmi": "2026-06-18T12:24:12+05:00",
+  "/tools/exif-remover": "2026-06-18T12:24:12+05:00",
+  "/tools/facebook-video-downloader": "2026-06-18T12:24:12+05:00",
+  "/tools/free-tiktok-video-downloader": "2026-06-18T12:24:12+05:00",
+  "/tools/image-compressor": "2026-06-18T12:24:12+05:00",
+  "/tools/image-resizer": "2026-06-18T12:24:12+05:00",
+  "/tools/instagram-video-downloader": "2026-06-18T12:24:12+05:00",
+  "/tools/meta-tag-generator": "2026-06-18T12:24:12+05:00",
+  "/tools/online-pdf-to-word-converter": "2026-06-18T12:24:12+05:00",
+  "/tools/pdf-compressor": "2026-06-07T22:24:18+05:00",
+  "/tools/resume-builder": "2026-06-18T12:24:12+05:00",
+  "/tools/robots-txt-generator": "2026-06-11T10:05:09+05:00",
+  "/tools/video-to-gif": "2026-06-18T12:24:12+05:00",
+  "/tools/voice-clone": "2026-06-18T12:24:12+05:00",
+  "/tools/whiteboard-animation": "2026-06-09T17:53:50+05:00",
+  "/tools/youtube-tags-extractor": "2026-06-11T10:05:09+05:00",
+  "/tools/youtube-thumbnail": "2026-06-18T12:24:12+05:00",
+  "/tools/youtube-video-downloader": "2026-06-06T11:04:47+05:00",
+};
+
 module.exports = {
   siteUrl,
   generateRobotsTxt: true,
@@ -76,55 +118,13 @@ module.exports = {
       lastmod: new Date(
         blog.updatedAt || blog.publishedAt || blog.date || Date.now(),
       ).toISOString(),
-      changefreq: "monthly",
-      priority: 0.7,
     }));
   },
 
   transform: async (config, path) => {
-    let changefreq = "weekly";
-    let priority = 0.7;
-    let lastmod = undefined;
-
-    // Pages we are actively trying to get indexed/crawled: bump priority and
-    // give a real lastmod so Google sees them as fresh and important.
-    const prioritizedDownloaders = [
-      "/tools/instagram-video-downloader",
-      "/tools/free-tiktok-video-downloader",
-      "/tools/facebook-video-downloader",
-      "/tools/youtube-video-downloader",
-    ];
-
-    if (path === "/") {
-      priority = 1.0;
-    } else if (path === "/portfolio") {
-      priority = 0.8;
-    } else if (path === "/tools") {
-      priority = 0.8;
-    } else if (path.startsWith("/tools/voice-clone")) {
-      priority = 0.9;
-    } else if (prioritizedDownloaders.includes(path)) {
-      priority = 0.9;
-      lastmod = new Date().toISOString();
-    } else if (path.startsWith("/blog/")) {
-      changefreq = "monthly";
-      priority = 0.7;
-    } else if (path.startsWith("/tools/image-compressor")) {
-      priority = 0.9;
-    } else if (path.startsWith("/tools/background-remover-image")) {
-      priority = 0.9;
-    } else if (path.startsWith("/tools/exif-remover")) {
-      priority = 0.8;
-    } else if (path === "/contact" || path === "/privacy-policy") {
-      changefreq = "yearly";
-      priority = 0.3;
-    }
-
     return {
       loc: `${siteUrl}${path}`,
-      changefreq,
-      priority,
-      lastmod,
+      lastmod: LAST_MODIFIED[path],
     };
   },
 };

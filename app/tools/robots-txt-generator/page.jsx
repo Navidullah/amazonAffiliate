@@ -146,49 +146,6 @@ const schemas = {
       },
     ],
   },
-  howToSchema: {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    name: "How to create a robots.txt file for SEO",
-    step: [
-      {
-        "@type": "HowToStep",
-        position: 1,
-        name: "Pick a template",
-        text: "Click a quick-start template (WordPress, Shopify, Blogger or Block AI Bots) at the top of the generator, or start from scratch.",
-      },
-      {
-        "@type": "HowToStep",
-        position: 2,
-        name: "Enter your domain",
-        text: "On the Basic tab, enter your domain so the tool auto-adds your sitemap URL.",
-      },
-      {
-        "@type": "HowToStep",
-        position: 3,
-        name: "Set your rules",
-        text: "Use the Basic and Advanced tabs to choose folders to block and add custom Allow/Disallow paths and a crawl-delay.",
-      },
-      {
-        "@type": "HowToStep",
-        position: 4,
-        name: "Block AI bots",
-        text: "Optionally open the AI Bots tab and toggle crawlers like GPTBot and ClaudeBot to block AI scrapers.",
-      },
-      {
-        "@type": "HowToStep",
-        position: 5,
-        name: "Copy or download",
-        text: "Review the live preview and SEO validation, then copy the robots.txt or download the file.",
-      },
-      {
-        "@type": "HowToStep",
-        position: 6,
-        name: "Upload to root",
-        text: "Upload robots.txt to your site root so it loads at yourdomain.com/robots.txt.",
-      },
-    ],
-  },
   toolSchema: {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -365,7 +322,6 @@ export default function Page() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify([
             schemas.faqSchema,
-            schemas.howToSchema,
             schemas.toolSchema,
             schemas.breadcrumbSchema,
           ]),

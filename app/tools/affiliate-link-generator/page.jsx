@@ -240,31 +240,6 @@ export default function AffiliateLinkGeneratorPage() {
         })),
       },
       {
-        "@type": "HowTo",
-        name: "How to create an Amazon affiliate link for free",
-        totalTime: "PT1M",
-        step: [
-          {
-            "@type": "HowToStep",
-            position: 1,
-            name: "Enter your Associate Tag",
-            text: "Type your Amazon Associates tracking ID, e.g. yoursite-20. Tick 'Remember my tag' to save it for next time.",
-          },
-          {
-            "@type": "HowToStep",
-            position: 2,
-            name: "Paste the product URL or ASIN",
-            text: "Copy any Amazon product page link — or just the 10-character ASIN — and paste it into the field.",
-          },
-          {
-            "@type": "HowToStep",
-            position: 3,
-            name: "Generate and copy",
-            text: "Click Generate to get a clean /dp/ASIN?tag=yourtag affiliate link, then copy it to use in your content.",
-          },
-        ],
-      },
-      {
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
@@ -325,6 +300,18 @@ export default function AffiliateLinkGeneratorPage() {
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
           Amazon Affiliate Link Generator
         </h1>
+        <div className="flex items-center gap-1.5">
+          <div className="flex">
+            {[1, 2, 3, 4, 5].map((s) => (
+              <Star
+                key={s}
+                className={`h-4 w-4 ${s <= Math.round(Number(AVG_RATING)) ? "fill-amber-400 text-amber-400" : "text-muted-foreground/30"}`}
+              />
+            ))}
+          </div>
+          <span className="text-sm font-medium text-foreground">{AVG_RATING}</span>
+          <span className="text-sm text-muted-foreground">({reviews.length} reviews)</span>
+        </div>
         <p className="text-sm text-muted-foreground sm:text-base">
           Convert any Amazon product URL or ASIN into a clean affiliate link
           with your own Associate Tag. No SiteStripe, no API, no signup — just

@@ -178,43 +178,6 @@ export default function ResumeBuilderPage() {
         offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
       },
       {
-        "@type": "HowTo",
-        name: "How to create a free resume with no sign-up",
-        totalTime: "PT10M",
-        step: [
-          {
-            "@type": "HowToStep",
-            name: "Pick a template",
-            text: "Choose from 8 professional templates — Modern, Classic, Minimal, Sidebar, Paramount, Contempo, Fresh, or Fun. Select your accent colour and font.",
-          },
-          {
-            "@type": "HowToStep",
-            name: "Fill in personal details",
-            text: "Enter your name, professional title, email, phone, location, LinkedIn, and a 2–3 sentence professional summary.",
-          },
-          {
-            "@type": "HowToStep",
-            name: "Add work experience",
-            text: "Add each role with company, dates, and bullet-point highlights. Use the ATS score panel to see real-time tips on strengthening your bullets.",
-          },
-          {
-            "@type": "HowToStep",
-            name: "Complete remaining sections",
-            text: "Add education, skills (comma-separated), projects, certifications, and languages. Toggle any section off if it doesn't apply.",
-          },
-          {
-            "@type": "HowToStep",
-            name: "Check your resume score",
-            text: "The built-in ATS panel scores your resume 0–100 and lists specific improvements. Aim for 80+ before downloading.",
-          },
-          {
-            "@type": "HowToStep",
-            name: "Download as PDF",
-            text: "Click 'Download PDF', choose 'Save as PDF' in the print dialog. Your resume is crisp, selectable text — no watermark, no signup required.",
-          },
-        ],
-      },
-      {
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },

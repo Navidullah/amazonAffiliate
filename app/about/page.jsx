@@ -11,9 +11,9 @@ import {
 } from "lucide-react";
 
 export const metadata = {
-  title: "About Us - Shopyor Video Downloader",
+  title: "About Shopyor — Free Online Tools, No Sign-Up",
   description:
-    "Learn about Shopyor - your trusted free video downloader for Facebook, YouTube, and TikTok.",
+    "Shopyor is a free online toolbox built by a small team that got tired of pay-to-download, watermarked, sign-up-required tools. Founded in 2025.",
   robots: "index, follow",
 };
 
@@ -24,11 +24,29 @@ export default function AboutPage() {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4">About Shopyor</h1>
           <p className="text-xl text-muted-foreground">
-            Your trusted free video downloader platform
+            20+ free online tools, no sign-up — founded in 2025
           </p>
         </div>
 
         <div className="space-y-12">
+          {/* Who built this */}
+          <section className="text-center">
+            <div className="inline-flex p-3 rounded-xl bg-primary/10 text-primary mb-4">
+              <Users className="h-8 w-8" />
+            </div>
+            <h2 className="text-2xl font-semibold mb-3">Why we built Shopyor</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Shopyor was founded in 2025 by a small, independent team (we go
+              by the Shopyor Team) after running into the same wall over and
+              over: needing to do something simple online — compress a PDF,
+              remove a background, download a video — and finding every tool
+              wanted a sign-up first, payment to download, or stuck a
+              watermark on the result. So we built our own toolbox instead,
+              and kept adding to it. Shopyor is still actively maintained and
+              growing, one tool at a time.
+            </p>
+          </section>
+
           {/* Mission Section */}
           <section className="text-center">
             <div className="inline-flex p-3 rounded-xl bg-primary/10 text-primary mb-4">
@@ -36,10 +54,12 @@ export default function AboutPage() {
             </div>
             <h2 className="text-2xl font-semibold mb-3">Our Mission</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              To provide free, fast, and secure video downloading tools that
-              respect user privacy and intellectual property rights. We believe
-              everyone should have easy access to download publicly available
-              content for personal use.
+              To provide free, fast, and secure online tools — video
+              downloaders, PDF and image utilities, an AI voice cloner, and
+              more — that respect user privacy and intellectual property
+              rights. We believe everyone should have easy access to
+              everyday tools without a paywall, a sign-up form, or a
+              watermark in the way.
             </p>
           </section>
 
@@ -53,7 +73,7 @@ export default function AboutPage() {
                 <Shield className="h-10 w-10 text-primary mx-auto mb-3" />
                 <h3 className="font-semibold mb-2">Privacy First</h3>
                 <p className="text-sm text-muted-foreground">
-                  We never store your videos or personal data
+                  We never store your files, videos, or personal data
                 </p>
               </div>
               <div className="text-center p-4">
@@ -67,7 +87,7 @@ export default function AboutPage() {
                 <Award className="h-10 w-10 text-primary mx-auto mb-3" />
                 <h3 className="font-semibold mb-2">Quality Service</h3>
                 <p className="text-sm text-muted-foreground">
-                  HD downloads with fast processing speeds
+                  Fast processing and clean results, tool after tool
                 </p>
               </div>
             </div>
@@ -108,7 +128,7 @@ export default function AboutPage() {
               href="mailto:support@shopyor.com"
               className="inline-flex items-center gap-2 text-primary hover:underline"
             >
-              shopyor.com@gmail.com
+              support@shopyor.com
             </a>
           </section>
         </div>

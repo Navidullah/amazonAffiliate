@@ -127,28 +127,6 @@ export default function PdfCompressorPage() {
           "Free online PDF compressor to reduce PDF file size while keeping quality readable.",
       },
       {
-        "@type": "HowTo",
-        name: "How to compress a PDF online",
-        totalTime: "PT1M",
-        step: [
-          {
-            "@type": "HowToStep",
-            name: "Upload your PDF",
-            text: "Drag and drop or browse to select your PDF file.",
-          },
-          {
-            "@type": "HowToStep",
-            name: "Click compress",
-            text: "The tool optimizes your file and shows the size reduction.",
-          },
-          {
-            "@type": "HowToStep",
-            name: "Download",
-            text: "Download the smaller PDF instantly.",
-          },
-        ],
-      },
-      {
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },

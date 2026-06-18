@@ -274,37 +274,6 @@ export default function YoutubeThumbnailPage() {
         })),
       },
       {
-        "@type": "HowTo",
-        name: "How to download a YouTube thumbnail for free",
-        totalTime: "PT1M",
-        step: [
-          {
-            "@type": "HowToStep",
-            position: 1,
-            name: "Copy the video URL",
-            text: "Open the YouTube video or Short and copy its link from the address bar or the Share button.",
-          },
-          {
-            "@type": "HowToStep",
-            position: 2,
-            name: "Paste into the tool",
-            text: "Paste the URL into the YouTube thumbnail downloader and click Get Thumbnails.",
-          },
-          {
-            "@type": "HowToStep",
-            position: 3,
-            name: "Pick a resolution",
-            text: "Choose from Max Resolution HD (1280×720), SD (640×480), HQ (480×360) or MQ (320×180).",
-          },
-          {
-            "@type": "HowToStep",
-            position: 4,
-            name: "Save the image",
-            text: "Click Save to download the thumbnail to your device. No account or app needed.",
-          },
-        ],
-      },
-      {
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
@@ -373,6 +342,19 @@ export default function YoutubeThumbnailPage() {
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-r from-slate-900 via-red-700 to-slate-900 dark:from-slate-100 dark:via-red-300 dark:to-slate-100 bg-clip-text text-transparent">
               YouTube Thumbnail Downloader HD
             </h1>
+
+            <div className="mb-4 flex items-center justify-center gap-1.5">
+              <div className="flex">
+                {[1, 2, 3, 4, 5].map((s) => (
+                  <Star
+                    key={s}
+                    className={`h-4 w-4 ${s <= Math.round(Number(AVG_RATING)) ? "fill-amber-400 text-amber-400" : "text-muted-foreground/30"}`}
+                  />
+                ))}
+              </div>
+              <span className="text-sm font-medium text-foreground">{AVG_RATING}</span>
+              <span className="text-sm text-muted-foreground">({reviews.length} reviews)</span>
+            </div>
 
             <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
               Download any{" "}

@@ -108,28 +108,6 @@ export default function PdfToWordPage() {
           "Free online PDF to Word converter for turning PDF files into editable DOCX documents quickly with high accuracy and OCR for scanned PDFs.",
       },
       {
-        "@type": "HowTo",
-        name: "How to convert PDF to Word online",
-        totalTime: "PT2M",
-        step: [
-          {
-            "@type": "HowToStep",
-            name: "Upload your PDF file",
-            text: "Choose your PDF document from your device.",
-          },
-          {
-            "@type": "HowToStep",
-            name: "Click convert",
-            text: "Start conversion and wait while the file is processed.",
-          },
-          {
-            "@type": "HowToStep",
-            name: "Download DOCX",
-            text: "Download the editable Word file instantly.",
-          },
-        ],
-      },
-      {
         "@type": "BreadcrumbList",
         itemListElement: [
           {

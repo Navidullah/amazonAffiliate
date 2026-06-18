@@ -239,31 +239,6 @@ export default function FacebookVideoDownloaderPage() {
         })),
       },
       {
-        "@type": "HowTo",
-        name: "How to download a Facebook video or Reel without login",
-        totalTime: "PT1M",
-        step: [
-          {
-            "@type": "HowToStep",
-            position: 1,
-            name: "Copy the Facebook video link",
-            text: "On the Facebook app, tap the three-dot menu on the video post and tap 'Copy link'. On desktop, open the video on its own page and copy the URL from the address bar. fb.watch short links also work.",
-          },
-          {
-            "@type": "HowToStep",
-            position: 2,
-            name: "Paste and analyze",
-            text: "Paste the link into the input box on this page and click Analyze Video. Shopyor fetches the available quality options.",
-          },
-          {
-            "@type": "HowToStep",
-            position: 3,
-            name: "Choose quality and download",
-            text: "Select HD (720p–1080p) or SD quality and click the download button to save the MP4 file to your device.",
-          },
-        ],
-      },
-      {
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
@@ -324,6 +299,18 @@ export default function FacebookVideoDownloaderPage() {
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
           Free Facebook Video Downloader — No Login, No App, HD Quality
         </h1>
+        <div className="flex items-center gap-1.5">
+          <div className="flex">
+            {[1, 2, 3, 4, 5].map((s) => (
+              <Star
+                key={s}
+                className={`h-4 w-4 ${s <= Math.round(Number(AVG_RATING)) ? "fill-amber-400 text-amber-400" : "text-muted-foreground/30"}`}
+              />
+            ))}
+          </div>
+          <span className="text-sm font-medium text-foreground">{AVG_RATING}</span>
+          <span className="text-sm text-muted-foreground">({reviews.length} reviews)</span>
+        </div>
         <p className="text-sm text-muted-foreground sm:text-base">
           Paste any public Facebook video or Reel link and download a clean
           HD MP4 — no Facebook login, no app to install, no signup. Works on

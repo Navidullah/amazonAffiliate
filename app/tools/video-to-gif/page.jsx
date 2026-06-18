@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Home, ChevronRight } from "lucide-react";
+import { Home, ChevronRight, Star } from "lucide-react";
 import VideoToGifConverter from "./video-to-gif-converter";
 import {
   Accordion,
@@ -196,38 +196,6 @@ export default function VideoToGifPage() {
         })),
       },
       {
-        "@type": "HowTo",
-        name: "How to Convert a Video to GIF for Free",
-        description:
-          "Step-by-step guide to converting a video file to an animated GIF using Shopyor's free browser-based tool.",
-        step: [
-          {
-            "@type": "HowToStep",
-            position: 1,
-            name: "Select your video file",
-            text: "Click the upload area or drag and drop an MP4, WebM, MOV, or AVI file (up to 500 MB). A preview of your video will appear immediately.",
-          },
-          {
-            "@type": "HowToStep",
-            position: 2,
-            name: "Adjust GIF settings",
-            text: "Set the Frame Rate (FPS), output width in pixels, and quality level. Lower FPS and width produce smaller file sizes. Tick 'Loop GIF' to make the animation repeat.",
-          },
-          {
-            "@type": "HowToStep",
-            position: 3,
-            name: "Click Convert to GIF",
-            text: "Hit the Convert button. The tool captures frames from your video in your browser — no file is uploaded to any server.",
-          },
-          {
-            "@type": "HowToStep",
-            position: 4,
-            name: "Preview and download",
-            text: "Your animated GIF appears in the result panel. Click 'Download GIF' to save the file to your device — no account required.",
-          },
-        ],
-      },
-      {
         "@type": "BreadcrumbList",
         itemListElement: [
           {
@@ -313,6 +281,18 @@ export default function VideoToGifPage() {
             No Upload Required
           </span>
         </h1>
+        <div className="mt-2 flex items-center gap-1.5">
+          <div className="flex">
+            {[1, 2, 3, 4, 5].map((s) => (
+              <Star
+                key={s}
+                className={`h-4 w-4 ${s <= Math.round(Number(AVG_RATING)) ? "fill-amber-400 text-amber-400" : "text-muted-foreground/30"}`}
+              />
+            ))}
+          </div>
+          <span className="text-sm font-medium text-foreground">{AVG_RATING}</span>
+          <span className="text-sm text-muted-foreground">({reviews.length} reviews)</span>
+        </div>
         <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground">
           Convert MP4, WebM, MOV, or AVI to an animated GIF entirely in your
           browser. Your video never leaves your device. Free, no signup, no

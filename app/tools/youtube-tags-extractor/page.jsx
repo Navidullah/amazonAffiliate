@@ -72,37 +72,6 @@ const schemas = {
     description:
       "Free YouTube tags extractor and finder. Reveal, copy and export the tags, title and description of any YouTube video or Short for SEO.",
   },
-  howTo: {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    name: "How to find the tags of a YouTube video",
-    step: [
-      {
-        "@type": "HowToStep",
-        position: 1,
-        name: "Copy the video URL",
-        text: "Open the YouTube video or Short and copy its link.",
-      },
-      {
-        "@type": "HowToStep",
-        position: 2,
-        name: "Paste and extract",
-        text: "Paste the URL into the YouTube tags extractor and click Extract Tags.",
-      },
-      {
-        "@type": "HowToStep",
-        position: 3,
-        name: "Review the tags",
-        text: "See every tag, the title and the channel, plus the total character count.",
-      },
-      {
-        "@type": "HowToStep",
-        position: 4,
-        name: "Copy or export",
-        text: "Click any tag to copy it, or copy all and export as CSV or TXT.",
-      },
-    ],
-  },
   faq: {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -211,7 +180,6 @@ export default function Page() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify([
             schemas.tool,
-            schemas.howTo,
             schemas.faq,
             schemas.breadcrumb,
           ]),

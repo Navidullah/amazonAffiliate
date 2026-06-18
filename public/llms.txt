@@ -1,12 +1,51 @@
-# LLM guidance for shopyor.com
+# Shopyor
 
-User-Agent: *
-Allow: /tools/
-Allow: /blog/
-Allow: /background-remover/
+> Shopyor is a free online toolbox: 20+ browser-based tools for downloading
+> video, converting and compressing PDFs and images, cloning a voice, building
+> a resume, calculating BMI, and generating SEO tags — no sign-up, no install.
 
+All tools run client-side or through a privacy-respecting backend with no
+permanent storage of uploaded files. Every tool page below includes a
+description, step-by-step instructions, and an FAQ section.
 
-Disallow: /api/
-Disallow: /dashboard/
+## Tools
 
-Preferred-Source: https://shopyor.com
+- [PDF to Word Converter](https://www.shopyor.com/tools/online-pdf-to-word-converter): Convert PDF to editable Word (DOCX), with OCR for scanned files.
+- [PDF Compressor](https://www.shopyor.com/tools/pdf-compressor): Reduce PDF file size while keeping quality.
+- [AI Background Remover](https://www.shopyor.com/tools/background-remover-image): Remove image backgrounds automatically and export a transparent PNG.
+- [Image Compressor](https://www.shopyor.com/tools/image-compressor): Compress JPG, PNG, and WebP images without visible quality loss.
+- [Image Resizer](https://www.shopyor.com/tools/image-resizer): Resize images to exact dimensions without distortion.
+- [EXIF Metadata Remover](https://www.shopyor.com/tools/exif-remover): Strip hidden EXIF and GPS metadata from photos.
+- [Facebook Video Downloader](https://www.shopyor.com/tools/facebook-video-downloader): Download public Facebook videos and Reels in HD.
+- [Instagram Video Downloader](https://www.shopyor.com/tools/instagram-video-downloader): Save public Instagram Reels and videos.
+- [TikTok Video Downloader](https://www.shopyor.com/tools/free-tiktok-video-downloader): Download TikTok videos without a watermark.
+- [YouTube Video Downloader](https://www.shopyor.com/tools/youtube-video-downloader): Download YouTube videos for offline viewing.
+- [Video to GIF Converter](https://www.shopyor.com/tools/video-to-gif): Convert a short video clip into an animated GIF.
+- [Whiteboard Animation Maker](https://www.shopyor.com/tools/whiteboard-animation): Turn an image into a hand-drawn speed-paint animation video.
+- [AI Voice Cloner](https://www.shopyor.com/tools/voice-clone): Clone a voice from a short sample and generate speech from text.
+- [Resume Builder](https://www.shopyor.com/tools/resume-builder): Build a professional resume from templates and export a PDF.
+- [BMI Calculator](https://www.shopyor.com/tools/bmi): Calculate Body Mass Index in metric or imperial units, with a healthy-weight chart.
+- [Amazon Affiliate Link Generator](https://www.shopyor.com/tools/affiliate-link-generator): Convert an Amazon URL or ASIN into a tagged affiliate link.
+- [YouTube Thumbnail Downloader](https://www.shopyor.com/tools/youtube-thumbnail): Download full-resolution thumbnails from any YouTube video.
+- [YouTube Tags Extractor](https://www.shopyor.com/tools/youtube-tags-extractor): Extract the hidden tags from any YouTube video.
+- [Meta Tag Generator](https://www.shopyor.com/tools/meta-tag-generator): Generate SEO title, description, and Open Graph meta tags.
+- [Robots.txt Generator](https://www.shopyor.com/tools/robots-txt-generator): Create a correct robots.txt file, including AI-crawler rules.
+- [All tools](https://www.shopyor.com/tools): Full, current list of every free tool on Shopyor.
+
+## Blog
+
+- [How to Convert PDF to Word Without Losing Formatting](https://www.shopyor.com/blog/how-to-convert-pdf-to-word-without-losing-formatting)
+- [How to Remove the Background from an Image](https://www.shopyor.com/blog/how-to-remove-background-from-an-image)
+- [How to Reduce Image File Size](https://www.shopyor.com/blog/how-to-reduce-image-file-size)
+- [How to Calculate Your BMI Manually](https://www.shopyor.com/blog/how-to-calculate-bmi-manually)
+- [How to Clone Your Own Voice for Free](https://www.shopyor.com/blog/how-to-clone-your-own-voice-free)
+- [How to Download Videos from Facebook, Instagram, and TikTok](https://www.shopyor.com/blog/how-to-download-videos-from-facebook-instagram-tiktok)
+- [Meta Tags for SEO: The Complete Guide](https://www.shopyor.com/blog/meta-tags-for-seo-complete-guide)
+- [How to Create a Robots.txt File for SEO](https://www.shopyor.com/blog/how-to-create-robots-txt-file-for-seo)
+- [Full blog index](https://www.shopyor.com/blog)
+
+## About
+
+- [About Shopyor](https://www.shopyor.com/about)
+- [Contact](https://www.shopyor.com/contact)
+- [Sitemap](https://www.shopyor.com/sitemap.xml): Machine-readable index of every page.

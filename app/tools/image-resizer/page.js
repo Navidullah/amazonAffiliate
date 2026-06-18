@@ -331,17 +331,6 @@ export default function ImageResizerPage() {
         })),
       },
       {
-        "@type": "HowTo",
-        name: "How to resize an image online for free",
-        totalTime: "PT1M",
-        step: STEPS.map((s, i) => ({
-          "@type": "HowToStep",
-          position: i + 1,
-          name: s.title,
-          text: s.text,
-        })),
-      },
-      {
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
@@ -412,6 +401,18 @@ export default function ImageResizerPage() {
               — Resize Without Losing Quality
             </span>
           </h1>
+          <div className="mt-3 flex items-center justify-center gap-1.5">
+            <div className="flex">
+              {[1, 2, 3, 4, 5].map((s) => (
+                <Star
+                  key={s}
+                  className={`h-4 w-4 ${s <= Math.round(Number(AVG_RATING)) ? "fill-amber-400 text-amber-400" : "text-muted-foreground/30"}`}
+                />
+              ))}
+            </div>
+            <span className="text-sm font-medium text-foreground">{AVG_RATING}</span>
+            <span className="text-sm text-muted-foreground">({reviews.length} reviews)</span>
+          </div>
           <p className="mx-auto mt-4 max-w-2xl text-sm text-muted-foreground sm:text-base">
             Resize any JPG, PNG, or WebP to exact pixel dimensions or shrink it
             to a target file size in KB. Eight social media presets included.
