@@ -98,6 +98,10 @@ const CONTENT = {
           text: "Job portals, visa applications, and government websites often limit PDF uploads to a few megabytes. Reduce your file size to meet those limits while keeping the text clear and legible.",
         },
         {
+          h3: "Why some PDFs barely shrink",
+          text: 'Not every file compresses the same amount — a scanned, image-heavy PDF can drop by 50-90%, while a clean text-only export from Word has little left to remove. See our full guide on <crosslink href="/blog/how-to-compress-a-pdf-without-losing-quality">how to compress a PDF without losing quality</crosslink> for a breakdown by file type.',
+        },
+        {
           h3: "Need to edit the file instead?",
           text: 'If you also need to change the content, try our <crosslink href="/tools/online-pdf-to-word-converter">PDF to Word converter</crosslink> to get an editable DOCX.',
         },

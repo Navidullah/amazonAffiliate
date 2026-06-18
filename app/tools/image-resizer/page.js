@@ -540,7 +540,15 @@ export default function ImageResizerPage() {
             This approach — combining pixel reduction and quality compression —
             is the same technique used by tools like imresizer.com and
             simpleimageresizer.com that dominate search results for &quot;resize
-            image to 100kb online free.&quot;
+            image to 100kb online free.&quot; For a deeper walkthrough with
+            platform presets and format tips, see our guide on{" "}
+            <Link
+              href="/blog/how-to-resize-an-image-without-losing-quality"
+              className="font-medium text-violet-600 hover:underline dark:text-violet-400"
+            >
+              how to resize an image without losing quality
+            </Link>
+            .
           </p>
 
           <h2>Exact social media image sizes — all platforms in one place</h2>
