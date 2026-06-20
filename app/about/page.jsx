@@ -34,16 +34,18 @@ export default function AboutPage() {
             <div className="inline-flex p-3 rounded-xl bg-primary/10 text-primary mb-4">
               <Users className="h-8 w-8" />
             </div>
-            <h2 className="text-2xl font-semibold mb-3">Why we built Shopyor</h2>
+            <h2 className="text-2xl font-semibold mb-3">
+              Why we built Shopyor
+            </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Shopyor was founded in 2025 by a small, independent team (we go
-              by the Shopyor Team) after running into the same wall over and
-              over: needing to do something simple online — compress a PDF,
-              remove a background, download a video — and finding every tool
-              wanted a sign-up first, payment to download, or stuck a
-              watermark on the result. So we built our own toolbox instead,
-              and kept adding to it. Shopyor is still actively maintained and
-              growing, one tool at a time.
+              Shopyor was founded in 2025 by a small, independent team (we go by
+              the Shopyor Team) after running into the same wall over and over:
+              needing to do something simple online — compress a PDF, remove a
+              background, download a video — and finding every tool wanted a
+              sign-up first, payment to download, or stuck a watermark on the
+              result. So we built our own toolbox instead, and kept adding to
+              it. Shopyor is still actively maintained and growing, one tool at
+              a time.
             </p>
           </section>
 
@@ -55,11 +57,10 @@ export default function AboutPage() {
             <h2 className="text-2xl font-semibold mb-3">Our Mission</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               To provide free, fast, and secure online tools — video
-              downloaders, PDF and image utilities, an AI voice cloner, and
-              more — that respect user privacy and intellectual property
-              rights. We believe everyone should have easy access to
-              everyday tools without a paywall, a sign-up form, or a
-              watermark in the way.
+              downloaders, PDF and image utilities, an AI voice cloner, and more
+              — that respect user privacy and intellectual property rights. We
+              believe everyone should have easy access to everyday tools without
+              a paywall, a sign-up form, or a watermark in the way.
             </p>
           </section>
 
@@ -125,10 +126,10 @@ export default function AboutPage() {
               Have questions or need to report copyright infringement?
             </p>
             <a
-              href="mailto:support@shopyor.com"
+              href="mailto:shopyor.com@gmail.com"
               className="inline-flex items-center gap-2 text-primary hover:underline"
             >
-              support@shopyor.com
+              shopyor.com@gmail.com
             </a>
           </section>
         </div>
