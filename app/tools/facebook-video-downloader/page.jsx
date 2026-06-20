@@ -428,7 +428,7 @@ export default function FacebookVideoDownloaderPage() {
           ownership of downloaded videos. Always follow Facebook&apos;s Terms
           of Service and applicable copyright law. If you believe copyright has
           been infringed, contact{" "}
-          <strong>dmca@shopyor.com</strong>.
+          <strong>shopyor.com@gmail.com</strong>.
         </p>
 
         <h2>Who uses this tool?</h2>
@@ -604,7 +604,7 @@ export default function FacebookVideoDownloaderPage() {
         not affiliated with Facebook or Meta. This tool is for personal,
         non-commercial use only. Users are responsible for complying with
         Facebook&apos;s Terms of Service and applicable copyright law.
-        Copyright concerns: dmca@shopyor.com.
+        Copyright concerns: shopyor.com@gmail.com.
       </p>
     </div>
   );

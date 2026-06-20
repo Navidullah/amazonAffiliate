@@ -102,7 +102,7 @@ export const metadata = {
     siteName: "Shopyor",
     locale: "en_US",
     alternateLocale: ["en_GB", "en_IN", "en_CA", "en_AU"],
-    emails: ["support@shopyor.com"],
+    emails: ["shopyor.com@gmail.com"],
     images: [
       {
         url: "/images/shopyor-tools-og.png",
@@ -192,7 +192,7 @@ const jsonLdSchemas = {
     ],
     contactPoint: {
       "@type": "ContactPoint",
-      email: "support@shopyor.com",
+      email: "shopyor.com@gmail.com",
       contactType: "customer support",
       availableLanguage: ["English"],
     },

@@ -20,7 +20,7 @@ export function TikTokCopyrightDisclaimer() {
               video. All rights belong to their respective owners.
             </p>
             <p className="text-amber-700 dark:text-amber-500 mt-2 text-xs">
-              <strong>Report Copyright Infringement:</strong> dmca@shopyor.com
+              <strong>Report Copyright Infringement:</strong> shopyor.com@gmail.com
             </p>
           </div>
         </div>

@@ -59,10 +59,10 @@ export function CopyrightNotice() {
               us:
             </p>
             <a
-              href="mailto:copyright@shopyor.com"
+              href="mailto:shopyor.com@gmail.com"
               className="text-sm text-primary hover:underline break-all"
             >
-              copyright@shopyor.com
+              shopyor.com@gmail.com
             </a>
             <p className="text-xs text-muted-foreground mt-2">
               Response time: 24-48 hours

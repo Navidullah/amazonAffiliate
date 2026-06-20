@@ -373,10 +373,10 @@ export default function PrivacyPage() {
               <p className="text-muted-foreground">
                 Email:{" "}
                 <a
-                  href="mailto:privacy@shopyor.com"
+                  href="mailto:shopyor.com@gmail.com"
                   className="text-primary hover:underline"
                 >
-                  privacy@shopyor.com
+                  shopyor.com@gmail.com
                 </a>
               </p>
             </div>

@@ -195,10 +195,10 @@ export default function Footer() {
               For copyright infringement notices:
             </p>
             <a
-              href="mailto:dmca@shopyor.com"
+              href="mailto:shopyor.com@gmail.com"
               className="text-sm text-primary hover:underline break-all"
             >
-              dmca@shopyor.com
+              shopyor.com@gmail.com
             </a>
             <div className="mt-4 pt-4 border-t">
               <p className="text-xs text-muted-foreground">
