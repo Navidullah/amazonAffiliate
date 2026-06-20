@@ -221,8 +221,9 @@ async function run() {
           readingTime,
           isPublished: true,
           updatedAt: now,
+          publishedAt: now,
         },
-        $setOnInsert: { publishedAt: now, createdAt: now, views: 0 },
+        $setOnInsert: { createdAt: now, views: 0 },
       },
       { upsert: true },
     );
