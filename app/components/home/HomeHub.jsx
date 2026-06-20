@@ -31,11 +31,6 @@ import {
 
 /* ===== Motion helpers ===== */
 const EASE = [0.22, 1, 0.36, 1];
-const fadeUp = {
-  hidden: { opacity: 0, y: 26 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
-};
-const stagger = { hidden: {}, visible: { transition: { staggerChildren: 0.08 } } };
 
 function Reveal({ children, className = "", delay = 0 }) {
   return (
@@ -263,28 +258,26 @@ export default function HomeHub() {
           />
         </div>
 
-        <motion.div variants={stagger} initial="hidden" animate="visible">
-          <motion.div variants={fadeUp} className="mb-5 flex justify-center">
+        {/* Above-the-fold hero is rendered as static HTML (no entrance
+            animation) so the LCP element paints on first paint instead of
+            waiting for Framer Motion to hydrate. Do NOT wrap this content in
+            motion with an opacity:0 initial — that regresses mobile LCP. */}
+        <div>
+          <div className="mb-5 flex justify-center">
             <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/8 px-4 py-1.5 text-sm font-medium text-primary backdrop-blur-sm">
               <Sparkles className="h-4 w-4" />
               21+ Free Online Tools · No sign-up
             </span>
-          </motion.div>
+          </div>
 
-          <motion.h1
-            variants={fadeUp}
-            className="mx-auto max-w-4xl text-3xl font-extrabold leading-[1.1] tracking-tight sm:text-4xl md:text-5xl"
-          >
+          <h1 className="mx-auto max-w-4xl text-3xl font-extrabold leading-[1.1] tracking-tight sm:text-4xl md:text-5xl">
             Free Online Tools by{" "}
             <span className="bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 bg-clip-text text-transparent">
               Shopyor
             </span>
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            variants={fadeUp}
-            className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg"
-          >
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
             Shopyor brings together everything you need in one place — a growing
             suite of fast, secure, browser-based tools that are{" "}
             <span className="font-medium text-foreground">100% free</span> with
@@ -292,12 +285,9 @@ export default function HomeHub() {
             compress images, convert and shrink PDFs, build a resume, clone a
             voice, and sharpen your SEO. Explore each tool below, or jump
             straight to the full collection.
-          </motion.p>
+          </p>
 
-          <motion.div
-            variants={fadeUp}
-            className="mt-7 flex flex-wrap items-center justify-center gap-3"
-          >
+          <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/tools"
               className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-cyan-500/25 transition-transform hover:-translate-y-0.5"
@@ -310,13 +300,10 @@ export default function HomeHub() {
             >
               Start exploring
             </a>
-          </motion.div>
+          </div>
 
           {/* Quick category jump links */}
-          <motion.div
-            variants={fadeUp}
-            className="mt-8 flex flex-wrap justify-center gap-2"
-          >
+          <div className="mt-8 flex flex-wrap justify-center gap-2">
             {GROUPS.map((g) => (
               <a
                 key={g.id}
@@ -326,8 +313,8 @@ export default function HomeHub() {
                 {g.category}
               </a>
             ))}
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </section>
 
       {/* ===== Tool sections by category ===== */}
