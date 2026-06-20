@@ -6,10 +6,10 @@ export const metadata = {
   metadataBase: new URL(SITE),
   title: {
     absolute:
-      "Free Online Tools — Video Downloaders, PDF, Image, AI & SEO | Shopyor",
+      "Free Online Tools — Video, PDF, Image, AI & SEO | Shopyor",
   },
   description:
-    "Shopyor is a free online toolbox: download Facebook, Instagram, TikTok & YouTube videos, convert & compress PDFs, remove image backgrounds, compress & resize images, clone a voice, build a resume, calculate BMI, and generate SEO tags. No sign-up, no install — all in your browser.",
+    "21+ free, browser-based tools: video downloaders, PDF & image utilities, AI voice cloner, resume builder, BMI calculator, and SEO tools. No sign-up.",
   keywords: [
     "free online tools",
     "video downloader",
