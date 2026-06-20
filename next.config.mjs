@@ -59,6 +59,13 @@ const nextConfig = {
         destination: "/tools/background-remover-image",
         permanent: true,
       },
+      // Whiteboard Animation Maker was retired. The URL was indexed, so send
+      // it to the tools hub (301) to avoid a 404 and preserve link equity.
+      {
+        source: "/tools/whiteboard-animation",
+        destination: "/tools",
+        permanent: true,
+      },
       // Google still has old /blogs/* URLs indexed from the previous site;
       // they currently 404. Route them to the current blog.
       {

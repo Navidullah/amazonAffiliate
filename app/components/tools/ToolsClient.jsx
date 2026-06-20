@@ -18,7 +18,6 @@ import {
   ArrowRight,
   Sparkles,
   SearchX,
-  Paintbrush,
   FileUser,
   Mic,
 } from "lucide-react";
@@ -102,13 +101,6 @@ export default function ToolsClient() {
       title: "Free AI Voice Cloner",
       desc: "Clone any voice from a short sample and turn text into natural speech — free, no watermark.",
       icon: Mic,
-      category: "Media",
-    },
-    {
-      href: "/tools/whiteboard-animation",
-      title: "Whiteboard Animation Maker",
-      desc: "Turn any image into a hand-drawn speed-paint animation and export it as video or GIF.",
-      icon: Paintbrush,
       category: "Media",
     },
     {

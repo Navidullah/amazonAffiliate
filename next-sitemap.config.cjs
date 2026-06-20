@@ -36,7 +36,6 @@ const LAST_MODIFIED = {
   "/tools/robots-txt-generator": "2026-06-18T12:54:46+05:00",
   "/tools/video-to-gif": "2026-06-18T12:54:46+05:00",
   "/tools/voice-clone": "2026-06-18T12:54:46+05:00",
-  "/tools/whiteboard-animation": "2026-06-09T17:53:50+05:00",
   "/tools/youtube-tags-extractor": "2026-06-18T12:54:46+05:00",
   "/tools/youtube-thumbnail": "2026-06-18T12:54:46+05:00",
   "/tools/youtube-video-downloader": "2026-06-18T12:54:46+05:00",
@@ -66,6 +65,7 @@ module.exports = {
     "/tools/youtube-tags", // 301 -> /tools/youtube-tags-extractor (renamed)
     "/tools/resizer", // 301 -> /tools/image-resizer (duplicate consolidated)
     "/tools/bg-remover", // 301 -> /tools/background-remover-image (duplicate consolidated)
+    "/tools/whiteboard-animation", // 301 -> /tools (tool retired)
     // Next.js internal image-generation routes — not real pages
     "/twitter-image",
     "/opengraph-image",

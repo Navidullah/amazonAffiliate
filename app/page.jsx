@@ -18,7 +18,6 @@ export const metadata = {
     "tiktok video downloader",
     "youtube video downloader",
     "video to gif converter",
-    "whiteboard animation maker",
     "ai voice cloner",
     "background remover",
     "image compressor",
@@ -120,12 +119,6 @@ const TOOLS = [
     name: "Video to GIF Converter",
     url: `${SITE}/tools/video-to-gif`,
     description: "Convert any short video clip into a lightweight animated GIF.",
-  },
-  {
-    name: "Whiteboard Animation Maker",
-    url: `${SITE}/tools/whiteboard-animation`,
-    description:
-      "Turn an image into a hand-drawn speed-paint animation and export MP4 or GIF.",
   },
   {
     name: "AI Voice Cloner",

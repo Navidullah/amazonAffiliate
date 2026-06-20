@@ -21,7 +21,6 @@ description, step-by-step instructions, and an FAQ section.
 - [TikTok Video Downloader](https://www.shopyor.com/tools/free-tiktok-video-downloader): Download TikTok videos without a watermark.
 - [YouTube Video Downloader](https://www.shopyor.com/tools/youtube-video-downloader): Download YouTube videos for offline viewing.
 - [Video to GIF Converter](https://www.shopyor.com/tools/video-to-gif): Convert a short video clip into an animated GIF.
-- [Whiteboard Animation Maker](https://www.shopyor.com/tools/whiteboard-animation): Turn an image into a hand-drawn speed-paint animation video.
 - [AI Voice Cloner](https://www.shopyor.com/tools/voice-clone): Clone a voice from a short sample and generate speech from text.
 - [Resume Builder](https://www.shopyor.com/tools/resume-builder): Build a professional resume from templates and export a PDF.
 - [BMI Calculator](https://www.shopyor.com/tools/bmi): Calculate Body Mass Index in metric or imperial units, with a healthy-weight chart.

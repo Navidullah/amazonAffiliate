@@ -7,7 +7,6 @@ import {
   ArrowRight,
   Mic,
   Video,
-  Paintbrush,
   Wand2,
   ImageDown,
   Scaling,
@@ -102,14 +101,6 @@ const GROUPS = [
         icon: Video,
         cta: "Open the Video to GIF Converter",
         body: "GIFs load instantly, autoplay everywhere, and say more than words in a chat or a blog post. Our Video to GIF Converter turns any short video clip into a smooth, lightweight animated GIF in seconds. Upload your footage, trim it to the moment that matters, and download a shareable GIF for messaging apps, documentation, social posts, or product demos — all processed quickly and for free.",
-      },
-      {
-        id: "whiteboard-animation",
-        name: "Whiteboard Animation Maker",
-        href: "/tools/whiteboard-animation",
-        icon: Paintbrush,
-        cta: "Open the Whiteboard Animation Maker",
-        body: "Hand-drawn whiteboard animations grab attention and explain ideas better than static slides. Our Whiteboard Animation Maker turns any image into a satisfying speed-paint sketch effect, where a hand appears to draw your picture line by line. Adjust the speed, pick an aspect ratio for YouTube or Instagram, and export the result as an MP4 video or GIF — a simple way to create engaging explainer content with no design skills.",
       },
       {
         id: "voice-cloner",
