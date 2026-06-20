@@ -36,13 +36,7 @@ const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
   variable: "--font-montserrat",
-  // "optional" (not "swap"): Montserrat is the body/heading font, so a late
-  // swap repaint was delaying mobile LCP to ~3.3s (it lands on the hero H1).
-  // With "optional" the browser keeps the metric-matched fallback if the font
-  // isn't ready within its short block window, avoiding the late repaint;
-  // Montserrat still applies once cached (repeat visits). CLS stays 0 via
-  // next/font's adjustFontFallback.
-  display: "optional",
+  display: "swap",
 });
 
 /** Light/Dark aware address bar color */
