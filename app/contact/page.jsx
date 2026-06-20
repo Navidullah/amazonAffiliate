@@ -7,7 +7,6 @@ import {
   Send,
   CheckCircle,
   AlertCircle,
-  Shield,
   Loader2,
 } from "lucide-react";
 
@@ -100,40 +99,17 @@ export default function ContactPage() {
                 <div className="flex items-start gap-3">
                   <Mail className="h-5 w-5 text-primary mt-0.5" />
                   <div>
-                    <p className="font-medium">Email (General)</p>
+                    <p className="font-medium">Email</p>
                     <a
-                      href="mailto:support@shopyor.com"
+                      href="mailto:shopyor.com@gmail.com"
                       className="text-sm text-muted-foreground hover:text-primary"
                     >
-                      support@shopyor.com
-                    </a>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <AlertCircle className="h-5 w-5 text-primary mt-0.5" />
-                  <div>
-                    <p className="font-medium">DMCA & Copyright Issues</p>
-                    <a
-                      href="mailto:dmca@shopyor.com"
-                      className="text-sm text-muted-foreground hover:text-primary"
-                    >
-                      dmca@shopyor.com
+                      shopyor.com@gmail.com
                     </a>
                     <p className="text-xs text-muted-foreground mt-1">
-                      Response within 24-48 hours
+                      General inquiries, DMCA & copyright, and privacy concerns
+                      — response within 24-48 hours
                     </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Shield className="h-5 w-5 text-primary mt-0.5" />
-                  <div>
-                    <p className="font-medium">Privacy Concerns</p>
-                    <a
-                      href="mailto:privacy@shopyor.com"
-                      className="text-sm text-muted-foreground hover:text-primary"
-                    >
-                      privacy@shopyor.com
-                    </a>
                   </div>
                 </div>
               </div>
