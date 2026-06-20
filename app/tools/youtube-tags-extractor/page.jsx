@@ -13,8 +13,10 @@ import {
 } from "lucide-react";
 
 export const metadata = {
-  title:
-    "YouTube Tags Extractor & Generator – Find Any Video's Tags Free | ShopYor",
+  title: {
+    absolute:
+      "YouTube Tags Extractor & Generator – Find Any Video's Tags Free | Shopyor",
+  },
   description:
     "Free YouTube tags extractor. Instantly find, copy and export the tags, title and description of any YouTube video or Short for SEO. See competitors' keywords and rank higher — no login required.",
   keywords: [
@@ -38,7 +40,7 @@ export const metadata = {
     description:
       "Reveal the tags, title and description behind any YouTube video. Copy and export for your own YouTube SEO. Free, instant, no signup.",
     url: "https://www.shopyor.com/tools/youtube-tags-extractor",
-    siteName: "ShopYor",
+    siteName: "Shopyor",
     type: "website",
     locale: "en_US",
   },
