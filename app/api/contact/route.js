@@ -47,7 +47,7 @@ export async function POST(request) {
     // Email content
     const mailOptions = {
       from: `"Shopyor Contact Form" <${process.env.EMAIL_USER}>`,
-      to: process.env.CONTACT_EMAIL || "support@shopyor.com",
+      to: process.env.CONTACT_EMAIL || "shopyor.com@gmail.com",
       replyTo: email,
       subject: subject || `Contact Form Message from ${name}`,
       text: `
