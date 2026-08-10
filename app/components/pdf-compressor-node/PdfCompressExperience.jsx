@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -58,7 +58,7 @@ const CONTENT = {
     badge: "Free Online Tool",
     h1: { pre: "Free", highlight: "PDF Compressor", post: "" },
     subtitle:
-      "Reduce PDF file size online without losing readable quality. A fast, private, browser-based compressor for documents, scans, and reports — no signup.",
+      "Reduce PDF file size online without losing readable quality. A fast, private, browser-based compressor for documents, scans, and reports â€” no signup.",
     features: [
       {
         icon: "Gauge",
@@ -69,7 +69,7 @@ const CONTENT = {
       {
         icon: "Zap",
         title: "Fast & Free",
-        desc: "Optimize and download in seconds — completely free, with no account required.",
+        desc: "Optimize and download in seconds â€” completely free, with no account required.",
         accent: "from-cyan-500 to-teal-500",
       },
       {
@@ -80,10 +80,10 @@ const CONTENT = {
       },
     ],
     seo: {
-      heading: "Reduce PDF file size online — free and secure",
+      heading: "Reduce PDF file size online â€” free and secure",
       blocks: [
         {
-          text: "A large PDF can be hard to email, slow to upload, and awkward to share. This free online PDF compressor reduces your file size in seconds so it is easier to send and store, while keeping the document clear and readable. Everything runs in your browser — no software to install and no registration.",
+          text: "A large PDF can be hard to email, slow to upload, and awkward to share. This free online PDF compressor reduces your file size in seconds so it is easier to send and store, while keeping the document clear and readable. Everything runs in your browser â€” no software to install and no registration.",
         },
         {
           h3: "How PDF compression works",
@@ -91,7 +91,7 @@ const CONTENT = {
         },
         {
           h3: "Compress a PDF for email attachments",
-          text: "Most email services cap attachments at around 25 MB. If your PDF is too big to send, compress it here first and then attach the smaller version — no cloud links or splitting required.",
+          text: "Most email services cap attachments at around 25 MB. If your PDF is too big to send, compress it here first and then attach the smaller version â€” no cloud links or splitting required.",
         },
         {
           h3: "Compress a PDF for uploads and forms",
@@ -99,11 +99,11 @@ const CONTENT = {
         },
         {
           h3: "Why some PDFs barely shrink",
-          text: 'Not every file compresses the same amount — a scanned, image-heavy PDF can drop by 50-90%, while a clean text-only export from Word has little left to remove. See our full guide on <crosslink href="/blog/how-to-compress-a-pdf-without-losing-quality">how to compress a PDF without losing quality</crosslink> for a breakdown by file type.',
+          text: 'Not every file compresses the same amount â€” a scanned, image-heavy PDF can drop by 50-90%, while a clean text-only export from Word has little left to remove. See our full guide on <crosslink href="/blog/how-to-compress-a-pdf-without-losing-quality">how to compress a PDF without losing quality</crosslink> for a breakdown by file type.',
         },
         {
           h3: "Need to edit the file instead?",
-          text: 'If you also need to change the content, try our <crosslink href="/tools/online-pdf-to-word-converter">PDF to Word converter</crosslink> to get an editable DOCX.',
+          text: 'If you also need to change the content, try our <crosslink href="/tools/convert-your-pdf-file-to-word">PDF to Word converter</crosslink> to get an editable DOCX.',
         },
       ],
     },
@@ -126,7 +126,7 @@ const CONTENT = {
       },
       {
         q: "Are my files safe and private?",
-        a: "Yes. Files are transferred over a secure connection and are not permanently stored — they are processed and then removed.",
+        a: "Yes. Files are transferred over a secure connection and are not permanently stored â€” they are processed and then removed.",
       },
       {
         q: "Can I compress a PDF on my phone?",
@@ -140,7 +140,7 @@ const CONTENT = {
     cta: {
       title: "Need to edit your PDF too?",
       desc: "Convert it to an editable Word document, or explore all our free tools.",
-      href: "/tools/online-pdf-to-word-converter",
+      href: "/tools/convert-your-pdf-file-to-word",
       label: "Try PDF to Word",
     },
   },
@@ -149,7 +149,7 @@ const CONTENT = {
     badge: "Free Online Tool",
     h1: { pre: "", highlight: "Compress PDF", post: "Online" },
     subtitle:
-      "Shrink PDF files so they fit email attachment limits, upload forms, and messaging apps. Free, fast, and secure — reduce PDF size in seconds with no signup.",
+      "Shrink PDF files so they fit email attachment limits, upload forms, and messaging apps. Free, fast, and secure â€” reduce PDF size in seconds with no signup.",
     features: [
       {
         icon: "Mail",
@@ -174,11 +174,11 @@ const CONTENT = {
       heading: "Compress PDF for email, uploads, and sharing",
       blocks: [
         {
-          text: "Need to compress a PDF because it is too big to email or upload? This free tool reduces your PDF file size in seconds, right in your browser. Whether you are attaching a resume, submitting a form, or sharing a report, a smaller PDF sends faster and slips under strict size limits — with no signup and no quality headaches.",
+          text: "Need to compress a PDF because it is too big to email or upload? This free tool reduces your PDF file size in seconds, right in your browser. Whether you are attaching a resume, submitting a form, or sharing a report, a smaller PDF sends faster and slips under strict size limits â€” with no signup and no quality headaches.",
         },
         {
           h3: "Compress a PDF for email attachments",
-          text: "Most email services cap attachments at around 25 MB. If your PDF is larger, compress it here first and then attach the smaller version — no need for cloud links or splitting the document.",
+          text: "Most email services cap attachments at around 25 MB. If your PDF is larger, compress it here first and then attach the smaller version â€” no need for cloud links or splitting the document.",
         },
         {
           h3: "Compress a PDF for uploads and forms",
@@ -186,7 +186,7 @@ const CONTENT = {
         },
         {
           h3: "Looking for more PDF tools?",
-          text: 'For advanced options and bigger savings, use our main <crosslink href="/tools/pdf-compressor">PDF compressor</crosslink>. Need to edit the file instead? Try the <crosslink href="/tools/online-pdf-to-word-converter">PDF to Word converter</crosslink>.',
+          text: 'For advanced options and bigger savings, use our main <crosslink href="/tools/compress-your-pdf-file">PDF compressor</crosslink>. Need to edit the file instead? Try the <crosslink href="/tools/convert-your-pdf-file-to-word">PDF to Word converter</crosslink>.',
         },
       ],
     },
@@ -209,7 +209,7 @@ const CONTENT = {
       },
       {
         q: "Can I compress a PDF on my phone?",
-        a: "Yes. The tool works in any mobile browser on Android and iPhone — no app needed.",
+        a: "Yes. The tool works in any mobile browser on Android and iPhone â€” no app needed.",
       },
       {
         q: "Are my uploaded files private?",
@@ -219,7 +219,7 @@ const CONTENT = {
     cta: {
       title: "Need advanced compression?",
       desc: "Use our main PDF compressor, or browse all the free tools.",
-      href: "/tools/pdf-compressor",
+      href: "/tools/compress-your-pdf-file",
       label: "Open PDF Compressor",
     },
   },
@@ -247,7 +247,7 @@ const RELATED = [
   {
     icon: "FileText",
     label: "Convert PDF to Word",
-    href: "/tools/online-pdf-to-word-converter",
+    href: "/tools/convert-your-pdf-file-to-word",
   },
   {
     icon: "ImageDown",

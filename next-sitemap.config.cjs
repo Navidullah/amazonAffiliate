@@ -1,7 +1,7 @@
-const siteUrl = "https://www.shopyor.com";
+﻿const siteUrl = "https://www.shopyor.com";
 
 // Real last-edited dates (from `git log -1 --format=%cI -- <file>` on each
-// page's source file), not a build timestamp — a lastmod that just means
+// page's source file), not a build timestamp â€” a lastmod that just means
 // "the sitemap was rebuilt" carries no genuine freshness signal and Google
 // discounts that pattern when detected at scale. Update an entry's date
 // here when you meaningfully edit that page's content.
@@ -27,18 +27,15 @@ const LAST_MODIFIED = {
   "/tools/facebook-video-downloader": "2026-06-18T12:54:46+05:00",
   "/tools/free-tiktok-video-downloader": "2026-06-18T12:54:46+05:00",
   "/tools/image-compressor": "2026-06-18T12:54:46+05:00",
-  "/tools/image-resizer": "2026-06-18T12:54:46+05:00",
   "/tools/instagram-video-downloader": "2026-06-18T12:54:46+05:00",
+  "/tools/video-downloader": "2026-08-10T00:00:00+05:00",
   "/tools/meta-tag-generator": "2026-06-18T12:54:46+05:00",
-  "/tools/online-pdf-to-word-converter": "2026-06-18T12:54:46+05:00",
-  "/tools/pdf-compressor": "2026-06-18T12:54:46+05:00",
-  "/tools/resume-builder": "2026-06-18T12:54:46+05:00",
+  "/tools/convert-your-pdf-file-to-word": "2026-06-18T12:54:46+05:00",
+  "/tools/compress-your-pdf-file": "2026-06-18T12:54:46+05:00",
   "/tools/robots-txt-generator": "2026-06-18T12:54:46+05:00",
-  "/tools/video-to-gif": "2026-06-18T12:54:46+05:00",
   "/tools/voice-clone": "2026-06-18T12:54:46+05:00",
   "/tools/youtube-tags-extractor": "2026-06-18T12:54:46+05:00",
   "/tools/youtube-thumbnail": "2026-06-18T12:54:46+05:00",
-  "/tools/youtube-video-downloader": "2026-06-18T12:54:46+05:00",
 };
 
 module.exports = {
@@ -61,12 +58,17 @@ module.exports = {
     "/robots.txt",
     "/pinterest",
     "/pinterest/*",
-    "/tools/pdf-compress", // 301 -> /tools/pdf-compressor (consolidated)
+    "/tools/pdf-compress", // 301 -> /tools/compress-your-pdf-file (consolidated)
+    "/tools/pdf-to-word", // 301 -> /tools/convert-your-pdf-file-to-word (renamed)
     "/tools/youtube-tags", // 301 -> /tools/youtube-tags-extractor (renamed)
-    "/tools/resizer", // 301 -> /tools/image-resizer (duplicate consolidated)
     "/tools/bg-remover", // 301 -> /tools/background-remover-image (duplicate consolidated)
     "/tools/whiteboard-animation", // 301 -> /tools (tool retired)
-    // Next.js internal image-generation routes — not real pages
+    "/tools/resizer", // 301 -> /tools (tool retired 2026-08-10)
+    "/tools/image-resizer", // 301 -> /tools (tool retired 2026-08-10)
+    "/tools/resume-builder", // 301 -> /tools (tool retired 2026-08-10)
+    "/tools/video-to-gif", // 301 -> /tools (tool retired 2026-08-10)
+    "/tools/youtube-video-downloader", // 301 -> /tools (tool retired 2026-08-10)
+    // Next.js internal image-generation routes â€” not real pages
     "/twitter-image",
     "/opengraph-image",
   ],

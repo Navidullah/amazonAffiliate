@@ -23,10 +23,10 @@ const nextConfig = {
   async redirects() {
     return [
       // Consolidate the duplicate PDF compress page into the canonical one
-      // (301 passes ranking signals to /tools/pdf-compressor).
+      // (301 passes ranking signals to /tools/compress-your-pdf-file).
       {
         source: "/tools/pdf-compress",
-        destination: "/tools/pdf-compressor",
+        destination: "/tools/compress-your-pdf-file",
         permanent: true,
       },
       // Renamed route: keep old indexed URL alive and pass ranking signals
@@ -40,15 +40,7 @@ const nextConfig = {
       // short slug, but the page lives at the long one.
       {
         source: "/tools/pdf-to-word",
-        destination: "/tools/online-pdf-to-word-converter",
-        permanent: true,
-      },
-      // Consolidate the duplicate image resizer into the canonical one
-      // (/tools/resizer and /tools/image-resizer were the same tool splitting
-      // ranking signals for "resize image online").
-      {
-        source: "/tools/resizer",
-        destination: "/tools/image-resizer",
+        destination: "/tools/convert-your-pdf-file-to-word",
         permanent: true,
       },
       // Consolidate the duplicate background remover into the canonical one
@@ -63,6 +55,35 @@ const nextConfig = {
       // it to the tools hub (301) to avoid a 404 and preserve link equity.
       {
         source: "/tools/whiteboard-animation",
+        destination: "/tools",
+        permanent: true,
+      },
+      // Retired 2026-08-10: image resizer, resume builder, video-to-gif
+      // converter, and YouTube video downloader were removed. URLs were
+      // indexed, so send them to the tools hub (301) to avoid a 404 and
+      // preserve any link equity.
+      {
+        source: "/tools/resizer",
+        destination: "/tools",
+        permanent: true,
+      },
+      {
+        source: "/tools/image-resizer",
+        destination: "/tools",
+        permanent: true,
+      },
+      {
+        source: "/tools/resume-builder",
+        destination: "/tools",
+        permanent: true,
+      },
+      {
+        source: "/tools/video-to-gif",
+        destination: "/tools",
+        permanent: true,
+      },
+      {
+        source: "/tools/youtube-video-downloader",
         destination: "/tools",
         permanent: true,
       },

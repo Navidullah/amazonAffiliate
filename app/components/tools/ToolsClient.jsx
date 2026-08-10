@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -18,10 +18,9 @@ import {
   ArrowRight,
   Sparkles,
   SearchX,
-  FileUser,
   Mic,
 } from "lucide-react";
-import { FaFacebook, FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
 
 /* ======================================================
    MOTION HELPERS
@@ -61,17 +60,17 @@ export default function ToolsClient() {
 
   const tools = [
     {
+      href: "/tools/video-downloader",
+      title: "Video Downloader",
+      desc: "Download videos from Facebook, Instagram, or TikTok — pick a platform",
+      icon: Video,
+      category: "video downloader",
+    },
+    {
       href: "/tools/facebook-video-downloader",
       title: "Download facebook videos",
       desc: "Free download the facebook reels and videos",
       icon: FaFacebook,
-      category: "video downloader",
-    },
-    {
-      href: "/tools/youtube-video-downloader",
-      title: "Download youtube videos",
-      desc: "Free download the youtube reels and videos",
-      icon: FaYoutube,
       category: "video downloader",
     },
     // Add TikTok downloader to your tools array
@@ -90,37 +89,16 @@ export default function ToolsClient() {
       category: "video downloader",
     },
     {
-      href: "/tools/video-to-gif",
-      title: "Convert Video to Gif",
-      desc: "Convert and download your video to GIF using video to GIF converter at Shopyor",
-      icon: Video,
-      category: "video downloader",
-    },
-    {
       href: "/tools/voice-clone",
       title: "Free AI Voice Cloner",
-      desc: "Clone any voice from a short sample and turn text into natural speech — free, no watermark.",
+      desc: "Clone any voice from a short sample and turn text into natural speech â€” free, no watermark.",
       icon: Mic,
       category: "Media",
-    },
-    {
-      href: "/tools/resume-builder",
-      title: "Resume Builder",
-      desc: "Build a modern, professional resume with premium templates and export a print-perfect PDF.",
-      icon: FileUser,
-      category: "Career",
     },
     {
       href: "/tools/image-compressor",
       title: "Online Image Compressor",
       desc: "Compress images without losing visual quality.",
-      icon: ImgIcon,
-      category: "Image",
-    },
-    {
-      href: "/tools/image-resizer",
-      title: "Online Image resizer",
-      desc: "Reduce or resize the sie of images without losing visual quality.",
       icon: ImgIcon,
       category: "Image",
     },
@@ -153,7 +131,7 @@ export default function ToolsClient() {
       category: "Image",
     },
     {
-      href: "/tools/online-pdf-to-word-converter",
+      href: "/tools/convert-your-pdf-file-to-word",
       title: "PDF to Word Converter Online",
       desc: "Convert PDF files to editable Word documents instantly.",
       icon: FileText,
@@ -174,9 +152,9 @@ export default function ToolsClient() {
       category: "YouTube",
     },
     {
-      href: "/tools/pdf-compressor",
+      href: "/tools/compress-your-pdf-file",
       title: "PDF Compressor",
-      desc: "Reduce PDF file size for email and uploads — fast, secure compression.",
+      desc: "Reduce PDF file size for email and uploads â€” fast, secure compression.",
       icon: FileText,
       category: "PDF",
     },
@@ -239,7 +217,7 @@ export default function ToolsClient() {
       </div>
 
       <div className="mx-auto max-w-6xl px-4">
-        {/* ── Header ── */}
+        {/* â”€â”€ Header â”€â”€ */}
         <motion.header
           className="mx-auto mb-10 max-w-2xl text-center"
           variants={stagger}
@@ -268,7 +246,7 @@ export default function ToolsClient() {
             className="mt-3 text-base sm:text-lg text-muted-foreground"
           >
             Modern, secure, browser-based utilities to download videos, edit
-            images, convert PDFs, and boost your SEO — all free, no sign-up.
+            images, convert PDFs, and boost your SEO â€” all free, no sign-up.
           </motion.p>
 
           {/* Search */}
@@ -284,7 +262,7 @@ export default function ToolsClient() {
             />
           </motion.div>
 
-          {/* Category Tabs — scrollable on mobile, wraps on larger screens */}
+          {/* Category Tabs â€” scrollable on mobile, wraps on larger screens */}
           <motion.div
             variants={fadeUp}
             className="mt-6 flex flex-nowrap gap-2 overflow-x-auto pb-1 sm:flex-wrap sm:justify-center sm:overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"

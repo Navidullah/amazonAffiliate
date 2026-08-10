@@ -1,4 +1,4 @@
-// components/footer/Footer.jsx (Updated with complete legal compliance)
+﻿// components/footer/Footer.jsx (Updated with complete legal compliance)
 import Link from "next/link";
 import {
   Facebook,
@@ -31,12 +31,12 @@ export default function Footer() {
               Shopyor
             </h3>
             <p className="text-sm text-muted-foreground mb-4">
-              Free online tools — AI voice cloning, video downloaders, image,
+              Free online tools â€” AI voice cloning, video downloaders, image,
               YouTube and SEO utilities. Fast, private, and no registration
               required.
             </p>
             <p className="text-xs text-muted-foreground">
-              © {currentYear} Shopyor. All rights reserved.
+              Â© {currentYear} Shopyor. All rights reserved.
             </p>
           </div>
 
@@ -120,7 +120,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/tools/online-pdf-to-word-converter"
+                  href="/tools/convert-your-pdf-file-to-word"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   PDF to Word Converter
@@ -144,7 +144,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/tools/pdf-compressor"
+                  href="/tools/compress-your-pdf-file"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   Compress PDF File
@@ -152,10 +152,10 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/tools/youtube-video-downloader"
+                  href="/tools/video-downloader"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
-                  YouTube Video Downloader
+                  Video Downloader
                 </Link>
               </li>
               <li>
@@ -220,7 +220,7 @@ export default function Footer() {
                 Shopyor provides tools for personal, non-commercial use. Users are
                 solely responsible for ensuring they have the necessary rights,
                 permissions, or consent for any content they download, upload, or
-                generate — including the right to clone any voice with our AI tool.
+                generate â€” including the right to clone any voice with our AI tool.
                 We do not host, store, or distribute copyrighted content. All
                 trademarks and copyrighted materials belong to their respective
                 owners.

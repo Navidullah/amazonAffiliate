@@ -1,4 +1,4 @@
-import PdfToWordExperience from "@/app/components/pdfToWordConverter/PdfToWordExperience";
+﻿import PdfToWordExperience from "@/app/components/pdfToWordConverter/PdfToWordExperience";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
 
@@ -6,10 +6,10 @@ export const metadata = {
   // `absolute` bypasses the root layout's "%s | Shopyor" template so the
   // brand isn't duplicated. Kept under 60 chars to avoid SERP truncation.
   title: {
-    absolute: "PDF to Word Converter — Free, Fast & Accurate | Shopyor",
+    absolute: "PDF to Word Converter â€” Free, Fast & Accurate | Shopyor",
   },
   description:
-    "Convert PDF to Word (DOCX) online for free — no signup. Editable Word in seconds with formatting preserved, OCR for scanned PDFs, and secure processing. Works on mobile & desktop.",
+    "Convert PDF to Word (DOCX) online for free â€” no signup. Editable Word in seconds with formatting preserved, OCR for scanned PDFs, and secure processing. Works on mobile & desktop.",
   keywords: [
     "pdf to word converter",
     "convert pdf to word online",
@@ -35,28 +35,28 @@ export const metadata = {
   category: "tools",
   classification: "PDF to Word converter tool",
   alternates: {
-    canonical: `${BASE_URL}/tools/online-pdf-to-word-converter`,
+    canonical: `${BASE_URL}/tools/convert-your-pdf-file-to-word`,
     languages: {
-      "x-default": `${BASE_URL}/tools/online-pdf-to-word-converter`,
-      en: `${BASE_URL}/tools/online-pdf-to-word-converter`,
-      "en-US": `${BASE_URL}/tools/online-pdf-to-word-converter`,
-      "en-GB": `${BASE_URL}/tools/online-pdf-to-word-converter`,
-      "en-IN": `${BASE_URL}/tools/online-pdf-to-word-converter`,
-      "en-PK": `${BASE_URL}/tools/online-pdf-to-word-converter`,
-      "en-NG": `${BASE_URL}/tools/online-pdf-to-word-converter`,
-      "en-PH": `${BASE_URL}/tools/online-pdf-to-word-converter`,
-      "en-ID": `${BASE_URL}/tools/online-pdf-to-word-converter`,
-      "en-BD": `${BASE_URL}/tools/online-pdf-to-word-converter`,
-      "en-CA": `${BASE_URL}/tools/online-pdf-to-word-converter`,
-      "en-AU": `${BASE_URL}/tools/online-pdf-to-word-converter`,
-      "en-ZA": `${BASE_URL}/tools/online-pdf-to-word-converter`,
+      "x-default": `${BASE_URL}/tools/convert-your-pdf-file-to-word`,
+      en: `${BASE_URL}/tools/convert-your-pdf-file-to-word`,
+      "en-US": `${BASE_URL}/tools/convert-your-pdf-file-to-word`,
+      "en-GB": `${BASE_URL}/tools/convert-your-pdf-file-to-word`,
+      "en-IN": `${BASE_URL}/tools/convert-your-pdf-file-to-word`,
+      "en-PK": `${BASE_URL}/tools/convert-your-pdf-file-to-word`,
+      "en-NG": `${BASE_URL}/tools/convert-your-pdf-file-to-word`,
+      "en-PH": `${BASE_URL}/tools/convert-your-pdf-file-to-word`,
+      "en-ID": `${BASE_URL}/tools/convert-your-pdf-file-to-word`,
+      "en-BD": `${BASE_URL}/tools/convert-your-pdf-file-to-word`,
+      "en-CA": `${BASE_URL}/tools/convert-your-pdf-file-to-word`,
+      "en-AU": `${BASE_URL}/tools/convert-your-pdf-file-to-word`,
+      "en-ZA": `${BASE_URL}/tools/convert-your-pdf-file-to-word`,
     },
   },
   openGraph: {
-    title: "Free PDF to Word Converter Online — Editable DOCX in Seconds",
+    title: "Free PDF to Word Converter Online â€” Editable DOCX in Seconds",
     description:
       "Convert PDF to Word for free with formatting preserved and OCR for scanned files. No signup, secure, and mobile-friendly.",
-    url: `${BASE_URL}/tools/online-pdf-to-word-converter`,
+    url: `${BASE_URL}/tools/convert-your-pdf-file-to-word`,
     siteName: "Shopyor",
     type: "website",
     locale: "en_US",
@@ -73,7 +73,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Free PDF to Word Converter Online | Shopyor",
     description:
-      "Convert PDFs into editable Word documents in seconds — free, no signup, OCR for scanned PDFs.",
+      "Convert PDFs into editable Word documents in seconds â€” free, no signup, OCR for scanned PDFs.",
     creator: "@shopyor",
     site: "@shopyor",
     images: [`${BASE_URL}/images/pdf-to-word-og.png`],
@@ -87,7 +87,7 @@ export default function PdfToWordPage() {
       {
         "@type": "WebApplication",
         name: "PDF to Word Converter",
-        url: `${BASE_URL}/tools/online-pdf-to-word-converter`,
+        url: `${BASE_URL}/tools/convert-your-pdf-file-to-word`,
         applicationCategory: "Utility",
         operatingSystem: "Web",
         inLanguage: "en",
@@ -126,7 +126,7 @@ export default function PdfToWordPage() {
             "@type": "ListItem",
             position: 3,
             name: "PDF to Word Converter",
-            item: `${BASE_URL}/tools/online-pdf-to-word-converter`,
+            item: `${BASE_URL}/tools/convert-your-pdf-file-to-word`,
           },
         ],
       },
@@ -154,7 +154,7 @@ export default function PdfToWordPage() {
             name: "Will my PDF formatting stay accurate after conversion?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "The conversion engine preserves layout, fonts, tables, bullet points, headings, and text styles as closely as possible, so your DOCX file looks like the original PDF rather than a stripped-down plain-text version. Simple, single-column documents like letters, resumes, and reports typically convert with near-pixel-perfect formatting, since there's little ambiguity in how the layout should map to Word's document model. Complex multi-column layouts, documents with overlapping text boxes, or PDFs with unusual custom fonts not installed on your system may need minor manual adjustments in Word afterward — for example, a three-column newsletter layout sometimes needs its column breaks re-checked. As a general rule, the simpler and more text-based the original PDF, the more reliably the formatting carries over.",
+              text: "The conversion engine preserves layout, fonts, tables, bullet points, headings, and text styles as closely as possible, so your DOCX file looks like the original PDF rather than a stripped-down plain-text version. Simple, single-column documents like letters, resumes, and reports typically convert with near-pixel-perfect formatting, since there's little ambiguity in how the layout should map to Word's document model. Complex multi-column layouts, documents with overlapping text boxes, or PDFs with unusual custom fonts not installed on your system may need minor manual adjustments in Word afterward â€” for example, a three-column newsletter layout sometimes needs its column breaks re-checked. As a general rule, the simpler and more text-based the original PDF, the more reliably the formatting carries over.",
             },
           },
           {
@@ -162,7 +162,7 @@ export default function PdfToWordPage() {
             name: "How do I convert a PDF to Word without losing formatting?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Upload your PDF using the box above, click Convert, and download the resulting DOCX file once processing finishes, which typically takes just a few seconds for a standard document. For the cleanest possible result, use text-based PDFs (ones created directly from Word, Google Docs, or similar software) rather than scanned image PDFs, since text-based PDFs already contain real character data that maps cleanly to Word's formatting, while scans require OCR and carry more risk of small recognition errors. Also avoid copy-pasting text directly from a PDF reader like Adobe Acrobat into Word as an alternative method, because that approach strips almost all original formatting, fonts, and layout — the dedicated converter above preserves far more of the original document's structure than a manual copy-paste ever can.",
+              text: "Upload your PDF using the box above, click Convert, and download the resulting DOCX file once processing finishes, which typically takes just a few seconds for a standard document. For the cleanest possible result, use text-based PDFs (ones created directly from Word, Google Docs, or similar software) rather than scanned image PDFs, since text-based PDFs already contain real character data that maps cleanly to Word's formatting, while scans require OCR and carry more risk of small recognition errors. Also avoid copy-pasting text directly from a PDF reader like Adobe Acrobat into Word as an alternative method, because that approach strips almost all original formatting, fonts, and layout â€” the dedicated converter above preserves far more of the original document's structure than a manual copy-paste ever can.",
             },
           },
           {
@@ -178,7 +178,7 @@ export default function PdfToWordPage() {
             name: "What is the maximum file size I can convert?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "You can convert PDF files up to 25 MB in a single upload, which comfortably covers the vast majority of everyday documents — a typical 20-page text-based PDF report is usually well under 5 MB, and even a 50-page scanned document with images often stays under 20 MB. For larger documents, such as a lengthy scanned book or a PDF packed with high-resolution images, split the file into smaller parts using a free PDF-splitting tool and convert each section separately, then combine the resulting Word documents if needed. This limit exists to keep conversion fast and reliable for everyone using the free tool, rather than letting a handful of very large files slow down processing for other users.",
+              text: "You can convert PDF files up to 25 MB in a single upload, which comfortably covers the vast majority of everyday documents â€” a typical 20-page text-based PDF report is usually well under 5 MB, and even a 50-page scanned document with images often stays under 20 MB. For larger documents, such as a lengthy scanned book or a PDF packed with high-resolution images, split the file into smaller parts using a free PDF-splitting tool and convert each section separately, then combine the resulting Word documents if needed. This limit exists to keep conversion fast and reliable for everyone using the free tool, rather than letting a handful of very large files slow down processing for other users.",
             },
           },
           {
@@ -186,7 +186,7 @@ export default function PdfToWordPage() {
             name: "Are my files private and secure?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Yes. Files are transferred to our conversion engine over an encrypted HTTPS connection, the same level of security used for online banking, and are not permanently stored on our servers — each file is processed for conversion and then deleted shortly afterward rather than being kept in long-term storage. We don't open, read, or share the contents of your documents, and no human reviews the files you upload; the entire process is automated from upload to download. This matters especially for sensitive documents like contracts, resumes with personal details, or financial statements, where you want assurance that a copy isn't sitting on a server indefinitely after you've finished converting it.",
+              text: "Yes. Files are transferred to our conversion engine over an encrypted HTTPS connection, the same level of security used for online banking, and are not permanently stored on our servers â€” each file is processed for conversion and then deleted shortly afterward rather than being kept in long-term storage. We don't open, read, or share the contents of your documents, and no human reviews the files you upload; the entire process is automated from upload to download. This matters especially for sensitive documents like contracts, resumes with personal details, or financial statements, where you want assurance that a copy isn't sitting on a server indefinitely after you've finished converting it.",
             },
           },
           {
@@ -194,7 +194,7 @@ export default function PdfToWordPage() {
             name: "Can I convert multiple PDFs at once?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "The tool processes one PDF at a time rather than offering a bulk-upload queue, since this keeps each conversion fast and gives you a chance to check the result before moving to the next file. To convert several files, upload and convert each one individually — conversion usually takes just a few seconds per file for standard text-based PDFs, so converting five or six documents back-to-back typically takes well under a couple of minutes total. If you regularly need to convert a large batch of PDFs (for example, archiving dozens of scanned receipts), it's worth doing them in one sitting since there's no daily limit on how many free conversions you can run.",
+              text: "The tool processes one PDF at a time rather than offering a bulk-upload queue, since this keeps each conversion fast and gives you a chance to check the result before moving to the next file. To convert several files, upload and convert each one individually â€” conversion usually takes just a few seconds per file for standard text-based PDFs, so converting five or six documents back-to-back typically takes well under a couple of minutes total. If you regularly need to convert a large batch of PDFs (for example, archiving dozens of scanned receipts), it's worth doing them in one sitting since there's no daily limit on how many free conversions you can run.",
             },
           },
           {
@@ -202,7 +202,7 @@ export default function PdfToWordPage() {
             name: "What format is the output, and will it open in Google Docs?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "The output is a standard .docx file — the same modern Word format used by Microsoft Word 2007 and every version since — which opens directly in Microsoft Word (Windows, Mac, and the web version), Google Docs (via upload or Google Drive), LibreOffice Writer, and Apple Pages without needing any file conversion on your part. If you open it in Google Docs, you can also use Google's 'Save as Google Docs' option afterward to keep editing in that format, or leave it as .docx if you need to send it back to someone using Microsoft Word. The .docx format was chosen specifically because it's the most universally compatible editable document format across both desktop and web-based word processors.",
+              text: "The output is a standard .docx file â€” the same modern Word format used by Microsoft Word 2007 and every version since â€” which opens directly in Microsoft Word (Windows, Mac, and the web version), Google Docs (via upload or Google Drive), LibreOffice Writer, and Apple Pages without needing any file conversion on your part. If you open it in Google Docs, you can also use Google's 'Save as Google Docs' option afterward to keep editing in that format, or leave it as .docx if you need to send it back to someone using Microsoft Word. The .docx format was chosen specifically because it's the most universally compatible editable document format across both desktop and web-based word processors.",
             },
           },
           {

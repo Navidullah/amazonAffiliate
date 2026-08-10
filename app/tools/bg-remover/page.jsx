@@ -202,12 +202,6 @@ const RELATED_TOOLS = [
     href: "/tools/image-compressor",
   },
   {
-    icon: Scaling,
-    name: "Image Resizer",
-    desc: "Resize the transparent PNG to exact dimensions for any platform.",
-    href: "/tools/image-resizer",
-  },
-  {
     icon: Eraser,
     name: "EXIF Remover",
     desc: "Strip hidden location and camera metadata from photos for privacy.",

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -6,14 +6,11 @@ import {
   Sparkles,
   ArrowRight,
   Mic,
-  Video,
   Wand2,
   ImageDown,
-  Scaling,
   ShieldCheck,
   FileText,
   FileArchive,
-  FileUser,
   Activity,
   Link2,
   Youtube,
@@ -22,12 +19,7 @@ import {
   Bot,
   LayoutGrid,
 } from "lucide-react";
-import {
-  FaFacebook,
-  FaInstagram,
-  FaTiktok,
-  FaYoutube,
-} from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
 
 /* ===== Motion helpers ===== */
 const EASE = [0.22, 1, 0.36, 1];
@@ -55,7 +47,7 @@ const GROUPS = [
     category: "Video & Media",
     gradient: "from-blue-600 to-purple-600",
     blurb:
-      "Save and repurpose video from anywhere on the web — no apps, no watermarks, no sign-up.",
+      "Save and repurpose video from anywhere on the web â€” no apps, no watermarks, no sign-up.",
     tools: [
       {
         id: "facebook-video-downloader",
@@ -63,7 +55,7 @@ const GROUPS = [
         href: "/tools/facebook-video-downloader",
         icon: FaFacebook,
         cta: "Open the Facebook Video Downloader",
-        body: "Facebook keeps your favourite reels and videos locked inside the app, with no built-in save button. Our Facebook Video Downloader fixes that: paste any public Facebook video or reel link and download it in crisp HD quality straight to your phone or computer. There is nothing to install and no account to create — it works right in your browser, so you can keep clips for offline viewing, re-sharing, or editing in seconds.",
+        body: "Facebook keeps your favourite reels and videos locked inside the app, with no built-in save button. Our Facebook Video Downloader fixes that: paste any public Facebook video or reel link and download it in crisp HD quality straight to your phone or computer. There is nothing to install and no account to create â€” it works right in your browser, so you can keep clips for offline viewing, re-sharing, or editing in seconds.",
       },
       {
         id: "instagram-video-downloader",
@@ -71,7 +63,7 @@ const GROUPS = [
         href: "/tools/instagram-video-downloader",
         icon: FaInstagram,
         cta: "Open the Instagram Video Downloader",
-        body: "Want to keep an Instagram reel, post video, or IGTV clip? Instagram doesn't let you save other people's videos directly. Paste a public Instagram link into our Instagram Video Downloader and it fetches the original, full-quality file for you — preview it, copy the link, or download the MP4 in one tap. It's perfect for content creators collecting inspiration and anyone who wants their favourite reels available offline.",
+        body: "Want to keep an Instagram reel, post video, or IGTV clip? Instagram doesn't let you save other people's videos directly. Paste a public Instagram link into our Instagram Video Downloader and it fetches the original, full-quality file for you â€” preview it, copy the link, or download the MP4 in one tap. It's perfect for content creators collecting inspiration and anyone who wants their favourite reels available offline.",
       },
       {
         id: "tiktok-video-downloader",
@@ -79,23 +71,7 @@ const GROUPS = [
         href: "/tools/free-tiktok-video-downloader",
         icon: FaTiktok,
         cta: "Open the TikTok Video Downloader",
-        body: "Downloading a TikTok normally leaves a giant moving watermark across the clip. Our TikTok Video Downloader removes that: paste the video URL and save a clean, watermark-free copy in up to 1080p Full HD. Whether you're archiving your own posts, building a compilation, or reposting to another platform, you get a sharp, logo-free video that's ready to use — completely free and with unlimited downloads.",
-      },
-      {
-        id: "youtube-video-downloader",
-        name: "YouTube Video Downloader",
-        href: "/tools/youtube-video-downloader",
-        icon: FaYoutube,
-        cta: "Open the YouTube Video Downloader",
-        body: "Need a YouTube video for offline viewing, a presentation, or a research archive? Paste the link into our YouTube Video Downloader and grab the clip quickly in your chosen quality. It runs entirely in the browser with no software to install, so you can save tutorials, music videos, and talks to watch any time, even without an internet connection.",
-      },
-      {
-        id: "video-to-gif",
-        name: "Video to GIF Converter",
-        href: "/tools/video-to-gif",
-        icon: Video,
-        cta: "Open the Video to GIF Converter",
-        body: "GIFs load instantly, autoplay everywhere, and say more than words in a chat or a blog post. Our Video to GIF Converter turns any short video clip into a smooth, lightweight animated GIF in seconds. Upload your footage, trim it to the moment that matters, and download a shareable GIF for messaging apps, documentation, social posts, or product demos — all processed quickly and for free.",
+        body: "Downloading a TikTok normally leaves a giant moving watermark across the clip. Our TikTok Video Downloader removes that: paste the video URL and save a clean, watermark-free copy in up to 1080p Full HD. Whether you're archiving your own posts, building a compilation, or reposting to another platform, you get a sharp, logo-free video that's ready to use â€” completely free and with unlimited downloads.",
       },
       {
         id: "voice-cloner",
@@ -103,7 +79,7 @@ const GROUPS = [
         href: "/tools/voice-clone",
         icon: Mic,
         cta: "Open the Free AI Voice Cloner",
-        body: "Record once, narrate forever. Our free AI Voice Cloner learns a voice from a short 10–30 second sample, then reads any text you type in that voice — a no-watermark alternative to ElevenLabs and Speechify. It's ideal for YouTube voiceovers, podcasts, audiobooks, and personalised text-to-speech in your own voice. A required consent step keeps cloning ethical, and you can download the result as a high-quality WAV file instantly.",
+        body: "Record once, narrate forever. Our free AI Voice Cloner learns a voice from a short 10â€“30 second sample, then reads any text you type in that voice â€” a no-watermark alternative to ElevenLabs and Speechify. It's ideal for YouTube voiceovers, podcasts, audiobooks, and personalised text-to-speech in your own voice. A required consent step keeps cloning ethical, and you can download the result as a high-quality WAV file instantly.",
       },
     ],
   },
@@ -112,7 +88,7 @@ const GROUPS = [
     category: "Image Tools",
     gradient: "from-pink-500 to-rose-500",
     blurb:
-      "Clean up, shrink, and resize images right in your browser — your files never leave your device.",
+      "Clean up, shrink, and resize images right in your browser â€” your files never leave your device.",
     tools: [
       {
         id: "ai-background-remover",
@@ -120,7 +96,7 @@ const GROUPS = [
         href: "/tools/background-remover-image",
         icon: Wand2,
         cta: "Open the AI Background Remover",
-        body: "Cutting out a background by hand is slow and fiddly. Our AI Background Remover does it automatically: upload a photo and the AI detects the subject and erases the background in one click, leaving a clean transparent PNG. It's perfect for product shots, profile pictures, logos, and marketplace listings — no Photoshop, no manual masking, and no design experience required.",
+        body: "Cutting out a background by hand is slow and fiddly. Our AI Background Remover does it automatically: upload a photo and the AI detects the subject and erases the background in one click, leaving a clean transparent PNG. It's perfect for product shots, profile pictures, logos, and marketplace listings â€” no Photoshop, no manual masking, and no design experience required.",
       },
       {
         id: "image-compressor",
@@ -131,20 +107,12 @@ const GROUPS = [
         body: "Large images slow down websites and clog up email attachments. Our Image Compressor shrinks JPG and PNG file sizes dramatically while keeping them looking sharp, using smart compression that targets invisible data first. Faster-loading pages rank better and feel smoother, so this is a quick win for bloggers, store owners, and anyone uploading photos who wants smaller files without obvious quality loss.",
       },
       {
-        id: "image-resizer",
-        name: "Image Resizer",
-        href: "/tools/image-resizer",
-        icon: Scaling,
-        cta: "Open the Image Resizer",
-        body: "Every platform wants a different size — a square thumbnail here, a wide banner there. Our Image Resizer lets you change an image's dimensions precisely without distortion or blurriness. Set your target width and height, preview the result, and download a perfectly sized image for social media, profile photos, website headers, or print, all in a few seconds and completely free.",
-      },
-      {
         id: "exif-remover",
         name: "EXIF Metadata Remover",
         href: "/tools/exif-remover",
         icon: ShieldCheck,
         cta: "Open the EXIF Metadata Remover",
-        body: "Every photo you take quietly stores hidden EXIF data — including the exact GPS location, device model, and timestamp. Before you share images online, our EXIF Metadata Remover strips that information out so you don't accidentally reveal where you live or work. It's a simple, important privacy step: upload your photo, remove the metadata, and download a clean copy that's safe to post anywhere.",
+        body: "Every photo you take quietly stores hidden EXIF data â€” including the exact GPS location, device model, and timestamp. Before you share images online, our EXIF Metadata Remover strips that information out so you don't accidentally reveal where you live or work. It's a simple, important privacy step: upload your photo, remove the metadata, and download a clean copy that's safe to post anywhere.",
       },
     ],
   },
@@ -153,31 +121,23 @@ const GROUPS = [
     category: "PDF & Documents",
     gradient: "from-amber-500 to-orange-500",
     blurb:
-      "Convert, compress, and build documents fast — secure processing and clean results.",
+      "Convert, compress, and build documents fast â€” secure processing and clean results.",
     tools: [
       {
         id: "pdf-to-word",
         name: "PDF to Word Converter",
-        href: "/tools/online-pdf-to-word-converter",
+        href: "/tools/convert-your-pdf-file-to-word",
         icon: FileText,
         cta: "Open the PDF to Word Converter",
-        body: "Stuck with a PDF you can't edit? Our PDF to Word Converter turns any PDF into a fully editable Word (DOCX) document while preserving the layout, fonts, tables, and formatting. It even applies OCR to scanned, image-based PDFs so the text becomes selectable and editable. Convert contracts, resumes, and reports in seconds — free, with no sign-up — then open the result in Word, Google Docs, or LibreOffice.",
+        body: "Stuck with a PDF you can't edit? Our PDF to Word Converter turns any PDF into a fully editable Word (DOCX) document while preserving the layout, fonts, tables, and formatting. It even applies OCR to scanned, image-based PDFs so the text becomes selectable and editable. Convert contracts, resumes, and reports in seconds â€” free, with no sign-up â€” then open the result in Word, Google Docs, or LibreOffice.",
       },
       {
         id: "pdf-compressor",
         name: "PDF Compressor",
-        href: "/tools/pdf-compressor",
+        href: "/tools/compress-your-pdf-file",
         icon: FileArchive,
         cta: "Open the PDF Compressor",
-        body: "Email attachment limits and upload caps love to reject big PDFs. Our PDF Compressor reduces PDF file size quickly while keeping the document clear and readable, so you can send, upload, and store files without hassle. It's perfect for shrinking scanned documents, portfolios, and presentations down to a manageable size — secure, fast, and free, with the original quality kept as high as possible.",
-      },
-      {
-        id: "resume-builder",
-        name: "Resume Builder",
-        href: "/tools/resume-builder",
-        icon: FileUser,
-        cta: "Open the Resume Builder",
-        body: "A great resume gets you the interview. Our Resume Builder helps you create a modern, professional CV using premium, recruiter-friendly templates — including clean text layouts and elegant photo designs. Fill in your details, pick a template, and export a print-perfect PDF that looks polished on screen and on paper. Everything runs in your browser, so your personal information stays private on your own device.",
+        body: "Email attachment limits and upload caps love to reject big PDFs. Our PDF Compressor reduces PDF file size quickly while keeping the document clear and readable, so you can send, upload, and store files without hassle. It's perfect for shrinking scanned documents, portfolios, and presentations down to a manageable size â€” secure, fast, and free, with the original quality kept as high as possible.",
       },
     ],
   },
@@ -194,7 +154,7 @@ const GROUPS = [
         href: "/tools/bmi",
         icon: Activity,
         cta: "Open the Free BMI Calculator",
-        body: "Body Mass Index (BMI) is a quick way to check whether your weight sits in a healthy range for your height. We calculate BMI because it's a simple, recognised screening signal — a high or low number can flag when it's worth looking more closely at your health. Our BMI Calculator works in kg & cm or lb & ft, shows your category on a colour-coded chart, and tells you the healthy weight range for your height by age and gender.",
+        body: "Body Mass Index (BMI) is a quick way to check whether your weight sits in a healthy range for your height. We calculate BMI because it's a simple, recognised screening signal â€” a high or low number can flag when it's worth looking more closely at your health. Our BMI Calculator works in kg & cm or lb & ft, shows your category on a colour-coded chart, and tells you the healthy weight range for your height by age and gender.",
       },
       {
         id: "affiliate-link-generator",
@@ -202,7 +162,7 @@ const GROUPS = [
         href: "/tools/affiliate-link-generator",
         icon: Link2,
         cta: "Open the Amazon Affiliate Link Generator",
-        body: "If you earn through Amazon Associates, every link needs your tracking tag to credit your commission. Our Amazon Affiliate Link Generator converts any Amazon product URL or ASIN into a clean, trackable affiliate link with your own Associate Tag — no SiteStripe or API required. It supports 19 marketplaces and strips out old tags, so your links look professional and track correctly on a blog, YouTube description, or social bio.",
+        body: "If you earn through Amazon Associates, every link needs your tracking tag to credit your commission. Our Amazon Affiliate Link Generator converts any Amazon product URL or ASIN into a clean, trackable affiliate link with your own Associate Tag â€” no SiteStripe or API required. It supports 19 marketplaces and strips out old tags, so your links look professional and track correctly on a blog, YouTube description, or social bio.",
       },
       {
         id: "youtube-thumbnail",
@@ -210,7 +170,7 @@ const GROUPS = [
         href: "/tools/youtube-thumbnail",
         icon: Youtube,
         cta: "Open the YouTube Thumbnail Downloader",
-        body: "Thumbnails are the single biggest factor in a video's click-through rate, so studying the best ones is smart research. Our YouTube Thumbnail Downloader grabs the full-resolution thumbnail image from any YouTube video in one step. Paste the video link and download the HD thumbnail to analyse competitors, build mood boards, or reuse your own artwork — quick, free, and no sign-up needed.",
+        body: "Thumbnails are the single biggest factor in a video's click-through rate, so studying the best ones is smart research. Our YouTube Thumbnail Downloader grabs the full-resolution thumbnail image from any YouTube video in one step. Paste the video link and download the HD thumbnail to analyse competitors, build mood boards, or reuse your own artwork â€” quick, free, and no sign-up needed.",
       },
       {
         id: "youtube-tags",
@@ -218,7 +178,7 @@ const GROUPS = [
         href: "/tools/youtube-tags-extractor",
         icon: Tags,
         cta: "Open the YouTube Tags Extractor",
-        body: "The tags a video uses reveal how its creator targets search and suggested feeds. Our YouTube Tags Extractor pulls the hidden tags from any YouTube video instantly, so you can see exactly which keywords a successful video is ranking for. Use those insights to research your niche, refine your own tags, and improve how your videos get discovered — a fast, free shortcut for content strategy.",
+        body: "The tags a video uses reveal how its creator targets search and suggested feeds. Our YouTube Tags Extractor pulls the hidden tags from any YouTube video instantly, so you can see exactly which keywords a successful video is ranking for. Use those insights to research your niche, refine your own tags, and improve how your videos get discovered â€” a fast, free shortcut for content strategy.",
       },
       {
         id: "meta-tag-generator",
@@ -226,7 +186,7 @@ const GROUPS = [
         href: "/tools/meta-tag-generator",
         icon: Tag,
         cta: "Open the Meta Tag Generator",
-        body: "Meta tags tell Google and social platforms what your page is about and how it should appear in search results and link previews. Our Meta Tag Generator builds clean, correct title, description, and Open Graph tags for any web page — just fill in your details and copy the generated code. It's an easy way for site owners and developers to improve SEO and get attractive, accurate previews when pages are shared.",
+        body: "Meta tags tell Google and social platforms what your page is about and how it should appear in search results and link previews. Our Meta Tag Generator builds clean, correct title, description, and Open Graph tags for any web page â€” just fill in your details and copy the generated code. It's an easy way for site owners and developers to improve SEO and get attractive, accurate previews when pages are shared.",
       },
       {
         id: "robots-txt-generator",
@@ -234,7 +194,7 @@ const GROUPS = [
         href: "/tools/robots-txt-generator",
         icon: Bot,
         cta: "Open the Robots.txt Generator",
-        body: "A robots.txt file tells search engine crawlers which parts of your site to crawl and which to skip, which protects your crawl budget and keeps private areas out of search. Our Robots.txt Generator creates a correct, ready-to-upload file in seconds — choose your rules, generate the file, and drop it into your site's root. It's a small file that has a real impact on your site's SEO health.",
+        body: "A robots.txt file tells search engine crawlers which parts of your site to crawl and which to skip, which protects your crawl budget and keeps private areas out of search. Our Robots.txt Generator creates a correct, ready-to-upload file in seconds â€” choose your rules, generate the file, and drop it into your site's root. It's a small file that has a real impact on your site's SEO health.",
       },
     ],
   },
@@ -261,12 +221,12 @@ export default function HomeHub() {
         {/* Above-the-fold hero is rendered as static HTML (no entrance
             animation) so the LCP element paints on first paint instead of
             waiting for Framer Motion to hydrate. Do NOT wrap this content in
-            motion with an opacity:0 initial — that regresses mobile LCP. */}
+            motion with an opacity:0 initial â€” that regresses mobile LCP. */}
         <div>
           <div className="mb-5 flex justify-center">
             <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/8 px-4 py-1.5 text-sm font-medium text-primary backdrop-blur-sm">
               <Sparkles className="h-4 w-4" />
-              21+ Free Online Tools · No sign-up
+              21+ Free Online Tools Â· No sign-up
             </span>
           </div>
 
@@ -278,7 +238,7 @@ export default function HomeHub() {
           </h1>
 
           <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Shopyor brings together everything you need in one place — a growing
+            Shopyor brings together everything you need in one place â€” a growing
             suite of fast, secure, browser-based tools that are{" "}
             <span className="font-medium text-foreground">100% free</span> with
             no sign-up and no software to install. Download videos, edit and
@@ -385,7 +345,7 @@ export default function HomeHub() {
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
             Every Shopyor tool is free, private, and works in your browser on any
-            device. New tools are added regularly — bookmark the collection so
+            device. New tools are added regularly â€” bookmark the collection so
             you always have the right tool on hand.
           </p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">

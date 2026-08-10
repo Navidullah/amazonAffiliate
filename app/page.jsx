@@ -1,4 +1,4 @@
-import HomeHub from "@/app/components/home/HomeHub";
+﻿import HomeHub from "@/app/components/home/HomeHub";
 
 const SITE = "https://www.shopyor.com";
 
@@ -6,7 +6,7 @@ export const metadata = {
   metadataBase: new URL(SITE),
   title: {
     absolute:
-      "Free Online Tools — Video, PDF, Image, AI & SEO | Shopyor",
+      "Free Online Tools â€” Video, PDF, Image, AI & SEO | Shopyor",
   },
   description:
     "21+ free, browser-based tools: video downloaders, PDF & image utilities, AI voice cloner, resume builder, BMI calculator, and SEO tools. No sign-up.",
@@ -68,9 +68,9 @@ export const metadata = {
     url: SITE,
     siteName: "Shopyor",
     locale: "en_US",
-    title: "Free Online Tools by Shopyor — One Free Toolbox for Everything",
+    title: "Free Online Tools by Shopyor â€” One Free Toolbox for Everything",
     description:
-      "Download videos, convert & compress PDFs, remove image backgrounds, clone a voice, build a resume, calculate BMI, and generate SEO tags — 21+ free tools, no sign-up.",
+      "Download videos, convert & compress PDFs, remove image backgrounds, clone a voice, build a resume, calculate BMI, and generate SEO tags â€” 21+ free tools, no sign-up.",
     images: [
       {
         url: `${SITE}/images/shopyor-tools-og.png`,
@@ -111,14 +111,9 @@ const TOOLS = [
     description: "Download TikTok videos without a watermark in up to 1080p.",
   },
   {
-    name: "YouTube Video Downloader",
-    url: `${SITE}/tools/youtube-video-downloader`,
-    description: "Download YouTube videos for offline viewing in your browser.",
-  },
-  {
-    name: "Video to GIF Converter",
-    url: `${SITE}/tools/video-to-gif`,
-    description: "Convert any short video clip into a lightweight animated GIF.",
+    name: "Video Downloader",
+    url: `${SITE}/tools/video-downloader`,
+    description: "Download videos from Facebook, Instagram, or TikTok from one hub.",
   },
   {
     name: "AI Voice Cloner",
@@ -138,31 +133,20 @@ const TOOLS = [
     description: "Compress JPG and PNG images without visible quality loss.",
   },
   {
-    name: "Image Resizer",
-    url: `${SITE}/tools/image-resizer`,
-    description: "Resize images to exact dimensions without distortion.",
-  },
-  {
     name: "EXIF Metadata Remover",
     url: `${SITE}/tools/exif-remover`,
     description: "Strip hidden EXIF and GPS metadata from photos for privacy.",
   },
   {
     name: "PDF to Word Converter",
-    url: `${SITE}/tools/online-pdf-to-word-converter`,
+    url: `${SITE}/tools/convert-your-pdf-file-to-word`,
     description:
       "Convert PDF files to editable Word documents with OCR and preserved formatting.",
   },
   {
     name: "PDF Compressor",
-    url: `${SITE}/tools/pdf-compressor`,
+    url: `${SITE}/tools/compress-your-pdf-file`,
     description: "Reduce PDF file size for email and uploads while keeping quality.",
-  },
-  {
-    name: "Resume Builder",
-    url: `${SITE}/tools/resume-builder`,
-    description:
-      "Build a modern, professional resume with premium templates and export a PDF.",
   },
   {
     name: "BMI Calculator",
@@ -211,7 +195,7 @@ const structuredData = {
       isPartOf: { "@id": `${SITE}/#website` },
       about: { "@id": `${SITE}/#organization` },
       description:
-        "A free online toolbox with 21+ browser-based tools for video, images, PDFs, AI, and SEO — no sign-up required.",
+        "A free online toolbox with 21+ browser-based tools for video, images, PDFs, AI, and SEO â€” no sign-up required.",
     },
     {
       "@type": "ItemList",

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -26,7 +26,7 @@ export default function Faq() {
         <>
           Use our{" "}
           <Link
-            href="/tools/online-pdf-to-word-converter"
+            href="/tools/convert-your-pdf-file-to-word"
             className="text-primary hover:underline"
           >
             PDF to Word Converter

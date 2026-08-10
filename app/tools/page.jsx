@@ -1,4 +1,4 @@
-import ToolsClient from "@/app/components/tools/ToolsClient";
+﻿import ToolsClient from "@/app/components/tools/ToolsClient";
 import Link from "next/link";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
@@ -6,7 +6,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
 export const metadata = {
   title: "Free Online Tools",
   description:
-    "Use Shopyor’s free online tools: social media video downloader(facebook,tiktok),Image Compressor, Background Remover. Fast, secure and browser-based utilities.",
+    "Use Shopyorâ€™s free online tools: social media video downloader(facebook,tiktok),Image Compressor, Background Remover. Fast, secure and browser-based utilities.",
   keywords: [
     "free online tools",
     "facebook video downloader",
@@ -65,13 +65,13 @@ export default function ToolsPage() {
             "@type": "ListItem",
             position: 4,
             name: "PDF to Word Converter",
-            url: `${BASE_URL}/tools/online-pdf-to-word-converter`,
+            url: `${BASE_URL}/tools/convert-your-pdf-file-to-word`,
           },
           {
             "@type": "ListItem",
             position: 5,
             name: "PDF Compressor",
-            url: `${BASE_URL}/tools/pdf-compressor`,
+            url: `${BASE_URL}/tools/compress-your-pdf-file`,
           },
           {
             "@type": "ListItem",
@@ -132,7 +132,7 @@ export default function ToolsPage() {
             <p className="mt-1">
               Try our{" "}
               <Link
-                href="/tools/online-pdf-to-word-converter"
+                href="/tools/convert-your-pdf-file-to-word"
                 className="font-medium text-cyan-600 hover:underline dark:text-cyan-400"
               >
                 PDF to Word Converter
@@ -147,7 +147,7 @@ export default function ToolsPage() {
             <p className="mt-1">
               Explore more document tools like{" "}
               <Link
-                href="/tools/pdf-compressor"
+                href="/tools/compress-your-pdf-file"
                 className="font-medium text-cyan-600 hover:underline dark:text-cyan-400"
               >
                 PDF Compressor

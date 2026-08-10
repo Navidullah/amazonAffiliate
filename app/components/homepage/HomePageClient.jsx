@@ -1,4 +1,4 @@
-// app/page.jsx (Optimized Version)
+﻿// app/page.jsx (Optimized Version)
 "use client";
 
 import Link from "next/link";
@@ -60,25 +60,9 @@ const tools = [
     color: "from-black to-gray-800",
   },
   {
-    href: "/tools/youtube-video-downloader",
-    title: "YouTube Video Downloader",
-    desc: "Download YouTube videos in multiple qualities. Coming Soon!",
-    icon: <SiYoutubemusic className="w-6 h-6" />,
-    featured: false,
-    comingSoon: true,
-    color: "from-red-600 to-red-500",
-  },
-  {
     title: "Free AI Image Background Remover",
     desc: "Remove image backgrounds instantly with AI precision.",
     href: "/tools/background-remover-image",
-    icon: <ImageIcon className="w-6 h-6" />,
-    featured: false,
-  },
-  {
-    href: "/tools/image-resizer",
-    title: "Online Image Resizer",
-    desc: "Reduce or resize images without losing visual quality.",
     icon: <ImageIcon className="w-6 h-6" />,
     featured: false,
   },
@@ -113,7 +97,7 @@ const tools = [
   {
     title: "PDF to Word Converter Online",
     desc: "Convert PDF files to editable Word documents instantly.",
-    href: "/tools/online-pdf-to-word-converter",
+    href: "/tools/convert-your-pdf-file-to-word",
     icon: <FileType className="w-6 h-6" />,
     featured: false,
   },
@@ -134,7 +118,7 @@ const tools = [
   {
     title: "PDF Compressor",
     desc: "Reduce PDF file size quickly using modern compression.",
-    href: "/tools/pdf-compressor",
+    href: "/tools/compress-your-pdf-file",
     icon: <FileText className="w-6 h-6" />,
     featured: false,
   },
@@ -248,7 +232,7 @@ const jsonLd = {
     },
     {
       "@type": "ItemList",
-      name: "Shopyor – facebook,tiktok & youtube video downloader",
+      name: "Shopyor â€“ facebook,tiktok & youtube video downloader",
       itemListElement: tools.map((tool, i) => ({
         "@type": "SoftwareApplication",
         position: i + 1,
@@ -626,7 +610,7 @@ export default function HomePage() {
               </Link>
               , convert PDFs to editable Word documents using our{" "}
               <Link
-                href="/tools/online-pdf-to-word-converter"
+                href="/tools/convert-your-pdf-file-to-word"
                 className="text-primary hover:underline"
               >
                 PDF to Word Converter

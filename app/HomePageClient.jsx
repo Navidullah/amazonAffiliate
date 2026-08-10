@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useRef } from "react";
 import Link from "next/link";
@@ -127,12 +127,6 @@ const tools = [
     icon: <ImageIcon className="w-5 h-5" />,
   },
   {
-    title: "Online Image Resizer",
-    desc: "Resize images without losing quality.",
-    href: "/tools/image-resizer",
-    icon: <ImageIcon className="w-5 h-5" />,
-  },
-  {
     title: "Online Image Compressor",
     desc: "Compress images without visible quality loss.",
     href: "/tools/image-compressor",
@@ -147,7 +141,7 @@ const tools = [
   {
     title: "PDF to Word Converter",
     desc: "Convert PDF files to editable Word documents.",
-    href: "/tools/online-pdf-to-word-converter",
+    href: "/tools/convert-your-pdf-file-to-word",
     icon: <FileText className="w-5 h-5" />,
   },
   {
@@ -159,7 +153,7 @@ const tools = [
   {
     title: "PDF Compressor",
     desc: "Reduce PDF file size with modern compression.",
-    href: "/tools/pdf-compressor",
+    href: "/tools/compress-your-pdf-file",
     icon: <FileText className="w-5 h-5" />,
   },
   {
@@ -212,7 +206,7 @@ const features = [
   {
     icon: <CheckCircle2 className="h-5 w-5" />,
     title: "No Registration",
-    desc: "Use instantly — no sign-up required",
+    desc: "Use instantly â€” no sign-up required",
   },
 ];
 
@@ -294,7 +288,7 @@ function UniversalVideoDownloader() {
       } else if (detected === "instagram") {
         await analyzeInstagram(url.trim());
       } else if (detected === "tiktok") {
-        // TikTok: skip analyze step — download directly as binary blob
+        // TikTok: skip analyze step â€” download directly as binary blob
         setLoading(false);
         await downloadTikTokDirect(url.trim());
         return;
@@ -359,7 +353,7 @@ function UniversalVideoDownloader() {
   const downloadInstagramVideo = async (videoUrl, title) => {
     setDownloading(true);
     try {
-      // Must proxy through our server — Instagram CDN blocks direct browser fetches (CORS)
+      // Must proxy through our server â€” Instagram CDN blocks direct browser fetches (CORS)
       const clean = (title || "video").replace(/[^a-z0-9]/gi, "_").toLowerCase();
       const res = await fetch("/api/proxy-video", {
         method: "POST",
@@ -430,7 +424,7 @@ function UniversalVideoDownloader() {
 
   return (
     <div className="w-full max-w-2xl mx-auto">
-      {/* ── Downloading Overlay ── */}
+      {/* â”€â”€ Downloading Overlay â”€â”€ */}
       {downloading && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 backdrop-blur-sm">
           <div className="flex flex-col items-center gap-6 text-center px-6 max-w-sm">
@@ -484,7 +478,7 @@ function UniversalVideoDownloader() {
                 Shopyor Universal Video Downloader
               </p>
               <p className="text-xs text-muted-foreground">
-                Supports Facebook · Instagram · TikTok
+                Supports Facebook Â· Instagram Â· TikTok
               </p>
             </div>
           </div>
@@ -613,7 +607,7 @@ function UniversalVideoDownloader() {
               <div className="flex items-center gap-2 px-4 py-3 border-b bg-muted/40">
                 <CheckCircle2 className="h-4 w-4 text-green-500" />
                 <span className="text-sm font-semibold">
-                  Video Ready — Choose Quality
+                  Video Ready â€” Choose Quality
                 </span>
               </div>
               <div className="p-4">
@@ -828,7 +822,7 @@ function PlatformCards() {
 export default function HomePageClient() {
   return (
     <main className="min-h-screen">
-      {/* ── HERO ─────────────────────────────────────── */}
+      {/* â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="relative overflow-hidden bg-gradient-to-br from-background via-background to-primary/5 pt-10 pb-24">
         {/* Animated background decoration */}
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
@@ -869,7 +863,7 @@ export default function HomePageClient() {
             <motion.div variants={fadeUp} className="flex justify-center mb-6">
               <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/8 px-4 py-1.5 text-sm font-medium text-primary backdrop-blur-sm">
                 <Sparkles className="h-4 w-4" />
-                Shopyor Universal Video Downloader — 100% Free
+                Shopyor Universal Video Downloader â€” 100% Free
               </div>
             </motion.div>
 
@@ -892,7 +886,7 @@ export default function HomePageClient() {
                 <span className="font-semibold text-blue-500">Facebook</span>,{" "}
                 <span className="font-semibold text-pink-500">Instagram</span>,
                 or{" "}
-                <span className="font-semibold text-foreground">TikTok</span> —
+                <span className="font-semibold text-foreground">TikTok</span> â€”
                 the Shopyor Universal Video Downloader auto-detects the platform
                 and saves your video in HD, free and without a watermark.
               </motion.p>
@@ -945,7 +939,7 @@ export default function HomePageClient() {
         </div>
       </section>
 
-      {/* ── PLATFORM CARDS ───────────────────────────── */}
+      {/* â”€â”€ PLATFORM CARDS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="py-16 px-4 bg-muted/30">
         <div className="container mx-auto max-w-5xl">
           <Reveal className="text-center mb-10">
@@ -953,7 +947,7 @@ export default function HomePageClient() {
               Supported Platforms
             </h2>
             <p className="text-muted-foreground max-w-xl mx-auto text-sm">
-              One universal downloader — three major platforms. Each tool page
+              One universal downloader â€” three major platforms. Each tool page
               offers the full dedicated experience.
             </p>
           </Reveal>
@@ -961,7 +955,7 @@ export default function HomePageClient() {
         </div>
       </section>
 
-      {/* ── HOW IT WORKS ─────────────────────────────── */}
+      {/* â”€â”€ HOW IT WORKS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-5xl">
           <Reveal className="text-center mb-12">
@@ -1026,7 +1020,7 @@ export default function HomePageClient() {
         </div>
       </section>
 
-      {/* ── FEATURES ─────────────────────────────────── */}
+      {/* â”€â”€ FEATURES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="py-16 px-4 bg-muted/30">
         <div className="container mx-auto max-w-5xl">
           <Reveal className="text-center mb-12">
@@ -1061,7 +1055,7 @@ export default function HomePageClient() {
         </div>
       </section>
 
-      {/* ── MORE TOOLS ───────────────────────────────── */}
+      {/* â”€â”€ MORE TOOLS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-5xl">
           <Reveal className="text-center mb-12">
@@ -1069,7 +1063,7 @@ export default function HomePageClient() {
               More Free Online Tools
             </h2>
             <p className="text-muted-foreground text-sm max-w-xl mx-auto">
-              Image editors, PDF converters, SEO tools and more — all free, no
+              Image editors, PDF converters, SEO tools and more â€” all free, no
               sign-up required
             </p>
           </Reveal>
@@ -1079,7 +1073,7 @@ export default function HomePageClient() {
         </div>
       </section>
 
-      {/* ── SEO CONTENT ──────────────────────────────── */}
+      {/* â”€â”€ SEO CONTENT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="py-16 px-4 bg-muted/20">
         <div className="container mx-auto max-w-4xl">
           <Reveal>
@@ -1097,7 +1091,7 @@ export default function HomePageClient() {
                 <strong>Facebook</strong>, <strong>Instagram</strong>, and{" "}
                 <strong>TikTok</strong>. Simply paste any video link and our
                 intelligent platform detection automatically identifies whether
-                it's a Facebook reel, an Instagram video, or a TikTok clip —
+                it's a Facebook reel, an Instagram video, or a TikTok clip â€”
                 then downloads it in the best available quality, all without
                 requiring any software installation or account login.
               </p>
@@ -1123,7 +1117,7 @@ export default function HomePageClient() {
                   "No registration or account creation required",
                   "Downloads videos in original HD quality (up to 1080p)",
                   "Works seamlessly on Android, iPhone, Windows, and Mac",
-                  "Privacy-focused — we never store your URLs or downloaded videos",
+                  "Privacy-focused â€” we never store your URLs or downloaded videos",
                   "TikTok videos downloaded without the TikTok watermark",
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-2">
@@ -1151,7 +1145,7 @@ export default function HomePageClient() {
                 </Link>
                 ,{" "}
                 <Link
-                  href="/tools/online-pdf-to-word-converter"
+                  href="/tools/convert-your-pdf-file-to-word"
                   className="text-primary hover:underline font-medium"
                 >
                   PDF to Word Converter
@@ -1170,7 +1164,7 @@ export default function HomePageClient() {
         </div>
       </section>
 
-      {/* ── FAQ ──────────────────────────────────────── */}
+      {/* â”€â”€ FAQ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-4xl">
           <Reveal>
@@ -1234,7 +1228,7 @@ export default function HomePageClient() {
         </div>
       </section>
 
-      {/* ── CTA ──────────────────────────────────────── */}
+      {/* â”€â”€ CTA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="py-20 px-4 bg-gradient-to-r from-primary/8 via-transparent to-primary/8">
         <Reveal className="container mx-auto max-w-3xl text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">
@@ -1262,7 +1256,7 @@ export default function HomePageClient() {
         </Reveal>
       </section>
 
-      {/* ── LEGAL ────────────────────────────────────── */}
+      {/* â”€â”€ LEGAL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <div className="py-8 px-4 border-t">
         <div className="container mx-auto max-w-4xl">
           <p className="text-xs text-center text-muted-foreground leading-relaxed">

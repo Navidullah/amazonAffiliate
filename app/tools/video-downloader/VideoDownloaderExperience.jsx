@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -6,20 +6,17 @@ import { motion } from "framer-motion";
 import {
   ArrowRight,
   ChevronDown,
-  Eraser,
-  FileArchive,
-  FileDown,
-  Gauge,
+  Sparkles,
+  Zap,
+  ShieldCheck,
+  Ban,
+  LinkIcon,
+  Search,
+  Download,
   ImageDown,
   LayoutGrid,
-  Lock,
-  MousePointerClick,
-  ShieldOff,
-  Sparkles,
-  UploadCloud,
-  Zap,
 } from "lucide-react";
-import PdfToWordConverter from "./PdfToWordConverter";
+import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -31,65 +28,77 @@ const stagger = {
   visible: { transition: { staggerChildren: 0.12 } },
 };
 
+const PLATFORMS = [
+  {
+    href: "/tools/facebook-video-downloader",
+    name: "Facebook",
+    icon: FaFacebook,
+    gradient: "from-blue-600 to-blue-500",
+    desc: "Save public Facebook videos, Reels, and Live replays as HD MP4.",
+    bullets: ["Public videos & Reels", "Live replay support", "HD or SD quality"],
+  },
+  {
+    href: "/tools/instagram-video-downloader",
+    name: "Instagram",
+    icon: FaInstagram,
+    gradient: "from-fuchsia-600 to-rose-500",
+    desc: "Download public Instagram Reels and videos in up to 1080p.",
+    bullets: ["Reels & feed videos", "Up to 1080p", "No watermark added"],
+  },
+  {
+    href: "/tools/free-tiktok-video-downloader",
+    name: "TikTok",
+    icon: FaTiktok,
+    gradient: "from-slate-800 to-slate-600",
+    desc: "Download TikTok videos without the platform's watermark.",
+    bullets: ["No TikTok watermark", "HD quality", "Works on mobile & desktop"],
+  },
+];
+
 const features = [
   {
-    icon: Gauge,
-    title: "Reliable Conversion",
-    desc: "Clean, editable text with dependable formatting retention using multi-provider conversion.",
+    icon: Zap,
+    title: "Fast",
+    desc: "Paste, analyze, download in seconds — no waiting around.",
     accent: "from-indigo-500 to-blue-500",
   },
   {
-    icon: Zap,
-    title: "Efficient Processing",
-    desc: "Quick turnaround that lets you convert and download DOCX files in moments.",
-    accent: "from-cyan-500 to-teal-500",
+    icon: ShieldCheck,
+    title: "No login required",
+    desc: "Only public links, ever. We never ask for your account credentials.",
+    accent: "from-fuchsia-500 to-violet-500",
   },
   {
-    icon: Lock,
-    title: "Privacy First",
-    desc: "A secure processing flow that keeps your files protected during conversion.",
-    accent: "from-fuchsia-500 to-pink-500",
+    icon: Ban,
+    title: "No app needed",
+    desc: "Runs entirely in your browser on mobile and desktop.",
+    accent: "from-cyan-500 to-teal-500",
   },
 ];
 
 const steps = [
   {
-    icon: UploadCloud,
-    title: "Upload your PDF",
-    desc: "Drag and drop or browse to select any PDF from your device.",
+    icon: LinkIcon,
+    title: "Copy the link",
+    desc: "Copy the public video URL from Facebook, Instagram, or TikTok.",
   },
   {
-    icon: MousePointerClick,
-    title: "Click convert",
-    desc: "Start the conversion and watch real-time progress as it processes.",
+    icon: Search,
+    title: "Pick the platform",
+    desc: "Choose the matching downloader below — each one is purpose-built for that site.",
   },
   {
-    icon: FileDown,
-    title: "Download DOCX",
-    desc: "Get your editable Word document instantly, ready to use.",
+    icon: Download,
+    title: "Download the MP4",
+    desc: "Paste the link, analyze, and save a clean video to your device.",
   },
 ];
 
 const relatedTools = [
   {
-    icon: FileArchive,
-    label: "Compress a PDF file",
-    href: "/tools/compress-your-pdf-file",
-  },
-  {
     icon: ImageDown,
     label: "Compress an image",
     href: "/tools/image-compressor",
-  },
-  {
-    icon: Eraser,
-    label: "Remove image background",
-    href: "/tools/background-remover-image",
-  },
-  {
-    icon: ShieldOff,
-    label: "Remove image metadata (EXIF)",
-    href: "/tools/exif-remover",
   },
   {
     icon: LayoutGrid,
@@ -100,44 +109,28 @@ const relatedTools = [
 
 const faqs = [
   {
-    q: "Is this PDF to Word converter free?",
-    a: "Yes, it is completely free to use with no signup, no daily limits, and no hidden fees. Convert as many PDF files to Word as you need.",
+    q: "Which video downloader should I use?",
+    a: "Pick the tool that matches where the video was posted: use the Facebook downloader for facebook.com or fb.watch links, the Instagram downloader for instagram.com Reels or post links, and the TikTok downloader for tiktok.com links. Each tool is purpose-built to read that platform's link format and video player, so pasting a Facebook link into the TikTok tool (or vice versa) will not work — always match the tool to the site the video is actually hosted on.",
   },
   {
-    q: "Can I convert a scanned PDF to Word?",
-    a: "Yes. The converter applies OCR (optical character recognition) to scanned and image-based PDFs so the text becomes editable and searchable in the Word file. Results depend on the quality of the scan.",
+    q: "Is this video downloader really free?",
+    a: "Yes. All three downloaders — Facebook, Instagram, and TikTok — are free with no subscription, no daily download limit, and no account required. Paste a public video link into the matching tool and download the MP4 directly. There is no premium tier or paywall hidden behind a 'free trial'.",
   },
   {
-    q: "Will my PDF formatting stay accurate after conversion?",
-    a: "The engine preserves layout, fonts, tables, bullet points, and text styles as closely as possible, so your DOCX looks like the original PDF. Complex multi-column layouts may need minor adjustments in Word.",
+    q: "Do I need to log in or install an app?",
+    a: "No. None of the three downloaders require you to log in to Facebook, Instagram, or TikTok, and none require installing an app or browser extension. Everything runs inside your existing browser tab — paste the link, wait a few seconds while it analyzes the video, then download. This works the same on iPhone Safari, Android Chrome, and desktop browsers.",
   },
   {
-    q: "How do I convert a PDF to Word without losing formatting?",
-    a: "Upload your PDF, click Convert, and download the DOCX. For the cleanest result use text-based PDFs rather than scans, and avoid copy-pasting from a PDF reader because that strips formatting.",
+    q: "Can I download private videos or posts?",
+    a: "No, and this is intentional. Only public content — videos anyone could already view without logging in — can be downloaded. Private accounts, friends-only posts, and content behind a login wall are not supported on any of the three platforms, because none of these tools authenticate as a user on your behalf. This keeps the tools on the right side of each platform's terms of service.",
   },
   {
-    q: "Can I convert PDF to Word on my phone?",
-    a: "Yes. The tool is fully mobile-friendly and works in any browser on Android and iPhone â€” no app installation required.",
+    q: "Does the TikTok downloader remove the watermark?",
+    a: "Yes. The TikTok downloader fetches the original, unwatermarked source file where TikTok makes it available, instead of the watermarked version served in the app's share sheet. Some very short or already-processed clips may still carry TikTok's own on-video watermark if that is the only version TikTok exposes, but in the vast majority of cases you get a clean MP4.",
   },
   {
-    q: "What is the maximum file size I can convert?",
-    a: "You can convert PDF files up to 25 MB. For larger documents, split the PDF into smaller parts and convert each section separately.",
-  },
-  {
-    q: "Are my files private and secure?",
-    a: "Yes. Files are transferred over a secure connection and are not permanently stored on our servers â€” they are processed and then removed after conversion.",
-  },
-  {
-    q: "Can I convert multiple PDFs at once?",
-    a: "The tool processes one PDF at a time. To convert several files, upload and convert each one individually â€” conversion usually takes just a few seconds per file.",
-  },
-  {
-    q: "What format is the output, and will it open in Google Docs?",
-    a: "The output is a standard .docx file, which opens in Microsoft Word (all versions), Google Docs, LibreOffice Writer, and Apple Pages.",
-  },
-  {
-    q: "What if the primary conversion service is unavailable?",
-    a: "The converter uses a multi-provider engine with automatic fallback, so if the primary service is temporarily down it switches to a backup provider to keep working.",
+    q: "What video quality can I expect?",
+    a: "Facebook and Instagram downloads offer HD and SD options, typically 720p–1080p depending on what the original uploader posted — none of these tools can upscale beyond the source quality. TikTok downloads default to the highest quality TikTok's own servers provide for that clip. You'll see the available options after pasting the link and before downloading.",
   },
 ];
 
@@ -181,15 +174,15 @@ function FaqItem({ faq, isOpen, onToggle }) {
   );
 }
 
-export default function PdfToWordExperience() {
+export default function VideoDownloaderExperience() {
   const [openFaq, setOpenFaq] = useState(0);
 
   return (
     <main className="relative min-h-screen overflow-hidden px-4 pb-24 pt-28 sm:px-6">
       {/* Ambient background */}
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-indigo-50/60 via-white to-cyan-50/40 dark:from-gray-950 dark:via-gray-950 dark:to-gray-900" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-indigo-50/60 via-white to-fuchsia-50/40 dark:from-gray-950 dark:via-gray-950 dark:to-gray-900" />
       <div className="pointer-events-none absolute -top-32 left-1/2 -z-10 h-[480px] w-[480px] -translate-x-1/2 rounded-full bg-indigo-400/20 blur-[120px] dark:bg-indigo-600/20" />
-      <div className="pointer-events-none absolute right-0 top-1/3 -z-10 h-[360px] w-[360px] rounded-full bg-cyan-400/20 blur-[120px] dark:bg-cyan-600/10" />
+      <div className="pointer-events-none absolute right-0 top-1/3 -z-10 h-[360px] w-[360px] rounded-full bg-fuchsia-400/20 blur-[120px] dark:bg-fuchsia-600/10" />
 
       <div className="mx-auto max-w-5xl">
         {/* Hero */}
@@ -204,7 +197,7 @@ export default function PdfToWordExperience() {
             className="inline-flex items-center gap-2 rounded-full border border-indigo-200/70 bg-white/70 px-4 py-1.5 text-xs font-semibold text-indigo-700 shadow-sm backdrop-blur dark:border-indigo-500/20 dark:bg-white/[0.04] dark:text-indigo-300"
           >
             <Sparkles className="h-3.5 w-3.5" />
-            Free Online PDF Tool
+            Free • No login • No app
           </motion.span>
 
           <motion.h1
@@ -212,19 +205,19 @@ export default function PdfToWordExperience() {
             className="mx-auto mt-6 max-w-3xl text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-6xl"
           >
             Free{" "}
-            <span className="bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-500 bg-clip-text text-transparent dark:from-indigo-300 dark:via-blue-300 dark:to-cyan-200">
-              PDF to Word
+            <span className="bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-500 bg-clip-text text-transparent dark:from-indigo-300 dark:via-violet-300 dark:to-fuchsia-200">
+              Video Downloader
             </span>{" "}
-            Converter
+            — Facebook, Instagram &amp; TikTok
           </motion.h1>
 
           <motion.p
             variants={fadeUp}
             className="mx-auto mt-5 max-w-2xl text-base text-gray-600 dark:text-gray-300 sm:text-lg"
           >
-            Turn any PDF into a fully editable Word document with reliable
-            formatting and fast performance. Built for professionals who need
-            clean, accurate DOCX output.
+            Pick the platform your video is on and we&apos;ll take you to the
+            right tool. No login, no app to install, no watermark added —
+            just paste the link and download.
           </motion.p>
 
           <motion.div
@@ -235,18 +228,54 @@ export default function PdfToWordExperience() {
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> No sign up
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Secure processing
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Public links only
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Up to 25 MB
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Works on mobile & desktop
             </span>
           </motion.div>
         </motion.header>
 
-        {/* Converter */}
-        <section className="mb-20">
-          <PdfToWordConverter />
-        </section>
+        {/* Platform picker */}
+        <motion.section
+          variants={stagger}
+          initial="hidden"
+          animate="visible"
+          className="mb-20 grid gap-5 sm:grid-cols-1"
+          aria-label="Choose a platform"
+        >
+          {PLATFORMS.map((p) => {
+            const Icon = p.icon;
+            return (
+              <motion.div key={p.href} variants={fadeUp}>
+                <Link
+                  href={p.href}
+                  className="group flex items-center gap-4 rounded-3xl border border-gray-200/70 bg-white/70 p-6 backdrop-blur-xl transition-all hover:-translate-y-1 hover:shadow-[0_24px_64px_-30px_rgba(56,89,255,0.5)] dark:border-white/10 dark:bg-white/[0.03]"
+                >
+                  <span
+                    className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${p.gradient} text-white shadow-lg transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6`}
+                  >
+                    <Icon className="h-7 w-7" />
+                  </span>
+                  <span className="flex-1">
+                    <span className="block text-lg font-bold text-gray-900 dark:text-white">
+                      {p.name} Video Downloader
+                    </span>
+                    <span className="block text-sm text-gray-600 dark:text-gray-400">
+                      {p.desc}
+                    </span>
+                    <span className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs text-gray-500 dark:text-gray-400">
+                      {p.bullets.map((b) => (
+                        <span key={b}>• {b}</span>
+                      ))}
+                    </span>
+                  </span>
+                  <ArrowRight className="h-5 w-5 shrink-0 text-gray-400 transition-transform group-hover:translate-x-1 group-hover:text-indigo-500" />
+                </Link>
+              </motion.div>
+            );
+          })}
+        </motion.section>
 
         {/* Features */}
         <motion.section
@@ -291,7 +320,7 @@ export default function PdfToWordExperience() {
             variants={fadeUp}
             className="text-center text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl"
           >
-            How to convert PDF to Word
+            How to download a video
           </motion.h2>
           <motion.p
             variants={fadeUp}
@@ -309,7 +338,7 @@ export default function PdfToWordExperience() {
                 variants={fadeUp}
                 className="relative flex flex-col items-center rounded-3xl border border-gray-200/70 bg-white/70 p-6 text-center backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.03]"
               >
-                <div className="relative mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-cyan-500 text-white shadow-lg shadow-indigo-500/30">
+                <div className="relative mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-fuchsia-500 text-white shadow-lg shadow-indigo-500/30">
                   <step.icon className="h-7 w-7" />
                   <span className="absolute -right-2 -top-2 flex h-7 w-7 items-center justify-center rounded-full border-2 border-white bg-gray-900 text-xs font-bold text-white dark:border-gray-950">
                     {i + 1}
@@ -338,87 +367,83 @@ export default function PdfToWordExperience() {
             variants={fadeUp}
             className="text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl"
           >
-            Free PDF to Word converter â€” online, accurate, no signup
+            One hub, three downloaders
           </motion.h2>
           <motion.p
             variants={fadeUp}
             className="mt-4 text-sm leading-relaxed text-gray-600 dark:text-gray-300"
           >
-            Need to edit a PDF? The fastest way is to convert your PDF to an
-            editable Word document. This free online{" "}
-            <strong>PDF to Word converter</strong> turns any PDF into a clean,
-            editable <strong>DOCX</strong> file in seconds â€” no software to
-            install, no account to create, and no watermarks. It works directly
-            in your browser on Windows, macOS, Android, and iPhone, so you can
-            convert PDF to Word on your phone or laptop anywhere.
+            Shopyor runs a separate, purpose-built downloader for each
+            platform instead of one tool trying to handle every link format.
+            That means each downloader is tuned to how that specific platform
+            serves its video files — Facebook Reels and Live replays,
+            Instagram Reels and feed videos, and TikTok clips with the
+            watermark stripped where possible. This page exists to route you
+            to the right one quickly.
           </motion.p>
 
           <motion.h3
             variants={fadeUp}
             className="mt-8 text-lg font-semibold text-gray-900 dark:text-white"
           >
-            Convert scanned PDFs to Word with OCR
+            How to choose the right downloader
+          </motion.h3>
+          <motion.ul
+            variants={fadeUp}
+            className="mt-2 list-disc space-y-2 pl-5 text-sm leading-relaxed text-gray-600 dark:text-gray-300"
+          >
+            <li>
+              <strong>Facebook</strong> — use this for links starting with{" "}
+              <code>facebook.com</code> or the shortened <code>fb.watch</code>{" "}
+              format, including public videos, Reels, and ended Live replays.
+            </li>
+            <li>
+              <strong>Instagram</strong> — use this for{" "}
+              <code>instagram.com</code> Reel and post links from public
+              accounts.
+            </li>
+            <li>
+              <strong>TikTok</strong> — use this for <code>tiktok.com</code>{" "}
+              links; it fetches the version without TikTok&apos;s in-app
+              watermark where the source allows it.
+            </li>
+          </motion.ul>
+
+          <motion.h3
+            variants={fadeUp}
+            className="mt-8 text-lg font-semibold text-gray-900 dark:text-white"
+          >
+            Is it safe?
           </motion.h3>
           <motion.p
             variants={fadeUp}
             className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300"
           >
-            Got a scanned document or an image-based PDF? Our converter applies{" "}
-            <strong>OCR (optical character recognition)</strong> to recognise the
-            text inside scans and pictures, so the words become fully editable in
-            Word instead of locked-in images. Learn more in our guide on{" "}
-            <Link
-              href="/blog/how-to-convert-a-scanned-pdf-to-word-with-ocr"
-              className="font-medium text-indigo-600 underline-offset-2 hover:underline dark:text-indigo-400"
-            >
-              converting a scanned PDF to Word with OCR
-            </Link>
-            .
+            None of the three tools ask for your account login on any
+            platform. They only read the public video URL you paste in — the
+            same content anyone could already view in a browser without an
+            account — and none of them store a copy of the video or log the
+            links you submit after the download completes.
           </motion.p>
 
           <motion.h3
             variants={fadeUp}
             className="mt-8 text-lg font-semibold text-gray-900 dark:text-white"
           >
-            Keep your formatting intact
+            Legal and ethical use
           </motion.h3>
           <motion.p
             variants={fadeUp}
             className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300"
           >
-            Layout matters. The conversion engine preserves fonts, headings,
-            tables, lists, and spacing so your Word file looks like the original
-            PDF and needs minimal cleanup. For best results, read our tips on{" "}
-            <Link
-              href="/blog/how-to-convert-pdf-to-word-without-losing-formatting"
-              className="font-medium text-indigo-600 underline-offset-2 hover:underline dark:text-indigo-400"
-            >
-              converting PDF to Word without losing formatting
-            </Link>
-            .
-          </motion.p>
-
-          <motion.h3
-            variants={fadeUp}
-            className="mt-8 text-lg font-semibold text-gray-900 dark:text-white"
-          >
-            Convert PDF to Word on mobile
-          </motion.h3>
-          <motion.p
-            variants={fadeUp}
-            className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300"
-          >
-            Most people convert documents on their phones. This tool is built
-            mobile-first with a touch-friendly upload area, so converting a PDF
-            to Word on Android or iPhone takes just a few taps. See the full
-            walkthrough on{" "}
-            <Link
-              href="/blog/how-to-convert-pdf-to-word-on-mobile-for-free"
-              className="font-medium text-indigo-600 underline-offset-2 hover:underline dark:text-indigo-400"
-            >
-              how to convert PDF to Word on mobile for free
-            </Link>
-            .
+            These tools are intended for{" "}
+            <strong>personal, non-commercial use</strong>: saving your own
+            videos, archiving public content you have permission to keep, or
+            downloading reference material for creative projects. Do not
+            redistribute other creators&apos; content commercially or claim
+            ownership of downloaded videos. Always follow the source
+            platform&apos;s Terms of Service and applicable copyright law.
+            Copyright concerns: <strong>shopyor.com@gmail.com</strong>.
           </motion.p>
         </motion.section>
 
@@ -460,13 +485,13 @@ export default function PdfToWordExperience() {
             variants={fadeUp}
             className="text-center text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl"
           >
-            Related free tools
+            More free tools
           </motion.h2>
           <motion.p
             variants={fadeUp}
             className="mx-auto mt-3 max-w-xl text-center text-sm text-gray-600 dark:text-gray-400"
           >
-            More handy document and image utilities â€” all free, no signup.
+            More handy document and image utilities — all free, no signup.
           </motion.p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {relatedTools.map((tool) => (
@@ -475,7 +500,7 @@ export default function PdfToWordExperience() {
                   href={tool.href}
                   className="group flex items-center gap-3 rounded-2xl border border-gray-200/70 bg-white/70 p-4 backdrop-blur-xl transition-all hover:-translate-y-1 hover:border-indigo-300 hover:shadow-lg dark:border-white/10 dark:bg-white/[0.03] dark:hover:border-indigo-400/50"
                 >
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500/15 to-cyan-500/15 text-indigo-600 ring-1 ring-indigo-500/20 dark:text-indigo-300">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500/15 to-fuchsia-500/15 text-indigo-600 ring-1 ring-indigo-500/20 dark:text-indigo-300">
                     <tool.icon className="h-5 w-5" />
                   </span>
                   <span className="text-sm font-semibold text-gray-800 dark:text-gray-100">
@@ -488,13 +513,28 @@ export default function PdfToWordExperience() {
           </div>
         </motion.section>
 
+        {/* Disclaimer */}
+        <motion.p
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="mb-10 rounded-2xl border border-gray-200/70 bg-white/70 px-4 py-3 text-xs text-gray-500 backdrop-blur dark:border-white/10 dark:bg-white/[0.03] dark:text-gray-400"
+        >
+          Facebook, Instagram, and TikTok are trademarks of their respective
+          owners. Shopyor is not affiliated with Meta Platforms, Inc. or
+          TikTok. These tools are for personal, non-commercial use only.
+          Users are responsible for complying with each platform&apos;s Terms
+          of Service and applicable copyright law.
+        </motion.p>
+
         {/* CTA footer */}
         <motion.section
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="relative overflow-hidden rounded-3xl border border-indigo-200/50 bg-gradient-to-br from-indigo-600 via-blue-600 to-cyan-500 p-8 text-center shadow-xl sm:p-10"
+          className="relative overflow-hidden rounded-3xl border border-indigo-200/50 bg-gradient-to-br from-indigo-600 via-violet-600 to-fuchsia-500 p-8 text-center shadow-xl sm:p-10"
         >
           <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-white/15 blur-2xl" />
           <h2 className="text-2xl font-bold text-white">

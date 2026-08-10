@@ -1,7 +1,7 @@
 import PdfCompressExperience from "@/app/components/pdf-compressor-node/PdfCompressExperience";
 
 const BASE_URL = "https://www.shopyor.com";
-const PAGE_URL = `${BASE_URL}/tools/pdf-compressor`;
+const PAGE_URL = `${BASE_URL}/tools/compress-your-pdf-file`;
 
 const hreflang = (path) => ({
   "x-default": `${BASE_URL}${path}`,
@@ -51,7 +51,7 @@ export const metadata = {
   classification: "PDF compressor tool",
   alternates: {
     canonical: PAGE_URL,
-    languages: hreflang("/tools/pdf-compressor"),
+    languages: hreflang("/tools/compress-your-pdf-file"),
   },
   openGraph: {
     title: "Free PDF Compressor Online — Reduce PDF File Size",
