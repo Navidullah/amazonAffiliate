@@ -52,11 +52,11 @@ const PRODUCTS = [
     category: "ks2-maths",
     gradeLevel: "Year 6",
     subject: "maths",
-    variantId: "REPLACE_WITH_LEMONSQUEEZY_VARIANT_ID",
+    variantId: "2018683",
     downloadUrl:
       "https://ghgbr44ykzavh7lt.private.blob.vercel-storage.com/products/uk-ks2-maths-year-6-paper-3-reasoning-5vFs8eqCtLRDRk4zezxI3ObMHCe0IB.pdf",
     href: "/products/uk-ks2-maths-year-6-paper-3-reasoning",
-    active: false,
+    active: true,
   },
   {
     slug: "uk-ks2-maths-year-6-fractions-decimals-percentages",
@@ -70,11 +70,11 @@ const PRODUCTS = [
     category: "ks2-maths",
     gradeLevel: "Year 6",
     subject: "maths",
-    variantId: "REPLACE_WITH_LEMONSQUEEZY_VARIANT_ID",
+    variantId: "2018689",
     downloadUrl:
       "https://ghgbr44ykzavh7lt.private.blob.vercel-storage.com/products/uk-ks2-maths-year-6-fractions-decimals-percentages-UhDboJ3gO0zdslslb6aSFnesGcO977.pdf",
     href: "/products/uk-ks2-maths-year-6-fractions-decimals-percentages",
-    active: false,
+    active: true,
   },
   {
     slug: "uk-ks2-maths-year-6-ratio-proportion-algebra",
@@ -87,11 +87,11 @@ const PRODUCTS = [
     category: "ks2-maths",
     gradeLevel: "Year 6",
     subject: "maths",
-    variantId: "REPLACE_WITH_LEMONSQUEEZY_VARIANT_ID",
+    variantId: "2018690",
     downloadUrl:
       "https://ghgbr44ykzavh7lt.private.blob.vercel-storage.com/products/uk-ks2-maths-year-6-ratio-proportion-algebra-mTFHjmPhMw5VPDbnCp5pAOIHrago3M.pdf",
     href: "/products/uk-ks2-maths-year-6-ratio-proportion-algebra",
-    active: false,
+    active: true,
   },
 ];
 
