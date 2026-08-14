@@ -11,7 +11,7 @@ import {
 export const metadata = {
   title: "Terms of Service - Shopyor",
   description:
-    "Terms of Service for Shopyor's free online tools, including AI voice cloning, video downloaders, image, YouTube and SEO tools. Read before using our services.",
+    "Terms of Service for Shopyor's digital worksheet packs and free online tools, including AI voice cloning, video downloaders, image, YouTube and SEO tools. Read before using our services.",
   robots: "noindex, follow",
 };
 
@@ -291,11 +291,77 @@ export default function TermsPage() {
             </p>
           </section>
 
+          {/* Digital Products & Purchases */}
+          <section>
+            <h2 className="text-xl font-semibold mb-3">
+              13. Digital Products &amp; Purchases
+            </h2>
+            <p className="text-muted-foreground mb-3">
+              In addition to our free tools, Shopyor sells digital worksheet
+              packs (PDF downloads). The following terms apply to any
+              purchase:
+            </p>
+            <div className="space-y-3">
+              <div className="flex items-start gap-2">
+                <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                <p className="text-muted-foreground">
+                  <strong>Payment processing.</strong> All payments are
+                  processed by LemonSqueezy, our third-party payment
+                  processor and merchant of record. We do not collect or
+                  store your card details.
+                </p>
+              </div>
+              <div className="flex items-start gap-2">
+                <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                <p className="text-muted-foreground">
+                  <strong>Instant delivery.</strong> Digital products unlock
+                  immediately after payment is confirmed. By completing a
+                  purchase, you consent to immediate delivery of digital
+                  content.
+                </p>
+              </div>
+              <div className="flex items-start gap-2">
+                <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                <p className="text-muted-foreground">
+                  <strong>License to use.</strong> When you purchase a
+                  worksheet pack, we grant you a personal, non-exclusive,
+                  non-transferable license to print and use the file for
+                  personal, tutoring, or single-classroom use. You may not
+                  resell, redistribute, publicly share, or republish the file
+                  or its content, in whole or in part.
+                </p>
+              </div>
+              <div className="flex items-start gap-2">
+                <AlertTriangle className="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0" />
+                <p className="text-muted-foreground">
+                  <strong>Refunds.</strong> Because digital products are
+                  delivered instantly, refunds are limited to specific
+                  circumstances (such as a corrupted file or non-delivery).
+                  See our{" "}
+                  <a href="/refund-policy" className="text-primary hover:underline">
+                    Refund Policy
+                  </a>{" "}
+                  for full details.
+                </p>
+              </div>
+              <div className="flex items-start gap-2">
+                <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                <p className="text-muted-foreground">
+                  <strong>Accuracy.</strong> Worksheet content is original
+                  material created to reflect general UK KS2 curriculum
+                  topics. It is not official exam content and is not
+                  affiliated with, endorsed by, or derived from the Standards
+                  and Testing Agency or any exam board.
+                </p>
+              </div>
+            </div>
+          </section>
+
           {/* Contact Information */}
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <Mail className="h-5 w-5 text-primary" />
-              13. Contact Information
+              14. Contact Information
             </h2>
             <p className="text-muted-foreground">
               Questions about these Terms? Contact us at:

@@ -31,9 +31,9 @@ export default function Footer() {
               Shopyor
             </h3>
             <p className="text-sm text-muted-foreground mb-4">
-              Free online tools â€” AI voice cloning, video downloaders, image,
-              YouTube and SEO utilities. Fast, private, and no registration
-              required.
+              Printable digital worksheet packs for KS2 Year 6 Maths — plus
+              free online tools for video, image, PDF, AI, and SEO. Pay once,
+              download instantly.
             </p>
             <p className="text-xs text-muted-foreground">
               Â© {currentYear} Shopyor. All rights reserved.
@@ -95,6 +95,14 @@ export default function Footer() {
                   Cookie Policy
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/refund-policy"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  Refund Policy
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -102,6 +110,14 @@ export default function Footer() {
           <div>
             <h3 className="font-bold text-lg mb-4">Quick Links</h3>
             <ul className="space-y-2 text-sm">
+              <li>
+                <Link
+                  href="/products"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  Worksheet Packs
+                </Link>
+              </li>
               <li>
                 <Link
                   href="/tools/voice-clone"
@@ -217,13 +233,19 @@ export default function Footer() {
                 Copyright, Consent & Fair Use Disclaimer
               </p>
               <p className="text-amber-700 dark:text-amber-500">
-                Shopyor provides tools for personal, non-commercial use. Users are
-                solely responsible for ensuring they have the necessary rights,
-                permissions, or consent for any content they download, upload, or
-                generate â€” including the right to clone any voice with our AI tool.
-                We do not host, store, or distribute copyrighted content. All
-                trademarks and copyrighted materials belong to their respective
-                owners.
+                Digital worksheet packs sold on Shopyor are original content
+                we create, licensed for personal, tutoring, or single-
+                classroom use only — see our{" "}
+                <Link href="/terms" className="underline hover:no-underline">
+                  Terms of Service
+                </Link>
+                . For our free tools: users are solely responsible for
+                ensuring they have the necessary rights, permissions, or
+                consent for any content they download, upload, or generate —
+                including the right to clone any voice with our AI tool. We
+                do not host, store, or distribute copyrighted third-party
+                content processed through those tools. All trademarks and
+                copyrighted materials belong to their respective owners.
               </p>
             </div>
           </div>
@@ -233,11 +255,11 @@ export default function Footer() {
         <div className="flex flex-wrap justify-center gap-6 mb-6 text-xs text-muted-foreground">
           <div className="flex items-center gap-2">
             <Shield className="h-4 w-4 text-green-500" />
-            <span>100% Free Tool</span>
+            <span>Secure Checkout</span>
           </div>
           <div className="flex items-center gap-2">
             <Eye className="h-4 w-4 text-green-500" />
-            <span>No Data Storage</span>
+            <span>No Card Details Stored</span>
           </div>
           <div className="flex items-center gap-2">
             <FileText className="h-4 w-4 text-green-500" />

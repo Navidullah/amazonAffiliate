@@ -64,11 +64,13 @@ export default function CopyrightPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3">1. Our Stance</h2>
             <p className="text-muted-foreground mb-3">
-              Shopyor provides tools that process content you supply. We:
+              Shopyor sells original digital worksheet packs that we create,
+              and also provides free tools that process content you supply.
+              For content you supply to a free tool, we:
             </p>
             <ul className="space-y-2 text-muted-foreground">
               {[
-                "Do NOT host, store, or distribute copyrighted media",
+                "Do NOT host, store, or distribute copyrighted media that you upload or that a tool retrieves on your behalf",
                 "Do NOT claim ownership of content you upload, download, or generate",
                 "Do NOT encourage or facilitate infringement or impersonation",
                 "Do NOT bypass copyright protection or platform security",
@@ -81,11 +83,32 @@ export default function CopyrightPage() {
             </ul>
           </section>
 
+          {/* Digital Products We Sell */}
+          <section>
+            <h2 className="text-xl font-semibold mb-3">
+              2. Digital Products We Sell
+            </h2>
+            <p className="text-muted-foreground">
+              Worksheet packs sold on Shopyor are original content created by
+              us, unless otherwise stated. Purchasing a pack grants you a
+              personal, non-exclusive, non-transferable license to print and
+              use the file for personal, tutoring, or single-classroom use
+              only — see our{" "}
+              <a href="/terms" className="text-primary hover:underline">
+                Terms of Service
+              </a>{" "}
+              for the full license terms. You may not resell, redistribute,
+              publicly share, republish, or claim authorship of a purchased
+              file or its content, in whole or in part. Shopyor retains
+              copyright ownership of all worksheet content.
+            </p>
+          </section>
+
           {/* Voice & Likeness Rights */}
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <Mic className="h-5 w-5 text-primary" />
-              2. Voice, Likeness &amp; Publicity Rights
+              3. Voice, Likeness &amp; Publicity Rights
             </h2>
             <p className="text-muted-foreground mb-3">
               A person's voice is protected by privacy, publicity, and (in some
@@ -116,7 +139,7 @@ export default function CopyrightPage() {
           {/* User Responsibilities */}
           <section>
             <h2 className="text-xl font-semibold mb-3">
-              3. User Responsibilities
+              4. User Responsibilities
             </h2>
             <p className="text-muted-foreground mb-3">
               Users of our service are solely responsible for:
@@ -134,7 +157,7 @@ export default function CopyrightPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <FileText className="h-5 w-5 text-primary" />
-              4. DMCA &amp; Takedown Requests
+              5. DMCA &amp; Takedown Requests
             </h2>
             <p className="text-muted-foreground">
               In accordance with the DMCA and similar laws, we respond promptly to
@@ -163,7 +186,7 @@ export default function CopyrightPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <Mail className="h-5 w-5 text-primary" />
-              5. Reporting Infringement
+              6. Reporting Infringement
             </h2>
             <p className="text-muted-foreground">
               To report copyright infringement or misuse of your voice/likeness,
@@ -190,7 +213,7 @@ export default function CopyrightPage() {
 
           {/* Counter-Notification */}
           <section>
-            <h2 className="text-xl font-semibold mb-3">6. Counter-Notification</h2>
+            <h2 className="text-xl font-semibold mb-3">7. Counter-Notification</h2>
             <p className="text-muted-foreground">
               If you believe content was removed by mistake or misidentification,
               you may submit a counter-notification including: identification of
@@ -205,7 +228,7 @@ export default function CopyrightPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <AlertCircle className="h-5 w-5 text-primary" />
-              7. Repeat Infringers
+              8. Repeat Infringers
             </h2>
             <p className="text-muted-foreground">
               We reserve the right to terminate access for users determined to be
@@ -218,7 +241,7 @@ export default function CopyrightPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <Scale className="h-5 w-5 text-primary" />
-              8. Fair Use Notice
+              9. Fair Use Notice
             </h2>
             <p className="text-muted-foreground">
               Some uses of content may qualify as "fair use" for purposes such as
@@ -232,7 +255,7 @@ export default function CopyrightPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <Clock className="h-5 w-5 text-primary" />
-              9. Changes to This Policy
+              10. Changes to This Policy
             </h2>
             <p className="text-muted-foreground">
               We may update this policy from time to time. Changes are posted on

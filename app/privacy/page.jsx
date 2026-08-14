@@ -16,7 +16,7 @@ import {
 export const metadata = {
   title: "Privacy Policy - Shopyor",
   description:
-    "Privacy Policy for Shopyor. Learn how we handle your data across our AI voice cloning, video downloader, image, YouTube and SEO tools.",
+    "Privacy Policy for Shopyor. Learn how we handle your data when you purchase a digital product, and across our AI voice cloning, video downloader, image, YouTube and SEO tools.",
   robots: "noindex, follow",
 };
 
@@ -48,10 +48,11 @@ export default function PrivacyPage() {
             <p className="text-muted-foreground">
               At Shopyor ("we," "our," or "us"), your privacy matters. This
               Privacy Policy explains what information we collect, how we use it,
-              and the choices you have when you use our website and free online
-              tools — including our AI voice cloning tool, video downloaders,
-              image tools, YouTube tools, SEO tools, PDF tools, and other
-              utilities. Please read it carefully.
+              and the choices you have when you use our website, purchase a
+              digital product from our store, or use our free online tools —
+              including our AI voice cloning tool, video downloaders, image
+              tools, YouTube tools, SEO tools, PDF tools, and other utilities.
+              Please read it carefully.
             </p>
           </section>
 
@@ -59,9 +60,16 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3">2. Services We Provide</h2>
             <p className="text-muted-foreground mb-3">
-              Shopyor offers a suite of free, browser-based tools, including:
+              Shopyor operates a digital product store selling printable
+              worksheet packs, and also offers a suite of free, browser-based
+              tools, including:
             </p>
             <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
+              <li>
+                <strong>Digital worksheet packs</strong> — printable PDF
+                downloads purchased through our store, delivered instantly
+                after payment.
+              </li>
               <li>
                 <strong>AI Voice Cloning &amp; Text-to-Speech</strong> — upload a
                 short voice sample and generate natural-sounding speech.
@@ -90,13 +98,40 @@ export default function PrivacyPage() {
                 We do NOT collect:
               </p>
               <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
-                <li>Account names, passwords, or social-media login credentials</li>
-                <li>Payment information (our tools are free; we don't process payments)</li>
-                <li>A permanent history of the URLs, files, or text you submit</li>
+                <li>Account names or passwords — there is no account system</li>
+                <li>
+                  Your card number, CVC, or full billing details — payments are
+                  handled entirely by our payment processor, LemonSqueezy (see
+                  Section 7); we never see or store your card details
+                </li>
+                <li>A permanent history of the URLs, files, or text you submit to our free tools</li>
               </ul>
 
               <p className="text-muted-foreground font-medium mt-4">
-                Content you submit to a tool (processed, not stored long-term):
+                If you purchase a digital product:
+              </p>
+              <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
+                <li>
+                  We store an order record containing the product purchased,
+                  price, payment status, and a LemonSqueezy order reference —
+                  used to confirm your purchase and unlock your download
+                </li>
+                <li>
+                  Your name, email, and payment details are collected by
+                  LemonSqueezy at checkout, not by Shopyor directly — see{" "}
+                  <a
+                    href="https://www.lemonsqueezy.com/privacy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
+                    LemonSqueezy's Privacy Policy
+                  </a>
+                </li>
+              </ul>
+
+              <p className="text-muted-foreground font-medium mt-4">
+                Content you submit to a free tool (processed, not stored long-term):
               </p>
               <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
                 <li>
@@ -210,6 +245,30 @@ export default function PrivacyPage() {
             </p>
             <div className="space-y-3">
               <div className="bg-muted/30 p-4 rounded-lg">
+                <h3 className="font-semibold mb-2">LemonSqueezy (Payments)</h3>
+                <p className="text-sm text-muted-foreground">
+                  All purchases are processed by LemonSqueezy, our payment
+                  processor and merchant of record. Your card details, name,
+                  and email are collected and processed by LemonSqueezy, not
+                  Shopyor.
+                  <a
+                    href="https://www.lemonsqueezy.com/privacy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline ml-1"
+                  >
+                    LemonSqueezy's Privacy Policy
+                  </a>
+                </p>
+              </div>
+              <div className="bg-muted/30 p-4 rounded-lg">
+                <h3 className="font-semibold mb-2">Vercel Blob (File Storage)</h3>
+                <p className="text-sm text-muted-foreground">
+                  Purchased digital products are stored in a private Vercel
+                  Blob store and served only after your payment is confirmed.
+                </p>
+              </div>
+              <div className="bg-muted/30 p-4 rounded-lg">
                 <h3 className="font-semibold mb-2">Voice Processing Provider</h3>
                 <p className="text-sm text-muted-foreground">
                   Our AI voice cloning and text-to-speech features are powered by
@@ -280,10 +339,13 @@ export default function PrivacyPage() {
               9. Data Retention
             </h2>
             <p className="text-muted-foreground">
-              Files, audio, links, and text you submit are processed to deliver
-              your result and are not retained longer than necessary to provide
-              the service. Anonymous analytics data is retained for up to 26
-              months per analytics provider defaults.
+              Files, audio, links, and text you submit to a free tool are
+              processed to deliver your result and are not retained longer
+              than necessary to provide the service. Order records for
+              digital product purchases (product, price, payment status) are
+              retained for accounting, tax, and refund-handling purposes.
+              Anonymous analytics data is retained for up to 26 months per
+              analytics provider defaults.
             </p>
           </section>
 
