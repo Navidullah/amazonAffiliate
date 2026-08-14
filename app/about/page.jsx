@@ -11,9 +11,9 @@ import {
 } from "lucide-react";
 
 export const metadata = {
-  title: "About Shopyor — Free Online Tools, No Sign-Up",
+  title: "About Shopyor — Year 6 Maths Worksheets & Free Online Tools",
   description:
-    "Shopyor is a free online toolbox built by a small team that got tired of pay-to-download, watermarked, sign-up-required tools. Founded in 2025.",
+    "Shopyor sells printable Year 6 Maths & KS2 SATs worksheet packs, and runs a free online toolbox built by a small team. Founded in 2025.",
   robots: "index, follow",
 };
 
@@ -24,7 +24,8 @@ export default function AboutPage() {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4">About Shopyor</h1>
           <p className="text-xl text-muted-foreground">
-            20+ free online tools, no sign-up — founded in 2025
+            Printable Year 6 Maths &amp; KS2 SATs worksheets, plus 20+ free
+            online tools — founded in 2025
           </p>
         </div>
 
@@ -44,8 +45,15 @@ export default function AboutPage() {
               background, download a video — and finding every tool wanted a
               sign-up first, payment to download, or stuck a watermark on the
               result. So we built our own toolbox instead, and kept adding to
-              it. Shopyor is still actively maintained and growing, one tool at
-              a time.
+              it. Shopyor's free tools are still actively maintained and
+              growing, one tool at a time.
+            </p>
+            <p className="text-muted-foreground max-w-2xl mx-auto mt-4">
+              We later brought that same "no friction" thinking to a second
+              product: printable Year 6 Maths and KS2 SATs worksheet packs.
+              Instead of a subscription or an account, it's the same
+              philosophy as our tools — pick a pack, pay once, download
+              instantly.
             </p>
           </section>
 
@@ -56,11 +64,13 @@ export default function AboutPage() {
             </div>
             <h2 className="text-2xl font-semibold mb-3">Our Mission</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              To provide free, fast, and secure online tools — video
-              downloaders, PDF and image utilities, an AI voice cloner, and more
-              — that respect user privacy and intellectual property rights. We
-              believe everyone should have easy access to everyday tools without
-              a paywall, a sign-up form, or a watermark in the way.
+              To make useful things easy to get, without friction. For our
+              worksheet packs, that means printable Year 6 Maths and KS2 SATs
+              practice, formatted like the real assessment with full mark
+              schemes, sold with no subscription and no account required. For
+              our free tools — video downloaders, PDF and image utilities, an
+              AI voice cloner, and more — it means no paywall, no sign-up
+              form, and no watermark in the way.
             </p>
           </section>
 
@@ -79,9 +89,10 @@ export default function AboutPage() {
               </div>
               <div className="text-center p-4">
                 <Heart className="h-10 w-10 text-primary mx-auto mb-3" />
-                <h3 className="font-semibold mb-2">Completely Free</h3>
+                <h3 className="font-semibold mb-2">No Subscriptions</h3>
                 <p className="text-sm text-muted-foreground">
-                  No hidden fees, no premium tiers, always free
+                  Free tools stay free. Worksheet packs are a one-time
+                  payment — no recurring charges, no account required
                 </p>
               </div>
               <div className="text-center p-4">
@@ -104,10 +115,14 @@ export default function AboutPage() {
                 </h3>
                 <p className="text-sm text-muted-foreground mb-3">
                   Shopyor is committed to respecting intellectual property
-                  rights. We:
+                  rights. Our worksheet packs are original content we create
+                  ourselves. For our free tools, we:
                 </p>
                 <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
-                  <li>Do not host any copyrighted content on our servers</li>
+                  <li>
+                    Do not host any copyrighted third-party content on our
+                    servers
+                  </li>
                   <li>
                     Provide tools only for downloading publicly available
                     content
