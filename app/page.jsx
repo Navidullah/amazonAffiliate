@@ -1,23 +1,25 @@
 ﻿import StoreHome from "@/app/components/store/StoreHome";
 import { getActiveDigitalProducts } from "@/lib/actions/products";
+import { HOMEPAGE_FAQ } from "@/lib/constants/homepageFaq";
 
 const SITE = "https://www.shopyor.com";
 
 export const metadata = {
   metadataBase: new URL(SITE),
   title: {
-    absolute: "Printable Worksheets — KS2 Maths, SATs & More | Shopyor",
+    absolute: "Year 6 Maths Worksheets & KS2 SATs Papers | Shopyor",
   },
   description:
-    "Downloadable PDF worksheets for KS2 Maths & SATs (UK), Common Core Math (USA), and provincial curricula (Canada). Pay once, download instantly — plus 17+ free online tools.",
+    "Printable Year 6 Maths worksheets and KS2 SATs practice papers with full mark schemes. Pay once, download instantly. No sign-up, no subscription.",
   keywords: [
-    "printable worksheets",
+    "year 6 maths worksheets",
     "KS2 maths worksheets",
-    "SATs practice papers",
-    "common core math worksheets",
-    "canada math worksheets printable",
-    "pay per download",
-    "free online tools",
+    "KS2 SATs practice papers",
+    "year 6 SATs revision pack",
+    "printable SATs papers with answers",
+    "year 6 maths worksheets pdf",
+    "KS2 maths worksheets no sign up",
+    "pay per download worksheets",
   ],
   authors: [{ name: "Shopyor" }],
   creator: "Shopyor",
@@ -38,31 +40,23 @@ export const metadata = {
     languages: {
       "x-default": SITE,
       en: SITE,
-      "en-US": SITE,
       "en-GB": SITE,
-      "en-IN": SITE,
-      "en-PK": SITE,
-      "en-CA": SITE,
-      "en-AU": SITE,
-      "en-NG": SITE,
-      "en-PH": SITE,
-      "en-ZA": SITE,
     },
   },
   openGraph: {
     type: "website",
     url: SITE,
     siteName: "Shopyor",
-    locale: "en_US",
-    title: "Printable Worksheets — KS2 Maths, SATs & More | Shopyor",
+    locale: "en_GB",
+    title: "Year 6 Maths Worksheets & KS2 SATs Papers | Shopyor",
     description:
-      "Downloadable PDF worksheets for UK, USA, and Canada curricula. Pay once, download instantly. No sign-up, no subscription.",
+      "Printable Year 6 Maths worksheets and KS2 SATs practice papers with full mark schemes. Pay once, download instantly. No sign-up, no subscription.",
     images: [
       {
         url: `${SITE}/images/shopyor-tools-og.png`,
         width: 1200,
         height: 630,
-        alt: "Shopyor Worksheet Store",
+        alt: "Shopyor — Year 6 Maths Worksheets & KS2 SATs Papers",
       },
     ],
   },
@@ -70,9 +64,9 @@ export const metadata = {
     card: "summary_large_image",
     site: "@shopyor",
     creator: "@shopyor",
-    title: "Printable Worksheets — KS2 Maths, SATs & More | Shopyor",
+    title: "Year 6 Maths Worksheets & KS2 SATs Papers | Shopyor",
     description:
-      "Downloadable PDF worksheets for KS2 Maths & SATs, Common Core, and provincial curricula. Pay once, download instantly.",
+      "Printable Year 6 Maths worksheets and KS2 SATs practice papers with full mark schemes. Pay once, download instantly.",
     images: [`${SITE}/images/shopyor-tools-og.png`],
   },
 };
@@ -87,15 +81,15 @@ function buildStructuredData(products) {
         "@type": "CollectionPage",
         "@id": `${SITE}/#webpage`,
         url: SITE,
-        name: "Printable Worksheets by Shopyor",
+        name: "Year 6 Maths Worksheets & KS2 SATs Papers by Shopyor",
         isPartOf: { "@id": `${SITE}/#website` },
         about: { "@id": `${SITE}/#organization` },
         description:
-          "A printable worksheet store — KS2 Maths & SATs (UK), Common Core Math (USA), and provincial curricula (Canada). Pay once, download instantly.",
+          "Printable Year 6 Maths worksheets and KS2 SATs practice papers with full mark schemes. Pay once, download instantly.",
       },
       {
         "@type": "ItemList",
-        name: "Shopyor Worksheet Packs",
+        name: "Year 6 Maths Worksheet Packs",
         itemListOrder: "https://schema.org/ItemListOrderAscending",
         numberOfItems: products.length,
         itemListElement: products.map((p, i) => ({
@@ -128,6 +122,14 @@ function buildStructuredData(products) {
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: SITE },
         ],
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: HOMEPAGE_FAQ.map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: { "@type": "Answer", text: faq.answer },
+        })),
       },
     ],
   };

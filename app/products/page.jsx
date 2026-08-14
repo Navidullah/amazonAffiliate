@@ -5,17 +5,17 @@ const SITE = "https://www.shopyor.com";
 
 export const metadata = {
   metadataBase: new URL(SITE),
-  title: { absolute: "Printable Worksheets — KS2 Maths, SATs & More | Shopyor" },
+  title: { absolute: "Year 6 Maths Worksheets & KS2 SATs Papers | Shopyor" },
   description:
-    "Browse downloadable PDF worksheets for KS2 Maths & SATs (UK), Common Core Math (USA), and provincial curricula (Canada). Pay once, download instantly.",
+    "Browse printable Year 6 Maths worksheets and KS2 SATs practice papers with full mark schemes. Pay once, download instantly.",
   alternates: { canonical: `${SITE}/products` },
   openGraph: {
     type: "website",
     url: `${SITE}/products`,
     siteName: "Shopyor",
-    title: "Printable Worksheets — KS2 Maths, SATs & More | Shopyor",
+    title: "Year 6 Maths Worksheets & KS2 SATs Papers | Shopyor",
     description:
-      "Downloadable PDF worksheets for UK, USA, and Canada curricula. Pay once, download instantly.",
+      "Printable Year 6 Maths worksheets and KS2 SATs practice papers with full mark schemes. Pay once, download instantly.",
   },
 };
 
@@ -28,9 +28,9 @@ export default async function ProductsPage() {
       {
         "@type": "CollectionPage",
         url: `${SITE}/products`,
-        name: "Shopyor Worksheet Store",
+        name: "Year 6 Maths Worksheets & KS2 SATs Papers",
         description:
-          "Downloadable PDF worksheets for KS2 Maths & SATs (UK), Common Core Math (USA), and provincial curricula (Canada).",
+          "Printable Year 6 Maths worksheets and KS2 SATs practice papers with full mark schemes.",
       },
       {
         "@type": "BreadcrumbList",
@@ -49,11 +49,12 @@ export default async function ProductsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-        Printable worksheets for KS2 Maths, SATs & more
+        Year 6 Maths Worksheets &amp; KS2 SATs Papers
       </h1>
       <p className="mt-3 max-w-2xl text-base text-gray-600 dark:text-gray-400">
-        Downloadable PDF worksheets covering UK, US, and Canada curricula.
-        Pay once, download instantly — no subscription.
+        Printable PDF worksheets and SATs practice papers for KS2 Year 6
+        Maths, with full mark schemes. Pay once, download instantly — no
+        subscription.
       </p>
 
       <div className="mt-10">

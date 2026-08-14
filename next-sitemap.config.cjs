@@ -8,7 +8,7 @@
 // `priority`/`changefreq` are intentionally omitted sitewide: Google has
 // confirmed both fields are ignored for ranking/crawling.
 const LAST_MODIFIED = {
-  "/": "2026-06-18T11:58:31+05:00",
+  "/": "2026-08-14T00:00:00+05:00",
   "/tools": "2026-06-12T11:45:53+05:00",
   "/portfolio": "2026-05-09T12:41:39+05:00",
   "/about": "2026-06-18T12:54:46+05:00",

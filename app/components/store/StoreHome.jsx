@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -8,10 +9,12 @@ import {
   ShieldCheck,
   Download,
   BookOpen,
-  Globe2,
+  ClipboardCheck,
   LayoutGrid,
+  ChevronDown,
 } from "lucide-react";
 import { getRegionLabel } from "@/lib/constants/productCategories";
+import { HOMEPAGE_FAQ } from "@/lib/constants/homepageFaq";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -25,9 +28,9 @@ const stagger = {
 
 const features = [
   {
-    icon: Globe2,
-    title: "UK, USA & Canada curricula",
-    desc: "KS2 Maths & SATs, Common Core, and provincial worksheets — built for each region's curriculum.",
+    icon: ClipboardCheck,
+    title: "Matches the real SATs format",
+    desc: "Timing, mark allocation, and question style formatted like the real KS2 assessment.",
     accent: "from-indigo-500 to-blue-500",
   },
   {
@@ -64,14 +67,14 @@ export default function StoreHome({ products = [] }) {
             className="inline-flex items-center gap-2 rounded-full border border-indigo-200/70 bg-white/70 px-4 py-1.5 text-xs font-semibold text-indigo-700 shadow-sm backdrop-blur dark:border-indigo-500/20 dark:bg-white/[0.04] dark:text-indigo-300"
           >
             <Sparkles className="h-3.5 w-3.5" />
-            Printable worksheets, made simple
+            Year 6 Maths &amp; KS2 SATs resources
           </motion.span>
 
           <motion.h1
             variants={fadeUp}
             className="mx-auto mt-6 max-w-3xl text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-6xl"
           >
-            Curriculum worksheets.{" "}
+            Year 6 Maths Worksheets &amp; KS2 SATs Papers.{" "}
             <span className="bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-500 bg-clip-text text-transparent dark:from-indigo-300 dark:via-violet-300 dark:to-fuchsia-200">
               Pay once, download instantly.
             </span>
@@ -81,9 +84,10 @@ export default function StoreHome({ products = [] }) {
             variants={fadeUp}
             className="mx-auto mt-5 max-w-2xl text-base text-gray-600 dark:text-gray-300 sm:text-lg"
           >
-            Printable PDF worksheets for KS2 Maths & SATs (UK), Common Core
-            Math (USA), and provincial curricula (Canada). Pick a pack, pay a
-            small one-time fee, and download instantly.
+            Printable PDF worksheets and practice papers for KS2 Year 6
+            Maths, formatted like the real SATs assessment with full mark
+            schemes included. No sign-up, no subscription — pick a pack and
+            download.
           </motion.p>
 
           <motion.div
@@ -94,10 +98,10 @@ export default function StoreHome({ products = [] }) {
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> No sign up
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Pay only when you download
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Full mark scheme included
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> UK, USA & Canada curricula
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Instant PDF download
             </span>
           </motion.div>
         </motion.header>
@@ -187,6 +191,63 @@ export default function StoreHome({ products = [] }) {
           ))}
         </motion.section>
 
+        {/* SEO content — real body copy for the primary keyword intent */}
+        <motion.section
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          className="mb-20 rounded-3xl border border-gray-200/70 bg-white/70 p-8 backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.03] sm:p-10"
+        >
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+            Printable Year 6 Maths worksheets, built like the real SATs
+          </h2>
+          <div className="mt-4 space-y-4 text-sm leading-relaxed text-gray-600 dark:text-gray-400 sm:text-base">
+            <p>
+              Year 6 is the final year of Key Stage 2, and the run-up to the
+              KS2 SATs is when Maths practice matters most. Shopyor's
+              worksheet packs are printable PDFs written to match the real
+              SATs format — the same timing, mark allocation, and question
+              style pupils will see in the actual Arithmetic and Reasoning
+              papers — so every practice session feels like the real thing,
+              not a generic worksheet.
+            </p>
+            <p>
+              Each pack includes a full mark scheme, so parents, tutors, and
+              teachers can mark it without needing a teaching background.
+              Whether you need a complete two-paper revision pack or a
+              focused topic pack on fractions, decimals, percentages, ratio,
+              proportion, or algebra, every pack downloads as a single PDF —
+              ready to print at home, in a tutoring session, or for a single
+              classroom.
+            </p>
+            <p>
+              Unlike subscription-based worksheet libraries, Shopyor is
+              pay-per-pack: no account, no recurring charge, and no email
+              sign-up. Pick a pack, pay once, and your download unlocks
+              instantly.
+            </p>
+          </div>
+        </motion.section>
+
+        {/* FAQ */}
+        <motion.section
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          className="mb-20"
+        >
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+            Frequently asked questions
+          </h2>
+          <div className="mt-6 space-y-3">
+            {HOMEPAGE_FAQ.map((faq, i) => (
+              <FaqItem key={faq.question} faq={faq} index={i} />
+            ))}
+          </div>
+        </motion.section>
+
         {/* CTA footer — points to the tools hub, which is still fully live */}
         <motion.section
           variants={fadeUp}
@@ -213,5 +274,41 @@ export default function StoreHome({ products = [] }) {
         </motion.section>
       </div>
     </main>
+  );
+}
+
+function FaqItem({ faq, index }) {
+  const [open, setOpen] = useState(index === 0);
+
+  return (
+    <div className="overflow-hidden rounded-2xl border border-gray-200/70 bg-white/70 backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.03]">
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
+      >
+        <span className="text-sm font-semibold text-gray-900 dark:text-white sm:text-base">
+          {faq.question}
+        </span>
+        <ChevronDown
+          className={`h-4 w-4 shrink-0 text-gray-500 transition-transform duration-300 dark:text-gray-400 ${
+            open ? "rotate-180" : ""
+          }`}
+        />
+      </button>
+      {/* Answer stays in the DOM even when collapsed (max-height, not
+          conditional render) so it's crawlable for SEO. */}
+      <div
+        className="grid transition-all duration-300 ease-in-out"
+        style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
+      >
+        <div className="overflow-hidden">
+          <p className="px-5 pb-4 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+            {faq.answer}
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }

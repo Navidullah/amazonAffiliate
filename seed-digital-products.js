@@ -26,9 +26,9 @@ if (!uri) {
 const PRODUCTS = [
   {
     slug: "uk-ks2-maths-year-6-revision-pack",
-    title: "KS2 Year 6 Maths Revision Pack (Paper 1 & Paper 2)",
+    title: "Year 6 Maths SATs Revision Pack (KS2)",
     description:
-      "Two full printable practice papers for KS2 Year 6 Maths revision — Paper 1 (Arithmetic) and Paper 2 (Reasoning) — formatted like the real assessment, with a formula & facts sheet and a full mark scheme included. Original content, not affiliated with or derived from the Standards and Testing Agency.",
+      "Two full printable Year 6 Maths SATs practice papers — Arithmetic and Reasoning — formatted like the real assessment, with a formula & facts sheet and a full mark scheme included. Pay once, download instantly. Original content, not affiliated with or derived from the Standards and Testing Agency.",
     previewImage: "/api/product-image/uk-ks2-maths-year-6-revision-pack",
     price: 3,
     region: "uk",
@@ -43,9 +43,9 @@ const PRODUCTS = [
   },
   {
     slug: "uk-ks2-maths-year-6-paper-3-reasoning",
-    title: "KS2 Year 6 Maths Paper 3 (Reasoning)",
+    title: "Year 6 Maths SATs Paper 3: Reasoning (KS2)",
     description:
-      "A third full printable Year 6 Maths reasoning practice paper — 35 marks, 40 minutes, formatted like the real assessment with working space and a mark scheme. A companion paper to the main Revision Pack, for extra practice. Original content, not affiliated with or derived from the Standards and Testing Agency.",
+      "A third full printable Year 6 Maths SATs Reasoning practice paper — 35 marks, 40 minutes, formatted like the real assessment with working space and a mark scheme. A companion paper to the Revision Pack, for extra KS2 SATs practice. Original content, not affiliated with or derived from the Standards and Testing Agency.",
     previewImage: "/api/product-image/uk-ks2-maths-year-6-paper-3-reasoning",
     price: 2,
     region: "uk",
@@ -60,9 +60,9 @@ const PRODUCTS = [
   },
   {
     slug: "uk-ks2-maths-year-6-fractions-decimals-percentages",
-    title: "KS2 Year 6 Maths Topic Pack: Fractions, Decimals & Percentages",
+    title: "Year 6 Maths Worksheets: Fractions, Decimals & Percentages",
     description:
-      "A focused 28-question printable practice pack on converting and calculating with fractions, decimals, and percentages for Year 6 Maths — with working space and a mark scheme. Original content, not affiliated with or derived from the Standards and Testing Agency.",
+      "A focused 28-question printable Year 6 Maths worksheet pack on converting and calculating with fractions, decimals, and percentages — with working space and a mark scheme. KS2 SATs practice. Original content, not affiliated with or derived from the Standards and Testing Agency.",
     previewImage:
       "/api/product-image/uk-ks2-maths-year-6-fractions-decimals-percentages",
     price: 2,
@@ -78,9 +78,9 @@ const PRODUCTS = [
   },
   {
     slug: "uk-ks2-maths-year-6-ratio-proportion-algebra",
-    title: "KS2 Year 6 Maths Topic Pack: Ratio, Proportion & Algebra",
+    title: "Year 6 Maths Worksheets: Ratio, Proportion & Algebra",
     description:
-      "A focused 28-question printable practice pack on ratio, proportion, and algebra for Year 6 Maths — with working space and a mark scheme. Original content, not affiliated with or derived from the Standards and Testing Agency.",
+      "A focused 28-question printable Year 6 Maths worksheet pack on ratio, proportion, and algebra — with working space and a mark scheme. KS2 SATs practice. Original content, not affiliated with or derived from the Standards and Testing Agency.",
     previewImage: "/api/product-image/uk-ks2-maths-year-6-ratio-proportion-algebra",
     price: 2,
     region: "uk",
