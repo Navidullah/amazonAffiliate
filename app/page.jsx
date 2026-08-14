@@ -1,37 +1,23 @@
-﻿import HomeHub from "@/app/components/home/HomeHub";
+﻿import StoreHome from "@/app/components/store/StoreHome";
+import { getActiveDigitalProducts } from "@/lib/actions/products";
 
 const SITE = "https://www.shopyor.com";
 
 export const metadata = {
   metadataBase: new URL(SITE),
   title: {
-    absolute:
-      "Free Online Tools â€” Video, PDF, Image, AI & SEO | Shopyor",
+    absolute: "Printable Worksheets — KS2 Maths, SATs & More | Shopyor",
   },
   description:
-    "21+ free, browser-based tools: video downloaders, PDF & image utilities, AI voice cloner, resume builder, BMI calculator, and SEO tools. No sign-up.",
+    "Downloadable PDF worksheets for KS2 Maths & SATs (UK), Common Core Math (USA), and provincial curricula (Canada). Pay once, download instantly — plus 17+ free online tools.",
   keywords: [
+    "printable worksheets",
+    "KS2 maths worksheets",
+    "SATs practice papers",
+    "common core math worksheets",
+    "canada math worksheets printable",
+    "pay per download",
     "free online tools",
-    "video downloader",
-    "facebook video downloader",
-    "instagram video downloader",
-    "tiktok video downloader",
-    "youtube video downloader",
-    "video to gif converter",
-    "ai voice cloner",
-    "background remover",
-    "image compressor",
-    "image resizer",
-    "exif remover",
-    "pdf to word converter",
-    "pdf compressor",
-    "resume builder",
-    "bmi calculator",
-    "amazon affiliate link generator",
-    "youtube thumbnail downloader",
-    "youtube tags extractor",
-    "meta tag generator",
-    "robots.txt generator",
   ],
   authors: [{ name: "Shopyor" }],
   creator: "Shopyor",
@@ -68,15 +54,15 @@ export const metadata = {
     url: SITE,
     siteName: "Shopyor",
     locale: "en_US",
-    title: "Free Online Tools by Shopyor â€” One Free Toolbox for Everything",
+    title: "Printable Worksheets — KS2 Maths, SATs & More | Shopyor",
     description:
-      "Download videos, convert & compress PDFs, remove image backgrounds, clone a voice, build a resume, calculate BMI, and generate SEO tags â€” 21+ free tools, no sign-up.",
+      "Downloadable PDF worksheets for UK, USA, and Canada curricula. Pay once, download instantly. No sign-up, no subscription.",
     images: [
       {
         url: `${SITE}/images/shopyor-tools-og.png`,
         width: 1200,
         height: 630,
-        alt: "Shopyor Free Online Tools",
+        alt: "Shopyor Worksheet Store",
       },
     ],
   },
@@ -84,157 +70,73 @@ export const metadata = {
     card: "summary_large_image",
     site: "@shopyor",
     creator: "@shopyor",
-    title: "Free Online Tools by Shopyor",
+    title: "Printable Worksheets — KS2 Maths, SATs & More | Shopyor",
     description:
-      "21+ free, browser-based tools: video downloaders, PDF & image utilities, AI voice cloner, resume builder, BMI calculator, and SEO tools. No sign-up.",
+      "Downloadable PDF worksheets for KS2 Maths & SATs, Common Core, and provincial curricula. Pay once, download instantly.",
     images: [`${SITE}/images/shopyor-tools-og.png`],
   },
 };
 
-/** All tools enumerated for ItemList structured data (keep in sync with HomeHub). */
-const TOOLS = [
-  {
-    name: "Facebook Video Downloader",
-    url: `${SITE}/tools/facebook-video-downloader`,
-    description:
-      "Download public Facebook videos and reels in HD, free and without an app.",
-  },
-  {
-    name: "Instagram Video Downloader",
-    url: `${SITE}/tools/instagram-video-downloader`,
-    description:
-      "Save public Instagram reels, posts, and videos in full quality.",
-  },
-  {
-    name: "TikTok Video Downloader",
-    url: `${SITE}/tools/free-tiktok-video-downloader`,
-    description: "Download TikTok videos without a watermark in up to 1080p.",
-  },
-  {
-    name: "Video Downloader",
-    url: `${SITE}/tools/video-downloader`,
-    description: "Download videos from Facebook, Instagram, or TikTok from one hub.",
-  },
-  {
-    name: "AI Voice Cloner",
-    url: `${SITE}/tools/voice-clone`,
-    description:
-      "Clone a voice from a short sample and generate natural speech from text. Free, no watermark.",
-  },
-  {
-    name: "AI Background Remover",
-    url: `${SITE}/tools/background-remover-image`,
-    description:
-      "Remove image backgrounds automatically with AI and download a transparent PNG.",
-  },
-  {
-    name: "Image Compressor",
-    url: `${SITE}/tools/image-compressor`,
-    description: "Compress JPG and PNG images without visible quality loss.",
-  },
-  {
-    name: "EXIF Metadata Remover",
-    url: `${SITE}/tools/exif-remover`,
-    description: "Strip hidden EXIF and GPS metadata from photos for privacy.",
-  },
-  {
-    name: "PDF to Word Converter",
-    url: `${SITE}/tools/convert-your-pdf-file-to-word`,
-    description:
-      "Convert PDF files to editable Word documents with OCR and preserved formatting.",
-  },
-  {
-    name: "PDF Compressor",
-    url: `${SITE}/tools/compress-your-pdf-file`,
-    description: "Reduce PDF file size for email and uploads while keeping quality.",
-  },
-  {
-    name: "BMI Calculator",
-    url: `${SITE}/tools/bmi`,
-    description:
-      "Calculate your Body Mass Index in kg & cm or lb & ft with a healthy-weight chart.",
-  },
-  {
-    name: "Amazon Affiliate Link Generator",
-    url: `${SITE}/tools/affiliate-link-generator`,
-    description:
-      "Convert any Amazon URL or ASIN into a clean affiliate link with your own tag.",
-  },
-  {
-    name: "YouTube Thumbnail Downloader",
-    url: `${SITE}/tools/youtube-thumbnail`,
-    description: "Download full-resolution thumbnails from any YouTube video.",
-  },
-  {
-    name: "YouTube Tags Extractor",
-    url: `${SITE}/tools/youtube-tags-extractor`,
-    description: "Extract the hidden tags from any YouTube video instantly.",
-  },
-  {
-    name: "Meta Tag Generator",
-    url: `${SITE}/tools/meta-tag-generator`,
-    description: "Generate SEO title, description, and Open Graph meta tags.",
-  },
-  {
-    name: "Robots.txt Generator",
-    url: `${SITE}/tools/robots-txt-generator`,
-    description: "Create a correct robots.txt file to guide search engine crawlers.",
-  },
-];
-
 // Organization + WebSite are emitted once globally in app/layout.jsx; this
 // page only declares page-specific schemas and references the global @ids.
-const structuredData = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "CollectionPage",
-      "@id": `${SITE}/#webpage`,
-      url: SITE,
-      name: "Free Online Tools by Shopyor",
-      isPartOf: { "@id": `${SITE}/#website` },
-      about: { "@id": `${SITE}/#organization` },
-      description:
-        "A free online toolbox with 21+ browser-based tools for video, images, PDFs, AI, and SEO â€” no sign-up required.",
-    },
-    {
-      "@type": "ItemList",
-      name: "Shopyor Free Online Tools",
-      itemListOrder: "https://schema.org/ItemListOrderAscending",
-      numberOfItems: TOOLS.length,
-      itemListElement: TOOLS.map((t, i) => ({
-        "@type": "ListItem",
-        position: i + 1,
-        name: t.name,
-        url: t.url,
-        item: {
-          "@type": "WebApplication",
-          name: t.name,
-          url: t.url,
-          description: t.description,
-          applicationCategory: "UtilitiesApplication",
-          operatingSystem: "Web",
-          offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-        },
-      })),
-    },
-    {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: SITE },
-      ],
-    },
-  ],
-};
+function buildStructuredData(products) {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": `${SITE}/#webpage`,
+        url: SITE,
+        name: "Printable Worksheets by Shopyor",
+        isPartOf: { "@id": `${SITE}/#website` },
+        about: { "@id": `${SITE}/#organization` },
+        description:
+          "A printable worksheet store — KS2 Maths & SATs (UK), Common Core Math (USA), and provincial curricula (Canada). Pay once, download instantly.",
+      },
+      {
+        "@type": "ItemList",
+        name: "Shopyor Worksheet Packs",
+        itemListOrder: "https://schema.org/ItemListOrderAscending",
+        numberOfItems: products.length,
+        itemListElement: products.map((p, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: p.title,
+          url: `${SITE}${p.href}`,
+          item: {
+            "@type": "Product",
+            name: p.title,
+            url: `${SITE}${p.href}`,
+            description: p.description,
+            offers: {
+              "@type": "Offer",
+              price: String(p.price),
+              priceCurrency: "USD",
+            },
+          },
+        })),
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: SITE },
+        ],
+      },
+    ],
+  };
+}
 
-export default function Page() {
+export default async function Page() {
+  const products = await getActiveDigitalProducts();
+  const structuredData = buildStructuredData(products);
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <HomeHub />
+      <StoreHome products={products} />
     </>
   );
 }

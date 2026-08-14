@@ -1,12 +1,19 @@
 ﻿# Shopyor
 
-> Shopyor is a free online toolbox: 20+ browser-based tools for downloading
-> video, converting and compressing PDFs and images, cloning a voice, building
-> a resume, calculating BMI, and generating SEO tags â€” no sign-up, no install.
+> Shopyor is a printable worksheet store — downloadable PDF worksheets for
+> KS2 Maths & SATs (UK), Common Core Math (USA), and provincial curricula
+> (Canada), pay once and download instantly — plus 17+ free, browser-based
+> tools for downloading video, converting and compressing PDFs and images,
+> cloning a voice, calculating BMI, and generating SEO tags, no sign-up, no
+> install.
 
 All tools run client-side or through a privacy-respecting backend with no
 permanent storage of uploaded files. Every tool page below includes a
 description, step-by-step instructions, and an FAQ section.
+
+## Digital Products
+
+- [Printable Worksheets](https://www.shopyor.com/products): Downloadable PDF worksheet packs for KS2 Maths & SATs (UK), Common Core Math (USA), and provincial curricula (Canada). Pay once, download instantly.
 
 ## Tools
 

@@ -58,10 +58,10 @@ const nextConfig = {
         destination: "/tools",
         permanent: true,
       },
-      // Retired 2026-08-10: image resizer, resume builder, video-to-gif
-      // converter, and YouTube video downloader were removed. URLs were
-      // indexed, so send them to the tools hub (301) to avoid a 404 and
-      // preserve any link equity.
+      // Retired 2026-08-10: image resizer, video-to-gif converter, and
+      // YouTube video downloader were removed. URLs were indexed, so send
+      // them to the tools hub (301) to avoid a 404 and preserve any link
+      // equity.
       {
         source: "/tools/resizer",
         destination: "/tools",
@@ -73,17 +73,26 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: "/tools/resume-builder",
-        destination: "/tools",
-        permanent: true,
-      },
-      {
         source: "/tools/video-to-gif",
         destination: "/tools",
         permanent: true,
       },
       {
         source: "/tools/youtube-video-downloader",
+        destination: "/tools",
+        permanent: true,
+      },
+      // resume-builder was briefly rebuilt as a paid digital product
+      // (2026-08-12), then retired for good (2026-08-14) in favor of the
+      // worksheet store. URL was indexed, so keep sending it to the tools
+      // hub to avoid a 404 and preserve link equity.
+      {
+        source: "/tools/resume-builder",
+        destination: "/tools",
+        permanent: true,
+      },
+      {
+        source: "/tools/resume-builder/:path*",
         destination: "/tools",
         permanent: true,
       },

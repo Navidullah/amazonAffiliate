@@ -29,6 +29,7 @@ const LAST_MODIFIED = {
   "/tools/image-compressor": "2026-06-18T12:54:46+05:00",
   "/tools/instagram-video-downloader": "2026-06-18T12:54:46+05:00",
   "/tools/video-downloader": "2026-08-10T00:00:00+05:00",
+  "/products": "2026-08-14T00:00:00+05:00",
   "/tools/meta-tag-generator": "2026-06-18T12:54:46+05:00",
   "/tools/convert-your-pdf-file-to-word": "2026-06-18T12:54:46+05:00",
   "/tools/compress-your-pdf-file": "2026-06-18T12:54:46+05:00",
@@ -65,9 +66,11 @@ module.exports = {
     "/tools/whiteboard-animation", // 301 -> /tools (tool retired)
     "/tools/resizer", // 301 -> /tools (tool retired 2026-08-10)
     "/tools/image-resizer", // 301 -> /tools (tool retired 2026-08-10)
-    "/tools/resume-builder", // 301 -> /tools (tool retired 2026-08-10)
+    "/tools/resume-builder", // 301 -> /tools (digital product retired 2026-08-14)
+    "/tools/resume-builder/*", // 301 -> /tools
     "/tools/video-to-gif", // 301 -> /tools (tool retired 2026-08-10)
     "/tools/youtube-video-downloader", // 301 -> /tools (tool retired 2026-08-10)
+    "/order/*", // private post-checkout page, noindex
     // Next.js internal image-generation routes â€” not real pages
     "/twitter-image",
     "/opengraph-image",
@@ -98,6 +101,7 @@ module.exports = {
 
   additionalPaths: async () => {
     let blogs = [];
+    let products = [];
 
     try {
       // The blog list endpoint is /api/blog (singular) and returns { blogs: [...] }.
@@ -114,13 +118,31 @@ module.exports = {
       console.warn("[next-sitemap] Blog fetch failed:", err.message);
     }
 
-    return blogs.map((blog) => ({
-      // Posts are served at /blog/<slug> (singular).
-      loc: `${siteUrl}/blog/${blog.slug}`,
-      lastmod: new Date(
-        blog.updatedAt || blog.publishedAt || blog.date || Date.now(),
-      ).toISOString(),
-    }));
+    try {
+      const res = await fetch(`${siteUrl}/api/products`);
+      if (res.ok) {
+        const data = await res.json();
+        products = Array.isArray(data?.products) ? data.products : [];
+      }
+    } catch (err) {
+      console.warn("[next-sitemap] Products fetch failed:", err.message);
+    }
+
+    return [
+      ...blogs.map((blog) => ({
+        // Posts are served at /blog/<slug> (singular).
+        loc: `${siteUrl}/blog/${blog.slug}`,
+        lastmod: new Date(
+          blog.updatedAt || blog.publishedAt || blog.date || Date.now(),
+        ).toISOString(),
+      })),
+      ...products.map((product) => ({
+        loc: `${siteUrl}/products/${product.slug}`,
+        lastmod: new Date(
+          product.updatedAt || product.createdAt || Date.now(),
+        ).toISOString(),
+      })),
+    ];
   },
 
   transform: async (config, path) => {
