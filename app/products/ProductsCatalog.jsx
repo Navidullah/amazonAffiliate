@@ -1,9 +1,25 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { LayoutGrid } from "lucide-react";
 import { REGIONS, getCategoriesForRegion, getCategoryLabel } from "@/lib/constants/productCategories";
+import ProductCard from "@/app/components/store/ProductCard";
+
+function FilterPill({ active, onClick, children }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`rounded-full px-4 py-2 text-sm font-semibold transition-all ${
+        active
+          ? "bg-gradient-to-r from-indigo-600 to-fuchsia-500 text-white shadow-md"
+          : "border border-gray-200/70 bg-white/70 text-gray-600 hover:border-indigo-300 hover:text-indigo-600 dark:border-white/10 dark:bg-white/[0.03] dark:text-gray-300 dark:hover:text-indigo-300"
+      }`}
+    >
+      {children}
+    </button>
+  );
+}
 
 export default function ProductsCatalog({ products }) {
   const [region, setRegion] = useState("all");
@@ -21,68 +37,49 @@ export default function ProductsCatalog({ products }) {
 
   return (
     <div>
-      <div className="flex flex-wrap items-center gap-3">
-        <select
-          value={region}
-          onChange={(e) => {
-            setRegion(e.target.value);
-            setCategory("all");
-          }}
-          className="rounded-full border border-gray-200/70 bg-white/70 px-4 py-2 text-sm font-medium text-gray-700 dark:border-white/10 dark:bg-white/[0.03] dark:text-gray-200"
-        >
-          <option value="all">All regions</option>
-          {REGIONS.map((r) => (
-            <option key={r.value} value={r.value}>
-              {r.label}
-            </option>
-          ))}
-        </select>
-
-        <select
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          disabled={region === "all"}
-          className="rounded-full border border-gray-200/70 bg-white/70 px-4 py-2 text-sm font-medium text-gray-700 disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.03] dark:text-gray-200"
-        >
-          <option value="all">All categories</option>
-          {categoryOptions.map((c) => (
-            <option key={c.value} value={c.value}>
-              {c.label}
-            </option>
-          ))}
-        </select>
+      <div className="flex flex-wrap items-center gap-2">
+        <FilterPill active={region === "all"} onClick={() => { setRegion("all"); setCategory("all"); }}>
+          All regions
+        </FilterPill>
+        {REGIONS.map((r) => (
+          <FilterPill
+            key={r.value}
+            active={region === r.value}
+            onClick={() => { setRegion(r.value); setCategory("all"); }}
+          >
+            {r.label}
+          </FilterPill>
+        ))}
       </div>
 
+      {categoryOptions.length > 0 && (
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <FilterPill active={category === "all"} onClick={() => setCategory("all")}>
+            All categories
+          </FilterPill>
+          {categoryOptions.map((c) => (
+            <FilterPill key={c.value} active={category === c.value} onClick={() => setCategory(c.value)}>
+              {getCategoryLabel(c.value)}
+            </FilterPill>
+          ))}
+        </div>
+      )}
+
+      <p className="mt-6 text-sm text-gray-500 dark:text-gray-400">
+        Showing {filtered.length} of {products.length} {products.length === 1 ? "pack" : "packs"}
+      </p>
+
       {filtered.length === 0 ? (
-        <p className="mt-12 text-sm text-gray-500 dark:text-gray-400">
-          No worksheets match those filters yet — check back soon.
-        </p>
+        <div className="mt-8 flex flex-col items-center gap-3 rounded-3xl border border-dashed border-gray-300/70 py-16 text-center dark:border-white/10">
+          <LayoutGrid className="h-8 w-8 text-gray-400 dark:text-gray-500" />
+          <p className="text-sm font-semibold text-gray-500 dark:text-gray-400">
+            No worksheets match those filters yet — check back soon.
+          </p>
+        </div>
       ) : (
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((p) => (
-            <Link
-              key={p.slug}
-              href={`/products/${p.slug}`}
-              className="group flex h-full flex-col rounded-3xl border border-gray-200/70 bg-white/70 p-6 backdrop-blur-xl transition-all hover:-translate-y-1 hover:shadow-[0_24px_64px_-30px_rgba(56,89,255,0.5)] dark:border-white/10 dark:bg-white/[0.03]"
-            >
-              <span className="text-xs font-semibold uppercase tracking-wide text-indigo-600 dark:text-indigo-300">
-                {getCategoryLabel(p.category)} · {p.gradeLevel}
-              </span>
-              <h2 className="mt-2 text-lg font-bold text-gray-900 dark:text-white">
-                {p.title}
-              </h2>
-              <p className="mt-2 flex-1 text-sm text-gray-600 dark:text-gray-400">
-                {p.description}
-              </p>
-              <div className="mt-5 flex items-center justify-between">
-                <span className="text-lg font-bold text-indigo-600 dark:text-indigo-300">
-                  ${p.price}
-                </span>
-                <span className="inline-flex items-center gap-1 text-sm font-semibold text-gray-700 group-hover:text-indigo-600 dark:text-gray-300 dark:group-hover:text-indigo-300">
-                  View <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </span>
-              </div>
-            </Link>
+            <ProductCard key={p.slug} product={p} />
           ))}
         </div>
       )}

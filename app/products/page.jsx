@@ -43,7 +43,7 @@ export default async function ProductsPage() {
   };
 
   return (
-    <main className="mx-auto max-w-6xl px-4 pb-24 pt-28 sm:px-6">
+    <div className="mx-auto max-w-6xl px-4 pb-24 pt-6 sm:px-6 md:pt-8">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
@@ -60,6 +60,6 @@ export default async function ProductsPage() {
       <div className="mt-10">
         <ProductsCatalog products={products} />
       </div>
-    </main>
+    </div>
   );
 }

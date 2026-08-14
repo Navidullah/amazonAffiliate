@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -8,13 +7,14 @@ import {
   ArrowRight,
   ShieldCheck,
   Download,
-  BookOpen,
   ClipboardCheck,
   LayoutGrid,
-  ChevronDown,
+  FileCheck2,
+  Ban,
 } from "lucide-react";
-import { getRegionLabel } from "@/lib/constants/productCategories";
 import { HOMEPAGE_FAQ } from "@/lib/constants/homepageFaq";
+import ProductCard from "./ProductCard";
+import FaqAccordion from "./FaqAccordion";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -47,9 +47,16 @@ const features = [
   },
 ];
 
+const trustStats = [
+  { icon: FileCheck2, label: "SATs-style packs" },
+  { icon: Download, label: "Instant PDF download" },
+  { icon: ClipboardCheck, label: "Full mark scheme included" },
+  { icon: Ban, label: "No subscription, ever" },
+];
+
 export default function StoreHome({ products = [] }) {
   return (
-    <main className="relative min-h-screen overflow-hidden px-4 pb-24 pt-28 sm:px-6">
+    <div className="relative min-h-screen overflow-hidden px-4 pb-24 pt-6 sm:px-6 md:pt-8">
       <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-indigo-50/60 via-white to-fuchsia-50/40 dark:from-gray-950 dark:via-gray-950 dark:to-gray-900" />
       <div className="pointer-events-none absolute -top-32 left-1/2 -z-10 h-[480px] w-[480px] -translate-x-1/2 rounded-full bg-indigo-400/20 blur-[120px] dark:bg-indigo-600/20" />
       <div className="pointer-events-none absolute right-0 top-1/3 -z-10 h-[360px] w-[360px] rounded-full bg-fuchsia-400/20 blur-[120px] dark:bg-fuchsia-600/10" />
@@ -104,6 +111,24 @@ export default function StoreHome({ products = [] }) {
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Instant PDF download
             </span>
           </motion.div>
+
+          {/* Trust strip */}
+          <motion.div
+            variants={fadeUp}
+            className="mx-auto mt-10 flex max-w-3xl flex-wrap items-center justify-center gap-3 rounded-2xl border border-gray-200/70 bg-white/60 px-4 py-3 backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.03]"
+          >
+            {trustStats.map((stat) => (
+              <span
+                key={stat.label}
+                className="inline-flex items-center gap-2 px-2 text-xs font-semibold text-gray-600 dark:text-gray-300 sm:text-sm"
+              >
+                <stat.icon className="h-4 w-4 text-indigo-600 dark:text-indigo-300" />
+                {products.length && stat.label === "SATs-style packs"
+                  ? `${products.length} ${stat.label}`
+                  : stat.label}
+              </span>
+            ))}
+          </motion.div>
         </motion.header>
 
         {/* Product grid */}
@@ -116,33 +141,7 @@ export default function StoreHome({ products = [] }) {
         >
           {products.map((p) => (
             <motion.div key={p.slug} variants={fadeUp}>
-              <Link
-                href={p.href}
-                className="group flex h-full flex-col rounded-3xl border border-gray-200/70 bg-white/70 p-6 backdrop-blur-xl transition-all hover:-translate-y-1 hover:shadow-[0_24px_64px_-30px_rgba(56,89,255,0.5)] dark:border-white/10 dark:bg-white/[0.03]"
-              >
-                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-fuchsia-500 text-white shadow-lg transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6">
-                  <BookOpen className="h-7 w-7" />
-                </span>
-                {p.region && (
-                  <span className="mt-4 text-xs font-semibold uppercase tracking-wide text-indigo-600 dark:text-indigo-300">
-                    {getRegionLabel(p.region)}
-                  </span>
-                )}
-                <h2 className="mt-1 text-lg font-bold text-gray-900 dark:text-white">
-                  {p.title}
-                </h2>
-                <p className="mt-2 flex-1 text-sm text-gray-600 dark:text-gray-400">
-                  {p.description}
-                </p>
-                <div className="mt-5 flex items-center justify-between">
-                  <span className="text-lg font-bold text-indigo-600 dark:text-indigo-300">
-                    ${p.price}
-                  </span>
-                  <span className="inline-flex items-center gap-1 text-sm font-semibold text-gray-700 group-hover:text-indigo-600 dark:text-gray-300 dark:group-hover:text-indigo-300">
-                    View <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </span>
-                </div>
-              </Link>
+              <ProductCard product={p} />
             </motion.div>
           ))}
 
@@ -241,10 +240,8 @@ export default function StoreHome({ products = [] }) {
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
             Frequently asked questions
           </h2>
-          <div className="mt-6 space-y-3">
-            {HOMEPAGE_FAQ.map((faq, i) => (
-              <FaqItem key={faq.question} faq={faq} index={i} />
-            ))}
+          <div className="mt-6">
+            <FaqAccordion items={HOMEPAGE_FAQ} />
           </div>
         </motion.section>
 
@@ -272,42 +269,6 @@ export default function StoreHome({ products = [] }) {
             <ArrowRight className="h-4 w-4" />
           </Link>
         </motion.section>
-      </div>
-    </main>
-  );
-}
-
-function FaqItem({ faq, index }) {
-  const [open, setOpen] = useState(index === 0);
-
-  return (
-    <div className="overflow-hidden rounded-2xl border border-gray-200/70 bg-white/70 backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.03]">
-      <button
-        type="button"
-        onClick={() => setOpen((o) => !o)}
-        aria-expanded={open}
-        className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
-      >
-        <span className="text-sm font-semibold text-gray-900 dark:text-white sm:text-base">
-          {faq.question}
-        </span>
-        <ChevronDown
-          className={`h-4 w-4 shrink-0 text-gray-500 transition-transform duration-300 dark:text-gray-400 ${
-            open ? "rotate-180" : ""
-          }`}
-        />
-      </button>
-      {/* Answer stays in the DOM even when collapsed (max-height, not
-          conditional render) so it's crawlable for SEO. */}
-      <div
-        className="grid transition-all duration-300 ease-in-out"
-        style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
-      >
-        <div className="overflow-hidden">
-          <p className="px-5 pb-4 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
-            {faq.answer}
-          </p>
-        </div>
       </div>
     </div>
   );
