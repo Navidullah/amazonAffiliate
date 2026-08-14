@@ -35,11 +35,11 @@ const PRODUCTS = [
     category: "ks2-maths",
     gradeLevel: "Year 6",
     subject: "maths",
-    variantId: "REPLACE_WITH_LEMONSQUEEZY_VARIANT_ID",
+    variantId: "2018417",
     downloadUrl:
       "https://ghgbr44ykzavh7lt.private.blob.vercel-storage.com/products/uk-ks2-maths-year-6-revision-pack-8AXFKdKFEo2o8OsnxjuoA9sv3JEbfF.zip",
     href: "/products/uk-ks2-maths-year-6-revision-pack",
-    active: false,
+    active: true,
   },
 ];
 
