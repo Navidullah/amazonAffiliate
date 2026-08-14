@@ -29,7 +29,7 @@ const PRODUCTS = [
     title: "KS2 Year 6 Maths Revision Pack (Paper 1 & Paper 2)",
     description:
       "Two full printable practice papers for KS2 Year 6 Maths revision — Paper 1 (Arithmetic) and Paper 2 (Reasoning) — formatted like the real assessment, with a formula & facts sheet and a full mark scheme included. Original content, not affiliated with or derived from the Standards and Testing Agency.",
-    previewImage: "REPLACE_WITH_PREVIEW_IMAGE_URL",
+    previewImage: "/api/product-image/uk-ks2-maths-year-6-revision-pack",
     price: 3,
     region: "uk",
     category: "ks2-maths",
