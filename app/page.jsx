@@ -108,10 +108,17 @@ function buildStructuredData(products) {
             name: p.title,
             url: `${SITE}${p.href}`,
             description: p.description,
+            image: p.previewImage
+              ? p.previewImage.startsWith("http")
+                ? p.previewImage
+                : `${SITE}${p.previewImage}`
+              : undefined,
             offers: {
               "@type": "Offer",
+              url: `${SITE}${p.href}`,
               price: String(p.price),
               priceCurrency: "USD",
+              availability: "https://schema.org/InStock",
             },
           },
         })),

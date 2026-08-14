@@ -55,7 +55,13 @@ export default async function ProductPage({ params }) {
         "@type": "Product",
         name: product.title,
         description: product.description,
-        image: product.previewImage ? [product.previewImage] : undefined,
+        image: product.previewImage
+          ? [
+              product.previewImage.startsWith("http")
+                ? product.previewImage
+                : `${SITE}${product.previewImage}`,
+            ]
+          : undefined,
         offers: {
           "@type": "Offer",
           url: `${SITE}/products/${slug}`,
