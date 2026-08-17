@@ -167,6 +167,27 @@ export default async function ProductPage({ params }) {
             )}
           </div>
 
+          {product.previewImages?.length > 0 && (
+            <div className="mt-8 overflow-hidden rounded-3xl border border-gray-200/70 bg-white/70 backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.03]">
+              <div className="border-b border-gray-200/70 p-6 dark:border-white/10">
+                <h2 className="text-lg font-bold text-gray-900 dark:text-white">
+                  See a sample page
+                </h2>
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                  A real page from this worksheet, watermarked for preview —
+                  the download you receive after purchase has no watermark.
+                </p>
+              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={product.previewImages[0]}
+                alt={`Sample page from ${product.title}`}
+                loading="lazy"
+                className="w-full"
+              />
+            </div>
+          )}
+
           <div className="mt-8 rounded-3xl border border-gray-200/70 bg-white/70 p-6 backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.03] sm:p-8">
             <h2 className="text-lg font-bold text-gray-900 dark:text-white">
               What&apos;s included
