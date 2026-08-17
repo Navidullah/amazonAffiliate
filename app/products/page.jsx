@@ -5,17 +5,17 @@ const SITE = "https://www.shopyor.com";
 
 export const metadata = {
   metadataBase: new URL(SITE),
-  title: { absolute: "Year 6 Maths Worksheets & KS2 SATs Papers | Shopyor" },
+  title: { absolute: "Printable Year 6 Maths Worksheets (KS2) | Shopyor" },
   description:
-    "Browse printable Year 6 Maths worksheets and KS2 SATs practice papers with full mark schemes. Pay once, download instantly.",
+    "Browse printable Year 6 Maths worksheets (KS2) with a full answer key on every pack. Pay once, download instantly.",
   alternates: { canonical: `${SITE}/products` },
   openGraph: {
     type: "website",
     url: `${SITE}/products`,
     siteName: "Shopyor",
-    title: "Year 6 Maths Worksheets & KS2 SATs Papers | Shopyor",
+    title: "Printable Year 6 Maths Worksheets (KS2) | Shopyor",
     description:
-      "Printable Year 6 Maths worksheets and KS2 SATs practice papers with full mark schemes. Pay once, download instantly.",
+      "Printable Year 6 Maths worksheets (KS2) with a full answer key on every pack. Pay once, download instantly.",
   },
 };
 
@@ -28,9 +28,9 @@ export default async function ProductsPage() {
       {
         "@type": "CollectionPage",
         url: `${SITE}/products`,
-        name: "Year 6 Maths Worksheets & KS2 SATs Papers",
+        name: "Printable Year 6 Maths Worksheets (KS2)",
         description:
-          "Printable Year 6 Maths worksheets and KS2 SATs practice papers with full mark schemes.",
+          "Printable Year 6 Maths worksheets (KS2) with a full answer key on every pack.",
       },
       {
         "@type": "BreadcrumbList",
@@ -49,12 +49,11 @@ export default async function ProductsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-        Year 6 Maths Worksheets &amp; KS2 SATs Papers
+        Printable Year 6 Maths Worksheets (KS2)
       </h1>
       <p className="mt-3 max-w-2xl text-base text-gray-600 dark:text-gray-400">
-        Printable PDF worksheets and SATs practice papers for KS2 Year 6
-        Maths, with full mark schemes. Pay once, download instantly — no
-        subscription.
+        Printable PDF worksheets for KS2 Year 6 Maths, each with a full
+        answer key. Pay once, download instantly — no subscription.
       </p>
 
       <div className="mt-10">

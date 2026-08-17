@@ -7,18 +7,20 @@ const SITE = "https://www.shopyor.com";
 export const metadata = {
   metadataBase: new URL(SITE),
   title: {
-    absolute: "Year 6 Maths Worksheets & KS2 SATs Papers | Shopyor",
+    absolute: "Printable Year 6 Maths Worksheets (KS2) | Shopyor",
   },
   description:
-    "Printable Year 6 Maths worksheets and KS2 SATs practice papers with full mark schemes. Pay once, download instantly. No sign-up, no subscription.",
+    "Printable Year 6 Maths worksheets (KS2) with a full answer key on every pack. Pay once, download instantly — no sign-up, no subscription, ever.",
   keywords: [
     "year 6 maths worksheets",
-    "KS2 maths worksheets",
-    "KS2 SATs practice papers",
-    "year 6 SATs revision pack",
-    "printable SATs papers with answers",
     "year 6 maths worksheets pdf",
-    "KS2 maths worksheets no sign up",
+    "printable year 6 maths worksheets",
+    "KS2 maths worksheets",
+    "KS2 maths worksheets printable",
+    "year 6 maths worksheets with answers",
+    "year 6 fractions worksheets",
+    "KS2 fractions worksheets year 6",
+    "year 6 maths worksheets no sign up",
     "pay per download worksheets",
   ],
   authors: [{ name: "Shopyor" }],
@@ -48,15 +50,15 @@ export const metadata = {
     url: SITE,
     siteName: "Shopyor",
     locale: "en_GB",
-    title: "Year 6 Maths Worksheets & KS2 SATs Papers | Shopyor",
+    title: "Printable Year 6 Maths Worksheets (KS2) | Shopyor",
     description:
-      "Printable Year 6 Maths worksheets and KS2 SATs practice papers with full mark schemes. Pay once, download instantly. No sign-up, no subscription.",
+      "Printable Year 6 Maths worksheets (KS2) with a full answer key on every pack. Pay once, download instantly — no sign-up, no subscription, ever.",
     images: [
       {
         url: `${SITE}/images/shopyor-tools-og.png`,
         width: 1200,
         height: 630,
-        alt: "Shopyor — Year 6 Maths Worksheets & KS2 SATs Papers",
+        alt: "Shopyor — Printable Year 6 Maths Worksheets (KS2)",
       },
     ],
   },
@@ -64,9 +66,9 @@ export const metadata = {
     card: "summary_large_image",
     site: "@shopyor",
     creator: "@shopyor",
-    title: "Year 6 Maths Worksheets & KS2 SATs Papers | Shopyor",
+    title: "Printable Year 6 Maths Worksheets (KS2) | Shopyor",
     description:
-      "Printable Year 6 Maths worksheets and KS2 SATs practice papers with full mark schemes. Pay once, download instantly.",
+      "Printable Year 6 Maths worksheets (KS2) with a full answer key on every pack. Pay once, download instantly.",
     images: [`${SITE}/images/shopyor-tools-og.png`],
   },
 };
@@ -81,11 +83,11 @@ function buildStructuredData(products) {
         "@type": "CollectionPage",
         "@id": `${SITE}/#webpage`,
         url: SITE,
-        name: "Year 6 Maths Worksheets & KS2 SATs Papers by Shopyor",
+        name: "Printable Year 6 Maths Worksheets (KS2) by Shopyor",
         isPartOf: { "@id": `${SITE}/#website` },
         about: { "@id": `${SITE}/#organization` },
         description:
-          "Printable Year 6 Maths worksheets and KS2 SATs practice papers with full mark schemes. Pay once, download instantly.",
+          "Printable Year 6 Maths worksheets (KS2) with a full answer key on every pack. Pay once, download instantly.",
       },
       {
         "@type": "ItemList",

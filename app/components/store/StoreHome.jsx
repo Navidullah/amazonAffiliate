@@ -29,8 +29,8 @@ const stagger = {
 const features = [
   {
     icon: ClipboardCheck,
-    title: "Matches the real SATs format",
-    desc: "Timing, mark allocation, and question style formatted like the real KS2 assessment.",
+    title: "Written to the KS2 curriculum",
+    desc: "Each worksheet targets a specific Year 6 Maths objective, with a full answer key included.",
     accent: "from-indigo-500 to-blue-500",
   },
   {
@@ -48,9 +48,9 @@ const features = [
 ];
 
 const trustStats = [
-  { icon: FileCheck2, label: "SATs-style packs" },
+  { icon: FileCheck2, label: "worksheet pack" },
   { icon: Download, label: "Instant PDF download" },
-  { icon: ClipboardCheck, label: "Full mark scheme included" },
+  { icon: ClipboardCheck, label: "Full answer key included" },
   { icon: Ban, label: "No subscription, ever" },
 ];
 
@@ -74,14 +74,14 @@ export default function StoreHome({ products = [] }) {
             className="inline-flex items-center gap-2 rounded-full border border-indigo-200/70 bg-white/70 px-4 py-1.5 text-xs font-semibold text-indigo-700 shadow-sm backdrop-blur dark:border-indigo-500/20 dark:bg-white/[0.04] dark:text-indigo-300"
           >
             <Sparkles className="h-3.5 w-3.5" />
-            Year 6 Maths &amp; KS2 SATs resources
+            Year 6 Maths (KS2) worksheet packs
           </motion.span>
 
           <motion.h1
             variants={fadeUp}
             className="mx-auto mt-6 max-w-3xl text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-6xl"
           >
-            Year 6 Maths Worksheets &amp; KS2 SATs Papers.{" "}
+            Printable Year 6 Maths Worksheets (KS2).{" "}
             <span className="bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-500 bg-clip-text text-transparent dark:from-indigo-300 dark:via-violet-300 dark:to-fuchsia-200">
               Pay once, download instantly.
             </span>
@@ -91,10 +91,10 @@ export default function StoreHome({ products = [] }) {
             variants={fadeUp}
             className="mx-auto mt-5 max-w-2xl text-base text-gray-600 dark:text-gray-300 sm:text-lg"
           >
-            Printable PDF worksheets and practice papers for KS2 Year 6
-            Maths, formatted like the real SATs assessment with full mark
-            schemes included. No sign-up, no subscription — pick a pack and
-            download.
+            Printable PDF worksheets for KS2 Year 6 Maths, each with a full
+            answer key so parents, tutors, and teachers can mark it without
+            a teaching background. No sign-up, no subscription — pick a
+            pack and download.
           </motion.p>
 
           <motion.div
@@ -123,8 +123,8 @@ export default function StoreHome({ products = [] }) {
                 className="inline-flex items-center gap-2 px-2 text-xs font-semibold text-gray-600 dark:text-gray-300 sm:text-sm"
               >
                 <stat.icon className="h-4 w-4 text-indigo-600 dark:text-indigo-300" />
-                {products.length && stat.label === "SATs-style packs"
-                  ? `${products.length} ${stat.label}`
+                {products.length && stat.label === "worksheet pack"
+                  ? `${products.length} ${stat.label}${products.length === 1 ? "" : "s"}`
                   : stat.label}
               </span>
             ))}
@@ -199,26 +199,24 @@ export default function StoreHome({ products = [] }) {
           className="mb-20 rounded-3xl border border-gray-200/70 bg-white/70 p-8 backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.03] sm:p-10"
         >
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-            Printable Year 6 Maths worksheets, built like the real SATs
+            Printable Year 6 Maths worksheets (KS2), with every answer key included
           </h2>
           <div className="mt-4 space-y-4 text-sm leading-relaxed text-gray-600 dark:text-gray-400 sm:text-base">
             <p>
-              Year 6 is the final year of Key Stage 2, and the run-up to the
-              KS2 SATs is when Maths practice matters most. Shopyor's
-              worksheet packs are printable PDFs written to match the real
-              SATs format — the same timing, mark allocation, and question
-              style pupils will see in the actual Arithmetic and Reasoning
-              papers — so every practice session feels like the real thing,
-              not a generic worksheet.
+              Year 6 is the final year of Key Stage 2, and targeted topic
+              practice is one of the most effective ways to build confidence
+              before SATs. Shopyor's worksheet packs are printable PDFs
+              written to the KS2 Year 6 Maths curriculum, each with worked
+              examples and a full answer key — so a parent, tutor, or
+              teacher without a maths background can mark it correctly every
+              time.
             </p>
             <p>
-              Each pack includes a full mark scheme, so parents, tutors, and
-              teachers can mark it without needing a teaching background.
-              Whether you need a complete two-paper revision pack or a
-              focused topic pack on fractions, decimals, percentages, ratio,
-              proportion, or algebra, every pack downloads as a single PDF —
-              ready to print at home, in a tutoring session, or for a single
-              classroom.
+              Every pack downloads as a single PDF containing both the
+              student worksheet and its matching answer key — ready to print
+              at home, in a tutoring session, or for a single classroom.
+              More Year 6 Maths topics are added regularly, covering the
+              areas pupils most often need extra practice on.
             </p>
             <p>
               Unlike subscription-based worksheet libraries, Shopyor is
