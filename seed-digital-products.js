@@ -39,7 +39,10 @@ const PRODUCTS = [
     downloadUrl:
       "https://ghgbr44ykzavh7lt.private.blob.vercel-storage.com/products/uk-ks2-maths-year-6-revision-pack-luSacs1YI9iqIXqmvx3OltQ1UCBvXy.zip",
     href: "/products/uk-ks2-maths-year-6-revision-pack",
-    active: true,
+    // TEST-MODE variant (created before LemonSqueezy business verification
+    // completed) — the live-mode API key 404s on it. Hidden from the
+    // storefront until this product is recreated as a live-mode variant.
+    active: false,
   },
   {
     slug: "uk-ks2-maths-year-6-paper-3-reasoning",
@@ -56,7 +59,8 @@ const PRODUCTS = [
     downloadUrl:
       "https://ghgbr44ykzavh7lt.private.blob.vercel-storage.com/products/uk-ks2-maths-year-6-paper-3-reasoning-5vFs8eqCtLRDRk4zezxI3ObMHCe0IB.pdf",
     href: "/products/uk-ks2-maths-year-6-paper-3-reasoning",
-    active: true,
+    // TEST-MODE variant — see note on the revision pack above.
+    active: false,
   },
   {
     slug: "uk-ks2-maths-year-6-fractions-decimals-percentages",
@@ -74,7 +78,8 @@ const PRODUCTS = [
     downloadUrl:
       "https://ghgbr44ykzavh7lt.private.blob.vercel-storage.com/products/uk-ks2-maths-year-6-fractions-decimals-percentages-UhDboJ3gO0zdslslb6aSFnesGcO977.pdf",
     href: "/products/uk-ks2-maths-year-6-fractions-decimals-percentages",
-    active: true,
+    // TEST-MODE variant — see note on the revision pack above.
+    active: false,
   },
   {
     slug: "uk-ks2-maths-year-6-ratio-proportion-algebra",
@@ -91,6 +96,24 @@ const PRODUCTS = [
     downloadUrl:
       "https://ghgbr44ykzavh7lt.private.blob.vercel-storage.com/products/uk-ks2-maths-year-6-ratio-proportion-algebra-mTFHjmPhMw5VPDbnCp5pAOIHrago3M.pdf",
     href: "/products/uk-ks2-maths-year-6-ratio-proportion-algebra",
+    // TEST-MODE variant — see note on the revision pack above.
+    active: false,
+  },
+  {
+    slug: "uk-ks2-maths-year-6-fractions-ws01",
+    title: "Year 6 Maths Worksheet: Understanding Fractions (WS01)",
+    description:
+      "A focused 12-question Year 6 Maths worksheet on understanding fractions as parts of a whole and parts of a set, with worked examples and working space. Includes the full student worksheet plus a separate answer key with model answers and marking guidance for every question. KS2 practice. Original content, not affiliated with or derived from the Standards and Testing Agency.",
+    previewImage: "/api/product-image/uk-ks2-maths-year-6-fractions-ws01",
+    price: 3,
+    region: "uk",
+    category: "ks2-maths",
+    gradeLevel: "Year 6",
+    subject: "maths",
+    variantId: "2028384",
+    downloadUrl:
+      "https://ghgbr44ykzavh7lt.private.blob.vercel-storage.com/products/uk-ks2-maths-year-6-fractions-ws01-N8pFctvy0V5MB7Fo2q0x4K31Lj7nyZ.zip",
+    href: "/products/uk-ks2-maths-year-6-fractions-ws01",
     active: true,
   },
 ];
