@@ -133,14 +133,11 @@ const PRODUCTS = [
     category: "ks2-maths",
     gradeLevel: "Year 6",
     subject: "maths",
-    variantId: "",
+    variantId: "2031552",
     downloadUrl:
       "https://ghgbr44ykzavh7lt.private.blob.vercel-storage.com/products/uk-ks2-maths-year-6-fractions-ws02-189j0twwLiqLJMn3zf6XUrFOBFFivd.zip",
     href: "/products/uk-ks2-maths-year-6-fractions-ws02",
-    // Needs a live-mode LemonSqueezy product+variant before activation —
-    // no create-product API exists, must be created manually in the LS
-    // dashboard (Test mode OFF), then paste the variant ID here.
-    active: false,
+    active: true,
   },
 ];
 
