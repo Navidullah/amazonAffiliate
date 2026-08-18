@@ -103,7 +103,7 @@ const PRODUCTS = [
     slug: "uk-ks2-maths-year-6-fractions-ws01",
     title: "Year 6 Maths Student Worksheet + Answer Keys: Understanding Fractions (WS01)",
     description:
-      "A focused 12-question Year 6 Maths worksheet on understanding fractions as parts of a whole and parts of a set, with worked examples and working space. Includes the full student worksheet plus a separate answer key with model answers and marking guidance for every question. KS2 practice. Original content, not affiliated with or derived from the Standards and Testing Agency.",
+      "A focused set of 12 Year 6 Maths fraction questions on understanding fractions as parts of a whole and parts of a set, with worked examples and working space. Includes the full student worksheet plus a separate answer key with model answers and marking guidance for every question. KS2 practice. Original content, not affiliated with or derived from the Standards and Testing Agency.",
     previewImage: "/api/product-image/uk-ks2-maths-year-6-fractions-ws01",
     // Real page-1 sample of the actual worksheet, watermarked "PREVIEW" —
     // generated via generate-product-preview.js, NOT the paid download.
