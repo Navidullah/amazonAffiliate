@@ -5,17 +5,24 @@ const SITE = "https://www.shopyor.com";
 
 export const metadata = {
   metadataBase: new URL(SITE),
-  title: { absolute: "Printable Year 6 Maths Worksheets (KS2) | Shopyor" },
+  title: { absolute: "Year 6 Maths Worksheets PDF (KS2) — Browse All Packs | Shopyor" },
   description:
-    "Browse printable Year 6 Maths worksheets (KS2) with a full answer key on every pack. Pay once, download instantly.",
+    "Browse every printable Year 6 Maths worksheet PDF (KS2) — each pack includes a full answer key. Pay once, download instantly, no subscription.",
+  keywords: [
+    "year 6 maths worksheets pdf",
+    "printable maths worksheets year 6",
+    "year 6 maths worksheets with answers pdf",
+    "KS2 maths worksheets",
+    "year 6 maths worksheets",
+  ],
   alternates: { canonical: `${SITE}/products` },
   openGraph: {
     type: "website",
     url: `${SITE}/products`,
     siteName: "Shopyor",
-    title: "Printable Year 6 Maths Worksheets (KS2) | Shopyor",
+    title: "Year 6 Maths Worksheets PDF (KS2) — Browse All Packs | Shopyor",
     description:
-      "Printable Year 6 Maths worksheets (KS2) with a full answer key on every pack. Pay once, download instantly.",
+      "Browse every printable Year 6 Maths worksheet PDF (KS2) — each pack includes a full answer key. Pay once, download instantly, no subscription.",
   },
 };
 
@@ -28,9 +35,9 @@ export default async function ProductsPage() {
       {
         "@type": "CollectionPage",
         url: `${SITE}/products`,
-        name: "Printable Year 6 Maths Worksheets (KS2)",
+        name: "Year 6 Maths Worksheets PDF (KS2) — Browse All Packs",
         description:
-          "Printable Year 6 Maths worksheets (KS2) with a full answer key on every pack.",
+          "Browse every printable Year 6 Maths worksheet PDF (KS2) — each pack includes a full answer key.",
       },
       {
         "@type": "BreadcrumbList",
@@ -49,11 +56,11 @@ export default async function ProductsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-        Printable Year 6 Maths Worksheets (KS2)
+        Year 6 Maths Worksheets PDF (KS2)
       </h1>
       <p className="mt-3 max-w-2xl text-base text-gray-600 dark:text-gray-400">
-        Printable PDF worksheets for KS2 Year 6 Maths, each with a full
-        answer key. Pay once, download instantly — no subscription.
+        Browse every printable Year 6 Maths worksheet PDF for KS2, each with
+        a full answer key. Pay once, download instantly — no subscription.
       </p>
 
       <div className="mt-10">
