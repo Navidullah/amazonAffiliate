@@ -108,6 +108,8 @@ const PRODUCTS = [
     // Real page-1 sample of the actual worksheet, watermarked "PREVIEW" —
     // generated via generate-product-preview.js, NOT the paid download.
     previewImages: ["/product-previews/uk-ks2-maths-year-6-fractions-ws01.png"],
+    relatedBlogSlug: "year-6-fractions-worksheets-numerator-denominator",
+    relatedBlogTitle: "Year 6 Fractions Worksheets (KS2): Numerator, Denominator & Practice Questions",
     price: 3,
     region: "uk",
     category: "ks2-maths",
@@ -128,6 +130,8 @@ const PRODUCTS = [
     // Real page-1 sample of the actual worksheet, watermarked "PREVIEW" —
     // generated via generate-product-preview.js, NOT the paid download.
     previewImages: ["/product-previews/uk-ks2-maths-year-6-fractions-ws02.png"],
+    relatedBlogSlug: "year-6-fractions-worksheets-numerator-denominator",
+    relatedBlogTitle: "Year 6 Fractions Worksheets (KS2): Numerator, Denominator & Practice Questions",
     price: 3,
     region: "uk",
     category: "ks2-maths",

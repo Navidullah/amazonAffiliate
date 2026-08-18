@@ -241,6 +241,18 @@ export default async function ProductPage({ params }) {
         </div>
       </div>
 
+      {product.relatedBlogSlug && (
+        <section className="mt-20 rounded-3xl border border-gray-200/70 bg-white/70 p-6 backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.03] sm:p-8">
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white">Related reading</h2>
+          <Link
+            href={`/blog/${product.relatedBlogSlug}`}
+            className="mt-3 inline-block text-sm font-semibold text-indigo-600 hover:underline dark:text-indigo-300"
+          >
+            {product.relatedBlogTitle || "Read the guide"} →
+          </Link>
+        </section>
+      )}
+
       {/* FAQ */}
       <section className="mt-20">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
