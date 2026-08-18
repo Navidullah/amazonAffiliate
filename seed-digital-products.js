@@ -119,6 +119,29 @@ const PRODUCTS = [
     href: "/products/uk-ks2-maths-year-6-fractions-ws01",
     active: true,
   },
+  {
+    slug: "uk-ks2-maths-year-6-fractions-ws02",
+    title: "Year 6 Maths Student Worksheet + Answer Keys: Numerator and Denominator Recap (WS02)",
+    description:
+      "A focused set of 12 Year 6 Maths fraction questions recapping the numerator and denominator — identifying each from a written fraction, reading fractions from bar and pie diagrams, and explaining what each part of a fraction represents. Includes the full student worksheet plus a separate answer key with model answers and marking guidance for every question. KS2 practice. Original content, not affiliated with or derived from the Standards and Testing Agency.",
+    previewImage: "/api/product-image/uk-ks2-maths-year-6-fractions-ws02",
+    // Real page-1 sample of the actual worksheet, watermarked "PREVIEW" —
+    // generated via generate-product-preview.js, NOT the paid download.
+    previewImages: ["/product-previews/uk-ks2-maths-year-6-fractions-ws02.png"],
+    price: 3,
+    region: "uk",
+    category: "ks2-maths",
+    gradeLevel: "Year 6",
+    subject: "maths",
+    variantId: "",
+    downloadUrl:
+      "https://ghgbr44ykzavh7lt.private.blob.vercel-storage.com/products/uk-ks2-maths-year-6-fractions-ws02-189j0twwLiqLJMn3zf6XUrFOBFFivd.zip",
+    href: "/products/uk-ks2-maths-year-6-fractions-ws02",
+    // Needs a live-mode LemonSqueezy product+variant before activation —
+    // no create-product API exists, must be created manually in the LS
+    // dashboard (Test mode OFF), then paste the variant ID here.
+    active: false,
+  },
 ];
 
 async function main() {
