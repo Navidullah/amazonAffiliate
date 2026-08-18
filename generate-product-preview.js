@@ -43,6 +43,13 @@ async function main() {
     data,
     disableFontFace: true,
     canvasFactory: napiCanvasFactory,
+    // Without this, PDFs that don't embed their fonts fall back to a
+    // standard font pdfjs can't resolve, silently dropping every glyph
+    // (shapes/lines still render, but all text is invisible).
+    standardFontDataUrl: path.join(
+      __dirname,
+      "node_modules/pdfjs-dist/standard_fonts/",
+    ) + path.sep,
   }).promise;
   const page = await doc.getPage(1);
 
