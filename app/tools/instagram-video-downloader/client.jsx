@@ -165,6 +165,17 @@ export default function InstagramVideoDownloaderClient() {
             )}
           </button>
 
+          {loading && (
+            <div className="rounded-lg border border-blue-200 bg-blue-50 px-4 py-3 text-center dark:border-blue-800 dark:bg-blue-900/20">
+              <p className="text-sm font-medium text-blue-700 dark:text-blue-400">
+                Please wait up to 2 minutes, the download will start soon.
+              </p>
+              <p className="mt-1 text-xs text-blue-600/80 dark:text-blue-400/70">
+                Stay on this page — closing or refreshing will cancel your download.
+              </p>
+            </div>
+          )}
+
           {error && (
             <Alert variant="destructive">
               <AlertCircle className="h-4 w-4" />
@@ -258,6 +269,17 @@ export default function InstagramVideoDownloaderClient() {
                 </button>
               </div>
             </div>
+
+            {downloading && (
+              <div className="rounded-lg border border-blue-200 bg-blue-50 px-4 py-3 text-center dark:border-blue-800 dark:bg-blue-900/20">
+                <p className="text-sm font-medium text-blue-700 dark:text-blue-400">
+                  Please wait up to 2 minutes, the download will start soon.
+                </p>
+                <p className="mt-1 text-xs text-blue-600/80 dark:text-blue-400/70">
+                  Stay on this page — closing or refreshing will cancel your download.
+                </p>
+              </div>
+            )}
           </div>
         )}
       </CardContent>

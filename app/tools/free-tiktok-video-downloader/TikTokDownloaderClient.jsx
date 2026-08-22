@@ -241,6 +241,18 @@ export default function TikTokDownloaderClient() {
         </button>
       </form>
 
+      {/* Waiting Notice */}
+      {loading && (
+        <div className="mt-3 rounded-lg border border-blue-200 bg-blue-50 px-4 py-3 text-center dark:border-blue-800 dark:bg-blue-900/20">
+          <p className="text-sm font-medium text-blue-700 dark:text-blue-400">
+            Please wait up to 2 minutes, the download will start soon.
+          </p>
+          <p className="mt-1 text-xs text-blue-600/80 dark:text-blue-400/70">
+            Stay on this page — closing or refreshing will cancel your download.
+          </p>
+        </div>
+      )}
+
       {/* Features Grid */}
       <div className="mt-8 pt-6 border-t">
         <p className="text-sm font-semibold text-center mb-4">
