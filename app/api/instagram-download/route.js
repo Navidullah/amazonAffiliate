@@ -1,22 +1,88 @@
 // Instagram video download proxy.
-// Tries 3 independent services in cascade — first success wins.
+// Tries 2 independent services in cascade — first success wins.
 // All requests are made server-side (no CORS restrictions).
+//
+// snapinsta.app and igdownloader.app were dropped: both domains are DNS-dead
+// (SERVFAIL from every public resolver) as of 2026-08-22.
 
 const UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
 
 // ─── helpers ────────────────────────────────────────────────────────────────
 
-/** Pull the first mp4/video href out of scraped HTML */
+/**
+ * snapinsta/snapsave/igdownloader-style clone sites often wrap their HTML
+ * response in a small "packer": `eval(function(h,u,n,t,e,r){...}(payload))`.
+ * The inner function is a base-N decoder (N = the site's charset), and its
+ * return value is the actual HTML/JS string. We replicate that decoder here
+ * — this is not executing the site's code, just reversing its own documented
+ * base-conversion algorithm on data it already sent us.
+ */
+function unpackEval(text) {
+  const arrMatch = text.match(/var _0x[0-9a-f]+\s*=\s*(\[.*?\]);/s);
+  const evalMatch = text.match(
+    /eval\(function\(h,u,n,t,e,r\)\{.*?\}\((.*?)\)\)/s,
+  );
+  if (!arrMatch || !evalMatch) return null;
+
+  try {
+    const charTable = JSON.parse(arrMatch[1].replace(/'/g, '"'));
+    const charset = charTable[2];
+    if (!charset || charset.length < 60) return null;
+
+    const baseConvert = (d, e, f) => {
+      const h = charset.slice(0, e);
+      const i = charset.slice(0, f);
+      let j = d
+        .split("")
+        .reverse()
+        .reduce((a, b, c) => {
+          const idx = h.indexOf(b);
+          return idx !== -1 ? a + idx * Math.pow(e, c) : a;
+        }, 0);
+      let k = "";
+      while (j > 0) {
+        k = i[j % f] + k;
+        j = (j - (j % f)) / f;
+      }
+      return k || "0";
+    };
+
+    // Args are literal string/number/array tokens only (no function calls),
+    // so JSON-style parsing of the tuple is safe.
+    const [h, , n, t, e] = JSON.parse(`[${evalMatch[1]}]`);
+
+    let r = "";
+    for (let i = 0, len = h.length; i < len; ) {
+      let s = "";
+      while (h[i] !== n[e]) {
+        s += h[i];
+        i++;
+      }
+      i++;
+      for (let j = 0; j < n.length; j++) s = s.split(n[j]).join(String(j));
+      r += String.fromCharCode(baseConvert(s, e, 10) - t);
+    }
+    return decodeURIComponent(escape(r)).replace(/\\"/g, '"');
+  } catch {
+    return null;
+  }
+}
+
+/** Pull the first video/download href out of scraped HTML */
 function extractVideoUrl(html) {
+  const decoded = unpackEval(html) || html;
   const patterns = [
     /href="(https?:\/\/[^"]*?\.mp4[^"]*)"/i,
+    // rapidcdn/snapsave-style proxy download links: no ".mp4" or "video"
+    // in the URL itself, but they carry a token and aren't the thumbnail.
+    /href="(https?:\/\/[^"]*?\/v2\?token=[^"]+)"/i,
     /href="(https?:\/\/[^"]*?video[^"]*?)"/i,
     /"url"\s*:\s*"(https?:\\\/\\\/[^"]*?\.mp4[^"]*)"/i,
     /src="(https?:\/\/[^"]*?\.mp4[^"]*)"/i,
   ];
   for (const p of patterns) {
-    const m = html.match(p);
+    const m = decoded.match(p);
     if (m?.[1]) return m[1].replace(/\\u002F/g, "/").replace(/&amp;/g, "&").replace(/\\/g, "");
   }
   return null;
@@ -37,34 +103,7 @@ function buildResult(videoUrl, extra = {}) {
   };
 }
 
-// ─── Service 1: snapinsta.app ────────────────────────────────────────────────
-async function trySnapinsta(url) {
-  const res = await fetch("https://snapinsta.app/api/ajaxSearch", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      "X-Requested-With": "XMLHttpRequest",
-      "User-Agent": UA,
-      Referer: "https://snapinsta.app/",
-      Origin: "https://snapinsta.app",
-    },
-    body: new URLSearchParams({ q: url, t: "media", lang: "en" }).toString(),
-    signal: AbortSignal.timeout(18_000),
-  });
-
-  if (!res.ok) throw new Error(`snapinsta HTTP ${res.status}`);
-
-  const json = await res.json().catch(() => null);
-  const html = json?.data || (typeof json === "string" ? json : "");
-  if (!html) throw new Error("snapinsta returned empty data");
-
-  const videoUrl = extractVideoUrl(html);
-  if (!videoUrl) throw new Error("snapinsta: no video URL in response");
-
-  return buildResult(videoUrl);
-}
-
-// ─── Service 2: snapsave.app ─────────────────────────────────────────────────
+// ─── Service 1: snapsave.app ─────────────────────────────────────────────────
 async function trySnapsave(url) {
   const res = await fetch("https://snapsave.app/action.php", {
     method: "POST",
@@ -89,34 +128,7 @@ async function trySnapsave(url) {
   return buildResult(videoUrl);
 }
 
-// ─── Service 3: igdownloader.app ─────────────────────────────────────────────
-async function tryIgdownloader(url) {
-  const res = await fetch("https://igdownloader.app/api/ajaxSearch", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      "X-Requested-With": "XMLHttpRequest",
-      "User-Agent": UA,
-      Referer: "https://igdownloader.app/",
-      Origin: "https://igdownloader.app",
-    },
-    body: new URLSearchParams({ q: url, t: "media", lang: "en" }).toString(),
-    signal: AbortSignal.timeout(18_000),
-  });
-
-  if (!res.ok) throw new Error(`igdownloader HTTP ${res.status}`);
-
-  const json = await res.json().catch(() => null);
-  const html = json?.data || (typeof json === "string" ? json : "");
-  if (!html) throw new Error("igdownloader returned empty data");
-
-  const videoUrl = extractVideoUrl(html);
-  if (!videoUrl) throw new Error("igdownloader: no video URL in response");
-
-  return buildResult(videoUrl);
-}
-
-// ─── Service 4: user's Render API (last resort — slow cold-start) ────────────
+// ─── Service 2: user's Render API (last resort — slow cold-start) ────────────
 async function tryRenderApi(url) {
   const INSTAGRAM_API = "https://instagram-downloader-ga0k.onrender.com";
 
@@ -147,10 +159,8 @@ export async function POST(req) {
     }
 
     const services = [
-      { name: "snapinsta", fn: trySnapinsta },
-      { name: "snapsave",  fn: trySnapsave  },
-      { name: "igdownloader", fn: tryIgdownloader },
-      { name: "render",    fn: tryRenderApi  },
+      { name: "snapsave", fn: trySnapsave },
+      { name: "render", fn: tryRenderApi },
     ];
 
     const errors = [];
