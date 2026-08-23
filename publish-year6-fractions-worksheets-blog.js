@@ -181,6 +181,8 @@ const CONTENT = `
 <p>Both packs are instant PDF downloads — pay once, no subscription, no sign-up — and each includes a separate answer key with marking guidance, so they can be marked immediately whether you're a parent working through it at the kitchen table or a teacher setting it as classwork.</p>
 <p><strong>Browse the full catalog:</strong> <a href="/products">All Year 6 Maths worksheets →</a></p>
 
+<p>Prefer practice that marks itself instantly, with no printing? Shopyor also has a free <a href="/maths/year-6/fractions">interactive Year 6 Fractions practice</a> tool as part of the <a href="/maths">Maths Challenge</a> — randomised questions, instant feedback with an explanation every time, and no signup required. It's a good complement to these worksheets: work through a printed pack for handwritten practice, then use the online version for quick, repeatable revision.</p>
+
 <hr />
 
 <h2 id="home-tips">Tips for Practicing at Home</h2>
