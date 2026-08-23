@@ -1,5 +1,26 @@
 ﻿const siteUrl = "https://www.shopyor.com";
 
+// UK Year 6 topic slugs for the Maths Challenge feature — kept here (not
+// imported) since this config is CommonJS and the source registry is an ES
+// module; update this list if lib/maths/topics.js's slugs change.
+const MATHS_YEAR_6_TOPIC_SLUGS = [
+  "place-value",
+  "four-operations",
+  "factors-multiples-primes",
+  "fractions",
+  "decimals",
+  "percentages",
+  "ratio-proportion",
+  "algebra",
+  "measurement",
+  "perimeter-area-volume",
+  "properties-of-shapes",
+  "position-direction",
+  "statistics",
+  "word-problems",
+  "mathematical-reasoning",
+];
+
 // Real last-edited dates (from `git log -1 --format=%cI -- <file>` on each
 // page's source file), not a build timestamp â€” a lastmod that just means
 // "the sitemap was rebuilt" carries no genuine freshness signal and Google
@@ -38,6 +59,8 @@ const LAST_MODIFIED = {
   "/tools/voice-clone": "2026-06-18T12:54:46+05:00",
   "/tools/youtube-tags-extractor": "2026-06-18T12:54:46+05:00",
   "/tools/youtube-thumbnail": "2026-06-18T12:54:46+05:00",
+  "/maths": "2026-08-23T00:00:00+05:00",
+  "/maths/year-6": "2026-08-23T00:00:00+05:00",
 };
 
 module.exports = {
@@ -72,6 +95,8 @@ module.exports = {
     "/tools/video-to-gif", // 301 -> /tools (tool retired 2026-08-10)
     "/tools/youtube-video-downloader", // 301 -> /tools (tool retired 2026-08-10)
     "/order/*", // private post-checkout page, noindex
+    "/maths/daily", // rotating daily content, not meant to rank
+    "/maths/daily/*",
     // Next.js internal image-generation routes â€” not real pages
     "/twitter-image",
     "/opengraph-image",
@@ -95,6 +120,7 @@ module.exports = {
           "/write$",
           "/thankYou",
           "/pinterest",
+          "/maths/daily",
         ],
       },
     ],
@@ -142,6 +168,10 @@ module.exports = {
         lastmod: new Date(
           product.updatedAt || product.createdAt || Date.now(),
         ).toISOString(),
+      })),
+      ...MATHS_YEAR_6_TOPIC_SLUGS.map((slug) => ({
+        loc: `${siteUrl}/maths/year-6/${slug}`,
+        lastmod: "2026-08-23T00:00:00+05:00",
       })),
     ];
   },
