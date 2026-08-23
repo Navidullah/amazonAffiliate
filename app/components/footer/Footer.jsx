@@ -112,6 +112,14 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
+                  href="/maths"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  Year 6 Maths Challenge
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/products"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >

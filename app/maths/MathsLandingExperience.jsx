@@ -3,13 +3,15 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Target, Flag, Star, Trophy, ArrowRight, Sparkles } from "lucide-react";
+import { Target, Flag, Star, Trophy, ArrowRight, Sparkles, Home, ChevronRight } from "lucide-react";
 import { CURRICULA } from "@/lib/maths/curricula";
 import CurriculumCard from "@/app/components/maths/CurriculumCard";
 import ProgressDashboard from "@/app/components/maths/ProgressDashboard";
 import DailyChallengeCard from "@/app/components/maths/DailyChallengeCard";
 import SaveProgressCard from "@/app/components/maths/SaveProgressCard";
+import MathsFaqAccordion from "@/app/components/maths/MathsFaqAccordion";
 import { useMathsProgressSync } from "@/app/components/maths/useMathsProgressSync";
+import { MATHS_FAQ } from "@/lib/constants/mathsFaq";
 import {
   getProgress,
   getOverallProgressPercent,
@@ -55,6 +57,14 @@ export default function MathsLandingExperience() {
       <div className="pointer-events-none absolute right-0 top-1/3 -z-10 h-[360px] w-[360px] rounded-full bg-fuchsia-400/20 blur-[120px] dark:bg-fuchsia-600/10" />
 
       <div className="mx-auto max-w-5xl">
+        <nav aria-label="Breadcrumb" className="mb-8 flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400">
+          <Link href="/" className="flex items-center gap-1 hover:text-violet-600">
+            <Home className="h-3.5 w-3.5" /> Home
+          </Link>
+          <ChevronRight className="h-3.5 w-3.5" />
+          <span className="font-medium text-gray-700 dark:text-gray-200">Maths Challenge</span>
+        </nav>
+
         <motion.header variants={stagger} initial="hidden" animate="visible" className="mb-12 text-center">
           <motion.span
             variants={fadeUp}
@@ -68,7 +78,7 @@ export default function MathsLandingExperience() {
             variants={fadeUp}
             className="mx-auto mt-6 max-w-3xl text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-6xl"
           >
-            Maths{" "}
+            Year 6 Maths{" "}
             <span className="bg-gradient-to-r from-violet-600 via-fuchsia-600 to-rose-500 bg-clip-text text-transparent dark:from-violet-300 dark:via-fuchsia-300 dark:to-rose-200">
               Challenge
             </span>
@@ -137,6 +147,66 @@ export default function MathsLandingExperience() {
               <CurriculumCard key={curriculum.code} curriculum={curriculum} variants={fadeUp} />
             ))}
           </div>
+        </motion.section>
+
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={stagger}
+          className="mt-20 border-t border-gray-200/70 pt-16 dark:border-white/10"
+        >
+          <motion.h2 variants={fadeUp} className="text-2xl font-bold text-gray-900 dark:text-white">
+            Year 6 Maths Practice for Parents, Teachers and British Curriculum Schools
+          </motion.h2>
+
+          <motion.div variants={fadeUp} className="prose prose-sm mt-6 max-w-none text-gray-600 dark:prose-invert dark:text-gray-400">
+            <p>
+              If you&apos;re a parent looking for free Year 6 maths practice online, or a teacher wanting a quick
+              way to reinforce a KS2 topic without printing another worksheet, Maths Challenge is built to make
+              that easy. It covers the full UK National Curriculum for Year 6 mathematics — the same topic areas
+              assessed in the KS2 maths SATs — across 15 topics grouped into Number, Algebra, Measurement,
+              Geometry, Statistics and Problem Solving. Every question comes with instant feedback and a plain-
+              English explanation of the method, so a wrong answer teaches something instead of just being marked
+              incorrect.
+            </p>
+            <p>
+              &quot;Year 6&quot; and &quot;Key Stage 2 (KS2)&quot; are UK terms, but the curriculum behind them
+              travels well beyond the UK. Thousands of British curriculum and international schools around the
+              world — including many across Pakistan, India, Nigeria, the UAE, the Philippines and Bangladesh —
+              teach the same English National Curriculum year groups. If your child&apos;s school follows that
+              curriculum rather than a local Grade 6 syllabus, these topics will match what they&apos;re learning
+              in class regardless of which country you&apos;re practising from.
+            </p>
+            <p>
+              Each topic — Fractions, Ratio and Proportion, Algebra, Properties of Shapes, and eleven more — is a
+              self-contained practice page with its own difficulty picker (Easy, Medium, Hard, or Mixed) and a
+              fresh set of randomised questions every time, so repeated practice never turns into memorising a
+              fixed answer key. A daily 5-question Daily Maths Challenge changes every day and is sized for a
+              quick, consistent practice habit — the kind of short, frequent revision most primary teachers
+              recommend over one long weekly session.
+            </p>
+            <p>
+              For parents who want to keep an eye on progress rather than sit through every session, an optional
+              free sign-in (no separate account to create — just Google or GitHub) saves a running total of
+              points, streaks, badges and topic completion to &quot;My Maths Progress&quot;, viewable any time and
+              on any device. It&apos;s entirely optional: a child can practise fully without ever signing in,
+              and everything still saves locally in their browser either way.
+            </p>
+          </motion.div>
+        </motion.section>
+
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={stagger}
+          className="mt-16"
+        >
+          <motion.h2 variants={fadeUp} className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">
+            Frequently Asked Questions
+          </motion.h2>
+          <MathsFaqAccordion faqs={MATHS_FAQ} />
         </motion.section>
       </div>
     </main>

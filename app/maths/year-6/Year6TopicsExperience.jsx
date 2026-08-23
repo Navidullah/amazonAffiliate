@@ -3,11 +3,13 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowLeft, Sparkles } from "lucide-react";
+import { Sparkles, Home, ChevronRight } from "lucide-react";
 import TopicCard from "@/app/components/maths/TopicCard";
 import ProgressDashboard from "@/app/components/maths/ProgressDashboard";
 import SaveProgressCard from "@/app/components/maths/SaveProgressCard";
+import MathsFaqAccordion from "@/app/components/maths/MathsFaqAccordion";
 import { useMathsProgressSync } from "@/app/components/maths/useMathsProgressSync";
+import { YEAR6_HUB_FAQ } from "@/lib/constants/mathsFaq";
 import { getTopicsByCategory, UK_YEAR_6_TOPICS } from "@/lib/maths/topics";
 import { getAllQuestionsForTopic } from "@/lib/maths/bank";
 import {
@@ -44,12 +46,17 @@ export default function Year6TopicsExperience() {
       <div className="pointer-events-none absolute -top-32 left-1/2 -z-10 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-violet-400/20 blur-[120px] dark:bg-violet-600/20" />
 
       <div className="mx-auto max-w-6xl">
-        <Link
-          href="/maths"
-          className="mb-6 inline-flex items-center gap-1.5 text-sm font-semibold text-gray-600 hover:text-violet-600 dark:text-gray-400 dark:hover:text-violet-300"
-        >
-          <ArrowLeft className="h-4 w-4" /> Back to Maths Challenge
-        </Link>
+        <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400">
+          <Link href="/" className="flex items-center gap-1 hover:text-violet-600">
+            <Home className="h-3.5 w-3.5" /> Home
+          </Link>
+          <ChevronRight className="h-3.5 w-3.5" />
+          <Link href="/maths" className="hover:text-violet-600">
+            Maths Challenge
+          </Link>
+          <ChevronRight className="h-3.5 w-3.5" />
+          <span className="font-medium text-gray-700 dark:text-gray-200">Year 6</span>
+        </nav>
 
         <motion.header variants={stagger} initial="hidden" animate="visible" className="mb-10">
           <motion.span
@@ -106,6 +113,21 @@ export default function Year6TopicsExperience() {
             </section>
           ))}
         </div>
+
+        <section className="mt-16 border-t border-gray-200/70 pt-12 dark:border-white/10">
+          <div className="prose prose-sm max-w-none text-gray-600 dark:prose-invert dark:text-gray-400">
+            <p>
+              These 15 topics cover the full UK Key Stage 2 curriculum for Year 6 maths, the same topic areas
+              tested in the KS2 SATs. If you&apos;re a parent choosing where to focus, Fractions and Ratio and
+              Proportion are consistently the areas most Year 6 pupils need the most repeat practice on — start
+              there if you&apos;re not sure, or work through Number, Algebra, Measurement, Geometry, Statistics
+              and Problem Solving in order for a full topic-by-topic revision pass before end-of-year assessments.
+            </p>
+          </div>
+
+          <h2 className="mb-6 mt-10 text-2xl font-bold text-gray-900 dark:text-white">Frequently Asked Questions</h2>
+          <MathsFaqAccordion faqs={YEAR6_HUB_FAQ} />
+        </section>
       </div>
     </main>
   );

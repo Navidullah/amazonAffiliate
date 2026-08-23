@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import TopicQuizExperience from "./TopicQuizExperience";
 import { UK_YEAR_6_TOPICS, getTopic } from "@/lib/maths/topics";
 import { getAllQuestionsForTopic } from "@/lib/maths/bank";
+import { getTopicFaq } from "@/lib/constants/mathsFaq";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
 
@@ -17,8 +18,8 @@ export async function generateMetadata({ params }) {
   if (!topic) return {};
 
   const pageUrl = `${BASE_URL}/maths/year-6/${topic.slug}`;
-  const title = `Year 6 ${topic.title} Practice | KS2 Maths Challenge | Shopyor`;
-  const description = `Practise UK KS2 Year 6 ${topic.title.toLowerCase()} with interactive questions, instant feedback and explanations. ${topic.shortDescription}`;
+  const title = `Year 6 ${topic.title} Practice | Shopyor`;
+  const description = `Free Year 6 ${topic.title.toLowerCase()} practice: interactive KS2 questions, instant feedback and explanations. ${topic.shortDescription}`;
 
   return {
     title: { absolute: title },
@@ -27,7 +28,17 @@ export async function generateMetadata({ params }) {
     category: "education",
     alternates: {
       canonical: pageUrl,
-      languages: { "x-default": pageUrl, en: pageUrl, "en-GB": pageUrl },
+      languages: {
+        "x-default": pageUrl,
+        en: pageUrl,
+        "en-GB": pageUrl,
+        "en-PK": pageUrl,
+        "en-IN": pageUrl,
+        "en-NG": pageUrl,
+        "en-PH": pageUrl,
+        "en-BD": pageUrl,
+        "en-AE": pageUrl,
+      },
     },
     openGraph: {
       type: "website",
@@ -76,6 +87,14 @@ export default async function TopicQuizPage({ params }) {
           { "@type": "ListItem", position: 3, name: "Year 6", item: `${BASE_URL}/maths/year-6` },
           { "@type": "ListItem", position: 4, name: topic.title, item: pageUrl },
         ],
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: getTopicFaq(topic).map((item) => ({
+          "@type": "Question",
+          name: item.q,
+          acceptedAnswer: { "@type": "Answer", text: item.a },
+        })),
       },
     ],
   };

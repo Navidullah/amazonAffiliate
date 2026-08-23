@@ -3,16 +3,18 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowRight, Home, ChevronRight } from "lucide-react";
 import { toast } from "react-toastify";
 import { getMathsIcon } from "@/app/components/maths/iconMap";
 import QuizEngine from "@/app/components/maths/QuizEngine";
 import ResultsScreen from "@/app/components/maths/ResultsScreen";
 import ReviewAnswers from "@/app/components/maths/ReviewAnswers";
+import MathsFaqAccordion from "@/app/components/maths/MathsFaqAccordion";
 import { getTopicQuestions, getAllQuestionsForTopic } from "@/lib/maths/bank";
 import { saveSessionResult, getProgress, addBadges } from "@/lib/maths/progress";
 import { evaluateNewBadges, getBadge } from "@/lib/maths/badges";
 import { useMathsProgressSync } from "@/app/components/maths/useMathsProgressSync";
+import { getTopicFaq } from "@/lib/constants/mathsFaq";
 
 const DIFFICULTIES = [
   { value: "easy", label: "Easy" },
@@ -72,12 +74,21 @@ export default function TopicQuizExperience({ topic }) {
       <div className="pointer-events-none absolute -top-32 left-1/2 -z-10 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-violet-400/20 blur-[120px] dark:bg-violet-600/20" />
 
       <div className="mx-auto max-w-3xl">
-        <Link
-          href="/maths/year-6"
-          className="mb-6 inline-flex items-center gap-1.5 text-sm font-semibold text-gray-600 hover:text-violet-600 dark:text-gray-400 dark:hover:text-violet-300"
-        >
-          <ArrowLeft className="h-4 w-4" /> Back to Year 6 Topics
-        </Link>
+        <nav aria-label="Breadcrumb" className="mb-6 flex flex-wrap items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400">
+          <Link href="/" className="flex items-center gap-1 hover:text-violet-600">
+            <Home className="h-3.5 w-3.5" /> Home
+          </Link>
+          <ChevronRight className="h-3.5 w-3.5" />
+          <Link href="/maths" className="hover:text-violet-600">
+            Maths Challenge
+          </Link>
+          <ChevronRight className="h-3.5 w-3.5" />
+          <Link href="/maths/year-6" className="hover:text-violet-600">
+            Year 6
+          </Link>
+          <ChevronRight className="h-3.5 w-3.5" />
+          <span className="font-medium text-gray-700 dark:text-gray-200">{topic.title}</span>
+        </nav>
 
         {stage === "intro" && (
           <motion.div initial="hidden" animate="visible" variants={fadeUp} className="rounded-3xl border border-gray-200/70 bg-white/80 p-6 text-center backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.04] sm:p-10">
@@ -116,6 +127,15 @@ export default function TopicQuizExperience({ topic }) {
             >
               Start Practice <ArrowRight className="h-4 w-4" />
             </button>
+          </motion.div>
+        )}
+
+        {stage === "intro" && (
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} className="mt-10">
+            <h2 className="mb-4 text-lg font-bold text-gray-900 dark:text-white">
+              Year 6 {topic.title} — Frequently Asked Questions
+            </h2>
+            <MathsFaqAccordion faqs={getTopicFaq(topic)} />
           </motion.div>
         )}
 
