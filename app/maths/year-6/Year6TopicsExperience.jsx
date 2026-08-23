@@ -6,6 +6,8 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Sparkles } from "lucide-react";
 import TopicCard from "@/app/components/maths/TopicCard";
 import ProgressDashboard from "@/app/components/maths/ProgressDashboard";
+import SaveProgressCard from "@/app/components/maths/SaveProgressCard";
+import { useMathsProgressSync } from "@/app/components/maths/useMathsProgressSync";
 import { getTopicsByCategory, UK_YEAR_6_TOPICS } from "@/lib/maths/topics";
 import { getAllQuestionsForTopic } from "@/lib/maths/bank";
 import {
@@ -28,6 +30,7 @@ const stagger = {
 
 export default function Year6TopicsExperience() {
   const [progress, setProgress] = useState(null);
+  const { isAuthenticated } = useMathsProgressSync((reconciled) => setProgress(reconciled));
 
   useEffect(() => {
     setProgress(getProgress());
@@ -64,7 +67,7 @@ export default function Year6TopicsExperience() {
         </motion.header>
 
         {progress && progress.questionsAnsweredTotal > 0 && (
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="mb-10">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="mb-10 space-y-3">
             <ProgressDashboard
               overallProgressPercent={getOverallProgressPercent(progress)}
               totalPoints={progress.totalPoints}
@@ -73,6 +76,7 @@ export default function Year6TopicsExperience() {
               topicsCompleted={getTopicsCompletedCount(progress)}
               totalTopics={UK_YEAR_6_TOPICS.length}
             />
+            {!isAuthenticated && <SaveProgressCard />}
           </motion.div>
         )}
 

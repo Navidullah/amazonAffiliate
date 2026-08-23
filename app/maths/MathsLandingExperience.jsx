@@ -8,6 +8,8 @@ import { CURRICULA } from "@/lib/maths/curricula";
 import CurriculumCard from "@/app/components/maths/CurriculumCard";
 import ProgressDashboard from "@/app/components/maths/ProgressDashboard";
 import DailyChallengeCard from "@/app/components/maths/DailyChallengeCard";
+import SaveProgressCard from "@/app/components/maths/SaveProgressCard";
+import { useMathsProgressSync } from "@/app/components/maths/useMathsProgressSync";
 import {
   getProgress,
   getOverallProgressPercent,
@@ -37,6 +39,7 @@ const HERO_PILLS = [
 
 export default function MathsLandingExperience() {
   const [progress, setProgress] = useState(null);
+  const { isAuthenticated } = useMathsProgressSync((reconciled) => setProgress(reconciled));
 
   useEffect(() => {
     setProgress(getProgress());
@@ -108,7 +111,7 @@ export default function MathsLandingExperience() {
         </motion.header>
 
         {hasActivity && (
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="mb-10">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="mb-10 space-y-3">
             <ProgressDashboard
               overallProgressPercent={getOverallProgressPercent(progress)}
               totalPoints={progress.totalPoints}
@@ -117,6 +120,7 @@ export default function MathsLandingExperience() {
               topicsCompleted={getTopicsCompletedCount(progress)}
               totalTopics={UK_YEAR_6_TOPICS.length}
             />
+            {!isAuthenticated && <SaveProgressCard />}
           </motion.div>
         )}
 

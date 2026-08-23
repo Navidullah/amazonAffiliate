@@ -97,6 +97,7 @@ module.exports = {
     "/order/*", // private post-checkout page, noindex
     "/maths/daily", // rotating daily content, not meant to rank
     "/maths/daily/*",
+    "/maths/dashboard", // private per-user page, noindex
     // Next.js internal image-generation routes â€” not real pages
     "/twitter-image",
     "/opengraph-image",
@@ -121,6 +122,7 @@ module.exports = {
           "/thankYou",
           "/pinterest",
           "/maths/daily",
+          "/maths/dashboard",
         ],
       },
     ],

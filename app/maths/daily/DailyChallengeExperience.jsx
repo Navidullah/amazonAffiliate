@@ -11,6 +11,7 @@ import ReviewAnswers from "@/app/components/maths/ReviewAnswers";
 import { getDailyChallengeQuestions, getDailyChallengeDateKey } from "@/lib/maths/bank";
 import { saveSessionResult, getProgress, addBadges } from "@/lib/maths/progress";
 import { evaluateNewBadges, getBadge } from "@/lib/maths/badges";
+import { useMathsProgressSync } from "@/app/components/maths/useMathsProgressSync";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -21,6 +22,7 @@ export default function DailyChallengeExperience() {
   const [stage, setStage] = useState("intro"); // intro | quiz | results | review
   const [questions, setQuestions] = useState([]);
   const [sessionResult, setSessionResult] = useState(null);
+  const { syncNow } = useMathsProgressSync();
 
   const dateKey = getDailyChallengeDateKey();
 
@@ -42,14 +44,16 @@ export default function DailyChallengeExperience() {
     });
 
     const newBadgeIds = evaluateNewBadges(prevProgress, nextProgress);
+    let finalProgress = nextProgress;
     if (newBadgeIds.length > 0) {
-      addBadges(newBadgeIds);
+      finalProgress = addBadges(newBadgeIds);
       newBadgeIds.forEach((id) => {
         const badge = getBadge(id);
         if (badge) toast.success(`🏆 Badge unlocked: ${badge.title}`);
       });
     }
 
+    syncNow(finalProgress);
     setStage("results");
   };
 

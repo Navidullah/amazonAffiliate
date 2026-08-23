@@ -12,6 +12,7 @@ import ReviewAnswers from "@/app/components/maths/ReviewAnswers";
 import { getTopicQuestions, getAllQuestionsForTopic } from "@/lib/maths/bank";
 import { saveSessionResult, getProgress, addBadges } from "@/lib/maths/progress";
 import { evaluateNewBadges, getBadge } from "@/lib/maths/badges";
+import { useMathsProgressSync } from "@/app/components/maths/useMathsProgressSync";
 
 const DIFFICULTIES = [
   { value: "easy", label: "Easy" },
@@ -30,6 +31,7 @@ export default function TopicQuizExperience({ topic }) {
   const [difficulty, setDifficulty] = useState("mixed");
   const [questions, setQuestions] = useState([]);
   const [sessionResult, setSessionResult] = useState(null);
+  const { syncNow } = useMathsProgressSync();
 
   const Icon = getMathsIcon(topic.icon);
   const totalQuestions = getAllQuestionsForTopic("UK", 6, topic.slug).length;
@@ -51,14 +53,16 @@ export default function TopicQuizExperience({ topic }) {
     });
 
     const newBadgeIds = evaluateNewBadges(prevProgress, nextProgress);
+    let finalProgress = nextProgress;
     if (newBadgeIds.length > 0) {
-      addBadges(newBadgeIds);
+      finalProgress = addBadges(newBadgeIds);
       newBadgeIds.forEach((id) => {
         const badge = getBadge(id);
         if (badge) toast.success(`🏆 Badge unlocked: ${badge.title}`);
       });
     }
 
+    syncNow(finalProgress);
     setStage("results");
   };
 
