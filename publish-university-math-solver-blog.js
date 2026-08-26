@@ -186,7 +186,7 @@ const CONTENT = `
 
 <h2 id="conclusion">Conclusion</h2>
 <p>University-level math deserves more than a boxed answer with no working — whether that's a differential equation, a matrix problem, or a limits question from a first-year calculus module. The AI Math Solver's University level is built to explain the full method behind each of those, for free.</p>
-<p><strong>Ready to try it?</strong> Head to the <a href="/maths/solver">AI Math Solver</a>, pick University level, and type in your next problem — or read the <a href="/blog/free-ai-math-solver-algebra-equations-calculus-step-by-step">general AI Math Solver guide</a> for school and college-level coverage.</p>
+<p><strong>Ready to try it?</strong> Head to the <a href="/maths/solver">AI Math Solver</a>, pick University level, and type in your next problem — or read the <a href="/blog/free-ai-math-solver-algebra-equations-calculus-step-by-step">general AI Math Solver guide</a> for school and college-level coverage, or the <a href="/blog/polynomial-factoring-inequality-solver-with-steps">polynomial factoring and inequality guide</a> for Algebra 2 and Pre-Calculus topics.</p>
 
 <script type="application/ld+json">${JSON.stringify(FAQ_SCHEMA)}</script>
 <script type="application/ld+json">${JSON.stringify(BREADCRUMB_SCHEMA)}</script>

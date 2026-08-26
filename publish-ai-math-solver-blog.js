@@ -200,7 +200,7 @@ const CONTENT = `
 
 <h2 id="conclusion">Conclusion</h2>
 <p>A calculator that only gives you a number is only half the tool you actually need when you're trying to learn something, not just get past one question. The AI Math Solver is built for the other half — a free, step-by-step explanation across algebra, equations, calculus, trigonometry, geometry and word problems, at whatever level you're learning it.</p>
-<p><strong>Ready to try it?</strong> Head to the <a href="/maths/solver">AI Math Solver</a> and type in your next question, explore the <a href="/maths">Year 6 Maths Challenge</a> for structured practice with progress tracking, or — if you're at university and need differential equations, matrices or statistics explained — read the <a href="/blog/ai-math-solver-university-differential-equations-matrices">university-level AI Math Solver guide</a>.</p>
+<p><strong>Ready to try it?</strong> Head to the <a href="/maths/solver">AI Math Solver</a> and type in your next question, explore the <a href="/maths">Year 6 Maths Challenge</a> for structured practice with progress tracking, or read one of the deeper guides — <a href="/blog/ai-math-solver-university-differential-equations-matrices">university-level differential equations and matrices</a>, or <a href="/blog/polynomial-factoring-inequality-solver-with-steps">polynomial factoring and inequality solving</a>.</p>
 
 <script type="application/ld+json">${JSON.stringify(FAQ_SCHEMA)}</script>
 <script type="application/ld+json">${JSON.stringify(BREADCRUMB_SCHEMA)}</script>

@@ -253,7 +253,14 @@ export default function MathSolverPageExperience() {
               >
                 university-level guide
               </Link>{" "}
-              for differential equations, matrices and statistics.
+              for differential equations, matrices and statistics, or the{" "}
+              <Link
+                href="/blog/polynomial-factoring-inequality-solver-with-steps"
+                className="font-medium text-violet-600 hover:underline dark:text-violet-300"
+              >
+                polynomial and inequality guide
+              </Link>{" "}
+              for Algebra 2 and Pre-Calculus topics.
             </p>
           </motion.div>
         </motion.section>
