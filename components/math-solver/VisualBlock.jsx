@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import DOMPurify from "dompurify";
+import MathText from "./MathText";
 import {
   ResponsiveContainer,
   LineChart,
@@ -143,7 +144,7 @@ export default function VisualBlock({ visual }) {
       {visual.type === "chart" && visual.chart && <ChartVisual chart={visual.chart} />}
       {visual.type === "table" && visual.table && <TableVisual table={visual.table} />}
       {visual.caption && (
-        <p className="mt-2 text-center text-xs text-muted-foreground">{visual.caption}</p>
+        <MathText text={visual.caption} className="mt-2 text-center text-xs text-muted-foreground" />
       )}
     </div>
   );
