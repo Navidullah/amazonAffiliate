@@ -1,6 +1,7 @@
 // app/maths/solver/page.jsx
 
-import MathSolverExperience from "@/components/math-solver/MathSolverExperience";
+import MathSolverPageExperience from "@/components/math-solver/MathSolverPageExperience";
+import { MATH_SOLVER_FAQ } from "@/lib/constants/mathSolverFaq";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
 const PAGE_URL = `${BASE_URL}/maths/solver`;
@@ -79,27 +80,25 @@ export default function MathSolverPage() {
           { "@type": "ListItem", position: 3, name: "Math Solver", item: PAGE_URL },
         ],
       },
+      {
+        "@type": "FAQPage",
+        mainEntity: MATH_SOLVER_FAQ.map((faq) => ({
+          "@type": "Question",
+          name: faq.q,
+          acceptedAnswer: { "@type": "Answer", text: faq.a },
+        })),
+      },
     ],
   };
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-10 sm:py-14">
-      <div className="mb-8 text-center">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          AI Math Problem Solver
-        </h1>
-        <p className="mt-3 text-muted-foreground">
-          Type any math question. Get a step-by-step explanation — with diagrams, graphs and
-          tables when they help.
-        </p>
-      </div>
-
-      <MathSolverExperience />
+    <>
+      <MathSolverPageExperience />
 
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-    </main>
+    </>
   );
 }
