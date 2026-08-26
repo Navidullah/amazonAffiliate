@@ -238,6 +238,23 @@ export default function MathSolverPageExperience() {
               </Link>{" "}
               covers UK KS2 topics the same way.
             </p>
+            <p>
+              Want more detail first? Read the full{" "}
+              <Link
+                href="/blog/free-ai-math-solver-algebra-equations-calculus-step-by-step"
+                className="font-medium text-violet-600 hover:underline dark:text-violet-300"
+              >
+                AI Math Solver guide
+              </Link>{" "}
+              for school and college-level coverage, or the{" "}
+              <Link
+                href="/blog/ai-math-solver-university-differential-equations-matrices"
+                className="font-medium text-violet-600 hover:underline dark:text-violet-300"
+              >
+                university-level guide
+              </Link>{" "}
+              for differential equations, matrices and statistics.
+            </p>
           </motion.div>
         </motion.section>
 
