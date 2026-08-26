@@ -117,6 +117,12 @@ export default function MathsLandingExperience() {
             >
               Explore Topics
             </a>
+            <Link
+              href="/maths/solver"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl border border-violet-200 bg-violet-50 px-8 text-base font-semibold text-violet-700 transition-colors hover:bg-violet-100 dark:border-violet-500/20 dark:bg-violet-500/10 dark:text-violet-300 dark:hover:bg-violet-500/15"
+            >
+              <Sparkles className="h-4 w-4" /> AI Math Solver
+            </Link>
           </motion.div>
         </motion.header>
 

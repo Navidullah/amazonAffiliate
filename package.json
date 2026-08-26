@@ -10,6 +10,7 @@
     "postbuild": "next-sitemap --config next-sitemap.config.cjs"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.120.0",
     "@distube/ytdl-core": "^4.16.12",
     "@ffmpeg/core": "^0.12.10",
     "@ffmpeg/ffmpeg": "^0.12.15",
@@ -116,7 +117,8 @@
     "yjs": "^13.6.27",
     "youtube-captions-scraper": "^2.0.3",
     "youtube-transcript-api": "^3.0.6",
-    "ytdl-core": "^4.11.5"
+    "ytdl-core": "^4.11.5",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
