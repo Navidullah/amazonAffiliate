@@ -1,6 +1,7 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Sparkles,
@@ -11,6 +12,8 @@ import {
   Landmark,
   Lightbulb,
   AlertCircle,
+  Lock,
+  PartyPopper,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -49,7 +52,46 @@ export default function MathSolverExperience() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [solution, setSolution] = useState(null);
+  const [paywall, setPaywall] = useState(null); // { price } when the free question is used up
+  const [consent, setConsent] = useState(false);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [justUnlocked, setJustUnlocked] = useState(false);
   const textareaId = useId();
+
+  // If we're returning from a successful day-pass checkout, the webhook
+  // that flips `paid` to true can land a second or two after the redirect,
+  // so poll briefly rather than assuming it's already unlocked.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("daypass") !== "success") return;
+
+    window.history.replaceState({}, "", window.location.pathname);
+
+    let cancelled = false;
+    async function pollUntilPaid(attemptsLeft) {
+      if (cancelled || attemptsLeft <= 0) return;
+      try {
+        const res = await fetch("/api/math-solver/status");
+        const data = await res.json();
+        if (data.paid) {
+          if (!cancelled) {
+            setPaywall(null);
+            setJustUnlocked(true);
+          }
+          return;
+        }
+      } catch {
+        // keep retrying silently
+      }
+      setTimeout(() => pollUntilPaid(attemptsLeft - 1), 1500);
+    }
+    pollUntilPaid(6);
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   async function solveQuestion(q, lvl) {
     if (!q.trim() || loading) return;
@@ -57,6 +99,7 @@ export default function MathSolverExperience() {
     setLoading(true);
     setError(null);
     setSolution(null);
+    setPaywall(null);
 
     try {
       const res = await fetch("/api/math-solver", {
@@ -65,6 +108,11 @@ export default function MathSolverExperience() {
         body: JSON.stringify({ question: q.trim(), level: lvl }),
       });
       const data = await res.json();
+
+      if (res.status === 402 && data.paywall) {
+        setPaywall({ price: data.price });
+        return;
+      }
 
       if (!res.ok) {
         setError(data.error || "Something went wrong. Please try again.");
@@ -87,6 +135,22 @@ export default function MathSolverExperience() {
   function handleExampleClick(example) {
     setQuestion(example);
     solveQuestion(example, level);
+  }
+
+  async function handleUnlock() {
+    if (!consent || checkoutLoading) return;
+    setCheckoutLoading(true);
+    try {
+      const res = await fetch("/api/math-solver/checkout", { method: "POST" });
+      const data = await res.json();
+      if (!res.ok || !data.url) {
+        throw new Error(data.error || "Could not start checkout");
+      }
+      window.location.href = data.url;
+    } catch (err) {
+      setError(err.message || "Could not start checkout. Please try again.");
+      setCheckoutLoading(false);
+    }
   }
 
   return (
@@ -170,7 +234,7 @@ export default function MathSolverExperience() {
 
         <div className="flex items-center justify-between gap-3">
           <p className="text-xs text-gray-500 dark:text-gray-400">
-            {question.length}/1000 &middot; free, a few questions per day
+            {question.length}/1000 &middot; 1 free question a day
           </p>
           <Button
             type="submit"
@@ -190,7 +254,79 @@ export default function MathSolverExperience() {
         </div>
       </form>
 
+      {justUnlocked && (
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mt-6 flex items-center gap-2 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm font-medium text-emerald-700 dark:border-emerald-500/20 dark:bg-emerald-500/10 dark:text-emerald-300"
+        >
+          <PartyPopper className="h-4 w-4 shrink-0" />
+          Unlocked! You have unlimited questions for the rest of today.
+        </motion.div>
+      )}
+
       <AnimatePresence mode="wait">
+        {paywall && (
+          <motion.div
+            key="paywall"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            className="mt-6 rounded-2xl border border-violet-200 bg-violet-50 p-5 dark:border-violet-500/20 dark:bg-violet-500/10"
+          >
+            <div className="flex items-start gap-3">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-violet-100 text-violet-700 dark:bg-violet-500/20 dark:text-violet-300">
+                <Lock className="h-4 w-4" />
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="font-semibold text-gray-900 dark:text-gray-100">
+                  You've used today's free question
+                </p>
+                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                  Unlock unlimited questions for the rest of today for{" "}
+                  <span className="font-semibold text-violet-700 dark:text-violet-300">{paywall.price}</span>.
+                  Access resets free again tomorrow either way.
+                </p>
+
+                <label className="mt-4 flex items-start gap-2 text-xs text-gray-600 dark:text-gray-400">
+                  <input
+                    type="checkbox"
+                    checked={consent}
+                    onChange={(e) => setConsent(e.target.checked)}
+                    className="mt-0.5 h-4 w-4 shrink-0 rounded border-gray-300"
+                  />
+                  <span>
+                    I understand this unlocks access immediately and agree to the{" "}
+                    <Link href="/refund-policy" className="text-violet-600 underline dark:text-violet-300">
+                      Refund Policy
+                    </Link>{" "}
+                    and{" "}
+                    <Link href="/terms" className="text-violet-600 underline dark:text-violet-300">
+                      Terms of Service
+                    </Link>
+                    .
+                  </span>
+                </label>
+
+                <Button
+                  type="button"
+                  onClick={handleUnlock}
+                  disabled={!consent || checkoutLoading}
+                  className="mt-3 gap-2 rounded-2xl bg-violet-600 hover:bg-violet-700"
+                >
+                  {checkoutLoading ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" /> Starting checkout...
+                    </>
+                  ) : (
+                    <>Unlock unlimited — {paywall.price}</>
+                  )}
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
         {error && (
           <motion.div
             key="error"

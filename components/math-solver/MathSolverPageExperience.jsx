@@ -33,7 +33,7 @@ const HERO_PILLS = [
   { icon: Clock, label: "Instant Step-by-Step" },
   { icon: GraduationCap, label: "School to University" },
   { icon: LineChart, label: "Diagrams & Graphs" },
-  { icon: ShieldCheck, label: "Free · No Signup" },
+  { icon: ShieldCheck, label: "1 Free/Day · No Signup" },
 ];
 
 const HOW_IT_WORKS = [
@@ -87,7 +87,7 @@ export default function MathSolverPageExperience() {
             className="inline-flex items-center gap-2 rounded-full border border-violet-200/70 bg-white/70 px-4 py-1.5 text-xs font-semibold text-violet-700 shadow-sm backdrop-blur dark:border-violet-500/20 dark:bg-white/[0.04] dark:text-violet-300"
           >
             <Sparkles className="h-3.5 w-3.5" />
-            Free · No signup needed
+            1 free question a day · No signup needed
           </motion.span>
 
           <motion.h1
@@ -229,7 +229,8 @@ export default function MathSolverPageExperience() {
               diagram, or a data table, one is generated automatically alongside the steps.
             </p>
             <p>
-              It&apos;s free to use, with no signup and a daily question limit that resets every day. One thing
+              It&apos;s free to use for one question a day, with no signup required — need more on the same day, a
+              small one-time payment unlocks unlimited questions until the free question resets tomorrow. One thing
               worth knowing up front: this is a text-based math problem solver — type or paste your question in —
               it doesn&apos;t scan photos or handwritten homework from a camera. If you&apos;d rather practise a
               structured curriculum with quizzes and progress tracking instead of solving one-off questions, the{" "}

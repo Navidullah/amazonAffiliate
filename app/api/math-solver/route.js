@@ -1,30 +1,28 @@
+import { getServerSession } from "next-auth";
 import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
+import { authOptions } from "@/lib/authOptions";
 import { getAnthropicClient } from "@/lib/anthropic";
 import { ConnectToDB } from "@/lib/db";
 import MathSolverUsage from "@/lib/models/MathSolverUsage";
 import { MathSolutionSchema, LEVELS, buildSystemPrompt } from "@/lib/mathSolver/schema";
+import { getUsageKey } from "@/lib/mathSolver/identity";
+import { FREE_DAILY_LIMIT, DAYPASS_PRICE_DISPLAY } from "@/lib/mathSolver/pricing";
 
-const DAILY_LIMIT = Number(process.env.MATH_SOLVER_DAILY_LIMIT || 15);
 const MODEL = process.env.MATH_SOLVER_MODEL || "claude-haiku-4-5-20251001";
 const MAX_QUESTION_LENGTH = 1000;
 
-function getClientIp(req) {
-  const forwarded = req.headers.get("x-forwarded-for");
-  if (forwarded) return forwarded.split(",")[0].trim();
-  return req.headers.get("x-real-ip") || "unknown";
-}
-
-async function checkAndIncrementUsage(ip) {
+async function checkAndIncrementUsage(key) {
   await ConnectToDB();
   const today = new Date().toISOString().slice(0, 10);
 
   const doc = await MathSolverUsage.findOneAndUpdate(
-    { ip, date: today },
+    { ip: key, date: today },
     { $inc: { count: 1 } },
     { upsert: true, new: true },
   );
 
-  return doc.count <= DAILY_LIMIT;
+  if (doc.paid) return { allowed: true };
+  return { allowed: doc.count <= FREE_DAILY_LIMIT };
 }
 
 export async function POST(req) {
@@ -42,19 +40,25 @@ export async function POST(req) {
     );
   }
 
-  const ip = getClientIp(req);
-  let withinLimit;
+  const session = await getServerSession(authOptions);
+  const key = getUsageKey(req, session);
+
+  let usage;
   try {
-    withinLimit = await checkAndIncrementUsage(ip);
+    usage = await checkAndIncrementUsage(key);
   } catch (err) {
     console.error("Math solver rate-limit check failed:", err);
     return Response.json({ error: "Something went wrong. Please try again." }, { status: 500 });
   }
 
-  if (!withinLimit) {
+  if (!usage.allowed) {
     return Response.json(
-      { error: `You've reached today's free limit of ${DAILY_LIMIT} questions. Please try again tomorrow.` },
-      { status: 429 },
+      {
+        error: `You've used today's free question. Unlock unlimited questions for the rest of today for ${DAYPASS_PRICE_DISPLAY}.`,
+        paywall: true,
+        price: DAYPASS_PRICE_DISPLAY,
+      },
+      { status: 402 },
     );
   }
 

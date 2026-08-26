@@ -72,7 +72,7 @@ export default function MathSolverPage() {
           "Plotted function graphs and data charts",
           "Tables for tabular data",
           "Works for school, college and university level math",
-          "Free with a daily question limit",
+          "1 free question per day, with a paid day pass for unlimited additional questions",
         ],
         offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
       },
