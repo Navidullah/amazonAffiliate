@@ -382,6 +382,15 @@ export default function MathSolverExperience() {
                             text={step.explanation}
                             className="mt-1 block text-sm leading-relaxed text-gray-600 dark:text-gray-400"
                           />
+                          {step.conceptTip && (
+                            <div className="mt-2 flex items-start gap-2 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 dark:border-amber-500/20 dark:bg-amber-500/10">
+                              <Lightbulb className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-600 dark:text-amber-400" />
+                              <MathText
+                                text={step.conceptTip}
+                                className="text-xs font-medium text-amber-800 dark:text-amber-300"
+                              />
+                            </div>
+                          )}
                           <VisualBlock visual={step.visual} />
                         </div>
                       </div>
