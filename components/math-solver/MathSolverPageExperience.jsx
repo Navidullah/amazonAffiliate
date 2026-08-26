@@ -16,6 +16,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import MathSolverExperience from "./MathSolverExperience";
+import UsageCounter from "./UsageCounter";
 import MathsFaqAccordion from "@/app/components/maths/MathsFaqAccordion";
 import { MATH_SOLVER_FAQ } from "@/lib/constants/mathSolverFaq";
 
@@ -116,6 +117,7 @@ export default function MathSolverPageExperience() {
                 {label}
               </span>
             ))}
+            <UsageCounter />
           </motion.div>
 
           <motion.div variants={fadeUp} className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
