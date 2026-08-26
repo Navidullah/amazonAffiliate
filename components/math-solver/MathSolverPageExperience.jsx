@@ -101,8 +101,9 @@ export default function MathSolverPageExperience() {
           </motion.h1>
 
           <motion.p variants={fadeUp} className="mx-auto mt-4 max-w-xl text-base text-gray-600 dark:text-gray-400">
-            Type any math question and get a full step-by-step explanation — with diagrams, graphs and tables when
-            they help you understand, not just the final answer.
+            A free AI math solver for algebra, equations, calculus and word problems. Type any question and get a
+            full step-by-step explanation — with diagrams, graphs and tables when they help you understand, not
+            just the final answer.
           </motion.p>
 
           <motion.div variants={fadeUp} className="mt-6 flex flex-wrap justify-center gap-2">
@@ -196,6 +197,47 @@ export default function MathSolverPageExperience() {
                 <span>{tip}</span>
               </div>
             ))}
+          </motion.div>
+        </motion.section>
+
+        {/* SEO body content */}
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={stagger}
+          className="mb-16 border-t border-gray-200/70 pt-16 dark:border-white/10"
+        >
+          <motion.h2 variants={fadeUp} className="text-2xl font-bold text-gray-900 dark:text-white">
+            A Free AI Math Solver for Algebra, Calculus, Equations and More
+          </motion.h2>
+          <motion.div variants={fadeUp} className="prose prose-sm mt-6 max-w-none text-gray-600 dark:prose-invert dark:text-gray-400">
+            <p>
+              Most online calculators are built for one narrow job — an algebra calculator that only handles
+              equations, a trigonometry calculator that only does identities, a separate tool entirely for
+              calculus. This math solver is built to handle all of it in one place: linear and quadratic equation
+              solving, algebra and simultaneous equations, trigonometry, calculus (derivatives and integrals),
+              geometry, statistics, and word problems — at whatever level you're learning it, from school-level
+              maths through college and university.
+            </p>
+            <p>
+              The difference from a plain equation solver isn&apos;t just the answer — it&apos;s the explanation.
+              Ask it to solve a quadratic equation, simplify an algebraic expression, or find the derivative of a
+              function, and you get the full step-by-step method written in plain English, the same way a tutor
+              would walk through it, plus a &quot;check yourself&quot; step so you can verify the answer makes
+              sense rather than just trusting it blindly. When a question genuinely calls for a graph, a labelled
+              diagram, or a data table, one is generated automatically alongside the steps.
+            </p>
+            <p>
+              It&apos;s free to use, with no signup and a daily question limit that resets every day. One thing
+              worth knowing up front: this is a text-based math problem solver — type or paste your question in —
+              it doesn&apos;t scan photos or handwritten homework from a camera. If you&apos;d rather practise a
+              structured curriculum with quizzes and progress tracking instead of solving one-off questions, the{" "}
+              <Link href="/maths" className="font-medium text-violet-600 hover:underline dark:text-violet-300">
+                Year 6 Maths Challenge
+              </Link>{" "}
+              covers UK KS2 topics the same way.
+            </p>
           </motion.div>
         </motion.section>
 
