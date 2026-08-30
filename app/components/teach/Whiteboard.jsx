@@ -22,6 +22,8 @@ import {
   ZoomOut,
   RotateCcw,
   Highlighter,
+  Maximize,
+  Minimize,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -148,6 +150,7 @@ function drawObject(ctx, obj, w, h, dpr) {
 export default function Whiteboard({ roomId, hostKey }) {
   const canvasRef = useRef(null);
   const wrapRef = useRef(null);
+  const boardRef = useRef(null);
   const [room, setRoom] = useState(null);
   const [objects, setObjects] = useState([]);
   const [tool, setTool] = useState("pen");
@@ -156,6 +159,7 @@ export default function Whiteboard({ roomId, hostKey }) {
   const [pendingInput, setPendingInput] = useState(null); // {type, x, y, value}
   const [copiedMsg, setCopiedMsg] = useState("");
   const [zoom, setZoom] = useState(1);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const drawingRef = useRef(null);
   const myObjectIdsRef = useRef([]);
   const isHost = Boolean(room && hostKey && room.hostKey === hostKey);
@@ -165,6 +169,41 @@ export default function Whiteboard({ roomId, hostKey }) {
     const unsub = subscribeRoom(roomId, setRoom);
     return () => unsub();
   }, [roomId]);
+
+  // Track native fullscreen state too, so pressing Esc (or a browser's own
+  // exit-fullscreen control) keeps our button/layout in sync.
+  useEffect(() => {
+    const onChange = () => {
+      const fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+      if (!fsEl) setIsFullscreen(false);
+    };
+    document.addEventListener("fullscreenchange", onChange);
+    document.addEventListener("webkitfullscreenchange", onChange);
+    return () => {
+      document.removeEventListener("fullscreenchange", onChange);
+      document.removeEventListener("webkitfullscreenchange", onChange);
+    };
+  }, []);
+
+  function toggleFullscreen() {
+    const el = boardRef.current;
+    if (!isFullscreen) {
+      setIsFullscreen(true);
+      // Best-effort: real Fullscreen API hides the browser chrome where
+      // supported (desktop, Android Chrome). iOS Safari doesn't support it
+      // for non-video elements, so the CSS fixed-overlay layout below is
+      // what actually delivers "full screen" there.
+      const request = el?.requestFullscreen || el?.webkitRequestFullscreen;
+      request?.call(el)?.catch?.(() => {});
+    } else {
+      setIsFullscreen(false);
+      if (document.fullscreenElement) {
+        document.exitFullscreen?.().catch(() => {});
+      } else if (document.webkitFullscreenElement) {
+        document.webkitExitFullscreen?.();
+      }
+    }
+  }
 
   // subscribe to current page's objects
   useEffect(() => {
@@ -431,7 +470,14 @@ export default function Whiteboard({ roomId, hostKey }) {
         </div>
       )}
 
-      <div className="relative aspect-video w-full overflow-auto rounded-lg border border-border bg-muted/30 shadow-sm">
+      <div
+        ref={boardRef}
+        className={
+          isFullscreen
+            ? "fixed inset-0 z-50 overflow-auto bg-muted/30"
+            : "relative aspect-video w-full overflow-auto rounded-lg border border-border bg-muted/30 shadow-sm"
+        }
+      >
         <div
           ref={wrapRef}
           className="relative aspect-video bg-white"
@@ -525,6 +571,15 @@ export default function Whiteboard({ roomId, hostKey }) {
               <RotateCcw />
             </Button>
           )}
+          <div className="mx-0.5 h-5 w-px bg-border" />
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            onClick={toggleFullscreen}
+            title={isFullscreen ? "Exit full screen" : "Full screen"}
+          >
+            {isFullscreen ? <Minimize /> : <Maximize />}
+          </Button>
         </div>
       </div>
 
