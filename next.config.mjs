@@ -157,6 +157,17 @@ const nextConfig = {
         ],
       },
 
+      // Teach whiteboard's tutor-student voice chat needs mic access too.
+      {
+        source: "/teach/:path*",
+        headers: [
+          {
+            key: "Permissions-Policy",
+            value: "microphone=(self), camera=(), geolocation=()",
+          },
+        ],
+      },
+
       // ✅ YouTube allowed on editor & blog pages (COEP OFF there)
       {
         source: "/(write|blogs/:path*)",
