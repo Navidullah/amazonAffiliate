@@ -128,6 +128,14 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/books"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  Read Books Online
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/tools/voice-clone"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
