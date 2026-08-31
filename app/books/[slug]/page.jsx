@@ -12,11 +12,12 @@ export async function generateMetadata({ params }) {
   const book = await getBookBySlug(slug);
   if (!book) return {};
 
-  const title = `${book.title} by ${book.author} — Read Online Free | Shopyor`;
+  const title = `${book.title} — Read Online Free | Shopyor`;
   return {
     metadataBase: new URL(SITE),
     title: { absolute: title },
     description: book.description,
+    keywords: [book.title, book.author, book.category, ...(book.tags || [])],
     alternates: { canonical: `${SITE}/books/${slug}` },
     openGraph: {
       type: "book",

@@ -49,7 +49,7 @@ export default function AdminBooksPage() {
 
   const fetchBooks = useCallback(async () => {
     setLoadingBooks(true);
-    const res = await fetch("/api/books");
+    const res = await fetch("/api/books/admin");
     if (res.ok) {
       const data = await res.json();
       setBooks(data.books || []);

@@ -61,6 +61,7 @@ const LAST_MODIFIED = {
   "/tools/youtube-thumbnail": "2026-06-18T12:54:46+05:00",
   "/maths": "2026-08-23T00:00:00+05:00",
   "/maths/year-6": "2026-08-23T00:00:00+05:00",
+  "/books": "2026-08-31T00:00:00+05:00",
 };
 
 module.exports = {
@@ -98,6 +99,7 @@ module.exports = {
     "/maths/daily", // rotating daily content, not meant to rank
     "/maths/daily/*",
     "/maths/dashboard", // private per-user page, noindex
+    "/books/*/read", // reader view is noindexed; /books/[slug] is the canonical indexable page
     // Next.js internal image-generation routes â€” not real pages
     "/twitter-image",
     "/opengraph-image",
@@ -131,6 +133,7 @@ module.exports = {
   additionalPaths: async () => {
     let blogs = [];
     let products = [];
+    let books = [];
 
     try {
       // The blog list endpoint is /api/blog (singular) and returns { blogs: [...] }.
@@ -157,6 +160,16 @@ module.exports = {
       console.warn("[next-sitemap] Products fetch failed:", err.message);
     }
 
+    try {
+      const res = await fetch(`${siteUrl}/api/books`);
+      if (res.ok) {
+        const data = await res.json();
+        books = Array.isArray(data?.books) ? data.books : [];
+      }
+    } catch (err) {
+      console.warn("[next-sitemap] Books fetch failed:", err.message);
+    }
+
     return [
       ...blogs.map((blog) => ({
         // Posts are served at /blog/<slug> (singular).
@@ -170,6 +183,10 @@ module.exports = {
         lastmod: new Date(
           product.updatedAt || product.createdAt || Date.now(),
         ).toISOString(),
+      })),
+      ...books.map((book) => ({
+        loc: `${siteUrl}/books/${book.slug}`,
+        lastmod: new Date(book.updatedAt || book.createdAt || Date.now()).toISOString(),
       })),
       ...MATHS_YEAR_6_TOPIC_SLUGS.map((slug) => ({
         loc: `${siteUrl}/maths/year-6/${slug}`,
