@@ -11,10 +11,13 @@ import {
   ListChecks,
   LogIn,
   MessageCircle,
+  Trash2,
   UploadCloud,
+  UserPlus,
   Users,
   Video,
 } from "lucide-react";
+import { toast } from "react-toastify";
 
 // wa.me needs digits only (country code + number, no +/spaces/dashes).
 function toWhatsAppLink(number, text) {
@@ -22,7 +25,6 @@ function toWhatsAppLink(number, text) {
   if (!digits) return null;
   return `https://wa.me/${digits}?text=${encodeURIComponent(text)}`;
 }
-import { toast } from "react-toastify";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -49,7 +51,24 @@ const selectClass =
 const fileInputClass =
   "block text-sm text-gray-700 file:mr-3 file:cursor-pointer file:rounded-xl file:border-0 file:bg-violet-600 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white file:transition-colors hover:file:bg-violet-700 dark:text-gray-300";
 
-function MaterialRow({ classId, material }) {
+function MaterialRow({ classId, material, isTutor, onDeleted }) {
+  const [deleting, setDeleting] = useState(false);
+
+  const handleDelete = async () => {
+    if (!window.confirm(`Delete "${material.title}"? This can't be undone.`)) return;
+    setDeleting(true);
+    const res = await fetch(`/api/classroom/${classId}/materials/${material._id}`, {
+      method: "DELETE",
+    });
+    setDeleting(false);
+    if (!res.ok) {
+      toast.error("Failed to delete file.");
+      return;
+    }
+    toast.success("Deleted.");
+    onDeleted();
+  };
+
   return (
     <div className="flex items-center gap-3 rounded-2xl border border-gray-200/70 bg-white/70 px-4 py-3 dark:border-white/10 dark:bg-white/[0.03]">
       <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white">
@@ -69,7 +88,82 @@ function MaterialRow({ classId, material }) {
       >
         <Download className="h-3.5 w-3.5" /> Download
       </a>
+      {isTutor && (
+        <button
+          type="button"
+          onClick={handleDelete}
+          disabled={deleting}
+          className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-gray-400 transition-colors hover:bg-red-100 hover:text-red-600 disabled:opacity-50 dark:hover:bg-red-500/10 dark:hover:text-red-400"
+          aria-label={`Delete ${material.title}`}
+        >
+          <Trash2 className="h-3.5 w-3.5" />
+        </button>
+      )}
     </div>
+  );
+}
+
+function AddStudentForm({ classId, onAdded }) {
+  const [email, setEmail] = useState("");
+  const [whatsappNumber, setWhatsappNumber] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSaving(true);
+
+    const res = await fetch(`/api/classroom/${classId}/students`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ students: [{ email, whatsappNumber }] }),
+    });
+
+    setSaving(false);
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      toast.error(data.error || "Failed to add student.");
+      return;
+    }
+
+    const data = await res.json();
+    setEmail("");
+    setWhatsappNumber("");
+    if (data.whatsappInvites?.[0]) {
+      window.open(data.whatsappInvites[0].link, "_blank", "noopener,noreferrer");
+    }
+    toast.success(data.emailsSent > 0 ? "Student added and emailed." : "Student added.");
+    onAdded();
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="flex flex-wrap items-end gap-2">
+      <div className="min-w-[160px] flex-1">
+        <input
+          type="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="student@example.com"
+          className="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-violet-500 dark:border-white/10 dark:bg-gray-800 dark:text-white"
+        />
+      </div>
+      <div className="w-44">
+        <input
+          type="tel"
+          value={whatsappNumber}
+          onChange={(e) => setWhatsappNumber(e.target.value)}
+          placeholder="WhatsApp # (optional)"
+          className="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-violet-500 dark:border-white/10 dark:bg-gray-800 dark:text-white"
+        />
+      </div>
+      <button
+        type="submit"
+        disabled={saving}
+        className="inline-flex h-9 items-center gap-1.5 rounded-xl bg-violet-600 px-4 text-sm font-semibold text-white transition-colors hover:bg-violet-700 disabled:opacity-60"
+      >
+        <UserPlus className="h-4 w-4" /> {saving ? "Adding..." : "Add"}
+      </button>
+    </form>
   );
 }
 
@@ -384,6 +478,15 @@ export default function ClassroomRoomExperience({ classId }) {
                   })}
                 </div>
               )}
+
+              {isTutor && (
+                <div className="mt-5 border-t border-gray-200/70 pt-4 dark:border-white/10">
+                  <p className="mb-2 text-xs font-semibold text-gray-600 dark:text-gray-400">
+                    Add a student
+                  </p>
+                  <AddStudentForm classId={classId} onAdded={loadRoom} />
+                </div>
+              )}
             </motion.div>
 
             <motion.div variants={fadeUp} className={cardClass}>
@@ -400,7 +503,13 @@ export default function ClassroomRoomExperience({ classId }) {
               ) : (
                 <div className="space-y-2">
                   {room.materials.map((m) => (
-                    <MaterialRow key={m._id} classId={classId} material={m} />
+                    <MaterialRow
+                      key={m._id}
+                      classId={classId}
+                      material={m}
+                      isTutor={isTutor}
+                      onDeleted={loadRoom}
+                    />
                   ))}
                 </div>
               )}
