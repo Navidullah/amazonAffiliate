@@ -37,6 +37,18 @@ const stagger = {
 const cardClass =
   "rounded-3xl border border-gray-200/70 bg-white/80 p-6 backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.04] sm:p-8";
 
+// Solid (not translucent) backgrounds so the native dropdown popup — which
+// on Windows/Chrome inherits the <select>'s own background/text color — is
+// legible in both themes, not just the closed control.
+const selectClass =
+  "rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-violet-500 dark:border-white/10 dark:bg-gray-800 dark:text-white";
+
+// The native "Choose File" control ignores plain text/bg classes — Tailwind's
+// file: variant targets its ::file-selector-button so it matches the app's
+// other buttons instead of the unstyled OS default.
+const fileInputClass =
+  "block text-sm text-gray-700 file:mr-3 file:cursor-pointer file:rounded-xl file:border-0 file:bg-violet-600 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white file:transition-colors hover:file:bg-violet-700 dark:text-gray-300";
+
 function MaterialRow({ classId, material }) {
   return (
     <div className="flex items-center gap-3 rounded-2xl border border-gray-200/70 bg-white/70 px-4 py-3 dark:border-white/10 dark:bg-white/[0.03]">
@@ -113,7 +125,7 @@ function UploadMaterialForm({ classId, onUploaded }) {
         <select
           value={type}
           onChange={(e) => setType(e.target.value)}
-          className="rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-violet-500 dark:border-white/10 dark:bg-white/5 dark:text-white"
+          className={selectClass}
         >
           <option value="assignment">Assignment</option>
           <option value="quiz">Quiz</option>
@@ -126,7 +138,7 @@ function UploadMaterialForm({ classId, onUploaded }) {
           required
           accept="application/pdf"
           onChange={(e) => setFile(e.target.files?.[0] || null)}
-          className="text-sm text-gray-700 dark:text-gray-300"
+          className={fileInputClass}
         />
       </div>
       <button
@@ -184,7 +196,7 @@ function UploadSubmissionForm({ classId, materials, onUploaded }) {
           <select
             value={materialId}
             onChange={(e) => setMaterialId(e.target.value)}
-            className="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-violet-500 dark:border-white/10 dark:bg-white/5 dark:text-white"
+            className={`w-full ${selectClass}`}
           >
             <option value="">General submission</option>
             {materials.map((m) => (
@@ -203,7 +215,7 @@ function UploadSubmissionForm({ classId, materials, onUploaded }) {
           type="file"
           required
           onChange={(e) => setFile(e.target.files?.[0] || null)}
-          className="text-sm text-gray-700 dark:text-gray-300"
+          className={fileInputClass}
         />
       </div>
       <div>
