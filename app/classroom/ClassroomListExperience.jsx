@@ -50,7 +50,7 @@ function RoomCard({ room }) {
         <p className="truncate text-sm font-bold text-gray-900 dark:text-white">{room.title}</p>
         <p className="mt-0.5 flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
           <Users className="h-3.5 w-3.5" aria-hidden="true" />
-          {room.studentEmails.length} student{room.studentEmails.length === 1 ? "" : "s"} ·{" "}
+          {room.students.length} student{room.students.length === 1 ? "" : "s"} ·{" "}
           {room.materials.length} file{room.materials.length === 1 ? "" : "s"}
         </p>
       </div>

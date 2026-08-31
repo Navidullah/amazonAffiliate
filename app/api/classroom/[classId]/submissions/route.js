@@ -14,7 +14,7 @@ export async function POST(request, { params }) {
 
   await ConnectToDB();
   const room = await ClassRoom.findById(classId).lean();
-  if (!room || !room.studentEmails.includes(session.user.email)) {
+  if (!room || !room.students.some((s) => s.email === session.user.email)) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
@@ -60,7 +60,7 @@ export async function GET(request, { params }) {
   }
 
   const isTutor = isAdmin && room.tutorEmail === session.user.email;
-  if (!isTutor && !room.studentEmails.includes(session.user.email)) {
+  if (!isTutor && !room.students.some((s) => s.email === session.user.email)) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 

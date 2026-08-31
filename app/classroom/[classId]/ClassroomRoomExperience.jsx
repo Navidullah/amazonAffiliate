@@ -10,10 +10,18 @@ import {
   FileText,
   ListChecks,
   LogIn,
+  MessageCircle,
   UploadCloud,
   Users,
   Video,
 } from "lucide-react";
+
+// wa.me needs digits only (country code + number, no +/spaces/dashes).
+function toWhatsAppLink(number, text) {
+  const digits = String(number || "").replace(/[^0-9]/g, "");
+  if (!digits) return null;
+  return `https://wa.me/${digits}?text=${encodeURIComponent(text)}`;
+}
 import { toast } from "react-toastify";
 
 const fadeUp = {
@@ -325,7 +333,7 @@ export default function ClassroomRoomExperience({ classId }) {
               <h1 className="text-2xl font-extrabold text-gray-900 dark:text-white">{room.title}</h1>
               <p className="mt-1 flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
                 <Users className="h-3.5 w-3.5" />
-                {room.studentEmails.length} student{room.studentEmails.length === 1 ? "" : "s"}
+                {room.students.length} student{room.students.length === 1 ? "" : "s"}
               </p>
               <a
                 href={room.meetLink}
@@ -335,6 +343,35 @@ export default function ClassroomRoomExperience({ classId }) {
               >
                 <Video className="h-4 w-4" /> Join Class
               </a>
+
+              {isTutor && room.students.length > 0 && (
+                <div className="mt-5 space-y-2 border-t border-gray-200/70 pt-4 dark:border-white/10">
+                  {room.students.map((student) => {
+                    const link = toWhatsAppLink(
+                      student.whatsappNumber,
+                      `You've been added to "${room.title}". Meet link: ${room.meetLink}. Sign in at shopyor.com/classroom to see materials and submit your work.`,
+                    );
+                    return (
+                      <div
+                        key={student.email}
+                        className="flex items-center justify-between gap-2 text-sm"
+                      >
+                        <span className="text-gray-700 dark:text-gray-300">{student.email}</span>
+                        {link && (
+                          <a
+                            href={link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700 hover:bg-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-300"
+                          >
+                            <MessageCircle className="h-3.5 w-3.5" /> WhatsApp
+                          </a>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </motion.div>
 
             <motion.div variants={fadeUp} className={cardClass}>

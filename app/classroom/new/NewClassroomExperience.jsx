@@ -5,16 +5,19 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
-import { ArrowLeft, Plus, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, MessageCircle, Plus, X } from "lucide-react";
+
+const emptyStudent = { email: "", whatsappNumber: "" };
 
 export default function NewClassroomExperience() {
   const { status } = useSession();
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [meetLink, setMeetLink] = useState("");
-  const [emails, setEmails] = useState([""]);
+  const [students, setStudents] = useState([{ ...emptyStudent }]);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [result, setResult] = useState(null); // { roomId, emailsSent, whatsappInvites }
 
   useEffect(() => {
     if (status === "authenticated") {
@@ -28,12 +31,14 @@ export default function NewClassroomExperience() {
     }
   }, [status, router]);
 
-  const updateEmail = (i, value) => {
-    setEmails((prev) => prev.map((e, idx) => (idx === i ? value : e)));
+  const updateStudent = (i, field, value) => {
+    setStudents((prev) =>
+      prev.map((s, idx) => (idx === i ? { ...s, [field]: value } : s)),
+    );
   };
 
-  const removeEmail = (i) => {
-    setEmails((prev) => prev.filter((_, idx) => idx !== i));
+  const removeStudent = (i) => {
+    setStudents((prev) => prev.filter((_, idx) => idx !== i));
   };
 
   const handleSubmit = async (e) => {
@@ -47,7 +52,9 @@ export default function NewClassroomExperience() {
       body: JSON.stringify({
         title,
         meetLink,
-        studentEmails: emails.map((e) => e.trim()).filter(Boolean),
+        students: students
+          .map((s) => ({ email: s.email.trim(), whatsappNumber: s.whatsappNumber.trim() }))
+          .filter((s) => s.email),
       }),
     });
 
@@ -59,8 +66,67 @@ export default function NewClassroomExperience() {
     }
 
     const data = await res.json();
-    router.push(`/classroom/${data.room._id}`);
+    setSaving(false);
+    setResult({
+      roomId: data.room._id,
+      emailsSent: data.emailsSent,
+      studentCount: data.room.students.length,
+      whatsappInvites: data.whatsappInvites || [],
+    });
   };
+
+  if (result) {
+    return (
+      <main className="relative min-h-screen overflow-hidden px-4 pb-24 pt-28 sm:px-6">
+        <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-violet-50/60 via-white to-fuchsia-50/40 dark:from-gray-950 dark:via-gray-950 dark:to-gray-900" />
+        <div className="mx-auto max-w-xl">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-5 rounded-3xl border border-gray-200/70 bg-white/80 p-6 backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.04] sm:p-8"
+          >
+            <h1 className="text-2xl font-extrabold text-gray-900 dark:text-white">Class created</h1>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              {result.studentCount > 0
+                ? `Emailed ${result.emailsSent} of ${result.studentCount} student${result.studentCount === 1 ? "" : "s"}.`
+                : "No students added yet — you can add them later."}
+            </p>
+
+            {result.whatsappInvites.length > 0 && (
+              <div>
+                <p className="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                  Send a WhatsApp invite too:
+                </p>
+                <div className="space-y-2">
+                  {result.whatsappInvites.map((invite) => (
+                    <a
+                      key={invite.email}
+                      href={invite.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-between gap-2 rounded-2xl border border-gray-200/70 bg-white/70 px-4 py-3 text-sm font-semibold text-gray-700 transition-colors hover:border-emerald-300 hover:bg-emerald-50 dark:border-white/10 dark:bg-white/[0.03] dark:text-gray-200"
+                    >
+                      <span className="flex items-center gap-2">
+                        <MessageCircle className="h-4 w-4 text-emerald-600" /> {invite.email}
+                      </span>
+                      <span className="text-xs text-emerald-600">Send on WhatsApp</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <Link
+              href={`/classroom/${result.roomId}`}
+              className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-violet-600 text-base font-semibold text-white shadow-lg shadow-violet-600/25 transition-colors hover:bg-violet-700"
+            >
+              Go to class <ArrowRight className="h-4 w-4" />
+            </Link>
+          </motion.div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="relative min-h-screen overflow-hidden px-4 pb-24 pt-28 sm:px-6">
@@ -112,22 +178,29 @@ export default function NewClassroomExperience() {
 
           <div>
             <label className="mb-1.5 block text-sm font-semibold text-gray-700 dark:text-gray-300">
-              Student emails
+              Students
             </label>
             <div className="space-y-2">
-              {emails.map((email, i) => (
-                <div key={i} className="flex items-center gap-2">
+              {students.map((student, i) => (
+                <div key={i} className="flex items-start gap-2">
                   <input
                     type="email"
-                    value={email}
-                    onChange={(e) => updateEmail(i, e.target.value)}
+                    value={student.email}
+                    onChange={(e) => updateStudent(i, "email", e.target.value)}
                     placeholder="student@example.com"
                     className="flex-1 rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 outline-none focus:border-violet-500 dark:border-white/10 dark:bg-white/5 dark:text-white"
                   />
-                  {emails.length > 1 && (
+                  <input
+                    type="tel"
+                    value={student.whatsappNumber}
+                    onChange={(e) => updateStudent(i, "whatsappNumber", e.target.value)}
+                    placeholder="WhatsApp # (optional)"
+                    className="w-44 rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 outline-none focus:border-violet-500 dark:border-white/10 dark:bg-white/5 dark:text-white"
+                  />
+                  {students.length > 1 && (
                     <button
                       type="button"
-                      onClick={() => removeEmail(i)}
+                      onClick={() => removeStudent(i)}
                       className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-gray-400 hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-white/10"
                     >
                       <X className="h-4 w-4" />
@@ -136,9 +209,13 @@ export default function NewClassroomExperience() {
                 </div>
               ))}
             </div>
+            <p className="mt-1.5 text-xs text-gray-500 dark:text-gray-400">
+              WhatsApp number is optional — include the country code (e.g. +44 7911 123456), used
+              only to give you a one-click WhatsApp invite link after the class is created.
+            </p>
             <button
               type="button"
-              onClick={() => setEmails((prev) => [...prev, ""])}
+              onClick={() => setStudents((prev) => [...prev, { ...emptyStudent }])}
               className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-violet-600 hover:text-violet-700 dark:text-violet-300"
             >
               <Plus className="h-3.5 w-3.5" /> Add another student
