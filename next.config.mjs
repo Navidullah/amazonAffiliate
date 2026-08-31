@@ -108,6 +108,18 @@ const nextConfig = {
         destination: "/blog/:slug*",
         permanent: true,
       },
+      // Teaching whiteboard was retired 2026-08-31. Send any lingering
+      // links to the homepage to avoid a 404.
+      {
+        source: "/teach",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/teach/:path*",
+        destination: "/",
+        permanent: true,
+      },
     ];
   },
   async headers() {
@@ -149,17 +161,6 @@ const nextConfig = {
       // override the site-wide Permissions-Policy default just for this tool.
       {
         source: "/tools/voice-clone/:path*",
-        headers: [
-          {
-            key: "Permissions-Policy",
-            value: "microphone=(self), camera=(), geolocation=()",
-          },
-        ],
-      },
-
-      // Teach whiteboard's tutor-student voice chat needs mic access too.
-      {
-        source: "/teach/:path*",
         headers: [
           {
             key: "Permissions-Policy",
