@@ -11,6 +11,7 @@ import {
   ListChecks,
   LogIn,
   MessageCircle,
+  Pencil,
   Trash2,
   UploadCloud,
   UserPlus,
@@ -359,12 +360,71 @@ function SubmissionRow({ classId, submission, materials }) {
   );
 }
 
+function UpdateMeetLinkForm({ classId, currentLink, onUpdated, onCancel }) {
+  const [meetLink, setMeetLink] = useState(currentLink);
+  const [saving, setSaving] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSaving(true);
+
+    const res = await fetch(`/api/classroom/${classId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ meetLink }),
+    });
+
+    setSaving(false);
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      toast.error(data.error || "Failed to update meet link.");
+      return;
+    }
+
+    toast.success("Meet link updated.");
+    onUpdated();
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="mt-4 flex flex-wrap items-end gap-2">
+      <div className="min-w-[220px] flex-1">
+        <label className="mb-1 block text-xs font-semibold text-gray-600 dark:text-gray-400">
+          New Google Meet link
+        </label>
+        <input
+          type="url"
+          required
+          value={meetLink}
+          onChange={(e) => setMeetLink(e.target.value)}
+          placeholder="https://meet.google.com/xxx-xxxx-xxx"
+          className="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-violet-500 dark:border-white/10 dark:bg-gray-800 dark:text-white"
+        />
+      </div>
+      <button
+        type="submit"
+        disabled={saving}
+        className="inline-flex h-9 items-center gap-1.5 rounded-xl bg-violet-600 px-4 text-sm font-semibold text-white transition-colors hover:bg-violet-700 disabled:opacity-60"
+      >
+        {saving ? "Saving..." : "Save"}
+      </button>
+      <button
+        type="button"
+        onClick={onCancel}
+        className="inline-flex h-9 items-center rounded-xl px-3 text-sm font-semibold text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+      >
+        Cancel
+      </button>
+    </form>
+  );
+}
+
 export default function ClassroomRoomExperience({ classId }) {
   const { status } = useSession();
   const [room, setRoom] = useState(null);
   const [isTutor, setIsTutor] = useState(false);
   const [submissions, setSubmissions] = useState([]);
   const [notFound, setNotFound] = useState(false);
+  const [editingLink, setEditingLink] = useState(false);
 
   const loadRoom = useCallback(async () => {
     const res = await fetch(`/api/classroom/${classId}`);
@@ -441,14 +501,37 @@ export default function ClassroomRoomExperience({ classId }) {
                 <Users className="h-3.5 w-3.5" />
                 {room.students.length} student{room.students.length === 1 ? "" : "s"}
               </p>
-              <a
-                href={room.meetLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex h-11 items-center gap-2 rounded-2xl bg-violet-600 px-6 text-sm font-semibold text-white shadow-lg shadow-violet-600/25 transition-colors hover:bg-violet-700"
-              >
-                <Video className="h-4 w-4" /> Join Class
-              </a>
+              <div className="mt-4 flex flex-wrap items-center gap-2">
+                <a
+                  href={room.meetLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-11 items-center gap-2 rounded-2xl bg-violet-600 px-6 text-sm font-semibold text-white shadow-lg shadow-violet-600/25 transition-colors hover:bg-violet-700"
+                >
+                  <Video className="h-4 w-4" /> Join Class
+                </a>
+                {isTutor && !editingLink && (
+                  <button
+                    type="button"
+                    onClick={() => setEditingLink(true)}
+                    className="inline-flex h-9 items-center gap-1.5 rounded-xl px-3 text-sm font-semibold text-gray-500 transition-colors hover:bg-gray-100 hover:text-violet-600 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-violet-300"
+                  >
+                    <Pencil className="h-3.5 w-3.5" /> Meet link expired?
+                  </button>
+                )}
+              </div>
+
+              {isTutor && editingLink && (
+                <UpdateMeetLinkForm
+                  classId={classId}
+                  currentLink={room.meetLink}
+                  onUpdated={() => {
+                    setEditingLink(false);
+                    loadRoom();
+                  }}
+                  onCancel={() => setEditingLink(false)}
+                />
+              )}
 
               {isTutor && room.students.length > 0 && (
                 <div className="mt-5 space-y-2 border-t border-gray-200/70 pt-4 dark:border-white/10">
