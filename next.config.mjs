@@ -1,5 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // pdfjs-dist (pulled in by @react-pdf-viewer/core for the book reader)
+  // conditionally requires the Node `canvas` package for a server-side
+  // rendering path we never use in the browser bundle — alias it away so
+  // webpack doesn't try to resolve the native module.
+  webpack: (config) => {
+    config.resolve.alias.canvas = false;
+    return config;
+  },
   images: {
     remotePatterns: [
       {
