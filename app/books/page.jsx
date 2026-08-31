@@ -1,6 +1,10 @@
 import { getActiveBooks } from "@/lib/actions/books";
 import BooksCatalog from "./BooksCatalog";
 
+// Books are added live by the admin without a redeploy — this must not be
+// statically cached at build time, or newly uploaded books never appear.
+export const dynamic = "force-dynamic";
+
 const SITE = "https://www.shopyor.com";
 
 export const metadata = {
