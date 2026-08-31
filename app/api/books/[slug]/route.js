@@ -44,7 +44,7 @@ export async function PUT(request, { params }) {
     }
 
     await ConnectToDB();
-    const book = await Book.findOne({ slug }).select("+fileBlobPath");
+    const book = await Book.findOne({ slug }).select("+fileBlobPath +coverImageUrl");
     if (!book) {
       return NextResponse.json({ error: "Book not found" }, { status: 404 });
     }
@@ -118,11 +118,13 @@ export async function PUT(request, { params }) {
     if (coverImage instanceof File) {
       const coverBuffer = Buffer.from(await coverImage.arrayBuffer());
       const coverBlob = await put(`books/${slug}/cover-${coverImage.name}`, coverBuffer, {
-        access: "public",
+        access: "private",
         addRandomSuffix: true,
+        contentType: coverImage.type || undefined,
       });
       if (book.coverImageUrl) await del(book.coverImageUrl).catch(() => {});
       book.coverImageUrl = coverBlob.url;
+      book.hasCoverImage = true;
     }
 
     await book.save();
@@ -147,7 +149,7 @@ export async function DELETE(_request, { params }) {
     }
 
     await ConnectToDB();
-    const book = await Book.findOne({ slug }).select("+fileBlobPath");
+    const book = await Book.findOne({ slug }).select("+fileBlobPath +coverImageUrl");
     if (!book) {
       return NextResponse.json({ error: "Book not found" }, { status: 404 });
     }

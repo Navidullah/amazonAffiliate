@@ -24,7 +24,7 @@ export async function generateMetadata({ params }) {
       siteName: "Shopyor",
       title,
       description: book.description,
-      images: book.coverImageUrl ? [{ url: book.coverImageUrl }] : undefined,
+      images: book.hasCoverImage ? [{ url: `${SITE}/api/books/${slug}/cover` }] : undefined,
     },
   };
 }
@@ -45,7 +45,7 @@ export default async function BookPage({ params }) {
         name: book.title,
         author: { "@type": "Person", name: book.author },
         description: book.description,
-        image: book.coverImageUrl,
+        image: book.hasCoverImage ? `${SITE}/api/books/${slug}/cover` : undefined,
       },
       {
         "@type": "BreadcrumbList",
@@ -79,10 +79,10 @@ export default async function BookPage({ params }) {
 
       <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
         <div className="overflow-hidden rounded-3xl border border-gray-200/70 bg-white/70 shadow-sm dark:border-white/10 dark:bg-white/[0.03]">
-          {book.coverImageUrl ? (
+          {book.hasCoverImage ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
-              src={book.coverImageUrl}
+              src={`/api/books/${book.slug}/cover`}
               alt={`Cover of ${book.title}`}
               className="aspect-[3/4] w-full object-cover"
             />

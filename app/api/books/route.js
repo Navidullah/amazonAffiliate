@@ -101,9 +101,12 @@ export async function POST(request) {
     let coverImageUrl;
     if (coverImage instanceof File) {
       const coverBuffer = Buffer.from(await coverImage.arrayBuffer());
+      // The Blob store is private-only — cover art is served through
+      // /api/books/[slug]/cover, not fetched directly by the browser.
       const coverBlob = await put(`books/${slug}/cover-${coverImage.name}`, coverBuffer, {
-        access: "public",
+        access: "private",
         addRandomSuffix: true,
+        contentType: coverImage.type || undefined,
       });
       coverImageUrl = coverBlob.url;
     }
@@ -125,6 +128,7 @@ export async function POST(request) {
       source,
       attribution: attribution || undefined,
       coverImageUrl,
+      hasCoverImage: Boolean(coverImageUrl),
       fileBlobPath: pdfBlob.url,
       pageCount,
     });
