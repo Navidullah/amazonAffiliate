@@ -12,6 +12,8 @@ Disallow: /add-product
 Disallow: /write$
 Disallow: /thankYou
 Disallow: /pinterest
+Disallow: /maths/daily
+Disallow: /maths/dashboard
 
 # Host
 Host: https://www.shopyor.com

@@ -184,6 +184,10 @@ module.exports = {
           product.updatedAt || product.createdAt || Date.now(),
         ).toISOString(),
       })),
+      // /books is force-dynamic (books are added live, without a redeploy),
+      // and next-sitemap's default crawler doesn't pick up force-dynamic
+      // pages (same reason /blog is absent) — list it explicitly.
+      { loc: `${siteUrl}/books`, lastmod: LAST_MODIFIED["/books"] },
       ...books.map((book) => ({
         loc: `${siteUrl}/books/${book.slug}`,
         lastmod: new Date(book.updatedAt || book.createdAt || Date.now()).toISOString(),
