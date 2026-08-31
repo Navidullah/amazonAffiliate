@@ -12,6 +12,7 @@ import {
   Menu,
   User,
   Calculator,
+  Video,
 } from "lucide-react";
 import { useState } from "react";
 import { ModeToggle } from "./ModeToggle";
@@ -202,6 +203,12 @@ export default function Header() {
                 <DropdownMenuItem asChild>
                   <Link href="/maths/dashboard" className="flex items-center gap-2">
                     <Calculator className="h-4 w-4" /> My Maths Progress
+                  </Link>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem asChild>
+                  <Link href="/classroom" className="flex items-center gap-2">
+                    <Video className="h-4 w-4" /> Classroom
                   </Link>
                 </DropdownMenuItem>
 
