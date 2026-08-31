@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { UploadCloud, Loader2, BookPlus } from "lucide-react";
+import Link from "next/link";
+import { UploadCloud, Loader2, BookPlus, Edit2, Trash2, EyeOff, ExternalLink } from "lucide-react";
 import { toast } from "react-toastify";
 
 const inputClass =
@@ -35,6 +36,9 @@ export default function AdminBooksPage() {
   const [file, setFile] = useState(null);
   const [coverImage, setCoverImage] = useState(null);
   const [uploading, setUploading] = useState(false);
+  const [books, setBooks] = useState([]);
+  const [loadingBooks, setLoadingBooks] = useState(true);
+  const [actionSlug, setActionSlug] = useState(null);
 
   useEffect(() => {
     if (status === "unauthenticated") router.push("/login");
@@ -42,6 +46,35 @@ export default function AdminBooksPage() {
       router.push("/");
     }
   }, [status, session, router]);
+
+  const fetchBooks = useCallback(async () => {
+    setLoadingBooks(true);
+    const res = await fetch("/api/books");
+    if (res.ok) {
+      const data = await res.json();
+      setBooks(data.books || []);
+    }
+    setLoadingBooks(false);
+  }, []);
+
+  useEffect(() => {
+    if (status === "authenticated" && session?.user?.role === "admin") {
+      fetchBooks();
+    }
+  }, [status, session, fetchBooks]);
+
+  const handleDelete = async (slug, title) => {
+    if (!window.confirm(`Delete "${title}"? This can't be undone.`)) return;
+    setActionSlug(slug);
+    const res = await fetch(`/api/books/${slug}`, { method: "DELETE" });
+    setActionSlug(null);
+    if (!res.ok) {
+      toast.error("Failed to delete book.");
+      return;
+    }
+    setBooks((prev) => prev.filter((b) => b.slug !== slug));
+    toast.success("Book deleted.");
+  };
 
   if (status === "loading") {
     return (
@@ -85,6 +118,7 @@ export default function AdminBooksPage() {
     setFile(null);
     setCoverImage(null);
     e.target.reset();
+    fetchBooks();
   };
 
   return (
@@ -198,6 +232,66 @@ export default function AdminBooksPage() {
           <UploadCloud className="h-4 w-4" /> {uploading ? "Uploading..." : "Upload Book"}
         </button>
       </form>
+
+      <h2 className="mt-12 text-lg font-bold text-gray-900 dark:text-white">
+        Uploaded Books ({books.length})
+      </h2>
+
+      {loadingBooks ? (
+        <div className="mt-4 flex justify-center py-10">
+          <Loader2 className="h-6 w-6 animate-spin text-violet-600" />
+        </div>
+      ) : books.length === 0 ? (
+        <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">No books uploaded yet.</p>
+      ) : (
+        <div className="mt-4 space-y-3">
+          {books.map((book) => (
+            <div
+              key={book.slug}
+              className={`flex items-center gap-3 rounded-2xl border border-gray-200/70 bg-white/70 px-4 py-3 dark:border-white/10 dark:bg-white/[0.03] ${
+                actionSlug === book.slug ? "pointer-events-none opacity-50" : ""
+              }`}
+            >
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-bold text-gray-900 dark:text-white">
+                  {book.title}
+                  {!book.active && (
+                    <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-gray-100 px-2 py-0.5 text-xs font-semibold text-gray-500 dark:bg-white/10 dark:text-gray-400">
+                      <EyeOff className="h-3 w-3" /> Hidden
+                    </span>
+                  )}
+                </p>
+                <p className="truncate text-xs text-gray-500 dark:text-gray-400">
+                  by {book.author} · {book.category} · {book.views || 0} views
+                </p>
+              </div>
+              <Link
+                href={`/books/${book.slug}`}
+                target="_blank"
+                title="View live page"
+                className="rounded-lg p-2 text-gray-500 transition-colors hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-white/10"
+              >
+                <ExternalLink className="h-4 w-4" />
+              </Link>
+              <Link
+                href={`/admin/books/${book.slug}/edit`}
+                title="Edit"
+                className="rounded-lg p-2 text-blue-600 transition-colors hover:bg-blue-50 dark:hover:bg-blue-950/30"
+              >
+                <Edit2 className="h-4 w-4" />
+              </Link>
+              <button
+                type="button"
+                onClick={() => handleDelete(book.slug, book.title)}
+                title="Delete"
+                className="rounded-lg p-2 text-red-500 transition-colors hover:bg-red-50 dark:hover:bg-red-950/30"
+              >
+                <Trash2 className="h-4 w-4" />
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
