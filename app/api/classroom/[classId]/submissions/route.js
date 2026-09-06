@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { put } from "@vercel/blob";
 import { ConnectToDB } from "@/lib/db";
 import ClassRoom from "@/lib/models/ClassRoom";
 import ClassSubmission from "@/lib/models/ClassSubmission";
@@ -18,29 +17,25 @@ export async function POST(request, { params }) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
-  const formData = await request.formData();
-  const file = formData.get("file");
-  const materialId = formData.get("materialId") || null;
-  const note = formData.get("note") || "";
+  const { blobUrl, fileName, materialId, note } = await request.json();
 
-  if (!(file instanceof File)) {
-    return NextResponse.json({ error: "file is required" }, { status: 400 });
+  if (!blobUrl || !fileName) {
+    return NextResponse.json({ error: "blobUrl and fileName are required" }, { status: 400 });
   }
-
-  const buffer = Buffer.from(await file.arrayBuffer());
-  const blob = await put(
-    `classroom/${classId}/submissions/${session.user.email}/${file.name}`,
-    buffer,
-    { access: "private", addRandomSuffix: true },
-  );
+  if (
+    !blobUrl.startsWith(`https://`) ||
+    !blobUrl.includes(`/classroom/${classId}/submissions/`)
+  ) {
+    return NextResponse.json({ error: "Invalid blobUrl" }, { status: 400 });
+  }
 
   const submission = await ClassSubmission.create({
     classroomId: classId,
     studentEmail: session.user.email,
     materialId: materialId || null,
-    fileName: file.name,
-    blobPath: blob.url,
-    note: String(note),
+    fileName: String(fileName),
+    blobPath: blobUrl,
+    note: String(note || ""),
   });
 
   return NextResponse.json({ submission }, { status: 201 });

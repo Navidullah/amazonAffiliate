@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useSession, signIn } from "next-auth/react";
 import { motion } from "framer-motion";
+import { upload } from "@vercel/blob/client";
 import {
   ArrowLeft,
   Download,
@@ -179,27 +180,35 @@ function UploadMaterialForm({ classId, onUploaded }) {
     if (!file) return;
     setUploading(true);
 
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("title", title);
-    formData.append("type", type);
+    try {
+      const blob = await upload(`classroom/${classId}/materials/${file.name}`, file, {
+        access: "private",
+        handleUploadUrl: `/api/classroom/${classId}/materials/blob-upload`,
+      });
 
-    const res = await fetch(`/api/classroom/${classId}/materials`, {
-      method: "POST",
-      body: formData,
-    });
+      const res = await fetch(`/api/classroom/${classId}/materials`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title,
+          type,
+          blobUrl: blob.url,
+          fileName: file.name,
+        }),
+      });
 
-    setUploading(false);
-    if (!res.ok) {
+      if (!res.ok) throw new Error("Failed to save material");
+
+      setTitle("");
+      setFile(null);
+      e.target.reset();
+      toast.success("Uploaded.");
+      onUploaded();
+    } catch (err) {
       toast.error("Failed to upload file.");
-      return;
+    } finally {
+      setUploading(false);
     }
-
-    setTitle("");
-    setFile(null);
-    e.target.reset();
-    toast.success("Uploaded.");
-    onUploaded();
   };
 
   return (
@@ -248,6 +257,7 @@ function UploadMaterialForm({ classId, onUploaded }) {
 }
 
 function UploadSubmissionForm({ classId, materials, onUploaded }) {
+  const { data: session } = useSession();
   const [materialId, setMaterialId] = useState("");
   const [note, setNote] = useState("");
   const [file, setFile] = useState(null);
@@ -255,30 +265,42 @@ function UploadSubmissionForm({ classId, materials, onUploaded }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!file) return;
+    if (!file || !session?.user?.email) return;
     setUploading(true);
 
-    const formData = new FormData();
-    formData.append("file", file);
-    if (materialId) formData.append("materialId", materialId);
-    if (note) formData.append("note", note);
+    try {
+      const blob = await upload(
+        `classroom/${classId}/submissions/${session.user.email}/${file.name}`,
+        file,
+        {
+          access: "private",
+          handleUploadUrl: `/api/classroom/${classId}/submissions/blob-upload`,
+        },
+      );
 
-    const res = await fetch(`/api/classroom/${classId}/submissions`, {
-      method: "POST",
-      body: formData,
-    });
+      const res = await fetch(`/api/classroom/${classId}/submissions`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          blobUrl: blob.url,
+          fileName: file.name,
+          materialId: materialId || undefined,
+          note: note || undefined,
+        }),
+      });
 
-    setUploading(false);
-    if (!res.ok) {
+      if (!res.ok) throw new Error("Failed to save submission");
+
+      setNote("");
+      setFile(null);
+      e.target.reset();
+      toast.success("Submitted.");
+      onUploaded();
+    } catch (err) {
       toast.error("Failed to upload your work.");
-      return;
+    } finally {
+      setUploading(false);
     }
-
-    setNote("");
-    setFile(null);
-    e.target.reset();
-    toast.success("Submitted.");
-    onUploaded();
   };
 
   return (

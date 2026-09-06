@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { put } from "@vercel/blob";
 import { ConnectToDB } from "@/lib/db";
 import ClassRoom from "@/lib/models/ClassRoom";
 import { getSessionUser } from "@/lib/classroom/access";
@@ -26,29 +25,23 @@ export async function POST(request, { params }) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
-  const formData = await request.formData();
-  const file = formData.get("file");
-  const title = formData.get("title");
-  const type = formData.get("type");
+  const { title, type, blobUrl, fileName } = await request.json();
 
-  if (!(file instanceof File) || !title || !["assignment", "quiz"].includes(type)) {
+  if (!title || !["assignment", "quiz"].includes(type) || !blobUrl || !fileName) {
     return NextResponse.json(
-      { error: "file, title and a valid type are required" },
+      { error: "title, type, blobUrl and fileName are required" },
       { status: 400 },
     );
   }
-
-  const buffer = Buffer.from(await file.arrayBuffer());
-  const blob = await put(`classroom/${classId}/materials/${file.name}`, buffer, {
-    access: "private",
-    addRandomSuffix: true,
-  });
+  if (!blobUrl.startsWith(`https://`) || !blobUrl.includes(`/classroom/${classId}/materials/`)) {
+    return NextResponse.json({ error: "Invalid blobUrl" }, { status: 400 });
+  }
 
   room.materials.push({
     title: String(title),
     type,
-    blobPath: blob.url,
-    fileName: file.name,
+    blobPath: blobUrl,
+    fileName: String(fileName),
   });
   await room.save();
 
