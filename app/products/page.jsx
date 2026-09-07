@@ -5,25 +5,25 @@ const SITE = "https://www.shopyor.com";
 
 export const metadata = {
   metadataBase: new URL(SITE),
-  title: { absolute: "Worksheets & Past Paper Solutions — KS2 & IGCSE | Shopyor" },
+  title: { absolute: "Past Paper Worked Solutions & KS2 Worksheets | Shopyor" },
   description:
-    "Browse every printable KS2 Year 6 Maths worksheet and Cambridge IGCSE worked past-paper solution pack — each with a full answer key or mark scheme. Pay once, download instantly, no subscription.",
+    "Browse every Cambridge IGCSE worked past-paper solution pack and printable KS2 Year 6 Maths worksheet — each with a full mark scheme or answer key. Pay once, download instantly, no subscription.",
   keywords: [
-    "year 6 maths worksheets pdf",
-    "printable maths worksheets year 6",
-    "KS2 maths worksheets",
     "IGCSE past paper worked solutions",
     "IGCSE maths solutions pdf",
     "Cambridge IGCSE 0580 worked solutions",
+    "year 6 maths worksheets pdf",
+    "printable maths worksheets year 6",
+    "KS2 maths worksheets",
   ],
   alternates: { canonical: `${SITE}/products` },
   openGraph: {
     type: "website",
     url: `${SITE}/products`,
     siteName: "Shopyor",
-    title: "Worksheets & Past Paper Solutions — KS2 & IGCSE | Shopyor",
+    title: "Past Paper Worked Solutions & KS2 Worksheets | Shopyor",
     description:
-      "Browse every printable KS2 Year 6 Maths worksheet and Cambridge IGCSE worked past-paper solution pack — each with a full answer key or mark scheme. Pay once, download instantly, no subscription.",
+      "Browse every Cambridge IGCSE worked past-paper solution pack and printable KS2 Year 6 Maths worksheet — each with a full mark scheme or answer key. Pay once, download instantly, no subscription.",
   },
 };
 
@@ -36,9 +36,9 @@ export default async function ProductsPage() {
       {
         "@type": "CollectionPage",
         url: `${SITE}/products`,
-        name: "Worksheets & Past Paper Solutions — KS2 & IGCSE",
+        name: "Past Paper Worked Solutions & KS2 Worksheets",
         description:
-          "Browse every printable KS2 Year 6 Maths worksheet and Cambridge IGCSE worked past-paper solution pack — each with a full answer key or mark scheme.",
+          "Browse every Cambridge IGCSE worked past-paper solution pack and printable KS2 Year 6 Maths worksheet — each with a full mark scheme or answer key.",
       },
       {
         "@type": "BreadcrumbList",
@@ -57,12 +57,12 @@ export default async function ProductsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-        Worksheets & Past Paper Solutions — KS2 & IGCSE
+        Past Paper Worked Solutions & KS2 Worksheets
       </h1>
       <p className="mt-3 max-w-2xl text-base text-gray-600 dark:text-gray-400">
-        Browse every printable KS2 Year 6 Maths worksheet and Cambridge
-        IGCSE worked past-paper solution pack, each with a full answer key
-        or mark scheme. Pay once, download instantly — no subscription,
+        Browse every Cambridge IGCSE worked past-paper solution pack and
+        printable KS2 Year 6 Maths worksheet, each with a full mark scheme
+        or answer key. Pay once, download instantly — no subscription,
         anywhere in the world.
       </p>
 

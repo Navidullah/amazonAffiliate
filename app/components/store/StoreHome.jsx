@@ -74,14 +74,14 @@ export default function StoreHome({ products = [] }) {
             className="inline-flex items-center gap-2 rounded-full border border-indigo-200/70 bg-white/70 px-4 py-1.5 text-xs font-semibold text-indigo-700 shadow-sm backdrop-blur dark:border-indigo-500/20 dark:bg-white/[0.04] dark:text-indigo-300"
           >
             <Sparkles className="h-3.5 w-3.5" />
-            KS2 Maths worksheets & IGCSE past paper solutions
+            IGCSE past paper worked solutions & KS2 Maths worksheets
           </motion.span>
 
           <motion.h1
             variants={fadeUp}
             className="mx-auto mt-6 max-w-3xl text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-6xl"
           >
-            Worksheets & exam solutions for KS2 and IGCSE students.{" "}
+            Worked past-paper solutions for IGCSE, plus KS2 Maths worksheets.{" "}
             <span className="bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-500 bg-clip-text text-transparent dark:from-indigo-300 dark:via-violet-300 dark:to-fuchsia-200">
               Pay once, download instantly.
             </span>
@@ -91,11 +91,11 @@ export default function StoreHome({ products = [] }) {
             variants={fadeUp}
             className="mx-auto mt-5 max-w-2xl text-base text-gray-600 dark:text-gray-300 sm:text-lg"
           >
-            Printable PDF worksheets for KS2 Year 6 Maths and fully worked
-            Cambridge IGCSE past-paper solutions, each with a complete
-            answer key or mark scheme so parents, tutors, and teachers
-            anywhere in the world can mark it correctly. No sign-up, no
-            subscription — pick a pack and download.
+            Fully worked Cambridge IGCSE past-paper solutions and printable
+            KS2 Year 6 Maths worksheets, each with a complete mark scheme or
+            answer key so students, parents, and tutors anywhere in the
+            world can mark it correctly. No sign-up, no subscription — pick
+            a pack and download.
           </motion.p>
 
           <motion.div
@@ -200,17 +200,18 @@ export default function StoreHome({ products = [] }) {
           className="mb-20 rounded-3xl border border-gray-200/70 bg-white/70 p-8 backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.03] sm:p-10"
         >
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-            Worksheets and worked past-paper solutions, for students anywhere in the world
+            Worked past-paper solutions and worksheets, for students anywhere in the world
           </h2>
           <div className="mt-4 space-y-4 text-sm leading-relaxed text-gray-600 dark:text-gray-400 sm:text-base">
             <p>
-              Shopyor sells two kinds of printable PDF resource: UK KS2 Year
-              6 Maths worksheets, written to the curriculum with worked
-              examples and a full answer key, and Cambridge IGCSE worked
-              past-paper solutions — starting with IGCSE Mathematics 0580 —
+              Shopyor's main focus is fully worked exam past-paper
+              solutions — starting with Cambridge IGCSE Mathematics 0580 —
               with every question solved step-by-step in mark-scheme order
-              and an examiner tip flagging the most common mistake. IB Maths
-              resources are in development and will join the catalog soon.
+              and an examiner tip flagging the most common mistake. IB
+              Maths solutions are in development and will join the catalog
+              soon. Alongside these, Shopyor also sells UK KS2 Year 6 Maths
+              worksheets, written to the curriculum with worked examples
+              and a full answer key.
             </p>
             <p>
               Every pack downloads as a single PDF, ready to print at home,
@@ -240,6 +241,57 @@ export default function StoreHome({ products = [] }) {
           </h2>
           <div className="mt-6">
             <FaqAccordion items={HOMEPAGE_FAQ} />
+          </div>
+        </motion.section>
+
+        {/* More from Shopyor — free books + maths practice, currently invisible from the homepage */}
+        <motion.section
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          className="mb-20"
+        >
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+            More maths resources from Shopyor
+          </h2>
+          <div className="mt-6 grid gap-6 sm:grid-cols-2">
+            <motion.div variants={fadeUp}>
+              <Link
+                href="/books"
+                className="group flex h-full flex-col rounded-3xl border border-gray-200/70 bg-white/70 p-6 backdrop-blur-xl transition-shadow hover:shadow-[0_24px_64px_-30px_rgba(56,89,255,0.5)] dark:border-white/10 dark:bg-white/[0.03]"
+              >
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                  Read books online, free
+                </h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+                  Browse and read books online free — no download, no
+                  sign-up.
+                </p>
+                <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-600 dark:text-indigo-300">
+                  Browse books
+                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                </span>
+              </Link>
+            </motion.div>
+            <motion.div variants={fadeUp}>
+              <Link
+                href="/maths"
+                className="group flex h-full flex-col rounded-3xl border border-gray-200/70 bg-white/70 p-6 backdrop-blur-xl transition-shadow hover:shadow-[0_24px_64px_-30px_rgba(56,89,255,0.5)] dark:border-white/10 dark:bg-white/[0.03]"
+              >
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                  Free Year 6 Maths practice
+                </h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+                  15 KS2 topics, instant feedback, a daily challenge and
+                  progress tracking — free, no sign-up.
+                </p>
+                <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-600 dark:text-indigo-300">
+                  Start practicing
+                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                </span>
+              </Link>
+            </motion.div>
           </div>
         </motion.section>
 
