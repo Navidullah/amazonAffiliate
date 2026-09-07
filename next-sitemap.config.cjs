@@ -46,11 +46,7 @@ const LAST_MODIFIED = {
   "/tools/background-remover-image": "2026-06-18T12:54:46+05:00",
   "/tools/bmi": "2026-06-18T12:54:46+05:00",
   "/tools/exif-remover": "2026-06-18T12:54:46+05:00",
-  "/tools/facebook-video-downloader": "2026-06-18T12:54:46+05:00",
-  "/tools/free-tiktok-video-downloader": "2026-06-18T12:54:46+05:00",
   "/tools/image-compressor": "2026-06-18T12:54:46+05:00",
-  "/tools/instagram-video-downloader": "2026-06-18T12:54:46+05:00",
-  "/tools/video-downloader": "2026-08-10T00:00:00+05:00",
   "/products": "2026-08-14T00:00:00+05:00",
   "/tools/meta-tag-generator": "2026-06-18T12:54:46+05:00",
   "/tools/convert-your-pdf-file-to-word": "2026-06-18T12:54:46+05:00",
@@ -95,6 +91,10 @@ module.exports = {
     "/tools/resume-builder/*", // 301 -> /tools
     "/tools/video-to-gif", // 301 -> /tools (tool retired 2026-08-10)
     "/tools/youtube-video-downloader", // 301 -> /tools (tool retired 2026-08-10)
+    "/tools/facebook-video-downloader", // 301 -> /tools (retired 2026-09-07, AdSense policy risk)
+    "/tools/instagram-video-downloader", // 301 -> /tools (retired 2026-09-07, AdSense policy risk)
+    "/tools/free-tiktok-video-downloader", // 301 -> /tools (retired 2026-09-07, AdSense policy risk)
+    "/tools/video-downloader", // 301 -> /tools (retired 2026-09-07, AdSense policy risk)
     "/order/*", // private post-checkout page, noindex
     "/maths/daily", // rotating daily content, not meant to rank
     "/maths/daily/*",

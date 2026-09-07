@@ -17,7 +17,6 @@ import {
   Sparkles,
   Tag,
   TrendingUp,
-  Video,
 } from "lucide-react";
 import TagsClient from "./tags-client";
 
@@ -75,11 +74,6 @@ const relatedTools = [
     icon: ImageDown,
     label: "YouTube Thumbnail Downloader",
     href: "/tools/youtube-thumbnail",
-  },
-  {
-    icon: Video,
-    label: "Video Downloader",
-    href: "/tools/video-downloader",
   },
   {
     icon: LayoutGrid,

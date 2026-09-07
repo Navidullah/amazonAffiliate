@@ -13,14 +13,12 @@ import {
   FileText,
   Tag,
   File,
-  Video,
   Search,
   ArrowRight,
   Sparkles,
   SearchX,
   Mic,
 } from "lucide-react";
-import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
 
 /* ======================================================
    MOTION HELPERS
@@ -59,35 +57,6 @@ export default function ToolsClient() {
   const [category, setCategory] = useState("All");
 
   const tools = [
-    {
-      href: "/tools/video-downloader",
-      title: "Video Downloader",
-      desc: "Download videos from Facebook, Instagram, or TikTok — pick a platform",
-      icon: Video,
-      category: "video downloader",
-    },
-    {
-      href: "/tools/facebook-video-downloader",
-      title: "Download facebook videos",
-      desc: "Free download the facebook reels and videos",
-      icon: FaFacebook,
-      category: "video downloader",
-    },
-    // Add TikTok downloader to your tools array
-    {
-      href: "/tools/free-tiktok-video-downloader",
-      title: "TikTok Video Downloader",
-      desc: "Download TikTok videos without watermark in HD quality",
-      icon: FaTiktok,
-      category: "video downloader",
-    },
-    {
-      href: "/tools/instagram-video-downloader",
-      title: "Instagram Video Downloader",
-      desc: "Download public Instagram reels and videos easily",
-      icon: FaInstagram,
-      category: "video downloader",
-    },
     {
       href: "/tools/voice-clone",
       title: "Free AI Voice Cloner",

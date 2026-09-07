@@ -6,18 +6,16 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
 export const metadata = {
   title: "Free Online Tools",
   description:
-    "Use Shopyorâ€™s free online tools: social media video downloader(facebook,tiktok),Image Compressor, Background Remover. Fast, secure and browser-based utilities.",
+    "Use Shopyor's free online tools: Image Compressor, Background Remover, PDF Converter, AI Voice Cloner, and more. Fast, secure and browser-based utilities.",
   keywords: [
     "free online tools",
-    "facebook video downloader",
-    "instagram video downloader",
-    "tiktok video downloader",
-    "youtube video downloader",
     "image compressor",
     "background remover",
     "exif remover",
     "bmi calculator",
     "affiliate link generator",
+    "ai voice cloner",
+    "pdf to word converter",
   ],
   alternates: { canonical: "/tools" },
   openGraph: {
@@ -25,7 +23,7 @@ export const metadata = {
     url: `${BASE_URL}/tools`,
     title: "Free Online Tools | Shopyor",
     description:
-      "Fast, privacy-friendly browser tools to download social media videos, compress images, remove backgrounds, and many more.",
+      "Fast, privacy-friendly browser tools to compress images, remove backgrounds, convert PDFs, clone your voice, and many more.",
   },
   twitter: {
     card: "summary_large_image",

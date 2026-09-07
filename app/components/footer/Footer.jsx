@@ -184,14 +184,6 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/tools/video-downloader"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  Video Downloader
-                </Link>
-              </li>
-              <li>
-                <Link
                   href="/about"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >

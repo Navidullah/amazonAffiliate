@@ -78,7 +78,6 @@ const resolutions = [
 
 const relatedTools = [
   { icon: ImageDown, label: "YouTube Tag Generator", href: "/tools/youtube-tags-extractor" },
-  { icon: Download, label: "Video Downloader", href: "/tools/video-downloader" },
   { icon: Sparkles, label: "Image Compressor", href: "/tools/image-compressor" },
   { icon: ArrowRight, label: "Browse all free tools", href: "/tools" },
 ];

@@ -128,6 +128,64 @@ const nextConfig = {
         destination: "/",
         permanent: true,
       },
+      // Facebook/Instagram/TikTok video downloaders + the generic
+      // video-downloader hub were retired 2026-09-07 (AdSense policy risk:
+      // Google treats these as circumvention tools regardless of
+      // disclaimers). URLs were indexed, so send them to the tools hub
+      // (301) to avoid a 404 and preserve any link equity.
+      {
+        source: "/tools/facebook-video-downloader",
+        destination: "/tools",
+        permanent: true,
+      },
+      {
+        source: "/tools/instagram-video-downloader",
+        destination: "/tools",
+        permanent: true,
+      },
+      {
+        source: "/tools/free-tiktok-video-downloader",
+        destination: "/tools",
+        permanent: true,
+      },
+      {
+        source: "/tools/video-downloader",
+        destination: "/tools",
+        permanent: true,
+      },
+      // /privacy-policy was never a real route (the live page is /privacy)
+      // but was flagged as a risk if ever linked externally or submitted
+      // to a reviewer by mistake — redirect defensively.
+      {
+        source: "/privacy-policy",
+        destination: "/privacy",
+        permanent: true,
+      },
+      // Blog posts entirely about the retired downloaders (unpublished
+      // 2026-09-07). Redirected rather than left to 404 naturally: the
+      // blog's notFound() currently returns HTTP 200 instead of 404 (a
+      // separate, pre-existing bug), so an unpublished post would 200 with
+      // thin "Article not found" content instead of actually dropping out.
+      {
+        source: "/blog/how-to-download-facebook-videos",
+        destination: "/blog",
+        permanent: true,
+      },
+      {
+        source: "/blog/how-to-download-videos-from-facebook-instagram-tiktok",
+        destination: "/blog",
+        permanent: true,
+      },
+      {
+        source: "/blog/best-facebook-video-downloader-online-free-in-hd-shopyor",
+        destination: "/blog",
+        permanent: true,
+      },
+      {
+        source: "/blog/easy-guide-download-tiktok-facebook-videos-using-shopyor",
+        destination: "/blog",
+        permanent: true,
+      },
     ];
   },
   async headers() {
