@@ -1,5 +1,6 @@
 // app/cookie-policy/page.jsx
 import { Cookie, Mail } from "lucide-react";
+import ManageCookiePreferences from "./ManageCookiePreferences";
 
 export const metadata = {
   title: "Cookie Policy - Shopyor",
@@ -54,8 +55,10 @@ export default function CookiePolicyPage() {
                 light/dark theme
               </li>
               <li>
-                <strong>Analytics Cookies:</strong> help us understand how visitors
-                use our site, anonymously and in aggregate
+                <strong>Analytics:</strong> we use Vercel Analytics and Speed
+                Insights, which measure traffic and performance without
+                setting identifying cookies, to understand how visitors use
+                our site
               </li>
               <li>
                 <strong>Security Cookies:</strong> help protect the service and
@@ -67,10 +70,10 @@ export default function CookiePolicyPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3">Third-Party Cookies</h2>
             <p className="text-muted-foreground">
-              We use Google Analytics to measure traffic, and we may serve ads
-              through advertising partners (such as Google AdSense) that can set
-              cookies to deliver and measure ads. These cookies do not collect
-              information that personally identifies you. You can opt out of
+              We may serve ads through advertising partners (such as Google
+              AdSense) that can set cookies to deliver and measure ads. These
+              cookies do not collect information that personally identifies
+              you. You can opt out of
               personalized advertising via{" "}
               <a
                 href="https://adssettings.google.com"
@@ -99,11 +102,14 @@ export default function CookiePolicyPage() {
 
           <section>
             <h2 className="text-xl font-semibold mb-3">Managing Cookies</h2>
-            <p className="text-muted-foreground">
-              You can control and delete cookies through your browser settings.
-              Please note that disabling cookies may affect the functionality of
-              some features.
+            <p className="text-muted-foreground mb-4">
+              When you first visit Shopyor, a banner lets you Accept or Reject
+              non-essential cookies. You can change your mind at any time
+              below, or control and delete cookies through your browser
+              settings — note that disabling cookies may affect the
+              functionality of some features.
             </p>
+            <ManageCookiePreferences />
           </section>
 
           <section>
@@ -125,8 +131,10 @@ export default function CookiePolicyPage() {
 
           <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
             <p className="text-sm text-blue-800 dark:text-blue-400">
-              <strong>Consent:</strong> By using our website, you consent to the
-              use of cookies as described in this policy.
+              <strong>Consent:</strong> Essential cookies are always active, as
+              they're required for the site to function. Non-essential
+              cookies (analytics, advertising) are only set after you choose
+              Accept in the cookie banner — choosing Reject keeps them off.
             </p>
           </div>
         </div>

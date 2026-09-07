@@ -346,10 +346,9 @@ export default function PrivacyPage() {
               <div className="bg-muted/30 p-4 rounded-lg">
                 <h3 className="font-semibold mb-2">Google Services</h3>
                 <p className="text-sm text-muted-foreground">
-                  We use Google Analytics for anonymous usage statistics,
-                  Google AdSense to serve advertising (see Section 7), and
-                  Google APIs to power some YouTube tools (such as fetching
-                  public video tags).
+                  We use Google AdSense to serve advertising (see Section 7)
+                  and Google APIs to power some YouTube tools (such as
+                  fetching public video tags).
                   <a
                     href="https://policies.google.com/privacy"
                     target="_blank"
@@ -369,10 +368,12 @@ export default function PrivacyPage() {
                 </p>
               </div>
               <div className="bg-muted/30 p-4 rounded-lg">
-                <h3 className="font-semibold mb-2">Vercel (Hosting)</h3>
+                <h3 className="font-semibold mb-2">Vercel (Hosting &amp; Analytics)</h3>
                 <p className="text-sm text-muted-foreground">
                   Our website is hosted on Vercel, which may collect standard
-                  server logs.
+                  server logs. We also use Vercel Analytics and Speed
+                  Insights for anonymous, aggregate traffic and performance
+                  statistics — these do not set identifying cookies.
                   <a
                     href="https://vercel.com/legal/privacy-policy"
                     target="_blank"
@@ -412,8 +413,8 @@ export default function PrivacyPage() {
               than necessary to provide the service. Order records for
               digital product purchases (product, price, payment status) are
               retained for accounting, tax, and refund-handling purposes.
-              Anonymous analytics data is retained for up to 26 months per
-              analytics provider defaults.
+              Anonymous analytics data is retained per our analytics
+              provider's default retention policy.
             </p>
           </section>
 
