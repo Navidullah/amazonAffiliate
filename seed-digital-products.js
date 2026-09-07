@@ -170,6 +170,27 @@ const PRODUCTS = [
     href: "/products/igcse-0580-extended-paper2-mayjune2025-worked-solutions",
     active: true,
   },
+  {
+    slug: "ib-aahl-paper1-set1-worked-solutions",
+    title:
+      "IB Mathematics AA HL Paper 1 Style — Original Practice Questions with Worked Solutions (Set 1)",
+    description:
+      "Original IB Mathematics: Analysis & Approaches HL Paper 1-style practice questions — 8 questions, 50 marks, no calculator, written to match the topics, style, and mark allocations of the real Paper 1 format. Every question is fully worked with step-by-step method marks tagged M1/A1/R1 exactly as an IB examiner would award them, plus an examiner tip on each question flagging the most common mistake. Covers quadratic functions, integration and kinematics, geometric sequences, logarithms, probability (independent events, tree diagrams and conditional probability), circular measure, and complex numbers and polynomials. Pay once, download instantly. Original Shopyor content, not an official IB past paper — not affiliated with or endorsed by the International Baccalaureate Organization (IBO).",
+    previewImage: "/api/product-image/ib-aahl-paper1-set1-worked-solutions",
+    previewImages: [
+      "/product-previews/ib-aahl-paper1-set1-worked-solutions.png",
+    ],
+    price: 8,
+    region: "international",
+    category: "ib-aahl-maths",
+    gradeLevel: "IB",
+    subject: "maths",
+    variantId: "2100440",
+    downloadUrl:
+      "https://ghgbr44ykzavh7lt.private.blob.vercel-storage.com/products/ib-aahl-paper1-set1-worked-solutions-pvxrAhxjHvQJNSo8qftCzeZXQNmS20.pdf",
+    href: "/products/ib-aahl-paper1-set1-worked-solutions",
+    active: true,
+  },
 ];
 
 async function main() {
