@@ -153,6 +153,9 @@ const PRODUCTS = [
     previewImages: [
       "/product-previews/igcse-0580-extended-paper2-mayjune2025-worked-solutions.png",
     ],
+    relatedBlogSlug: "igcse-0580-paper-2-worked-solutions-revision-guide",
+    relatedBlogTitle:
+      "IGCSE Mathematics 0580 Paper 2: Past Paper Worked Solutions & Revision Guide",
     price: 5,
     region: "international",
     category: "igcse-maths",
