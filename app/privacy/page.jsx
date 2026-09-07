@@ -102,7 +102,7 @@ export default function PrivacyPage() {
                 <li>
                   Your card number, CVC, or full billing details — payments are
                   handled entirely by our payment processor, LemonSqueezy (see
-                  Section 7); we never see or store your card details
+                  Section 8); we never see or store your card details
                 </li>
                 <li>A permanent history of the URLs, files, or text you submit to our free tools</li>
               </ul>
@@ -235,10 +235,77 @@ export default function PrivacyPage() {
             </p>
           </section>
 
+          {/* Advertising */}
+          <section>
+            <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
+              <Cookie className="h-5 w-5 text-primary" />
+              7. Advertising and Ad Cookies
+            </h2>
+            <p className="text-muted-foreground mb-3">
+              Shopyor may display advertisements served by Google AdSense and
+              other third-party advertising partners to support the free
+              tools and content on this site. These partners may use cookies,
+              web beacons, and similar technologies to serve ads based on
+              your prior visits to this and other websites, and to measure
+              how those ads perform.
+            </p>
+            <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
+              <li>
+                Google's use of advertising cookies enables it and its
+                partners to serve ads based on your visit to this site and/or
+                other sites on the Internet.
+              </li>
+              <li>
+                We do not control the cookies set by third-party ad networks
+                and are not responsible for their privacy practices — see
+                each partner's own privacy policy for details.
+              </li>
+              <li>
+                Ads may be personalized based on your browsing activity
+                unless you opt out.
+              </li>
+            </ul>
+            <p className="text-muted-foreground mt-3">
+              You can opt out of personalized advertising by visiting{" "}
+              <a
+                href="https://adssettings.google.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                Google Ads Settings
+              </a>
+              , or opt out of third-party vendor cookies used for
+              personalized advertising by visiting{" "}
+              <a
+                href="https://www.aboutads.info/choices"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                aboutads.info/choices
+              </a>{" "}
+              (or, for EU/UK visitors,{" "}
+              <a
+                href="https://www.youronlinechoices.eu"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                youronlinechoices.eu
+              </a>
+              ). See our{" "}
+              <a href="/cookie-policy" className="text-primary hover:underline">
+                Cookie Policy
+              </a>{" "}
+              for more on how we and our partners use cookies.
+            </p>
+          </section>
+
           {/* Third-Party Services */}
           <section>
             <h2 className="text-xl font-semibold mb-3">
-              7. Third-Party Services
+              8. Third-Party Services
             </h2>
             <p className="text-muted-foreground mb-3">
               We rely on the following third parties to operate our tools:
@@ -279,7 +346,8 @@ export default function PrivacyPage() {
               <div className="bg-muted/30 p-4 rounded-lg">
                 <h3 className="font-semibold mb-2">Google Services</h3>
                 <p className="text-sm text-muted-foreground">
-                  We use Google Analytics for anonymous usage statistics and
+                  We use Google Analytics for anonymous usage statistics,
+                  Google AdSense to serve advertising (see Section 7), and
                   Google APIs to power some YouTube tools (such as fetching
                   public video tags).
                   <a
@@ -322,7 +390,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <Lock className="h-5 w-5 text-primary" />
-              8. Data Security
+              9. Data Security
             </h2>
             <p className="text-muted-foreground">
               We use appropriate technical and organizational measures to protect
@@ -336,7 +404,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <Trash2 className="h-5 w-5 text-primary" />
-              9. Data Retention
+              10. Data Retention
             </h2>
             <p className="text-muted-foreground">
               Files, audio, links, and text you submit to a free tool are
@@ -353,7 +421,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <UserCheck className="h-5 w-5 text-primary" />
-              10. Children's Privacy
+              11. Children's Privacy
             </h2>
             <p className="text-muted-foreground">
               Our service is not intended for children under 13. We do not
@@ -367,7 +435,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <Eye className="h-5 w-5 text-primary" />
-              11. Your Privacy Rights
+              12. Your Privacy Rights
             </h2>
             <p className="text-muted-foreground mb-3">
               Depending on where you live, you may have rights to access,
@@ -401,7 +469,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <Globe className="h-5 w-5 text-primary" />
-              12. International Users
+              13. International Users
             </h2>
             <p className="text-muted-foreground">
               Our service and providers may process data in the United States and
@@ -413,7 +481,7 @@ export default function PrivacyPage() {
           {/* Changes to Policy */}
           <section>
             <h2 className="text-xl font-semibold mb-3">
-              13. Changes to This Privacy Policy
+              14. Changes to This Privacy Policy
             </h2>
             <p className="text-muted-foreground">
               We may update this Privacy Policy from time to time. Changes will be
@@ -426,7 +494,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <Mail className="h-5 w-5 text-primary" />
-              14. Contact Us
+              15. Contact Us
             </h2>
             <p className="text-muted-foreground">
               For any privacy questions or requests, contact us:

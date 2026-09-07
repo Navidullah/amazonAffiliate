@@ -70,7 +70,26 @@ export default function CookiePolicyPage() {
               We use Google Analytics to measure traffic, and we may serve ads
               through advertising partners (such as Google AdSense) that can set
               cookies to deliver and measure ads. These cookies do not collect
-              information that personally identifies you. For more, see our{" "}
+              information that personally identifies you. You can opt out of
+              personalized advertising via{" "}
+              <a
+                href="https://adssettings.google.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                Google Ads Settings
+              </a>{" "}
+              or{" "}
+              <a
+                href="https://www.aboutads.info/choices"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                aboutads.info/choices
+              </a>
+              . For more, see our{" "}
               <a href="/privacy" className="text-primary hover:underline">
                 Privacy Policy
               </a>
