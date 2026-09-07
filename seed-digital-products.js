@@ -149,7 +149,10 @@ const PRODUCTS = [
       "IGCSE Mathematics 0580 Paper 2 Worked Solutions (Extended, Non-Calculator) — May/June 2025",
     description:
       "Fully worked, mark-scheme-aligned solutions for Cambridge IGCSE Mathematics 0580 Extended Paper 2 (Non-calculator), May/June 2025 — all 24 questions from this IGCSE 0580 past paper, with step-by-step method marks shown in the order the mark scheme awards them, plus an examiner tip on every question flagging the most common mistake. Includes a solution diagram wherever the question involves a grid, graph, or construction. References the official 0580 paper code and question numbers; does not reproduce Cambridge's copyrighted question text. Pay once, download instantly. Original content, not affiliated with or endorsed by Cambridge Assessment International Education.",
-    previewImage: "/api/product-image/igcse-0580-extended-paper2-mayjune2025-worked-solutions",
+    // Custom-designed cover (not the auto-generated /api/product-image
+    // fallback used by products without one) — supplied by the user.
+    previewImage:
+      "/product-covers/igcse-0580-extended-paper2-mayjune2025-worked-solutions.jpg",
     previewImages: [
       "/product-previews/igcse-0580-extended-paper2-mayjune2025-worked-solutions.png",
     ],
