@@ -180,6 +180,9 @@ const PRODUCTS = [
     previewImages: [
       "/product-previews/ib-aahl-paper1-set1-worked-solutions.png",
     ],
+    relatedBlogSlug: "ib-math-aa-hl-paper-1-practice-worked-solutions",
+    relatedBlogTitle:
+      "IB Math AA HL Paper 1: How to Practice With Worked Solutions (Method Marks & Examiner Tips)",
     price: 8,
     region: "international",
     category: "ib-aahl-maths",
