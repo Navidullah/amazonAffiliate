@@ -30,7 +30,7 @@ const features = [
   {
     icon: ClipboardCheck,
     title: "Written to the curriculum",
-    desc: "Each resource targets specific KS2 Maths objectives or official IGCSE paper/question codes, with a full answer key or mark scheme included.",
+    desc: "Each resource targets specific KS2 Maths objectives, official IGCSE paper/question codes, or real IB AA HL Paper 1 mark allocations, with a full answer key or mark scheme included.",
     accent: "from-indigo-500 to-blue-500",
   },
   {
@@ -74,14 +74,14 @@ export default function StoreHome({ products = [] }) {
             className="inline-flex items-center gap-2 rounded-full border border-indigo-200/70 bg-white/70 px-4 py-1.5 text-xs font-semibold text-indigo-700 shadow-sm backdrop-blur dark:border-indigo-500/20 dark:bg-white/[0.04] dark:text-indigo-300"
           >
             <Sparkles className="h-3.5 w-3.5" />
-            IGCSE past paper worked solutions & KS2 Maths worksheets
+            IGCSE past paper & IB Maths worked solutions
           </motion.span>
 
           <motion.h1
             variants={fadeUp}
             className="mx-auto mt-6 max-w-3xl text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-6xl"
           >
-            Worked past-paper solutions for IGCSE, plus KS2 Maths worksheets.{" "}
+            Worked solutions for IGCSE past papers and IB Maths, plus KS2 worksheets.{" "}
             <span className="bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-500 bg-clip-text text-transparent dark:from-indigo-300 dark:via-violet-300 dark:to-fuchsia-200">
               Pay once, download instantly.
             </span>
@@ -91,11 +91,12 @@ export default function StoreHome({ products = [] }) {
             variants={fadeUp}
             className="mx-auto mt-5 max-w-2xl text-base text-gray-600 dark:text-gray-300 sm:text-lg"
           >
-            Fully worked Cambridge IGCSE past-paper solutions and printable
-            KS2 Year 6 Maths worksheets, each with a complete mark scheme or
-            answer key so students, parents, and tutors anywhere in the
-            world can mark it correctly. No sign-up, no subscription — pick
-            a pack and download.
+            Fully worked Cambridge IGCSE past-paper solutions, IB
+            Mathematics AA HL Paper 1-style practice with step-by-step
+            worked solutions, and printable KS2 Year 6 Maths worksheets —
+            each with a complete mark scheme or answer key so students,
+            parents, and tutors anywhere in the world can mark it correctly.
+            No sign-up, no subscription — pick a pack and download.
           </motion.p>
 
           <motion.div
@@ -200,18 +201,22 @@ export default function StoreHome({ products = [] }) {
           className="mb-20 rounded-3xl border border-gray-200/70 bg-white/70 p-8 backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.03] sm:p-10"
         >
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-            Worked past-paper solutions and worksheets, for students anywhere in the world
+            Worked solutions for IGCSE, IB Maths, and KS2, for students anywhere in the world
           </h2>
           <div className="mt-4 space-y-4 text-sm leading-relaxed text-gray-600 dark:text-gray-400 sm:text-base">
             <p>
-              Shopyor's main focus is fully worked exam past-paper
-              solutions — starting with Cambridge IGCSE Mathematics 0580 —
-              with every question solved step-by-step in mark-scheme order
-              and an examiner tip flagging the most common mistake. IB
-              Maths solutions are in development and will join the catalog
-              soon. Alongside these, Shopyor also sells UK KS2 Year 6 Maths
-              worksheets, written to the curriculum with worked examples
-              and a full answer key.
+              Shopyor's main focus is fully worked exam solutions — starting
+              with Cambridge IGCSE Mathematics 0580 past papers and IB
+              Mathematics AA HL Paper 1-style practice questions — with
+              every question solved step-by-step in mark-scheme order (M1/
+              A1/R1 for IB) and an examiner tip flagging the most common
+              mistake. The IGCSE packs are worked solutions to real past
+              papers; the IB packs are original Shopyor practice questions
+              written to match the topics, style, and mark allocations of
+              the real Paper 1 exam, not official past papers. Alongside
+              these, Shopyor also sells UK KS2 Year 6 Maths worksheets,
+              written to the curriculum with worked examples and a full
+              answer key.
             </p>
             <p>
               Every pack downloads as a single PDF, ready to print at home,

@@ -31,9 +31,9 @@ export default function Footer() {
               Shopyor
             </h3>
             <p className="text-sm text-muted-foreground mb-4">
-              Printable digital worksheet packs for KS2 Year 6 Maths — plus
-              free online tools for video, image, PDF, AI, and SEO. Pay once,
-              download instantly.
+              IGCSE past-paper worked solutions, IB Maths practice packs,
+              and KS2 Year 6 Maths worksheets — plus free online tools for
+              video, image, PDF, AI, and SEO. Pay once, download instantly.
             </p>
             <p className="text-xs text-muted-foreground">
               Â© {currentYear} Shopyor. All rights reserved.
