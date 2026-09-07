@@ -119,11 +119,11 @@ export default function ContactPage() {
             <div className="bg-muted/30 rounded-lg p-6">
               <h3 className="font-semibold mb-3">Business Hours</h3>
               <div className="space-y-2 text-sm text-muted-foreground">
-                <p>Monday - Friday: 9:00 AM - 6:00 PM EST</p>
-                <p>Saturday: 10:00 AM - 4:00 PM EST</p>
+                <p>Monday - Saturday: 9:00 AM - 6:00 PM PKT (Pakistan)</p>
                 <p>Sunday: Closed</p>
                 <p className="text-xs mt-2">
-                  Support responses within 24-48 hours on business days
+                  We reply to every message within 24-48 hours, including
+                  outside these hours
                 </p>
               </div>
             </div>

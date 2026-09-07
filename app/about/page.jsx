@@ -13,7 +13,7 @@ import {
 export const metadata = {
   title: "About Shopyor — Year 6 Maths Worksheets & Free Online Tools",
   description:
-    "Shopyor sells printable Year 6 Maths & KS2 SATs worksheet packs, and runs a free online toolbox built by a small team. Founded in 2025.",
+    "Shopyor sells printable Year 6 Maths, KS2 SATs, and Cambridge IGCSE worked-solution packs, and runs a free online toolbox. Founded in 2025 by Naveed, based in Pakistan.",
   robots: "index, follow",
 };
 
@@ -24,8 +24,8 @@ export default function AboutPage() {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4">About Shopyor</h1>
           <p className="text-xl text-muted-foreground">
-            Printable Year 6 Maths &amp; KS2 SATs worksheets, plus 20+ free
-            online tools — founded in 2025
+            Printable Year 6 Maths, KS2 SATs &amp; Cambridge IGCSE worked
+            solutions, plus 20+ free online tools — founded in 2025
           </p>
         </div>
 
@@ -39,21 +39,32 @@ export default function AboutPage() {
               Why we built Shopyor
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Shopyor was founded in 2025 by a small, independent team (we go by
-              the Shopyor Team) after running into the same wall over and over:
-              needing to do something simple online — compress a PDF, remove a
-              background, download a video — and finding every tool wanted a
+              Shopyor was founded in 2025 by Naveed, based in Pakistan, after
+              running into the same wall over and over: needing to do
+              something simple online — compress a PDF, remove a background,
+              generate speech from text — and finding every tool wanted a
               sign-up first, payment to download, or stuck a watermark on the
-              result. So we built our own toolbox instead, and kept adding to
+              result. So Naveed built a toolbox instead, and kept adding to
               it. Shopyor's free tools are still actively maintained and
               growing, one tool at a time.
             </p>
             <p className="text-muted-foreground max-w-2xl mx-auto mt-4">
-              We later brought that same "no friction" thinking to a second
-              product: printable Year 6 Maths and KS2 SATs worksheet packs.
-              Instead of a subscription or an account, it's the same
-              philosophy as our tools — pick a pack, pay once, download
-              instantly.
+              Naveed's background is in chemical engineering — a
+              quantitative, maths-heavy discipline that shapes how Shopyor's
+              worksheet and worked-solution packs are put together: every
+              pack is checked against its real syllabus or curriculum (UK
+              KS2 for the Year 6 Maths packs, the official Cambridge IGCSE
+              0580 syllabus and mark-scheme structure for the IGCSE worked
+              solutions) before it's sold. Content is written and reviewed
+              by Naveed, with Shopyor's blog content written by Shayan
+              Attique.
+            </p>
+            <p className="text-muted-foreground max-w-2xl mx-auto mt-4">
+              That same "no friction" thinking carried over to Shopyor's
+              second product: printable Year 6 Maths, KS2 SATs, and Cambridge
+              IGCSE worked-solution packs. Instead of a subscription or an
+              account, it's the same philosophy as the free tools — pick a
+              pack, pay once, download instantly.
             </p>
           </section>
 
@@ -115,17 +126,16 @@ export default function AboutPage() {
                 </h3>
                 <p className="text-sm text-muted-foreground mb-3">
                   Shopyor is committed to respecting intellectual property
-                  rights. Our worksheet packs are original content we create
-                  ourselves. For our free tools, we:
+                  rights. Our worksheet and worked-solution packs are
+                  original content we create ourselves — the IGCSE worked
+                  solutions reference official paper codes and question
+                  numbers but do not reproduce Cambridge's copyrighted
+                  question text. For our free tools, we:
                 </p>
                 <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
                   <li>
                     Do not host any copyrighted third-party content on our
                     servers
-                  </li>
-                  <li>
-                    Provide tools only for downloading publicly available
-                    content
                   </li>
                   <li>Respond promptly to DMCA takedown requests</li>
                   <li>Encourage users to respect copyright laws</li>
