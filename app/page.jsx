@@ -13,7 +13,9 @@ export const metadata = {
     "Fully worked Cambridge IGCSE past-paper solutions and printable KS2 Year 6 Maths worksheets, each with a full mark scheme or answer key. Pay once, download instantly — plus free books and maths practice tools, anywhere in the world.",
   keywords: [
     "IGCSE past paper worked solutions",
-    "Cambridge IGCSE maths solutions",
+    "IGCSE mathematics 0580",
+    "Cambridge IGCSE mathematics 0580",
+    "0580 igcse maths past papers",
     "IGCSE 0580 worked solutions pdf",
     "IGCSE maths past papers with answers",
     "IB maths practice resources",

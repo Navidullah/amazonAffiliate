@@ -10,6 +10,8 @@ export const metadata = {
     "Browse every Cambridge IGCSE worked past-paper solution pack and printable KS2 Year 6 Maths worksheet — each with a full mark scheme or answer key. Pay once, download instantly, no subscription.",
   keywords: [
     "IGCSE past paper worked solutions",
+    "IGCSE mathematics 0580",
+    "Cambridge IGCSE mathematics 0580",
     "IGCSE maths solutions pdf",
     "Cambridge IGCSE 0580 worked solutions",
     "year 6 maths worksheets pdf",
