@@ -4,17 +4,18 @@
 // exposing the full (paid-gated) file. Output goes to
 // public/product-previews/<slug>.png — public, safe to commit, NOT the
 // private Blob download.
-//   Run: node generate-product-preview.js <pdf-path> <slug>
+//   Run: node generate-product-preview.js <pdf-path> <slug> [pageNum]
 const fs = require("fs");
 const path = require("path");
 const { createCanvas } = require("@napi-rs/canvas");
 
 async function main() {
-  const [, , pdfPath, slug] = process.argv;
+  const [, , pdfPath, slug, pageNumArg] = process.argv;
   if (!pdfPath || !slug) {
-    console.error("Usage: node generate-product-preview.js <pdf-path> <slug>");
+    console.error("Usage: node generate-product-preview.js <pdf-path> <slug> [pageNum]");
     process.exit(1);
   }
+  const pageNum = pageNumArg ? parseInt(pageNumArg, 10) : 1;
 
   const pdfjsLib = require("pdfjs-dist/legacy/build/pdf.js");
 
@@ -51,7 +52,7 @@ async function main() {
       "node_modules/pdfjs-dist/standard_fonts/",
     ) + path.sep,
   }).promise;
-  const page = await doc.getPage(1);
+  const page = await doc.getPage(pageNum);
 
   const scale = 2; // ~144 DPI for crisp preview
   const viewport = page.getViewport({ scale });

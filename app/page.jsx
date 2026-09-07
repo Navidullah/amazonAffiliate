@@ -7,23 +7,22 @@ const SITE = "https://www.shopyor.com";
 export const metadata = {
   metadataBase: new URL(SITE),
   title: {
-    absolute: "Printable Year 6 Maths Worksheets (KS2) | Shopyor",
+    absolute: "KS2 Maths Worksheets & IGCSE Past Paper Solutions | Shopyor",
   },
   description:
-    "Printable Year 6 Maths worksheets (KS2) with a full answer key on every pack. Pay once, download instantly — no sign-up, no subscription, ever.",
+    "Printable KS2 Year 6 Maths worksheets and Cambridge IGCSE worked past-paper solutions, each with a full answer key or mark scheme. Pay once, download instantly — no sign-up, no subscription, anywhere in the world.",
   keywords: [
     "year 6 maths worksheets",
     "year 6 maths worksheets pdf",
     "printable year 6 maths worksheets",
     "KS2 maths worksheets",
-    "KS2 maths worksheets printable",
     "year 6 maths worksheets with answers",
-    "year 6 maths worksheets with answers pdf",
-    "maths sheets for year 6",
-    "year six maths worksheets",
     "year 6 fractions worksheets",
-    "KS2 fractions worksheets year 6",
-    "year 6 maths worksheets no sign up",
+    "IGCSE past paper worked solutions",
+    "Cambridge IGCSE maths solutions",
+    "IGCSE 0580 worked solutions pdf",
+    "IGCSE maths past papers with answers",
+    "IB maths practice resources",
     "pay per download worksheets",
   ],
   authors: [{ name: "Shopyor" }],
@@ -45,23 +44,22 @@ export const metadata = {
     languages: {
       "x-default": SITE,
       en: SITE,
-      "en-GB": SITE,
     },
   },
   openGraph: {
     type: "website",
     url: SITE,
     siteName: "Shopyor",
-    locale: "en_GB",
-    title: "Printable Year 6 Maths Worksheets (KS2) | Shopyor",
+    locale: "en_US",
+    title: "KS2 Maths Worksheets & IGCSE Past Paper Solutions | Shopyor",
     description:
-      "Printable Year 6 Maths worksheets (KS2) with a full answer key on every pack. Pay once, download instantly — no sign-up, no subscription, ever.",
+      "Printable KS2 Year 6 Maths worksheets and Cambridge IGCSE worked past-paper solutions, each with a full answer key or mark scheme. Pay once, download instantly — anywhere in the world.",
     images: [
       {
         url: `${SITE}/images/shopyor-tools-og.png`,
         width: 1200,
         height: 630,
-        alt: "Shopyor — Printable Year 6 Maths Worksheets (KS2)",
+        alt: "Shopyor — KS2 Maths Worksheets & IGCSE Past Paper Solutions",
       },
     ],
   },
@@ -69,9 +67,9 @@ export const metadata = {
     card: "summary_large_image",
     site: "@shopyor",
     creator: "@shopyor",
-    title: "Printable Year 6 Maths Worksheets (KS2) | Shopyor",
+    title: "KS2 Maths Worksheets & IGCSE Past Paper Solutions | Shopyor",
     description:
-      "Printable Year 6 Maths worksheets (KS2) with a full answer key on every pack. Pay once, download instantly.",
+      "Printable KS2 Year 6 Maths worksheets and Cambridge IGCSE worked past-paper solutions, each with a full answer key or mark scheme. Pay once, download instantly.",
     images: [`${SITE}/images/shopyor-tools-og.png`],
   },
 };
@@ -86,15 +84,15 @@ function buildStructuredData(products) {
         "@type": "CollectionPage",
         "@id": `${SITE}/#webpage`,
         url: SITE,
-        name: "Printable Year 6 Maths Worksheets (KS2) by Shopyor",
+        name: "KS2 Maths Worksheets & IGCSE Past Paper Solutions by Shopyor",
         isPartOf: { "@id": `${SITE}/#website` },
         about: { "@id": `${SITE}/#organization` },
         description:
-          "Printable Year 6 Maths worksheets (KS2) with a full answer key on every pack. Pay once, download instantly.",
+          "Printable KS2 Year 6 Maths worksheets and Cambridge IGCSE worked past-paper solutions, each with a full answer key or mark scheme. Pay once, download instantly.",
       },
       {
         "@type": "ItemList",
-        name: "Year 6 Maths Worksheet Packs",
+        name: "Worksheet & Worked-Solution Packs",
         itemListOrder: "https://schema.org/ItemListOrderAscending",
         numberOfItems: products.length,
         itemListElement: products.map((p, i) => ({

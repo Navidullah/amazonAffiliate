@@ -143,6 +143,27 @@ const PRODUCTS = [
     href: "/products/uk-ks2-maths-year-6-fractions-ws02",
     active: true,
   },
+  {
+    slug: "igcse-0580-extended-paper2-mayjune2025-worked-solutions",
+    title:
+      "Cambridge IGCSE 0580 Extended Paper 2 (Non-Calculator) Worked Solutions — May/June 2025",
+    description:
+      "Fully worked, mark-scheme-aligned solutions for the Cambridge IGCSE Mathematics 0580 Extended Paper 2 (Non-calculator), May/June 2025 session — all 24 questions, with step-by-step method marks shown in the order the mark scheme awards them, plus an examiner tip on every question flagging the most common mistake. Includes a solution diagram wherever the question involves a grid, graph, or construction. References the official paper code and question numbers; does not reproduce Cambridge's copyrighted question text. Pay once, download instantly. Original content, not affiliated with or endorsed by Cambridge Assessment International Education.",
+    previewImage: "/api/product-image/igcse-0580-extended-paper2-mayjune2025-worked-solutions",
+    previewImages: [
+      "/product-previews/igcse-0580-extended-paper2-mayjune2025-worked-solutions.png",
+    ],
+    price: 5,
+    region: "international",
+    category: "igcse-maths",
+    gradeLevel: "IGCSE",
+    subject: "maths",
+    variantId: "2099862",
+    downloadUrl:
+      "https://ghgbr44ykzavh7lt.private.blob.vercel-storage.com/products/igcse-0580-extended-paper2-mayjune2025-worked-solutions-qMPetHXBLA1xBC8w4952gkKXcKRfvF.pdf",
+    href: "/products/igcse-0580-extended-paper2-mayjune2025-worked-solutions",
+    active: true,
+  },
 ];
 
 async function main() {

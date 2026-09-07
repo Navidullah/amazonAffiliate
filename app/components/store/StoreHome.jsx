@@ -29,14 +29,14 @@ const stagger = {
 const features = [
   {
     icon: ClipboardCheck,
-    title: "Written to the KS2 curriculum",
-    desc: "Each worksheet targets a specific Year 6 Maths objective, with a full answer key included.",
+    title: "Written to the curriculum",
+    desc: "Each resource targets specific KS2 Maths objectives or official IGCSE paper/question codes, with a full answer key or mark scheme included.",
     accent: "from-indigo-500 to-blue-500",
   },
   {
     icon: ShieldCheck,
     title: "Pay once, download once",
-    desc: "No subscriptions, no accounts. One clean payment per worksheet pack.",
+    desc: "No subscriptions, no accounts. One clean payment per pack, from anywhere in the world.",
     accent: "from-fuchsia-500 to-violet-500",
   },
   {
@@ -48,9 +48,9 @@ const features = [
 ];
 
 const trustStats = [
-  { icon: FileCheck2, label: "worksheet pack" },
+  { icon: FileCheck2, label: "resource pack" },
   { icon: Download, label: "Instant PDF download" },
-  { icon: ClipboardCheck, label: "Full answer key included" },
+  { icon: ClipboardCheck, label: "Full answer key / mark scheme included" },
   { icon: Ban, label: "No subscription, ever" },
 ];
 
@@ -74,14 +74,14 @@ export default function StoreHome({ products = [] }) {
             className="inline-flex items-center gap-2 rounded-full border border-indigo-200/70 bg-white/70 px-4 py-1.5 text-xs font-semibold text-indigo-700 shadow-sm backdrop-blur dark:border-indigo-500/20 dark:bg-white/[0.04] dark:text-indigo-300"
           >
             <Sparkles className="h-3.5 w-3.5" />
-            Year 6 Maths (KS2) worksheet packs
+            KS2 Maths worksheets & IGCSE past paper solutions
           </motion.span>
 
           <motion.h1
             variants={fadeUp}
             className="mx-auto mt-6 max-w-3xl text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-6xl"
           >
-            Printable Year 6 Maths Worksheets (KS2).{" "}
+            Worksheets & exam solutions for KS2 and IGCSE students.{" "}
             <span className="bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-500 bg-clip-text text-transparent dark:from-indigo-300 dark:via-violet-300 dark:to-fuchsia-200">
               Pay once, download instantly.
             </span>
@@ -91,10 +91,11 @@ export default function StoreHome({ products = [] }) {
             variants={fadeUp}
             className="mx-auto mt-5 max-w-2xl text-base text-gray-600 dark:text-gray-300 sm:text-lg"
           >
-            Printable PDF worksheets for KS2 Year 6 Maths, each with a full
-            answer key so parents, tutors, and teachers can mark it without
-            a teaching background. No sign-up, no subscription — pick a
-            pack and download.
+            Printable PDF worksheets for KS2 Year 6 Maths and fully worked
+            Cambridge IGCSE past-paper solutions, each with a complete
+            answer key or mark scheme so parents, tutors, and teachers
+            anywhere in the world can mark it correctly. No sign-up, no
+            subscription — pick a pack and download.
           </motion.p>
 
           <motion.div
@@ -105,7 +106,7 @@ export default function StoreHome({ products = [] }) {
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> No sign up
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Full mark scheme included
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Full answer key & mark scheme included
             </span>
             <span className="inline-flex items-center gap-1.5">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Instant PDF download
@@ -123,7 +124,7 @@ export default function StoreHome({ products = [] }) {
                 className="inline-flex items-center gap-2 px-2 text-xs font-semibold text-gray-600 dark:text-gray-300 sm:text-sm"
               >
                 <stat.icon className="h-4 w-4 text-indigo-600 dark:text-indigo-300" />
-                {products.length && stat.label === "worksheet pack"
+                {products.length && stat.label === "resource pack"
                   ? `${products.length} ${stat.label}${products.length === 1 ? "" : "s"}`
                   : stat.label}
               </span>
@@ -199,24 +200,23 @@ export default function StoreHome({ products = [] }) {
           className="mb-20 rounded-3xl border border-gray-200/70 bg-white/70 p-8 backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.03] sm:p-10"
         >
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-            Printable Year 6 Maths worksheets (KS2), with every answer key included
+            Worksheets and worked past-paper solutions, for students anywhere in the world
           </h2>
           <div className="mt-4 space-y-4 text-sm leading-relaxed text-gray-600 dark:text-gray-400 sm:text-base">
             <p>
-              Year 6 is the final year of Key Stage 2, and targeted topic
-              practice is one of the most effective ways to build confidence
-              before SATs. Shopyor's worksheet packs are printable PDFs
-              written to the KS2 Year 6 Maths curriculum, each with worked
-              examples and a full answer key — so a parent, tutor, or
-              teacher without a maths background can mark it correctly every
-              time.
+              Shopyor sells two kinds of printable PDF resource: UK KS2 Year
+              6 Maths worksheets, written to the curriculum with worked
+              examples and a full answer key, and Cambridge IGCSE worked
+              past-paper solutions — starting with IGCSE Mathematics 0580 —
+              with every question solved step-by-step in mark-scheme order
+              and an examiner tip flagging the most common mistake. IB Maths
+              resources are in development and will join the catalog soon.
             </p>
             <p>
-              Every pack downloads as a single PDF containing both the
-              student worksheet and its matching answer key — ready to print
-              at home, in a tutoring session, or for a single classroom.
-              More Year 6 Maths topics are added regularly, covering the
-              areas pupils most often need extra practice on.
+              Every pack downloads as a single PDF, ready to print at home,
+              in a tutoring session, or for a single classroom, wherever in
+              the world you're studying or teaching from. New topics and
+              exam sessions are added regularly.
             </p>
             <p>
               Unlike subscription-based worksheet libraries, Shopyor is
