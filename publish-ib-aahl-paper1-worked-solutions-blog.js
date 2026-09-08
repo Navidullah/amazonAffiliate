@@ -19,9 +19,9 @@ if (!uri) {
 
 const SLUG = "ib-math-aa-hl-paper-1-practice-worked-solutions";
 const TITLE =
-  "IB Math AA HL Paper 1: How to Practice With Worked Solutions (Method Marks & Examiner Tips)";
+  "IB Math AA HL Paper 1: How to Practice With Worked Solutions (May 2026 Exam Session, Method Marks & Examiner Tips)";
 const EXCERPT =
-  "A practice guide for IB Mathematics: Analysis & Approaches HL Paper 1 — what the non-calculator paper actually tests, how M1/A1/R1 marks work, and an 8-question original practice set with fully worked solutions.";
+  "A practice guide for IB Mathematics: Analysis & Approaches HL Paper 1, written for the May 2026 exam session syllabus — what the non-calculator paper actually tests, how M1/A1/R1 marks work, and an 8-question original practice set with fully worked solutions.";
 const CATEGORY = "IB Maths";
 const TAGS = [
   "ib math aa hl practice questions",
@@ -31,6 +31,7 @@ const TAGS = [
   "ib mathematics analysis and approaches hl",
   "ib math aa hl method marks",
   "ib math aa hl paper 1 practice",
+  "ib math aa hl may 2026 exam",
 ];
 
 const FAQ_SCHEMA = {
@@ -165,13 +166,13 @@ const CONTENT = `
 <hr />
 
 <h2 id="practice">Practice Set: 8 Questions, Fully Worked (Set 1)</h2>
-<p>To go with this guide, Shopyor has published an original IB Math AA HL Paper 1-style practice set — 8 questions, 50 marks, no calculator, written to match the real Paper 1 topic spread and mark allocations. Every question is fully worked with method marks tagged M1/A1/R1 in the order an examiner would award them, plus an examiner tip on each question flagging the most common mistake.</p>
+<p>To go with this guide, Shopyor has published an original IB Math AA HL Paper 1-style practice set — 8 questions, 50 marks, no calculator, written to match the May 2026 exam session syllabus, topic spread, and mark allocations. Every question is fully worked with method marks tagged M1/A1/R1 in the order an examiner would award them, plus an examiner tip on each question flagging the most common mistake.</p>
 
 <p>Topics covered: quadratic functions, integration &amp; kinematics, geometric sequences, logarithms, probability (independent events, tree diagrams &amp; conditional probability), circular measure, and complex numbers &amp; polynomials.</p>
 
-<p><a href="/products/ib-aahl-paper1-set1-worked-solutions">View: IB Math AA HL Paper 1 Style — Original Practice Questions with Worked Solutions (Set 1) →</a></p>
+<p><a href="/products/ib-aahl-paper1-set1-worked-solutions">View: IB Math AA HL Paper 1 Style — Original Practice Questions with Worked Solutions (Set 1, May 2026 Exam Session) →</a></p>
 
-<p>It's a one-time $8 PDF download — no subscription, no account, no sign-up. This is original Shopyor content written to match the AA HL Paper 1 format, not a solved official IB past paper, and is not affiliated with or endorsed by the International Baccalaureate Organization (IBO).</p>
+<p>It's a one-time $8 PDF download — no subscription, no account, no sign-up. This is original Shopyor content written to match the May 2026 exam session's AA HL Paper 1 format, not a solved official IB past paper, and is not affiliated with or endorsed by the International Baccalaureate Organization (IBO).</p>
 <p><strong>Browse the full catalog:</strong> <a href="/products">All worked solutions and practice packs →</a></p>
 
 <hr />
@@ -217,7 +218,7 @@ const CONTENT = `
   <li>"Show that" and "hence" questions are reasoning questions: the R mark is for the argument, not the answer alone.</li>
   <li>Review worked solutions step by step against your own working, not just the final answer, to see exactly where marks were earned or lost.</li>
 </ul>
-<p><strong>Ready to practice?</strong> Get the <a href="/products/ib-aahl-paper1-set1-worked-solutions">IB Math AA HL Paper 1 Style Practice Set (Set 1)</a> — instant PDF download, fully worked solutions with method-mark tags and examiner tips, pay once.</p>
+<p><strong>Ready to practice?</strong> Get the <a href="/products/ib-aahl-paper1-set1-worked-solutions">IB Math AA HL Paper 1 Style Practice Set (Set 1, May 2026 Exam Session)</a> — instant PDF download, fully worked solutions with method-mark tags and examiner tips, pay once.</p>
 
 <script type="application/ld+json">${JSON.stringify(FAQ_SCHEMA)}</script>
 <script type="application/ld+json">${JSON.stringify(BREADCRUMB_SCHEMA)}</script>
