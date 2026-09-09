@@ -52,9 +52,11 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
   const blog = await getBlogBySlug(slug);
 
-  if (!blog) {
-    return { title: { absolute: "Article not found | Shopyor Blog" } };
-  }
+  // Throwing here (before any bytes stream) is what makes the response
+  // actually carry a 404 status — throwing notFound() later, from the page
+  // body, happens after generateMetadata's <head> has already streamed with
+  // a 200, so the status can't retroactively change.
+  if (!blog) notFound();
 
   const url = `${BASE_URL}/blog/${blog.slug}`;
   const description =

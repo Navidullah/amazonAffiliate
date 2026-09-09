@@ -214,8 +214,8 @@ export default function ToolsClient() {
             variants={fadeUp}
             className="mt-3 text-base sm:text-lg text-muted-foreground"
           >
-            Modern, secure, browser-based utilities to download videos, edit
-            images, convert PDFs, and boost your SEO â€” all free, no sign-up.
+            Modern, secure, browser-based utilities to edit images, convert
+            PDFs, and boost your SEO â€” all free, no sign-up.
           </motion.p>
 
           {/* Search */}
