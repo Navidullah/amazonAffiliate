@@ -1,10 +1,10 @@
 // app/disclaimer/page.jsx
-import { AlertTriangle, Mic } from "lucide-react";
+import { AlertTriangle } from "lucide-react";
 
 export const metadata = {
   title: "Disclaimer - Shopyor",
   description:
-    "Legal disclaimer for Shopyor's free online tools, including AI voice cloning, downloaders, and utilities. Please read before using our services.",
+    "Legal disclaimer for Shopyor's free online tools and utilities. Please read before using our services.",
   robots: "noindex, follow",
 };
 
@@ -32,23 +32,6 @@ export default function DisclaimerPage() {
               representations or warranties, express or implied. We do not warrant
               that the tools will be available, error-free, secure, or that they
               will meet your requirements.
-            </p>
-          </section>
-
-          {/* AI Voice Cloning disclaimer */}
-          <section>
-            <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
-              <Mic className="h-5 w-5 text-primary" />
-              AI Voice Cloning &amp; Generated Content
-            </h2>
-            <p className="text-muted-foreground">
-              Our AI voice cloning tool produces synthetic, computer-generated
-              audio that may be imperfect or inaccurate. You are solely
-              responsible for how you use it. You must have the right or consent to
-              clone any voice, and you must not use generated audio to impersonate,
-              defraud, deceive, harass, or harm anyone. Shopyor is not responsible
-              for content created by users and disclaims all liability for any
-              misuse of the tool.
             </p>
           </section>
 

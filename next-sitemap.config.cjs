@@ -52,7 +52,6 @@ const LAST_MODIFIED = {
   "/tools/convert-your-pdf-file-to-word": "2026-06-18T12:54:46+05:00",
   "/tools/compress-your-pdf-file": "2026-06-18T12:54:46+05:00",
   "/tools/robots-txt-generator": "2026-06-18T12:54:46+05:00",
-  "/tools/voice-clone": "2026-06-18T12:54:46+05:00",
   "/tools/youtube-tags-extractor": "2026-06-18T12:54:46+05:00",
   "/tools/youtube-thumbnail": "2026-06-18T12:54:46+05:00",
   "/maths": "2026-08-23T00:00:00+05:00",
@@ -95,6 +94,7 @@ module.exports = {
     "/tools/instagram-video-downloader", // 301 -> /tools (retired 2026-09-07, AdSense policy risk)
     "/tools/free-tiktok-video-downloader", // 301 -> /tools (retired 2026-09-07, AdSense policy risk)
     "/tools/video-downloader", // 301 -> /tools (retired 2026-09-07, AdSense policy risk)
+    "/tools/voice-clone", // 301 -> /tools (retired 2026-09-10, impersonation/synthetic-media risk)
     "/order/*", // private post-checkout page, noindex
     "/maths/daily", // rotating daily content, not meant to rank
     "/maths/daily/*",

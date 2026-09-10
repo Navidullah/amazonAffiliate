@@ -6,7 +6,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
 export const metadata = {
   title: "Free Online Tools",
   description:
-    "Use Shopyor's free online tools: Image Compressor, Background Remover, PDF Converter, AI Voice Cloner, and more. Fast, secure and browser-based utilities.",
+    "Use Shopyor's free online tools: Image Compressor, Background Remover, PDF Converter, and more. Fast, secure and browser-based utilities.",
   keywords: [
     "free online tools",
     "image compressor",
@@ -14,7 +14,6 @@ export const metadata = {
     "exif remover",
     "bmi calculator",
     "affiliate link generator",
-    "ai voice cloner",
     "pdf to word converter",
   ],
   alternates: { canonical: "/tools" },

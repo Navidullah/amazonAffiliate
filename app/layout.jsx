@@ -75,7 +75,6 @@ export const metadata = {
     "pdf compressor",
     "image compressor",
     "background remover",
-    "ai voice cloner",
     "bmi calculator",
     "meta tag generator",
   ],
@@ -97,7 +96,7 @@ export const metadata = {
     url: "https://www.shopyor.com",
     title: "Free Online Tools by Shopyor — One Free Toolbox for Everything",
     description:
-      "Convert & compress PDFs, remove image backgrounds, clone a voice, calculate BMI, and generate SEO tags — 20+ free tools, no sign-up.",
+      "Convert & compress PDFs, remove image backgrounds, calculate BMI, and generate SEO tags — 20+ free tools, no sign-up.",
     siteName: "Shopyor",
     locale: "en_US",
     alternateLocale: ["en_GB", "en_IN", "en_CA", "en_AU"],
@@ -118,7 +117,7 @@ export const metadata = {
     creator: "@shopyor",
     title: "Free Online Tools by Shopyor",
     description:
-      "20+ free, browser-based tools: PDF & image utilities, AI voice cloner, BMI calculator, and SEO tools. No sign-up.",
+      "20+ free, browser-based tools: PDF & image utilities, BMI calculator, and SEO tools. No sign-up.",
     images: ["/images/shopyor-tools-og.png"],
   },
 

@@ -17,7 +17,6 @@ import {
   ArrowRight,
   Sparkles,
   SearchX,
-  Mic,
 } from "lucide-react";
 
 /* ======================================================
@@ -57,13 +56,6 @@ export default function ToolsClient() {
   const [category, setCategory] = useState("All");
 
   const tools = [
-    {
-      href: "/tools/voice-clone",
-      title: "Free AI Voice Cloner",
-      desc: "Clone any voice from a short sample and turn text into natural speech â€” free, no watermark.",
-      icon: Mic,
-      category: "Media",
-    },
     {
       href: "/tools/image-compressor",
       title: "Online Image Compressor",

@@ -186,6 +186,32 @@ const nextConfig = {
         destination: "/blog",
         permanent: true,
       },
+      // AI Voice Cloner retired 2026-09-10 (impersonation/synthetic-media
+      // AdSense policy risk). URL was indexed, so send it to the tools hub
+      // (301) to avoid a 404 and preserve any link equity.
+      {
+        source: "/tools/voice-clone",
+        destination: "/tools",
+        permanent: true,
+      },
+      // Blog posts entirely about the retired voice cloner (unpublished
+      // 2026-09-10). Redirected rather than left to 404 naturally, same
+      // reason as the downloader posts above.
+      {
+        source: "/blog/voice-cloning-tool-online-free",
+        destination: "/blog",
+        permanent: true,
+      },
+      {
+        source: "/blog/how-to-clone-your-own-voice-free",
+        destination: "/blog",
+        permanent: true,
+      },
+      {
+        source: "/blog/ai-voice-generator-text-to-speech",
+        destination: "/blog",
+        permanent: true,
+      },
     ];
   },
   async headers() {
@@ -219,18 +245,6 @@ const nextConfig = {
               "form-action 'self';",
               "frame-ancestors 'self';",
             ].join(" "),
-          },
-        ],
-      },
-
-      // Voice Cloner needs mic access to record a sample in-browser —
-      // override the site-wide Permissions-Policy default just for this tool.
-      {
-        source: "/tools/voice-clone/:path*",
-        headers: [
-          {
-            key: "Permissions-Policy",
-            value: "microphone=(self), camera=(), geolocation=()",
           },
         ],
       },

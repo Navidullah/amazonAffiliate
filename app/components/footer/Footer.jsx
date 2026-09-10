@@ -136,14 +136,6 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/tools/voice-clone"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  AI Voice Cloner
-                </Link>
-              </li>
-              <li>
-                <Link
                   href="/tools"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >

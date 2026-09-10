@@ -5,13 +5,12 @@ import {
   AlertTriangle,
   Mail,
   Clock,
-  Mic,
 } from "lucide-react";
 
 export const metadata = {
   title: "Terms of Service - Shopyor",
   description:
-    "Terms of Service for Shopyor's digital worksheet packs and free online tools, including AI voice cloning, video downloaders, image, YouTube and SEO tools. Read before using our services.",
+    "Terms of Service for Shopyor's digital worksheet packs and free online tools, including image, YouTube and SEO tools. Read before using our services.",
   robots: "noindex, follow",
 };
 
@@ -58,11 +57,6 @@ export default function TermsPage() {
             </p>
             <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
               <li>
-                <strong>AI Voice Cloning &amp; Text-to-Speech</strong> — generate
-                speech from a short voice sample and your text
-              </li>
-              <li>Video downloaders (Facebook, Instagram, TikTok, YouTube)</li>
-              <li>
                 Image tools (background remover, compressor, resizer, EXIF
                 remover)
               </li>
@@ -77,53 +71,10 @@ export default function TermsPage() {
             </p>
           </section>
 
-          {/* AI Voice Cloning Terms */}
-          <section>
-            <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
-              <Mic className="h-5 w-5 text-primary" />
-              3. AI Voice Cloning — Acceptable Use
-            </h2>
-            <p className="text-muted-foreground mb-3">
-              Our voice cloning tool is powerful and easy to misuse. Your use of
-              it is subject to the following binding rules:
-            </p>
-            <div className="space-y-3">
-              <div className="flex items-start gap-2">
-                <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                <p className="text-muted-foreground">
-                  <strong>Consent is mandatory.</strong> You may only upload a
-                  voice that is your own or one you have explicit, verifiable
-                  permission to use. You confirm this consent each time you use
-                  the tool.
-                </p>
-              </div>
-              <div className="flex items-start gap-2">
-                <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                <p className="text-muted-foreground">
-                  <strong>You own your output.</strong> Subject to these Terms and
-                  the rights of any third party, you are responsible for, and may
-                  use, the audio you generate for lawful purposes.
-                </p>
-              </div>
-              <div className="flex items-start gap-2">
-                <AlertTriangle className="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0" />
-                <p className="text-muted-foreground">
-                  <strong>You must NOT</strong> use the tool to impersonate any
-                  person, clone the voice of a public figure or any individual
-                  without consent, create deceptive "deepfake" audio, commit fraud
-                  or social engineering, bypass voice authentication, harass,
-                  defame, or spread misinformation, or produce illegal,
-                  defamatory, hateful, or sexually explicit content involving real
-                  people.
-                </p>
-              </div>
-            </div>
-          </section>
-
           {/* User Responsibilities */}
           <section>
             <h2 className="text-xl font-semibold mb-3">
-              4. User Responsibilities
+              3. User Responsibilities
             </h2>
             <div className="space-y-3">
               <div className="flex items-start gap-2">
@@ -162,10 +113,9 @@ export default function TermsPage() {
 
           {/* Prohibited Uses */}
           <section>
-            <h2 className="text-xl font-semibold mb-3">5. Prohibited Uses</h2>
+            <h2 className="text-xl font-semibold mb-3">4. Prohibited Uses</h2>
             <div className="space-y-3">
               {[
-                "Impersonation, deepfakes, or cloning a voice without consent",
                 "Downloading private, restricted, or non-public content",
                 "Using generated or downloaded content for fraud or deception",
                 "Commercial use of third-party content without permission",
@@ -184,7 +134,7 @@ export default function TermsPage() {
           {/* Intellectual Property */}
           <section>
             <h2 className="text-xl font-semibold mb-3">
-              6. Intellectual Property
+              5. Intellectual Property
             </h2>
             <p className="text-muted-foreground mb-3">
               Content you download or that appears on third-party platforms
@@ -201,12 +151,12 @@ export default function TermsPage() {
           {/* Copyright Infringement */}
           <section>
             <h2 className="text-xl font-semibold mb-3">
-              7. Copyright &amp; Rights Infringement
+              6. Copyright &amp; Rights Infringement
             </h2>
             <p className="text-muted-foreground mb-3">
-              We respect intellectual property and personal rights (including
-              voice and likeness rights) and comply with the Digital Millennium
-              Copyright Act (DMCA). If you believe your rights have been
+              We respect intellectual property and personal rights and comply
+              with the Digital Millennium Copyright Act (DMCA). If you believe
+              your rights have been
               infringed, see our{" "}
               <a href="/dmca" className="text-primary hover:underline">
                 DMCA Notice
@@ -237,7 +187,7 @@ export default function TermsPage() {
           {/* Disclaimer of Warranties */}
           <section>
             <h2 className="text-xl font-semibold mb-3">
-              8. Disclaimer of Warranties
+              7. Disclaimer of Warranties
             </h2>
             <p className="text-muted-foreground">
               OUR SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES
@@ -250,7 +200,7 @@ export default function TermsPage() {
           {/* Limitation of Liability */}
           <section>
             <h2 className="text-xl font-semibold mb-3">
-              9. Limitation of Liability
+              8. Limitation of Liability
             </h2>
             <p className="text-muted-foreground">
               TO THE MAXIMUM EXTENT PERMITTED BY LAW, SHOPYOR SHALL NOT BE LIABLE
@@ -263,17 +213,16 @@ export default function TermsPage() {
 
           {/* Termination */}
           <section>
-            <h2 className="text-xl font-semibold mb-3">10. Termination</h2>
+            <h2 className="text-xl font-semibold mb-3">9. Termination</h2>
             <p className="text-muted-foreground">
               We may suspend or terminate your access to our service at any time,
-              without notice, for any reason — including a breach of these Terms or
-              misuse of the voice cloning tool.
+              without notice, for any reason — including a breach of these Terms.
             </p>
           </section>
 
           {/* Governing Law */}
           <section>
-            <h2 className="text-xl font-semibold mb-3">11. Governing Law</h2>
+            <h2 className="text-xl font-semibold mb-3">10. Governing Law</h2>
             <p className="text-muted-foreground">
               These Terms are governed by applicable law without regard to
               conflict-of-law provisions. Any disputes shall be handled in the
@@ -283,7 +232,7 @@ export default function TermsPage() {
 
           {/* Changes to Terms */}
           <section>
-            <h2 className="text-xl font-semibold mb-3">12. Changes to Terms</h2>
+            <h2 className="text-xl font-semibold mb-3">11. Changes to Terms</h2>
             <p className="text-muted-foreground">
               We may modify these Terms at any time. Material changes will be
               posted on this page. Continued use of the service after changes
@@ -294,7 +243,7 @@ export default function TermsPage() {
           {/* Digital Products & Purchases */}
           <section>
             <h2 className="text-xl font-semibold mb-3">
-              13. Digital Products &amp; Purchases
+              12. Digital Products &amp; Purchases
             </h2>
             <p className="text-muted-foreground mb-3">
               In addition to our free tools, Shopyor sells digital worksheet
@@ -361,7 +310,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <Mail className="h-5 w-5 text-primary" />
-              14. Contact Information
+              13. Contact Information
             </h2>
             <p className="text-muted-foreground">
               Questions about these Terms? Contact us at:

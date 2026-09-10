@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 // Site-wide social share image (1200x630). Applies to every route unless a
 // deeper segment defines its own opengraph-image.
-export const alt = "Shopyor — Free AI Voice Cloner";
+export const alt = "Shopyor — Worksheets, Past-Paper Solutions & Free Tools";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -63,7 +63,7 @@ export default function OpengraphImage() {
               background: "#a855f7",
             }}
           />
-          AI Voice Cloning · 100% Free
+          KS2 · IGCSE · IB Maths + Free Tools
         </div>
 
         {/* title */}
@@ -77,7 +77,7 @@ export default function OpengraphImage() {
             letterSpacing: "-2px",
           }}
         >
-          Free AI Voice Cloner
+          Shopyor
         </div>
 
         {/* gradient subtitle */}
@@ -93,7 +93,7 @@ export default function OpengraphImage() {
             color: "transparent",
           }}
         >
-          Clone any voice in seconds
+          Worksheets, Past-Paper Solutions & Free Tools
         </div>
 
         {/* description */}
@@ -107,7 +107,7 @@ export default function OpengraphImage() {
             maxWidth: 860,
           }}
         >
-          Upload a short sample, type your text, download natural speech — free.
+          Digital maths packs for KS2, IGCSE and IB, plus 20+ free browser-based tools.
         </div>
 
         {/* url */}

@@ -79,9 +79,8 @@ export default function AboutPage() {
               worksheet packs, that means printable Year 6 Maths and KS2 SATs
               practice, formatted like the real assessment with full mark
               schemes, sold with no subscription and no account required. For
-              our free tools — video downloaders, PDF and image utilities, an
-              AI voice cloner, and more — it means no paywall, no sign-up
-              form, and no watermark in the way.
+              our free tools — PDF and image utilities, and more — it means
+              no paywall, no sign-up form, and no watermark in the way.
             </p>
           </section>
 

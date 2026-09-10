@@ -8,13 +8,12 @@ import {
   Clock,
   Shield,
   CheckCircle,
-  Mic,
 } from "lucide-react";
 
 export const metadata = {
   title: "Copyright & Rights Policy - Shopyor",
   description:
-    "Copyright, voice, and likeness rights policy for Shopyor. How we respect intellectual property and personal rights across our AI and media tools.",
+    "Copyright and rights policy for Shopyor. How we respect intellectual property and personal rights across our digital products and free tools.",
   robots: "noindex, follow",
 };
 
@@ -51,10 +50,9 @@ export default function CopyrightPage() {
                   Our Commitment
                 </p>
                 <p className="text-blue-700 dark:text-blue-500 mt-1">
-                  Shopyor respects intellectual property rights and personal
-                  rights — including the right people have in their own voice and
-                  likeness. We comply with the Digital Millennium Copyright Act
-                  (DMCA) and respond promptly to valid infringement notices.
+                  Shopyor respects intellectual property rights. We comply
+                  with the Digital Millennium Copyright Act (DMCA) and
+                  respond promptly to valid infringement notices.
                 </p>
               </div>
             </div>
@@ -104,42 +102,10 @@ export default function CopyrightPage() {
             </p>
           </section>
 
-          {/* Voice & Likeness Rights */}
-          <section>
-            <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
-              <Mic className="h-5 w-5 text-primary" />
-              3. Voice, Likeness &amp; Publicity Rights
-            </h2>
-            <p className="text-muted-foreground mb-3">
-              A person's voice is protected by privacy, publicity, and (in some
-              regions) biometric laws. When using our AI voice cloning tool, you
-              agree that:
-            </p>
-            <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
-              <li>
-                You will only clone a voice you own or have explicit permission to
-                use.
-              </li>
-              <li>
-                You will not impersonate, defame, or deceive using a generated
-                voice.
-              </li>
-              <li>
-                You are solely responsible for obtaining any consent or release
-                required for the voice and the content you create.
-              </li>
-            </ul>
-            <p className="text-muted-foreground mt-3">
-              If someone has cloned your voice without permission using our tool,
-              you can report it using the contact details below and we will act
-              promptly.
-            </p>
-          </section>
-
           {/* User Responsibilities */}
           <section>
             <h2 className="text-xl font-semibold mb-3">
-              4. User Responsibilities
+              3. User Responsibilities
             </h2>
             <p className="text-muted-foreground mb-3">
               Users of our service are solely responsible for:
@@ -157,7 +123,7 @@ export default function CopyrightPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <FileText className="h-5 w-5 text-primary" />
-              5. DMCA &amp; Takedown Requests
+              4. DMCA &amp; Takedown Requests
             </h2>
             <p className="text-muted-foreground">
               In accordance with the DMCA and similar laws, we respond promptly to
@@ -186,11 +152,10 @@ export default function CopyrightPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <Mail className="h-5 w-5 text-primary" />
-              6. Reporting Infringement
+              5. Reporting Infringement
             </h2>
             <p className="text-muted-foreground">
-              To report copyright infringement or misuse of your voice/likeness,
-              contact our agent:
+              To report copyright infringement, contact our agent:
             </p>
             <div className="mt-4 p-4 bg-muted/30 rounded-lg">
               <p className="font-mono text-sm">
@@ -213,7 +178,7 @@ export default function CopyrightPage() {
 
           {/* Counter-Notification */}
           <section>
-            <h2 className="text-xl font-semibold mb-3">7. Counter-Notification</h2>
+            <h2 className="text-xl font-semibold mb-3">6. Counter-Notification</h2>
             <p className="text-muted-foreground">
               If you believe content was removed by mistake or misidentification,
               you may submit a counter-notification including: identification of
@@ -228,7 +193,7 @@ export default function CopyrightPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <AlertCircle className="h-5 w-5 text-primary" />
-              8. Repeat Infringers
+              7. Repeat Infringers
             </h2>
             <p className="text-muted-foreground">
               We reserve the right to terminate access for users determined to be
@@ -241,7 +206,7 @@ export default function CopyrightPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <Scale className="h-5 w-5 text-primary" />
-              9. Fair Use Notice
+              8. Fair Use Notice
             </h2>
             <p className="text-muted-foreground">
               Some uses of content may qualify as "fair use" for purposes such as
@@ -255,7 +220,7 @@ export default function CopyrightPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <Clock className="h-5 w-5 text-primary" />
-              10. Changes to This Policy
+              9. Changes to This Policy
             </h2>
             <p className="text-muted-foreground">
               We may update this policy from time to time. Changes are posted on
@@ -272,7 +237,7 @@ export default function CopyrightPage() {
                   Important Legal Notice
                 </p>
                 <p className="text-red-700 dark:text-red-500">
-                  We take infringement and voice misuse seriously. Knowingly false
+                  We take infringement claims seriously. Knowingly false
                   claims may result in legal liability. Please consult legal
                   counsel if you are unsure about your rights before filing a
                   notice.

@@ -4,8 +4,7 @@
 > KS2 Maths & SATs (UK), Common Core Math (USA), and provincial curricula
 > (Canada), pay once and download instantly — plus 17+ free, browser-based
 > tools for downloading video, converting and compressing PDFs and images,
-> cloning a voice, calculating BMI, and generating SEO tags, no sign-up, no
-> install.
+> calculating BMI, and generating SEO tags, no sign-up, no install.
 
 All tools run client-side or through a privacy-respecting backend with no
 permanent storage of uploaded files. Every tool page below includes a
@@ -26,7 +25,6 @@ description, step-by-step instructions, and an FAQ section.
 - [Facebook Video Downloader](https://www.shopyor.com/tools/facebook-video-downloader): Download public Facebook videos and Reels in HD.
 - [Instagram Video Downloader](https://www.shopyor.com/tools/instagram-video-downloader): Save public Instagram Reels and videos.
 - [TikTok Video Downloader](https://www.shopyor.com/tools/free-tiktok-video-downloader): Download TikTok videos without a watermark.
-- [AI Voice Cloner](https://www.shopyor.com/tools/voice-clone): Clone a voice from a short sample and generate speech from text.
 - [BMI Calculator](https://www.shopyor.com/tools/bmi): Calculate Body Mass Index in metric or imperial units, with a healthy-weight chart.
 - [Amazon Affiliate Link Generator](https://www.shopyor.com/tools/affiliate-link-generator): Convert an Amazon URL or ASIN into a tagged affiliate link.
 - [YouTube Thumbnail Downloader](https://www.shopyor.com/tools/youtube-thumbnail): Download full-resolution thumbnails from any YouTube video.
@@ -41,7 +39,6 @@ description, step-by-step instructions, and an FAQ section.
 - [How to Remove the Background from an Image](https://www.shopyor.com/blog/how-to-remove-background-from-an-image)
 - [How to Reduce Image File Size](https://www.shopyor.com/blog/how-to-reduce-image-file-size)
 - [How to Calculate Your BMI Manually](https://www.shopyor.com/blog/how-to-calculate-bmi-manually)
-- [How to Clone Your Own Voice for Free](https://www.shopyor.com/blog/how-to-clone-your-own-voice-free)
 - [How to Download Videos from Facebook, Instagram, and TikTok](https://www.shopyor.com/blog/how-to-download-videos-from-facebook-instagram-tiktok)
 - [Meta Tags for SEO: The Complete Guide](https://www.shopyor.com/blog/meta-tags-for-seo-complete-guide)
 - [How to Create a Robots.txt File for SEO](https://www.shopyor.com/blog/how-to-create-robots-txt-file-for-seo)

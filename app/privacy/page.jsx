@@ -10,13 +10,12 @@ import {
   UserCheck,
   Trash2,
   Globe,
-  Mic,
 } from "lucide-react";
 
 export const metadata = {
   title: "Privacy Policy - Shopyor",
   description:
-    "Privacy Policy for Shopyor. Learn how we handle your data when you purchase a digital product, and across our AI voice cloning, video downloader, image, YouTube and SEO tools.",
+    "Privacy Policy for Shopyor. Learn how we handle your data when you purchase a digital product, and across our video downloader, image, YouTube and SEO tools.",
   robots: "noindex, follow",
 };
 
@@ -50,8 +49,8 @@ export default function PrivacyPage() {
               Privacy Policy explains what information we collect, how we use it,
               and the choices you have when you use our website, purchase a
               digital product from our store, or use our free online tools —
-              including our AI voice cloning tool, video downloaders, image
-              tools, YouTube tools, SEO tools, PDF tools, and other utilities.
+              including video downloaders, image tools, YouTube tools, SEO
+              tools, PDF tools, and other utilities.
               Please read it carefully.
             </p>
           </section>
@@ -69,10 +68,6 @@ export default function PrivacyPage() {
                 <strong>Digital worksheet packs</strong> — printable PDF
                 downloads purchased through our store, delivered instantly
                 after payment.
-              </li>
-              <li>
-                <strong>AI Voice Cloning &amp; Text-to-Speech</strong> — upload a
-                short voice sample and generate natural-sounding speech.
               </li>
               <li>
                 Video downloaders (Facebook, Instagram, TikTok, YouTube)
@@ -102,7 +97,7 @@ export default function PrivacyPage() {
                 <li>
                   Your card number, CVC, or full billing details — payments are
                   handled entirely by our payment processor, LemonSqueezy (see
-                  Section 8); we never see or store your card details
+                  Section 7); we never see or store your card details
                 </li>
                 <li>A permanent history of the URLs, files, or text you submit to our free tools</li>
               </ul>
@@ -134,13 +129,9 @@ export default function PrivacyPage() {
                 Content you submit to a free tool (processed, not stored long-term):
               </p>
               <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
-                <li>
-                  <strong>Voice samples and generated audio</strong> for the AI
-                  voice cloning tool (see Section 4)
-                </li>
                 <li>Video links you paste into a downloader</li>
                 <li>Images, PDFs, or files you upload for processing</li>
-                <li>Text you enter (e.g., for speech generation or meta tags)</li>
+                <li>Text you enter (e.g., for meta tags)</li>
               </ul>
 
               <p className="text-muted-foreground font-medium mt-4">
@@ -154,51 +145,11 @@ export default function PrivacyPage() {
             </div>
           </section>
 
-          {/* Voice Cloning Privacy */}
-          <section>
-            <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
-              <Mic className="h-5 w-5 text-primary" />
-              4. Voice Cloning &amp; Audio Data
-            </h2>
-            <div className="bg-muted/30 p-4 rounded-lg space-y-3 text-muted-foreground text-sm">
-              <p>
-                Our AI voice cloning tool requires you to upload a short audio
-                sample and confirm consent. Here is how that data is handled:
-              </p>
-              <ul className="list-disc list-inside space-y-2 ml-2">
-                <li>
-                  <strong>Consent is required.</strong> Before processing, you
-                  must confirm that the voice in the sample is yours or that you
-                  have explicit permission from the person whose voice it is.
-                </li>
-                <li>
-                  <strong>Used only to fulfill your request.</strong> Your audio
-                  sample is transmitted securely to our voice-processing provider
-                  solely to generate the speech you request. The sample and the
-                  generated audio are processed transiently and are not retained
-                  longer than necessary to deliver your result.
-                </li>
-                <li>
-                  <strong>Not used to train models or sold.</strong> We do not
-                  use your voice samples to train AI models for unrelated
-                  purposes, and we do not sell your audio data.
-                </li>
-                <li>
-                  <strong>Voice data may be sensitive.</strong> In some
-                  jurisdictions a voiceprint is treated as biometric or sensitive
-                  personal data. By uploading a sample you consent to the
-                  processing described here. Do not upload anyone's voice without
-                  their permission.
-                </li>
-              </ul>
-            </div>
-          </section>
-
           {/* How We Use Information */}
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <Server className="h-5 w-5 text-primary" />
-              5. How We Use Information
+              4. How We Use Information
             </h2>
             <p className="text-muted-foreground mb-3">
               The limited information we process is used to:
@@ -215,7 +166,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <Cookie className="h-5 w-5 text-primary" />
-              6. Cookies and Tracking Technologies
+              5. Cookies and Tracking Technologies
             </h2>
             <p className="text-muted-foreground mb-3">
               We use cookies for basic functionality and analytics. These:
@@ -239,7 +190,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <Cookie className="h-5 w-5 text-primary" />
-              7. Advertising and Ad Cookies
+              6. Advertising and Ad Cookies
             </h2>
             <p className="text-muted-foreground mb-3">
               Shopyor may display advertisements served by Google AdSense and
@@ -305,7 +256,7 @@ export default function PrivacyPage() {
           {/* Third-Party Services */}
           <section>
             <h2 className="text-xl font-semibold mb-3">
-              8. Third-Party Services
+              7. Third-Party Services
             </h2>
             <p className="text-muted-foreground mb-3">
               We rely on the following third parties to operate our tools:
@@ -336,17 +287,9 @@ export default function PrivacyPage() {
                 </p>
               </div>
               <div className="bg-muted/30 p-4 rounded-lg">
-                <h3 className="font-semibold mb-2">Voice Processing Provider</h3>
-                <p className="text-sm text-muted-foreground">
-                  Our AI voice cloning and text-to-speech features are powered by
-                  a third-party speech provider. Audio you submit is transmitted
-                  to that provider only to generate your requested output.
-                </p>
-              </div>
-              <div className="bg-muted/30 p-4 rounded-lg">
                 <h3 className="font-semibold mb-2">Google Services</h3>
                 <p className="text-sm text-muted-foreground">
-                  We use Google AdSense to serve advertising (see Section 7)
+                  We use Google AdSense to serve advertising (see Section 6)
                   and Google APIs to power some YouTube tools (such as
                   fetching public video tags).
                   <a
@@ -391,7 +334,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <Lock className="h-5 w-5 text-primary" />
-              9. Data Security
+              8. Data Security
             </h2>
             <p className="text-muted-foreground">
               We use appropriate technical and organizational measures to protect
@@ -405,10 +348,10 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <Trash2 className="h-5 w-5 text-primary" />
-              10. Data Retention
+              9. Data Retention
             </h2>
             <p className="text-muted-foreground">
-              Files, audio, links, and text you submit to a free tool are
+              Files, links, and text you submit to a free tool are
               processed to deliver your result and are not retained longer
               than necessary to provide the service. Order records for
               digital product purchases (product, price, payment status) are
@@ -422,7 +365,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <UserCheck className="h-5 w-5 text-primary" />
-              11. Children's Privacy
+              10. Children's Privacy
             </h2>
             <p className="text-muted-foreground">
               Our service is not intended for children under 13. We do not
@@ -436,7 +379,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <Eye className="h-5 w-5 text-primary" />
-              12. Your Privacy Rights
+              11. Your Privacy Rights
             </h2>
             <p className="text-muted-foreground mb-3">
               Depending on where you live, you may have rights to access,
@@ -453,10 +396,6 @@ export default function PrivacyPage() {
                 of the "sale" or "sharing" of personal information (we do not sell
                 it)
               </li>
-              <li>
-                <strong>Biometric laws (e.g., Illinois BIPA):</strong> consent and
-                deletion rights relating to voice data
-              </li>
             </ul>
             <p className="text-muted-foreground mt-3">
               Because we do not maintain user accounts or long-term records of
@@ -470,7 +409,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <Globe className="h-5 w-5 text-primary" />
-              13. International Users
+              12. International Users
             </h2>
             <p className="text-muted-foreground">
               Our service and providers may process data in the United States and
@@ -482,7 +421,7 @@ export default function PrivacyPage() {
           {/* Changes to Policy */}
           <section>
             <h2 className="text-xl font-semibold mb-3">
-              14. Changes to This Privacy Policy
+              13. Changes to This Privacy Policy
             </h2>
             <p className="text-muted-foreground">
               We may update this Privacy Policy from time to time. Changes will be
@@ -495,7 +434,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <Mail className="h-5 w-5 text-primary" />
-              15. Contact Us
+              14. Contact Us
             </h2>
             <p className="text-muted-foreground">
               For any privacy questions or requests, contact us:
@@ -523,9 +462,8 @@ export default function PrivacyPage() {
                 </p>
                 <p className="text-green-700 dark:text-green-500">
                   Shopyor is built to minimize data collection. We process the
-                  content you submit only to deliver the tool you asked for, we
-                  require consent before handling voice samples, and we do not
-                  sell your data.
+                  content you submit only to deliver the tool you asked for,
+                  and we do not sell your data.
                 </p>
               </div>
             </div>
