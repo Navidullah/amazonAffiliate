@@ -36,7 +36,6 @@ const stagger = {
 
 /* Per-category gradient for the icon tile */
 const CATEGORY_GRADIENT = {
-  "video downloader": "from-blue-600 to-purple-600",
   Image: "from-pink-500 to-rose-500",
   File: "from-amber-500 to-orange-500",
   Marketing: "from-green-500 to-emerald-600",
@@ -44,7 +43,6 @@ const CATEGORY_GRADIENT = {
   PDF: "from-red-500 to-rose-600",
   YouTube: "from-red-600 to-orange-500",
   SEO: "from-violet-500 to-indigo-600",
-  Media: "from-fuchsia-500 to-cyan-500",
   Career: "from-violet-600 to-fuchsia-600",
 };
 

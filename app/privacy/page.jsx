@@ -15,7 +15,7 @@ import {
 export const metadata = {
   title: "Privacy Policy - Shopyor",
   description:
-    "Privacy Policy for Shopyor. Learn how we handle your data when you purchase a digital product, and across our video downloader, image, YouTube and SEO tools.",
+    "Privacy Policy for Shopyor. Learn how we handle your data when you purchase a digital product, and across our image, YouTube and SEO tools.",
   robots: "noindex, follow",
 };
 
@@ -49,8 +49,8 @@ export default function PrivacyPage() {
               Privacy Policy explains what information we collect, how we use it,
               and the choices you have when you use our website, purchase a
               digital product from our store, or use our free online tools —
-              including video downloaders, image tools, YouTube tools, SEO
-              tools, PDF tools, and other utilities.
+              including image tools, YouTube tools, SEO tools, PDF tools,
+              and other utilities.
               Please read it carefully.
             </p>
           </section>
@@ -68,9 +68,6 @@ export default function PrivacyPage() {
                 <strong>Digital worksheet packs</strong> — printable PDF
                 downloads purchased through our store, delivered instantly
                 after payment.
-              </li>
-              <li>
-                Video downloaders (Facebook, Instagram, TikTok, YouTube)
               </li>
               <li>
                 Image tools (background remover, compressor, resizer, EXIF
@@ -305,8 +302,8 @@ export default function PrivacyPage() {
               <div className="bg-muted/30 p-4 rounded-lg">
                 <h3 className="font-semibold mb-2">Media Processing APIs</h3>
                 <p className="text-sm text-muted-foreground">
-                  Our video downloaders process the public links you paste
-                  through third-party APIs. Links are used to fetch the requested
+                  Our YouTube tools process the public links you paste through
+                  third-party APIs. Links are used to fetch the requested
                   media and are not stored.
                 </p>
               </div>

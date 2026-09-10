@@ -21,10 +21,6 @@ description, step-by-step instructions, and an FAQ section.
 - [AI Background Remover](https://www.shopyor.com/tools/background-remover-image): Remove image backgrounds automatically and export a transparent PNG.
 - [Image Compressor](https://www.shopyor.com/tools/image-compressor): Compress JPG, PNG, and WebP images without visible quality loss.
 - [EXIF Metadata Remover](https://www.shopyor.com/tools/exif-remover): Strip hidden EXIF and GPS metadata from photos.
-- [Video Downloader](https://www.shopyor.com/tools/video-downloader): Download videos from Facebook, Instagram, or TikTok.
-- [Facebook Video Downloader](https://www.shopyor.com/tools/facebook-video-downloader): Download public Facebook videos and Reels in HD.
-- [Instagram Video Downloader](https://www.shopyor.com/tools/instagram-video-downloader): Save public Instagram Reels and videos.
-- [TikTok Video Downloader](https://www.shopyor.com/tools/free-tiktok-video-downloader): Download TikTok videos without a watermark.
 - [BMI Calculator](https://www.shopyor.com/tools/bmi): Calculate Body Mass Index in metric or imperial units, with a healthy-weight chart.
 - [Amazon Affiliate Link Generator](https://www.shopyor.com/tools/affiliate-link-generator): Convert an Amazon URL or ASIN into a tagged affiliate link.
 - [YouTube Thumbnail Downloader](https://www.shopyor.com/tools/youtube-thumbnail): Download full-resolution thumbnails from any YouTube video.
@@ -39,7 +35,6 @@ description, step-by-step instructions, and an FAQ section.
 - [How to Remove the Background from an Image](https://www.shopyor.com/blog/how-to-remove-background-from-an-image)
 - [How to Reduce Image File Size](https://www.shopyor.com/blog/how-to-reduce-image-file-size)
 - [How to Calculate Your BMI Manually](https://www.shopyor.com/blog/how-to-calculate-bmi-manually)
-- [How to Download Videos from Facebook, Instagram, and TikTok](https://www.shopyor.com/blog/how-to-download-videos-from-facebook-instagram-tiktok)
 - [Meta Tags for SEO: The Complete Guide](https://www.shopyor.com/blog/meta-tags-for-seo-complete-guide)
 - [How to Create a Robots.txt File for SEO](https://www.shopyor.com/blog/how-to-create-robots-txt-file-for-seo)
 - [Full blog index](https://www.shopyor.com/blog)
