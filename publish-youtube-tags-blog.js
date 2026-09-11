@@ -212,7 +212,7 @@ const CONTENT = `
 
 <p style="text-align:center;"><strong><a href="/tools/youtube-tags-extractor">→ Open the free YouTube Tags Extractor</a></strong></p>
 
-<p>Level up the rest of your channel with our <a href="/tools/youtube-thumbnail">YouTube Thumbnail Downloader</a>, <a href="/tools/youtube-video-downloader">YouTube Video Downloader</a>, or the full set of <a href="/tools">free creator tools</a>.</p>
+<p>Level up the rest of your channel with our <a href="/tools/youtube-thumbnail">YouTube Thumbnail Downloader</a>, or the full set of <a href="/tools">free creator tools</a>.</p>
 
 <script type="application/ld+json">${JSON.stringify(FAQ_SCHEMA)}</script>
 <script type="application/ld+json">${JSON.stringify(BREADCRUMB_SCHEMA)}</script>
