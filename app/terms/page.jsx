@@ -64,11 +64,6 @@ export default function TermsPage() {
               <li>SEO tools (robots.txt generator, meta tag generator)</li>
               <li>PDF tools and other online utilities</li>
             </ul>
-            <p className="text-muted-foreground mt-3">
-              We do not host, store, or distribute third-party videos. Our
-              downloaders simply facilitate access to publicly available content
-              from third-party platforms.
-            </p>
           </section>
 
           {/* User Responsibilities */}

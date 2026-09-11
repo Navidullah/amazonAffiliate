@@ -126,9 +126,11 @@ export default function PrivacyPage() {
                 Content you submit to a free tool (processed, not stored long-term):
               </p>
               <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
-                <li>Video links you paste into a downloader</li>
                 <li>Images, PDFs, or files you upload for processing</li>
-                <li>Text you enter (e.g., for meta tags)</li>
+                <li>
+                  Text or links you enter (e.g., a YouTube URL for the tags
+                  extractor, text for a meta tag generator)
+                </li>
               </ul>
 
               <p className="text-muted-foreground font-medium mt-4">
@@ -136,7 +138,12 @@ export default function PrivacyPage() {
               </p>
               <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
                 <li>Anonymous usage data through analytics</li>
-                <li>Anonymized IP address (for security and rate-limiting)</li>
+                <li>
+                  Anonymized IP address (for security, rate-limiting, and to
+                  derive an approximate, non-precise location such as
+                  country or region — we do not collect GPS or other precise
+                  device location data)
+                </li>
                 <li>Browser type, device information, and pages visited</li>
               </ul>
             </div>
