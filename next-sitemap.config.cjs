@@ -44,7 +44,7 @@ const LAST_MODIFIED = {
   "/write-for-us": "2026-06-18T12:54:46+05:00",
   "/tools/affiliate-link-generator": "2026-06-18T12:54:46+05:00",
   "/tools/background-remover-image": "2026-06-18T12:54:46+05:00",
-  "/tools/bmi": "2026-06-18T12:54:46+05:00",
+  "/tools/bmi": "2026-09-11T12:00:00+05:00",
   "/tools/exif-remover": "2026-06-18T12:54:46+05:00",
   "/tools/image-compressor": "2026-06-18T12:54:46+05:00",
   "/products": "2026-08-14T00:00:00+05:00",

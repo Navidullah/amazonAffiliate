@@ -9,12 +9,18 @@ const PAGE_URL = `${BASE_URL}/tools/bmi`;
 export const metadata = {
   title: {
     absolute:
-      "BMI Calculator (kg & cm) by Age and Gender — Free Online | Shopyor",
+      "BMI & Calorie Calculator with Diet Plan — Free Online | Shopyor",
   },
   description:
-    "Free BMI calculator in kg & cm or lb & ft. Check if your BMI is healthy by age and gender, see your weight category on the BMI chart, and find the healthy weight for your height. No signup.",
+    "Free BMI calculator and calorie calculator (TDEE) in one tool. Check your BMI by age and gender, get your daily calorie needs to lose, maintain, or gain weight, and a free diet plan with macros. Metric & imperial. No signup.",
   keywords: [
     "bmi calculator",
+    "calorie calculator",
+    "bmi and calorie calculator",
+    "tdee calculator",
+    "bmr calculator",
+    "diet plan calculator",
+    "macro calculator",
     "bmi calculator kg and cm",
     "bmi calculator with age and gender",
     "bmi calculator for women by age",
@@ -30,6 +36,11 @@ export const metadata = {
     "bmi formula example",
     "how to lower my bmi",
     "free bmi calculator no signup",
+    "how many calories should i eat to lose weight",
+    "how many calories should i eat to gain weight",
+    "daily calorie intake calculator",
+    "calories to maintain weight",
+    "free diet plan calculator",
   ],
   authors: [{ name: "Shopyor" }],
   creator: "Shopyor",
@@ -58,23 +69,23 @@ export const metadata = {
     url: PAGE_URL,
     siteName: "Shopyor",
     locale: "en_US",
-    title: "Free BMI Calculator (kg & cm) by Age and Gender",
+    title: "Free BMI & Calorie Calculator with Diet Plan",
     description:
-      "Check your Body Mass Index instantly. See your BMI category on the chart, the healthy weight range for your height, and what your BMI means by age and gender.",
+      "Check your Body Mass Index and daily calorie needs (TDEE) instantly. Get calories to lose, maintain, or gain weight, a free diet plan with macros, and your BMI category by age and gender.",
     images: [
       {
         url: `${BASE_URL}/images/bmi-og.png`,
         width: 1200,
         height: 630,
-        alt: "Shopyor BMI Calculator",
+        alt: "Shopyor BMI & Calorie Calculator",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "BMI Calculator (kg & cm) by Age and Gender | Shopyor",
+    title: "BMI & Calorie Calculator with Diet Plan | Shopyor",
     description:
-      "Free BMI calculator with chart, healthy weight ranges, and what your BMI means. No signup.",
+      "Free BMI and calorie (TDEE) calculator with a diet plan and macros. No signup.",
     creator: "@shopyor",
     site: "@shopyor",
     images: [`${BASE_URL}/images/bmi-og.png`],
@@ -119,6 +130,30 @@ const faq = [
     q: "Is this BMI calculator free and private?",
     a: "Yes. It is completely free with no signup, and the calculation runs entirely in your browser — your height, weight, age, and gender are never sent to a server.",
   },
+  {
+    q: "How does the calorie calculator work?",
+    a: "It uses the Mifflin-St Jeor equation, widely considered the most accurate BMR formula for most adults. It first estimates your Basal Metabolic Rate (BMR) — the calories you burn at rest — from your height, weight, age, and gender, then multiplies that by an activity multiplier (1.2 for sedentary up to 1.9 for extremely active) to get your Total Daily Energy Expenditure (TDEE), the calories you burn in an average day including movement and exercise. For example, a moderately active 30-year-old woman who is 165 cm and 65 kg has a BMR of about 1,370 kcal and a TDEE of about 2,124 kcal. Everything runs locally in your browser, just like the BMI calculator.",
+  },
+  {
+    q: "How many calories should I eat to lose weight?",
+    a: "A common, sustainable approach is to eat roughly 500 calories per day below your TDEE (maintenance calories), which produces about 0.5 kg (1 lb) of fat loss per week for most adults. Cutting much more than that risks muscle loss, fatigue, and rebound weight gain, so the calculator caps its minimum suggestion at 1,200 calories per day, which is a widely cited safety floor for adults. Combine the calorie deficit with adequate protein (around 30-35% of calories) and resistance training to protect muscle mass while losing fat, and reassess every 2-4 weeks since your maintenance calories drop as your weight drops.",
+  },
+  {
+    q: "How many calories should I eat to gain weight?",
+    a: "For a lean, muscle-focused weight gain, aim for roughly 300-500 calories per day above your TDEE (maintenance calories), which supports about 0.25-0.5 kg (0.5-1 lb) of gain per week without excessive fat gain. The calculator's default 'Gain weight' option applies a 500 kcal/day surplus with a higher carbohydrate share to fuel training. Pair the surplus with progressive resistance training at least 3 times a week — without training stimulus, most of a calorie surplus is stored as fat rather than muscle.",
+  },
+  {
+    q: "What is a good macro split for my diet plan?",
+    a: "There is no single 'correct' split, but a reasonable default for most adults is 30% protein, 40% carbohydrates, and 30% fat of total daily calories. This calculator adjusts that automatically by goal: 35% protein when losing weight (to protect muscle during a deficit), a balanced 30/40/30 split when maintaining, and 30% protein with 45% carbs when gaining (to fuel training and recovery). For example, a 2,000-calorie maintenance diet works out to about 150g protein, 200g carbs, and 67g fat. These are starting points — adjust based on how your body responds and any specific training or medical guidance.",
+  },
+  {
+    q: "Does this calorie calculator work for the US, UK, Canada, Australia, and Europe?",
+    a: "Yes. Switch to imperial units (pounds and feet/inches) for the US, UK, Canada, and Australia, or metric units (kilograms and centimetres) for most of Europe and the rest of the world — both use the same underlying Mifflin-St Jeor formula, just converted, so results are identical either way. The tool doesn't ask for your location and doesn't apply any country-specific calorie guidelines (some national health bodies publish slightly different general adult averages), so treat the result as a personalised scientific estimate based on your own measurements rather than a government dietary reference value.",
+  },
+  {
+    q: "Is BMR the same as TDEE?",
+    a: "No. BMR (Basal Metabolic Rate) is the energy your body needs just to stay alive at complete rest — breathing, circulation, cell repair — with zero movement. TDEE (Total Daily Energy Expenditure) adds your activity level on top of BMR, covering daily movement, exercise, and digestion, and is almost always meaningfully higher than BMR — for example, a BMR of 1,370 kcal can become a TDEE of over 2,100 kcal for someone who is moderately active. TDEE, not BMR, is the number to use as your 'maintenance calories' baseline when planning a diet.",
+  },
 ];
 
 export default function BmiToolPage() {
@@ -127,19 +162,22 @@ export default function BmiToolPage() {
     "@graph": [
       {
         "@type": "WebApplication",
-        name: "BMI Calculator",
+        name: "BMI & Calorie Calculator with Diet Plan",
         url: PAGE_URL,
         applicationCategory: "HealthApplication",
         operatingSystem: "Web",
         browserRequirements: "Requires JavaScript",
         inLanguage: "en",
         description:
-          "Free online BMI calculator in kg & cm or lb & ft that shows your body mass index, weight category, and the healthy weight range for your height.",
+          "Free online BMI calculator and calorie (TDEE) calculator in kg & cm or lb & ft that shows your body mass index, weight category, daily calorie needs, and a diet plan with macros.",
         featureList: [
           "Calculate BMI in metric (kg, cm) or imperial (lb, ft/in)",
           "Shows BMI category on a colour-coded chart",
           "Healthy weight range for your height in kg and lb",
-          "Age and gender context for interpreting BMI",
+          "Calorie calculator (BMR & TDEE) using the Mifflin-St Jeor equation",
+          "Daily calorie target to lose, maintain, or gain weight",
+          "Free diet plan with protein, carb, and fat macros",
+          "Age, gender, and activity level context",
           "Runs fully in your browser — private by design",
           "Free with no signup",
         ],
@@ -158,7 +196,7 @@ export default function BmiToolPage() {
           {
             "@type": "ListItem",
             position: 3,
-            name: "BMI Calculator",
+            name: "BMI & Calorie Calculator",
             item: PAGE_URL,
           },
         ],

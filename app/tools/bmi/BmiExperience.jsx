@@ -19,8 +19,12 @@ import {
   ScanLine,
   FileArchive,
   ImageDown,
+  Flame,
+  Utensils,
 } from "lucide-react";
 import BmiCalculator from "@/app/components/tools/BmiCalculator";
+import CalorieCalculator from "@/app/components/tools/CalorieCalculator";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -35,21 +39,33 @@ const stagger = {
 const features = [
   {
     icon: Gauge,
-    title: "Instant BMI & category",
-    desc: "Enter your height and weight and see your BMI, category, and gauge update instantly.",
+    title: "BMI + calorie calculator in one",
+    desc: "Check your BMI and your daily calorie needs (TDEE) on the same page — no switching tools.",
     accent: "from-emerald-500 to-teal-500",
   },
   {
+    icon: Flame,
+    title: "Calories to lose, maintain, or gain",
+    desc: "Get a personalised daily calorie target based on your activity level and goal.",
+    accent: "from-orange-500 to-amber-500",
+  },
+  {
+    icon: Utensils,
+    title: "Free diet plan macros",
+    desc: "See a suggested protein, carb, and fat breakdown in grams for your calorie target.",
+    accent: "from-rose-500 to-amber-500",
+  },
+  {
     icon: Ruler,
-    title: "Metric or imperial",
-    desc: "Works in kg & cm or lb & ft/in, plus your healthy weight range for your exact height.",
+    title: "Metric or imperial (US, UK, CA, AU, EU)",
+    desc: "Works in kg & cm or lb & ft/in, with the healthy weight range for your exact height.",
     accent: "from-teal-500 to-cyan-500",
   },
   {
     icon: ShieldCheck,
     title: "Private by design",
-    desc: "The calculation runs fully in your browser — your data never leaves your device.",
-    accent: "from-rose-500 to-emerald-500",
+    desc: "Every calculation runs fully in your browser — your data never leaves your device.",
+    accent: "from-sky-500 to-emerald-500",
   },
 ];
 
@@ -57,17 +73,17 @@ const steps = [
   {
     icon: Ruler,
     title: "Enter your details",
-    desc: "Add your height, weight, and optionally age and gender for context.",
+    desc: "Add your height, weight, age, gender, activity level, and goal.",
   },
   {
     icon: Activity,
-    title: "See your BMI instantly",
-    desc: "Watch your BMI and category update live on the colour-coded gauge.",
+    title: "See your BMI & calories instantly",
+    desc: "Switch tabs to view your BMI category and your daily calorie needs (TDEE).",
   },
   {
     icon: HeartPulse,
-    title: "Get your healthy range",
-    desc: "View the healthy weight range for your height in both kg and lb.",
+    title: "Get your diet plan",
+    desc: "View your healthy weight range plus a suggested protein/carb/fat macro split.",
   },
 ];
 
@@ -136,6 +152,30 @@ const faqs = [
     q: "Is this BMI calculator free and private?",
     a: "Yes. It is completely free with no signup, and the calculation runs entirely in your browser — your height, weight, age, and gender are never sent to a server.",
   },
+  {
+    q: "How does the calorie calculator work?",
+    a: "It uses the Mifflin-St Jeor equation, widely considered the most accurate BMR formula for most adults. It first estimates your Basal Metabolic Rate (BMR) — the calories you burn at rest — from your height, weight, age, and gender, then multiplies that by an activity multiplier (1.2 for sedentary up to 1.9 for extremely active) to get your Total Daily Energy Expenditure (TDEE), the calories you burn in an average day including movement and exercise. For example, a moderately active 30-year-old woman who is 165 cm and 65 kg has a BMR of about 1,370 kcal and a TDEE of about 2,124 kcal. Everything runs locally in your browser, just like the BMI calculator.",
+  },
+  {
+    q: "How many calories should I eat to lose weight?",
+    a: "A common, sustainable approach is to eat roughly 500 calories per day below your TDEE (maintenance calories), which produces about 0.5 kg (1 lb) of fat loss per week for most adults. Cutting much more than that risks muscle loss, fatigue, and rebound weight gain, so the calculator caps its minimum suggestion at 1,200 calories per day, which is a widely cited safety floor for adults. Combine the calorie deficit with adequate protein (around 30-35% of calories) and resistance training to protect muscle mass while losing fat, and reassess every 2-4 weeks since your maintenance calories drop as your weight drops.",
+  },
+  {
+    q: "How many calories should I eat to gain weight?",
+    a: "For a lean, muscle-focused weight gain, aim for roughly 300-500 calories per day above your TDEE (maintenance calories), which supports about 0.25-0.5 kg (0.5-1 lb) of gain per week without excessive fat gain. The calculator's default 'Gain weight' option applies a 500 kcal/day surplus with a higher carbohydrate share to fuel training. Pair the surplus with progressive resistance training at least 3 times a week — without training stimulus, most of a calorie surplus is stored as fat rather than muscle.",
+  },
+  {
+    q: "What is a good macro split for my diet plan?",
+    a: "There is no single 'correct' split, but a reasonable default for most adults is 30% protein, 40% carbohydrates, and 30% fat of total daily calories. This calculator adjusts that automatically by goal: 35% protein when losing weight (to protect muscle during a deficit), a balanced 30/40/30 split when maintaining, and 30% protein with 45% carbs when gaining (to fuel training and recovery). For example, a 2,000-calorie maintenance diet works out to about 150g protein, 200g carbs, and 67g fat. These are starting points — adjust based on how your body responds and any specific training or medical guidance.",
+  },
+  {
+    q: "Does this calorie calculator work for the US, UK, Canada, Australia, and Europe?",
+    a: "Yes. Switch to imperial units (pounds and feet/inches) for the US, UK, Canada, and Australia, or metric units (kilograms and centimetres) for most of Europe and the rest of the world — both use the same underlying Mifflin-St Jeor formula, just converted, so results are identical either way. The tool doesn't ask for your location and doesn't apply any country-specific calorie guidelines (some national health bodies publish slightly different general adult averages), so treat the result as a personalised scientific estimate based on your own measurements rather than a government dietary reference value.",
+  },
+  {
+    q: "Is BMR the same as TDEE?",
+    a: "No. BMR (Basal Metabolic Rate) is the energy your body needs just to stay alive at complete rest — breathing, circulation, cell repair — with zero movement. TDEE (Total Daily Energy Expenditure) adds your activity level on top of BMR, covering daily movement, exercise, and digestion, and is almost always meaningfully higher than BMR — for example, a BMR of 1,370 kcal can become a TDEE of over 2,100 kcal for someone who is moderately active. TDEE, not BMR, is the number to use as your 'maintenance calories' baseline when planning a diet.",
+  },
 ];
 
 const CHART = [
@@ -192,6 +232,18 @@ const KEYWORDS = [
   "bmi calculator male",
   "overweight bmi range",
   "obese bmi number",
+  "calorie calculator",
+  "tdee calculator",
+  "bmr calculator",
+  "how many calories should i eat to lose weight",
+  "how many calories should i eat to gain weight",
+  "calorie calculator for weight loss",
+  "daily calorie intake calculator",
+  "macro calculator",
+  "diet plan calculator",
+  "calories to maintain weight",
+  "mifflin st jeor calculator",
+  "free diet plan calculator",
 ];
 
 function FaqItem({ faq, isOpen, onToggle }) {
@@ -264,20 +316,21 @@ export default function BmiExperience() {
             variants={fadeUp}
             className="mx-auto mt-6 max-w-3xl text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-6xl"
           >
-            BMI Calculator{" "}
+            BMI &amp; Calorie Calculator{" "}
             <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-500 bg-clip-text text-transparent dark:from-emerald-300 dark:via-teal-300 dark:to-cyan-200">
-              (kg &amp; cm)
-            </span>{" "}
-            by Age and Gender
+              with Diet Plan
+            </span>
           </motion.h1>
 
           <motion.p
             variants={fadeUp}
             className="mx-auto mt-5 max-w-2xl text-base text-gray-600 dark:text-gray-300 sm:text-lg"
           >
-            Check your Body Mass Index in seconds. Find out whether your BMI
-            is healthy, see your category on the BMI chart, and discover the
-            healthy weight range for your height — for both women and men.
+            Check your Body Mass Index and your daily calorie needs (TDEE) in
+            one place. See your BMI category, how many calories to eat to
+            lose, maintain, or gain weight, and a suggested diet plan with
+            protein, carb, and fat macros — in kg/cm or lb/ft for the US, UK,
+            Canada, Australia, and Europe.
           </motion.p>
 
           <motion.div
@@ -293,12 +346,32 @@ export default function BmiExperience() {
             <span className="inline-flex items-center gap-1.5">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Metric &amp; imperial
             </span>
+            <span className="inline-flex items-center gap-1.5">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Free diet plan
+            </span>
           </motion.div>
         </motion.header>
 
         {/* Calculator */}
         <section className="mb-20">
-          <BmiCalculator />
+          <Tabs defaultValue="bmi" className="w-full">
+            <TabsList className="mx-auto mb-6 grid h-auto w-full max-w-md grid-cols-2 gap-1 p-1 sm:w-fit sm:grid-cols-2">
+              <TabsTrigger value="bmi" className="gap-1.5 py-2">
+                <Gauge className="size-4" />
+                BMI Calculator
+              </TabsTrigger>
+              <TabsTrigger value="calories" className="gap-1.5 py-2">
+                <Flame className="size-4" />
+                Calorie &amp; Diet Plan
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="bmi">
+              <BmiCalculator />
+            </TabsContent>
+            <TabsContent value="calories">
+              <CalorieCalculator />
+            </TabsContent>
+          </Tabs>
         </section>
 
         {/* Features */}
@@ -307,7 +380,7 @@ export default function BmiExperience() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="mb-20 grid gap-6 sm:grid-cols-3"
+          className="mb-20 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {features.map((item) => (
             <motion.article
@@ -606,15 +679,117 @@ export default function BmiExperience() {
             </li>
           </motion.ol>
 
+          <motion.h3
+            variants={fadeUp}
+            className="mt-8 flex items-center gap-2 text-lg font-semibold text-gray-900 dark:text-white"
+          >
+            <Flame className="h-5 w-5 text-orange-500" />
+            How to calculate your daily calorie needs (TDEE)
+          </motion.h3>
+          <motion.p
+            variants={fadeUp}
+            className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300"
+          >
+            The calorie calculator on this page uses the{" "}
+            <strong>Mifflin-St Jeor equation</strong> — the formula most
+            dietitians in the US, UK, Canada, Australia, and Europe consider
+            the most accurate for estimating resting metabolism. It first
+            calculates your <strong>BMR</strong> (Basal Metabolic Rate — the
+            calories your body burns at rest) from your height, weight, age,
+            and gender, then multiplies it by an activity factor to get your{" "}
+            <strong>TDEE</strong> (Total Daily Energy Expenditure — your true
+            daily maintenance calories). For a full walkthrough with a worked
+            example and macro guidance, see our guide on{" "}
+            <Link
+              href="/blog/how-many-calories-should-i-eat-tdee-diet-plan-guide"
+              className="font-medium text-orange-600 underline-offset-2 hover:underline dark:text-orange-400"
+            >
+              how many calories you should eat
+            </Link>
+            .
+          </motion.p>
+          <motion.ul
+            variants={fadeUp}
+            className="mt-2 list-disc space-y-1 pl-5 text-sm leading-relaxed text-gray-600 dark:text-gray-300"
+          >
+            <li>
+              <strong>Men:</strong> BMR = 10 × weight (kg) + 6.25 × height
+              (cm) − 5 × age + 5
+            </li>
+            <li>
+              <strong>Women:</strong> BMR = 10 × weight (kg) + 6.25 × height
+              (cm) − 5 × age − 161
+            </li>
+            <li>
+              <strong>TDEE</strong> = BMR × activity multiplier (1.2 for
+              sedentary up to 1.9 for extremely active)
+            </li>
+          </motion.ul>
+          <motion.p
+            variants={fadeUp}
+            className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300"
+          >
+            <strong>Example:</strong> a moderately active 30-year-old woman
+            who is 165 cm and 65 kg has a BMR of about 1,370 kcal and a TDEE
+            of about 2,124 kcal (1,370 × 1.55). To lose weight at a
+            sustainable pace, the calculator suggests roughly 500 kcal below
+            TDEE (~1,624 kcal/day); to gain weight, roughly 500 kcal above
+            (~2,624 kcal/day).
+          </motion.p>
+
+          <motion.h3
+            variants={fadeUp}
+            className="mt-8 text-lg font-semibold text-gray-900 dark:text-white"
+          >
+            Free diet plan: how many calories to lose, maintain, or gain
+            weight
+          </motion.h3>
+          <motion.p
+            variants={fadeUp}
+            className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300"
+          >
+            Once your TDEE is known, the calculator applies a moderate
+            calorie adjustment for your goal and builds a suggested{" "}
+            <strong>diet plan</strong> split into protein, carbohydrate, and
+            fat grams:
+          </motion.p>
+          <motion.ul
+            variants={fadeUp}
+            className="mt-2 list-disc space-y-1 pl-5 text-sm leading-relaxed text-gray-600 dark:text-gray-300"
+          >
+            <li>
+              <strong>Lose weight:</strong> ~500 kcal/day deficit (≈0.5
+              kg/1 lb per week) with a higher protein share (35%) to help
+              preserve muscle.
+            </li>
+            <li>
+              <strong>Maintain weight:</strong> calories set at your TDEE,
+              with a balanced 30/40/30 protein/carb/fat split.
+            </li>
+            <li>
+              <strong>Gain weight:</strong> ~500 kcal/day surplus (≈0.5
+              kg/1 lb per week) with extra carbs to fuel training.
+            </li>
+          </motion.ul>
+          <motion.p
+            variants={fadeUp}
+            className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300"
+          >
+            This is a general starting point, not a medical meal plan — pair
+            it with whole foods, regular exercise, and adjust every few
+            weeks based on real-world progress.
+          </motion.p>
+
           <motion.div
             variants={fadeUp}
             className="mt-6 flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400"
           >
             <Dumbbell className="h-3.5 w-3.5" />
-            This BMI calculator is for general educational purposes only and
-            is not a substitute for professional medical advice, diagnosis,
-            or treatment. Always consult a qualified healthcare provider
-            about your health.
+            This BMI and calorie calculator is for general educational
+            purposes only and is not a substitute for professional medical
+            or nutrition advice, diagnosis, or treatment. Always consult a
+            qualified healthcare provider or registered dietitian about your
+            health and diet.
           </motion.div>
         </motion.section>
 
