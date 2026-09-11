@@ -12,7 +12,6 @@ import HeaderComponent from "./components/header/HeaderComponent";
 import Footer from "./components/footer/Footer";
 import CookieConsentBanner from "./components/CookieConsentBanner";
 import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -286,7 +285,6 @@ export default function RootLayout({ children }) {
             {children}
           </main>
           <Analytics />
-          <SpeedInsights />
           <Footer />
           <CookieConsentBanner />
         </Providers>
