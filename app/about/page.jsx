@@ -25,7 +25,7 @@ export default function AboutPage() {
           <h1 className="text-4xl font-bold mb-4">About Shopyor</h1>
           <p className="text-xl text-muted-foreground">
             Printable Year 6 Maths, KS2 SATs &amp; Cambridge IGCSE worked
-            solutions, plus 20+ free online tools — founded in 2025
+            solutions, plus 12 free online tools — founded in 2025
           </p>
         </div>
 

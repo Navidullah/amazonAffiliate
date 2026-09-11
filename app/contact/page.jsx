@@ -80,7 +80,7 @@ export default function ContactPage() {
             Get in touch with our support team
           </p>
           <p className="mx-auto mt-4 max-w-2xl text-sm text-muted-foreground">
-            Whether you have a question about one of Shopyor's 21+ free tools,
+            Whether you have a question about one of Shopyor's 12 free tools,
             found a bug, want to request a feature, or need to file a DMCA or
             privacy notice, reach us using the form below or email one of the
             addresses listed under Contact Information. We read every message

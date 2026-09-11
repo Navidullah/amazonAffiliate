@@ -107,7 +107,7 @@ export default function OpengraphImage() {
             maxWidth: 860,
           }}
         >
-          Digital maths packs for KS2, IGCSE and IB, plus 20+ free browser-based tools.
+          Digital maths packs for KS2, IGCSE and IB, plus 12 free browser-based tools.
         </div>
 
         {/* url */}

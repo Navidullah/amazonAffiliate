@@ -59,7 +59,7 @@ export const metadata = {
   metadataBase: new URL("https://www.shopyor.com"),
 
   title: {
-    default: "Free Online Tools — Video, PDF, Image, AI & SEO | Shopyor",
+    default: "Free Online Tools — PDF, Image & SEO Utilities | Shopyor",
     template: "%s | Shopyor",
   },
 
@@ -95,7 +95,7 @@ export const metadata = {
     url: "https://www.shopyor.com",
     title: "Free Online Tools by Shopyor — One Free Toolbox for Everything",
     description:
-      "Convert & compress PDFs, remove image backgrounds, calculate BMI, and generate SEO tags — 20+ free tools, no sign-up.",
+      "Convert & compress PDFs, remove image backgrounds, calculate BMI, and generate SEO tags — 12 free tools, no sign-up.",
     siteName: "Shopyor",
     locale: "en_US",
     alternateLocale: ["en_GB", "en_IN", "en_CA", "en_AU"],
@@ -113,7 +113,7 @@ export const metadata = {
     creator: "@shopyor",
     title: "Free Online Tools by Shopyor",
     description:
-      "20+ free, browser-based tools: PDF & image utilities, BMI calculator, and SEO tools. No sign-up.",
+      "12 free, browser-based tools: PDF & image utilities, BMI calculator, and SEO tools. No sign-up.",
   },
 
   robots: {
@@ -198,7 +198,7 @@ const jsonLdSchemas = {
     name: "Shopyor",
     url: "https://www.shopyor.com",
     description:
-      "A free online toolbox with 21+ browser-based tools for video, images, PDFs, AI, and SEO — no sign-up required.",
+      "A free online toolbox with 12 browser-based tools for images, PDFs, and SEO, plus printable KS2, IGCSE and IB worksheets — no sign-up required for the tools.",
     publisher: { "@id": "https://www.shopyor.com/#organization" },
     potentialAction: {
       "@type": "SearchAction",
