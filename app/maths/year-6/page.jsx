@@ -43,13 +43,13 @@ export const metadata = {
     locale: "en_GB",
     title: "Year 6 Maths Challenge | KS2 Maths Practice",
     description: "15 Year 6 maths topics with interactive questions, instant feedback and progress tracking.",
-    images: [{ url: `${BASE_URL}/images/shopyor-tools-og.png`, width: 1200, height: 630, alt: "Year 6 Maths Challenge" }],
+    // No `images` override — falls back to this route's own
+    // opengraph-image.js / twitter-image.js file-convention images.
   },
   twitter: {
     card: "summary_large_image",
     title: "Year 6 Maths Challenge | KS2 Maths Practice",
     description: "Practise UK KS2 Year 6 maths with interactive questions and instant feedback.",
-    images: [`${BASE_URL}/images/shopyor-tools-og.png`],
   },
 };
 

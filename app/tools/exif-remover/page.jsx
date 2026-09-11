@@ -42,14 +42,8 @@ export const metadata = {
     title: "Free EXIF Remover – View & Remove Photo Metadata Online",
     description:
       "Strip GPS location, camera info, and hidden metadata from photos — in your browser with no upload, or via server for big files. Free, no signup.",
-    images: [
-      {
-        url: `${BASE_URL}/images/shopyor-tools-og.png`,
-        width: 1200,
-        height: 630,
-        alt: "Shopyor EXIF Remover – Remove photo metadata online",
-      },
-    ],
+    // No `images` override — falls back to this route's own
+    // opengraph-image.js / twitter-image.js file-convention images.
   },
   twitter: {
     card: "summary_large_image",
@@ -58,7 +52,6 @@ export const metadata = {
     title: "Free EXIF Remover – View & Remove Photo Metadata | Shopyor",
     description:
       "See exactly what hidden data your photo carries, then strip GPS and camera info before sharing. Free, no signup, no upload needed.",
-    images: [`${BASE_URL}/images/shopyor-tools-og.png`],
   },
 };
 

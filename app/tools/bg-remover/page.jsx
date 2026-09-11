@@ -69,14 +69,8 @@ export const metadata = {
     title: "HD Background Remover – Free Transparent PNG Maker",
     description:
       "Erase the background from any photo and download a clean transparent PNG cutout. Free, no signup, no watermark.",
-    images: [
-      {
-        url: `${BASE_URL}/images/shopyor-tools-og.png`,
-        width: 1200,
-        height: 630,
-        alt: "Shopyor HD Background Remover – Transparent PNG Maker",
-      },
-    ],
+    // No `images` override — falls back to this route's own
+    // opengraph-image.js / twitter-image.js file-convention images.
   },
   twitter: {
     card: "summary_large_image",
@@ -85,7 +79,6 @@ export const metadata = {
     title: "HD Background Remover – Free Transparent PNG Maker | Shopyor",
     description:
       "Upload a photo, erase the background, and download an HD transparent PNG. No signup, no watermark.",
-    images: [`${BASE_URL}/images/shopyor-tools-og.png`],
   },
 };
 

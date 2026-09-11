@@ -38,7 +38,8 @@ export const metadata = {
     title: "AI Math Solver — Algebra, Equation & Calculus Solver",
     description:
       "Solve algebra, equations, calculus and word problems step by step, with diagrams and graphs. Free for school, college and university students.",
-    images: [{ url: `${BASE_URL}/images/shopyor-tools-og.png`, width: 1200, height: 630, alt: "Shopyor Math Solver" }],
+    // No `images` override — falls back to this route's own
+    // opengraph-image.js / twitter-image.js file-convention images.
   },
   twitter: {
     card: "summary_large_image",
@@ -46,7 +47,6 @@ export const metadata = {
     description: "Step-by-step math solutions for algebra, equations, calculus and more. Free.",
     creator: "@shopyor",
     site: "@shopyor",
-    images: [`${BASE_URL}/images/shopyor-tools-og.png`],
   },
 };
 

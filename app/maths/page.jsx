@@ -55,7 +55,8 @@ export const metadata = {
     title: "Year 6 Maths Practice Online Free — KS2 Maths Challenge",
     description:
       "15 UK KS2 Year 6 maths topics with instant feedback, a daily challenge, points, badges and an optional progress dashboard for parents. Free, no signup required.",
-    images: [{ url: `${BASE_URL}/images/shopyor-tools-og.png`, width: 1200, height: 630, alt: "Shopyor Maths Challenge" }],
+    // No `images` override — falls back to this route's own
+    // opengraph-image.js / twitter-image.js file-convention images.
   },
   twitter: {
     card: "summary_large_image",
@@ -63,7 +64,6 @@ export const metadata = {
     description: "Free interactive Year 6 / KS2 maths practice with instant feedback, points, badges and a parent progress dashboard.",
     creator: "@shopyor",
     site: "@shopyor",
-    images: [`${BASE_URL}/images/shopyor-tools-og.png`],
   },
 };
 
