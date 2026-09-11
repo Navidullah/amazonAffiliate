@@ -58,14 +58,10 @@ export const metadata = {
     title: "IGCSE Past Paper & IB Maths Worked Solutions | Shopyor",
     description:
       "Fully worked Cambridge IGCSE past-paper solutions, IB Mathematics AA HL Paper 1-style practice with worked solutions, and printable KS2 Year 6 Maths worksheets. Pay once, download instantly — anywhere in the world.",
-    images: [
-      {
-        url: `${SITE}/images/shopyor-tools-og.png`,
-        width: 1200,
-        height: 630,
-        alt: "Shopyor — IGCSE Past Paper & IB Maths Worked Solutions",
-      },
-    ],
+    // No `images` override here on purpose — this lets Next.js fall back to
+    // the file-convention app/opengraph-image.js (and twitter-image.js),
+    // which is generated from current copy instead of a static PNG that
+    // silently goes stale every time the homepage's positioning changes.
   },
   twitter: {
     card: "summary_large_image",
@@ -74,7 +70,6 @@ export const metadata = {
     title: "IGCSE Past Paper & IB Maths Worked Solutions | Shopyor",
     description:
       "Fully worked Cambridge IGCSE past-paper solutions, IB Mathematics AA HL Paper 1-style practice with worked solutions, and printable KS2 Year 6 Maths worksheets. Pay once, download instantly.",
-    images: [`${SITE}/images/shopyor-tools-og.png`],
   },
 };
 

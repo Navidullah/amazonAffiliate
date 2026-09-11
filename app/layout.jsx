@@ -101,14 +101,11 @@ export const metadata = {
     locale: "en_US",
     alternateLocale: ["en_GB", "en_IN", "en_CA", "en_AU"],
     emails: ["shopyor.com@gmail.com"],
-    images: [
-      {
-        url: "/images/shopyor-tools-og.png",
-        width: 1200,
-        height: 630,
-        alt: "Shopyor Free Online Tools",
-      },
-    ],
+    // No `images` override here on purpose — routes that don't set their own
+    // openGraph.images (most legal/info pages) fall back to the file-
+    // convention app/opengraph-image.js (and twitter-image.js below), which
+    // reflects the current worksheets + free-tools positioning instead of a
+    // static PNG that silently goes stale as the site's products change.
   },
 
   twitter: {
@@ -118,7 +115,6 @@ export const metadata = {
     title: "Free Online Tools by Shopyor",
     description:
       "20+ free, browser-based tools: PDF & image utilities, BMI calculator, and SEO tools. No sign-up.",
-    images: ["/images/shopyor-tools-og.png"],
   },
 
   robots: {
