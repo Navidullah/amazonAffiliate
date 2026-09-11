@@ -186,6 +186,15 @@ const nextConfig = {
         destination: "/blog",
         permanent: true,
       },
+      // CricLive post unpublished 2026-09-11 (off-topic third-party app
+      // promotion, no internal links to any Shopyor tool/product — flagged
+      // during an AdSense content audit). Same 200-instead-of-404 bug as
+      // above applies, so redirect rather than leave it to render thin.
+      {
+        source: "/blog/criclive-free-cricket-scoring-app-android",
+        destination: "/blog",
+        permanent: true,
+      },
       // AI Voice Cloner retired 2026-09-10 (impersonation/synthetic-media
       // AdSense policy risk). URL was indexed, so send it to the tools hub
       // (301) to avoid a 404 and preserve any link equity.
