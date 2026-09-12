@@ -18,7 +18,7 @@ export async function GET(_request, { params }) {
     }
 
     await ConnectToDB();
-    const book = await Book.findOne({ slug }).lean();
+    const book = await Book.findOne({ slug }).select("+variantId").lean();
     if (!book) {
       return NextResponse.json({ error: "Book not found" }, { status: 404 });
     }
@@ -44,7 +44,7 @@ export async function PUT(request, { params }) {
     }
 
     await ConnectToDB();
-    const book = await Book.findOne({ slug }).select("+fileBlobPath +coverImageUrl");
+    const book = await Book.findOne({ slug }).select("+fileBlobPath +coverImageUrl +variantId");
     if (!book) {
       return NextResponse.json({ error: "Book not found" }, { status: 404 });
     }
@@ -58,6 +58,8 @@ export async function PUT(request, { params }) {
     const source = formData.get("source");
     const attribution = formData.get("attribution");
     const active = formData.get("active");
+    const priceRaw = formData.get("price");
+    const variantId = formData.get("variantId");
     const file = formData.get("file");
     const coverImage = formData.get("coverImage");
 
@@ -90,6 +92,8 @@ export async function PUT(request, { params }) {
           .filter(Boolean)
       : [];
     if (active !== null) book.active = active === "true";
+    if (priceRaw !== null) book.price = Number(priceRaw) || 0;
+    if (variantId !== null) book.variantId = variantId || undefined;
 
     if (file instanceof File) {
       const originalBuffer = Buffer.from(await file.arrayBuffer());

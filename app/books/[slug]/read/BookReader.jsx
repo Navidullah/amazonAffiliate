@@ -45,9 +45,15 @@ export default function BookReader({ slug, title }) {
   });
 
   return (
-    <div className="h-[80vh] w-full overflow-hidden rounded-3xl border border-gray-200/70 dark:border-white/10">
+    <div
+      className="h-[80vh] w-full overflow-hidden rounded-3xl border border-white/10 shadow-2xl [&_.rpv-core__inner-page]:!shadow-[0_10px_40px_rgba(0,0,0,0.45)]"
+      style={{
+        "--rpv-core__inner-page-background-color": "#0f1115",
+      }}
+    >
       <Worker workerUrl={`https://unpkg.com/pdfjs-dist@${PDFJS_VERSION}/build/pdf.worker.min.js`}>
         <Viewer
+          theme="dark"
           fileUrl={`/api/books/${slug}/stream`}
           plugins={[defaultLayoutPluginInstance]}
           renderError={() => (

@@ -23,5 +23,7 @@ export default async function OrderPage({ params }) {
     );
   }
 
-  return <OrderStatus orderId={orderId} initialPaid={order.paid} />;
+  return (
+    <OrderStatus orderId={orderId} initialPaid={order.paid} productType={order.productType} />
+  );
 }

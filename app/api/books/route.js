@@ -40,6 +40,8 @@ export async function POST(request) {
     const tagsRaw = formData.get("tags");
     const source = formData.get("source");
     const attribution = formData.get("attribution");
+    const priceRaw = formData.get("price");
+    const variantId = formData.get("variantId");
     const file = formData.get("file");
     const coverImage = formData.get("coverImage");
 
@@ -120,6 +122,8 @@ export async function POST(request) {
       hasCoverImage: Boolean(coverImageUrl),
       fileBlobPath: pdfBlob.url,
       pageCount,
+      price: priceRaw ? Number(priceRaw) : 0,
+      variantId: variantId || undefined,
     });
 
     return NextResponse.json({ book: { ...book.toObject(), fileBlobPath: undefined } }, { status: 201 });

@@ -7,9 +7,17 @@ import { CheckCircle2, Loader2, Download } from "lucide-react";
 const POLL_INTERVAL_MS = 2000;
 const MAX_POLLS = 8; // ~16s
 
-export default function OrderStatus({ orderId, initialPaid }) {
+export default function OrderStatus({ orderId, initialPaid, productType }) {
   const [paid, setPaid] = useState(initialPaid);
   const [attempts, setAttempts] = useState(0);
+
+  const isBook = productType === "book";
+  const downloadHref = isBook
+    ? `/api/books/orders/download/${orderId}`
+    : `/api/orders/download/${orderId}`;
+  const itemLabel = isBook ? "book" : "worksheet";
+  const browseHref = isBook ? "/books" : "/products";
+  const browseLabel = isBook ? "Browse more books" : "Browse more worksheets";
 
   useEffect(() => {
     if (paid || attempts >= MAX_POLLS) return;
@@ -40,14 +48,14 @@ export default function OrderStatus({ orderId, initialPaid }) {
             Payment confirmed
           </h1>
           <p className="mt-2 max-w-md text-sm text-gray-600 dark:text-gray-400">
-            Your worksheet is ready. Click below to download the PDF.
+            Your {itemLabel} is ready. Click below to download the PDF.
           </p>
           <a
-            href={`/api/orders/download/${orderId}`}
+            href={downloadHref}
             className="mt-6 inline-flex items-center gap-2 rounded-full bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105"
           >
             <Download className="h-4 w-4" />
-            Download your worksheet
+            Download your {itemLabel}
           </a>
         </>
       ) : attempts >= MAX_POLLS ? (
@@ -74,10 +82,10 @@ export default function OrderStatus({ orderId, initialPaid }) {
       )}
 
       <Link
-        href="/products"
+        href={browseHref}
         className="mt-8 text-sm font-medium text-indigo-600 hover:underline dark:text-indigo-300"
       >
-        Browse more worksheets
+        {browseLabel}
       </Link>
     </main>
   );

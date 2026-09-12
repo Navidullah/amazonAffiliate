@@ -27,6 +27,8 @@ const EMPTY_FORM = {
   tags: "",
   source: "public_domain",
   attribution: "",
+  price: "",
+  variantId: "",
 };
 
 export default function AdminBooksPage() {
@@ -193,6 +195,34 @@ export default function AdminBooksPage() {
               onChange={update("attribution")}
               placeholder="e.g. Project Gutenberg #1234"
               required={form.source === "public_domain"}
+              className={inputClass}
+            />
+          </div>
+        </div>
+
+        <div className="grid gap-4 border-t border-gray-200/70 pt-4 dark:border-white/10 sm:grid-cols-2">
+          <div>
+            <label className="mb-1 block text-xs font-semibold text-gray-600 dark:text-gray-400">
+              Download price ($, optional — leave 0 for no paid download)
+            </label>
+            <input
+              type="number"
+              step="0.01"
+              min="0"
+              value={form.price}
+              onChange={update("price")}
+              placeholder="0.00"
+              className={inputClass}
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-xs font-semibold text-gray-600 dark:text-gray-400">
+              LemonSqueezy variant ID {form.price && "(required to enable download)"}
+            </label>
+            <input
+              value={form.variantId}
+              onChange={update("variantId")}
+              placeholder="e.g. 123456"
               className={inputClass}
             />
           </div>

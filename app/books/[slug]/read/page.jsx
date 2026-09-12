@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { getBookBySlug } from "@/lib/actions/books";
 import BookReader from "./BookReader";
+import DownloadBookButton from "../DownloadBookButton";
 
 const SITE = "https://www.shopyor.com";
 
@@ -34,9 +35,12 @@ export default async function ReadBookPage({ params }) {
         <ArrowLeft className="h-4 w-4" /> Back to {book.title}
       </Link>
 
-      <h1 className="mt-4 text-xl font-bold text-gray-900 dark:text-white">
-        {book.title} <span className="font-normal text-gray-500">by {book.author}</span>
-      </h1>
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+        <h1 className="text-xl font-bold text-gray-900 dark:text-white">
+          {book.title} <span className="font-normal text-gray-500">by {book.author}</span>
+        </h1>
+        {book.price > 0 && <DownloadBookButton slug={book.slug} price={book.price} />}
+      </div>
 
       <div className="mt-6">
         <BookReader slug={book.slug} title={book.title} />

@@ -4,6 +4,7 @@ import { Home, ChevronRight, BookOpen } from "lucide-react";
 import { getBookBySlug, getActiveBooks } from "@/lib/actions/books";
 import BookCard from "@/app/components/store/BookCard";
 import ReadOnlineButton from "./ReadOnlineButton";
+import DownloadBookButton from "./DownloadBookButton";
 
 const SITE = "https://www.shopyor.com";
 
@@ -112,8 +113,9 @@ export default async function BookPage({ params }) {
             </p>
           )}
 
-          <div className="mt-8">
+          <div className="mt-8 flex flex-wrap gap-3">
             <ReadOnlineButton slug={book.slug} />
+            {book.price > 0 && <DownloadBookButton slug={book.slug} price={book.price} />}
           </div>
         </div>
       </div>

@@ -54,6 +54,8 @@ export default function EditBookPage() {
           source: data.book.source,
           attribution: data.book.attribution || "",
           active: data.book.active,
+          price: data.book.price || "",
+          variantId: data.book.variantId || "",
         });
       } catch (e) {
         setFetchError(e.message);
@@ -204,6 +206,34 @@ export default function EditBookPage() {
           <input type="checkbox" checked={form.active} onChange={update("active")} className="h-4 w-4" />
           Visible on the site
         </label>
+
+        <div className="grid gap-4 border-t border-gray-200/70 pt-4 dark:border-white/10 sm:grid-cols-2">
+          <div>
+            <label className="mb-1 block text-xs font-semibold text-gray-600 dark:text-gray-400">
+              Download price ($, optional — leave 0 for no paid download)
+            </label>
+            <input
+              type="number"
+              step="0.01"
+              min="0"
+              value={form.price}
+              onChange={update("price")}
+              placeholder="0.00"
+              className={inputClass}
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-xs font-semibold text-gray-600 dark:text-gray-400">
+              LemonSqueezy variant ID {form.price && "(required to enable download)"}
+            </label>
+            <input
+              value={form.variantId}
+              onChange={update("variantId")}
+              placeholder="e.g. 123456"
+              className={inputClass}
+            />
+          </div>
+        </div>
 
         <div className="grid gap-4 border-t border-gray-200/70 pt-4 dark:border-white/10 sm:grid-cols-2">
           <div>
