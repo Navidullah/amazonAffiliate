@@ -12,6 +12,7 @@ import HeaderComponent from "./components/header/HeaderComponent";
 import Footer from "./components/footer/Footer";
 import CookieConsentBanner from "./components/CookieConsentBanner";
 import { Analytics } from "@vercel/analytics/next";
+import Script from "next/script";
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -222,6 +223,14 @@ export default function RootLayout({ children }) {
         <link rel="dns-prefetch" href="https://www.facebook.com" />
         <link rel="dns-prefetch" href="https://www.youtube.com" />
         <link rel="dns-prefetch" href="https://www.tiktok.com" />
+
+        {/* Google AdSense site verification/ad-serving script */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6067724481649912"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
 
         {/* Site JSON-LD Schemas */}
         <script
