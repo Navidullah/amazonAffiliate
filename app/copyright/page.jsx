@@ -165,10 +165,10 @@ export default function CopyrightPage() {
                 <br />
                 Email:{" "}
                 <a
-                  href="mailto:shopyor.com@gmail.com"
+                  href="mailto:contact@shopyor.com"
                   className="text-primary hover:underline"
                 >
-                  shopyor.com@gmail.com
+                  contact@shopyor.com
                 </a>
                 <br />
                 Response Time: 24-48 hours

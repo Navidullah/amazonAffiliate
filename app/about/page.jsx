@@ -150,10 +150,10 @@ export default function AboutPage() {
               Have questions or need to report copyright infringement?
             </p>
             <a
-              href="mailto:shopyor.com@gmail.com"
+              href="mailto:contact@shopyor.com"
               className="inline-flex items-center gap-2 text-primary hover:underline"
             >
-              shopyor.com@gmail.com
+              contact@shopyor.com
             </a>
           </section>
         </div>

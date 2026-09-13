@@ -120,10 +120,10 @@ export default function CookiePolicyPage() {
             <p className="text-muted-foreground">
               Questions about our use of cookies? Contact us at{" "}
               <a
-                href="mailto:shopyor.com@gmail.com"
+                href="mailto:contact@shopyor.com"
                 className="text-primary hover:underline"
               >
-                shopyor.com@gmail.com
+                contact@shopyor.com
               </a>
               .
             </p>

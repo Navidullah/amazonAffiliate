@@ -99,7 +99,7 @@ export const metadata = {
     siteName: "Shopyor",
     locale: "en_US",
     alternateLocale: ["en_GB", "en_IN", "en_CA", "en_AU"],
-    emails: ["shopyor.com@gmail.com"],
+    emails: ["contact@shopyor.com"],
     // No `images` override here on purpose — routes that don't set their own
     // openGraph.images (most legal/info pages) fall back to the file-
     // convention app/opengraph-image.js (and twitter-image.js below), which
@@ -185,7 +185,7 @@ const jsonLdSchemas = {
     ],
     contactPoint: {
       "@type": "ContactPoint",
-      email: "shopyor.com@gmail.com",
+      email: "contact@shopyor.com",
       contactType: "customer support",
       availableLanguage: ["English"],
     },
