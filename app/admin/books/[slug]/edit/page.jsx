@@ -6,6 +6,7 @@ import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Save, Loader2, Trash2 } from "lucide-react";
 import { toast } from "react-toastify";
+import { BOOK_CURRICULA } from "@/lib/constants/bookCurricula";
 
 const inputClass =
   "w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-violet-500 dark:border-white/10 dark:bg-white/5 dark:text-white";
@@ -50,6 +51,7 @@ export default function EditBookPage() {
           author: data.book.author,
           description: data.book.description,
           category: data.book.category,
+          curriculum: data.book.curriculum || BOOK_CURRICULA[0],
           tags: (data.book.tags || []).join(", "),
           source: data.book.source,
           attribution: data.book.attribution || "",
@@ -166,16 +168,29 @@ export default function EditBookPage() {
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className="mb-1 block text-xs font-semibold text-gray-600 dark:text-gray-400">
+              Curriculum
+            </label>
+            <select required value={form.curriculum} onChange={update("curriculum")} className={selectClass}>
+              {BOOK_CURRICULA.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="mb-1 block text-xs font-semibold text-gray-600 dark:text-gray-400">
               Category
             </label>
             <input required value={form.category} onChange={update("category")} className={inputClass} />
           </div>
-          <div>
-            <label className="mb-1 block text-xs font-semibold text-gray-600 dark:text-gray-400">
-              Tags (comma-separated)
-            </label>
-            <input value={form.tags} onChange={update("tags")} className={inputClass} />
-          </div>
+        </div>
+
+        <div>
+          <label className="mb-1 block text-xs font-semibold text-gray-600 dark:text-gray-400">
+            Tags (comma-separated)
+          </label>
+          <input value={form.tags} onChange={update("tags")} className={inputClass} />
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">

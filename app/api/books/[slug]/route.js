@@ -54,6 +54,7 @@ export async function PUT(request, { params }) {
     const author = formData.get("author");
     const description = formData.get("description");
     const category = formData.get("category");
+    const curriculum = formData.get("curriculum");
     const tagsRaw = formData.get("tags");
     const source = formData.get("source");
     const attribution = formData.get("attribution");
@@ -63,11 +64,14 @@ export async function PUT(request, { params }) {
     const file = formData.get("file");
     const coverImage = formData.get("coverImage");
 
-    if (!title || !author || !description || !category || !source) {
+    if (!title || !author || !description || !category || !curriculum || !source) {
       return NextResponse.json(
-        { error: "title, author, description, category and source are required" },
+        { error: "title, author, description, category, curriculum and source are required" },
         { status: 400 },
       );
+    }
+    if (!["FBISE", "IB", "IGCSE", "GCSE"].includes(curriculum)) {
+      return NextResponse.json({ error: "Invalid curriculum" }, { status: 400 });
     }
     if (!["public_domain", "original"].includes(source)) {
       return NextResponse.json({ error: "Invalid source" }, { status: 400 });
@@ -83,6 +87,7 @@ export async function PUT(request, { params }) {
     book.author = author;
     book.description = description;
     book.category = category;
+    book.curriculum = curriculum;
     book.source = source;
     book.attribution = attribution || undefined;
     book.tags = tagsRaw

@@ -1,5 +1,6 @@
 import { getActiveBooks } from "@/lib/actions/books";
 import BooksCatalog from "./BooksCatalog";
+import CurriculumLinks from "./CurriculumLinks";
 
 // Books are added live by the admin without a redeploy — this must not be
 // statically cached at build time, or newly uploaded books never appear.
@@ -58,6 +59,11 @@ export default async function BooksPage() {
         Search by title or author and start reading instantly in your browser
         — no download, no sign-up.
       </p>
+
+      <p className="mt-6 text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
+        Browse by curriculum
+      </p>
+      <CurriculumLinks />
 
       <div className="mt-10">
         <BooksCatalog initialBooks={books} />

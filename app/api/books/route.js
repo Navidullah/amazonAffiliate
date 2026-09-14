@@ -37,6 +37,7 @@ export async function POST(request) {
     const author = formData.get("author");
     const description = formData.get("description");
     const category = formData.get("category");
+    const curriculum = formData.get("curriculum");
     const tagsRaw = formData.get("tags");
     const source = formData.get("source");
     const attribution = formData.get("attribution");
@@ -45,11 +46,14 @@ export async function POST(request) {
     const file = formData.get("file");
     const coverImage = formData.get("coverImage");
 
-    if (!title || !author || !description || !category || !source || !(file instanceof File)) {
+    if (!title || !author || !description || !category || !curriculum || !source || !(file instanceof File)) {
       return NextResponse.json(
-        { error: "title, author, description, category, source and file are required" },
+        { error: "title, author, description, category, curriculum, source and file are required" },
         { status: 400 },
       );
+    }
+    if (!["FBISE", "IB", "IGCSE", "GCSE"].includes(curriculum)) {
+      return NextResponse.json({ error: "Invalid curriculum" }, { status: 400 });
     }
     if (!["public_domain", "original"].includes(source)) {
       return NextResponse.json({ error: "Invalid source" }, { status: 400 });
@@ -115,6 +119,7 @@ export async function POST(request) {
       author,
       description,
       category,
+      curriculum,
       tags,
       source,
       attribution: attribution || undefined,
