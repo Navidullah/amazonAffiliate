@@ -1,13 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useSession, signIn, signOut } from "next-auth/react";
 
 import {
   LayoutDashboard,
   LucideLogOut,
-  Search,
   Pen,
   Menu,
   User,
@@ -16,11 +14,11 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { ModeToggle } from "./ModeToggle";
+import SearchBox from "./SearchBox";
 
 import Image from "next/image";
 import { FaBloggerB } from "react-icons/fa";
 
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -48,53 +46,11 @@ const NAV_LINKS = [
 
 export default function Header() {
   const { data: session } = useSession();
-  const router = useRouter();
-  const [search, setSearch] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const isAdmin = session?.user?.role === "admin";
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (search.trim()) {
-      setMenuOpen(false);
-      router.push(`/search?q=${encodeURIComponent(search)}`);
-    }
-  };
-
   const handleLogin = () => signIn();
   const handleLogout = () => signOut();
-
-  const SearchBox = ({ className = "" }) => (
-    <form
-      onSubmit={handleSearch}
-      role="search"
-      aria-label="Site search"
-      className={className}
-    >
-      <div className="relative w-full">
-        <label htmlFor="header-search" className="sr-only">
-          Search
-        </label>
-        <Search
-          className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-          size={18}
-          aria-hidden="true"
-        />
-        <Input
-          id="header-search"
-          type="text"
-          placeholder="Search blogs . . ."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full rounded-full border bg-gray-100 pl-10 pr-4 text-sm focus:bg-white dark:bg-zinc-900 dark:focus:bg-zinc-800"
-          autoComplete="off"
-          autoCorrect="off"
-          autoCapitalize="none"
-          spellCheck={false}
-        />
-      </div>
-    </form>
-  );
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-black/10 bg-white/80 backdrop-blur-md dark:border-gray-700/30 dark:bg-gray-900/80">
@@ -115,7 +71,7 @@ export default function Header() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="flex w-72 flex-col gap-6 pt-10">
-                <SearchBox />
+                <SearchBox onNavigate={() => setMenuOpen(false)} />
                 <nav className="flex flex-col gap-4">
                   {NAV_LINKS.map((l) => (
                     <SheetClose asChild key={l.href}>
