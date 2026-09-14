@@ -99,9 +99,9 @@ module.exports = {
     "/maths/daily/*",
     "/maths/dashboard", // private per-user page, noindex
     "/books/*/read", // reader view is noindexed; /books/[slug] is the canonical indexable page
-    "/books/ib", // staged shell, noindex until IB books are uploaded
-    "/books/igcse", // staged shell, noindex until IGCSE books are uploaded
-    "/books/gcse", // staged shell, noindex until GCSE books are uploaded
+    "/books/ib-mathematics", // staged shell, noindex until IB books are uploaded
+    "/books/igcse-mathematics", // staged shell, noindex until IGCSE books are uploaded
+    "/books/gcse-mathematics", // staged shell, noindex until GCSE books are uploaded
     // Next.js internal image-generation routes â€” not real pages
     "/twitter-image",
     "/opengraph-image",
@@ -189,10 +189,11 @@ module.exports = {
       // /books is force-dynamic (books are added live, without a redeploy),
       // and next-sitemap's default crawler doesn't pick up force-dynamic
       // pages (same reason /blog is absent) — list it explicitly. Same for
-      // /books/fbise; the other curriculum pages (ib/igcse/gcse) are
-      // excluded above (noindex "coming soon" shells).
+      // /books/fbise-mathematics; the other curriculum pages
+      // (ib/igcse/gcse-mathematics) are excluded above (noindex "coming
+      // soon" shells).
       { loc: `${siteUrl}/books`, lastmod: LAST_MODIFIED["/books"] },
-      { loc: `${siteUrl}/books/fbise`, lastmod: "2026-09-14T00:00:00+05:00" },
+      { loc: `${siteUrl}/books/fbise-mathematics`, lastmod: "2026-09-14T00:00:00+05:00" },
       ...books.map((book) => ({
         loc: `${siteUrl}/books/${book.slug}`,
         lastmod: new Date(book.updatedAt || book.createdAt || Date.now()).toISOString(),

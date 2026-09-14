@@ -34,10 +34,10 @@ export const metadata = {
   title: { absolute: "FBISE Class 10 Maths Book & Exercise Solutions Online | Shopyor" },
   description:
     "Read the FBISE (Federal Board) Class 10 Mathematics textbook and step-by-step exercise solutions — Complex Numbers, Quadratic Equations — online free. No download, no sign-up.",
-  alternates: { canonical: `${SITE}/books/fbise` },
+  alternates: { canonical: `${SITE}/books/fbise-mathematics` },
   openGraph: {
     type: "website",
-    url: `${SITE}/books/fbise`,
+    url: `${SITE}/books/fbise-mathematics`,
     siteName: "Shopyor",
     title: "FBISE Class 10 Maths Book & Exercise Solutions Online",
     description:
@@ -53,7 +53,7 @@ export default async function FbiseBooksPage() {
     "@graph": [
       {
         "@type": "CollectionPage",
-        url: `${SITE}/books/fbise`,
+        url: `${SITE}/books/fbise-mathematics`,
         name: "FBISE Class 10 Mathematics Books & Exercise Solutions",
         description:
           "The FBISE Class 10 Mathematics textbook and step-by-step exercise solutions, free to read online.",
@@ -63,7 +63,7 @@ export default async function FbiseBooksPage() {
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: SITE },
           { "@type": "ListItem", position: 2, name: "Books", item: `${SITE}/books` },
-          { "@type": "ListItem", position: 3, name: "FBISE", item: `${SITE}/books/fbise` },
+          { "@type": "ListItem", position: 3, name: "FBISE", item: `${SITE}/books/fbise-mathematics` },
         ],
       },
       {

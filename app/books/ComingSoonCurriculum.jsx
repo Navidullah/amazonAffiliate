@@ -30,7 +30,7 @@ export default function ComingSoonCurriculum({ curriculum, blurb }) {
           available now.
         </p>
         <Link
-          href="/books/fbise"
+          href="/books/fbise-mathematics"
           className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-indigo-600 to-fuchsia-500 px-5 py-2 text-sm font-semibold text-white shadow-md"
         >
           Browse FBISE Class 10 Maths books

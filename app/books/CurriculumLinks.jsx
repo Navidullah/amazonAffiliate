@@ -7,10 +7,10 @@ import { BOOK_CURRICULA } from "@/lib/constants/bookCurricula";
 const LIVE_CURRICULA = ["FBISE"];
 
 const CURRICULUM_SLUGS = {
-  FBISE: "fbise",
-  IB: "ib",
-  IGCSE: "igcse",
-  GCSE: "gcse",
+  FBISE: "fbise-mathematics",
+  IB: "ib-mathematics",
+  IGCSE: "igcse-mathematics",
+  GCSE: "gcse-mathematics",
 };
 
 export default function CurriculumLinks({ current }) {

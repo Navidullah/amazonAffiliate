@@ -44,6 +44,15 @@ const nextConfig = {
         destination: "/tools/youtube-tags-extractor",
         permanent: true,
       },
+      // /books/fbise was briefly live/indexed before renaming to the more
+      // descriptive slug. /books/ib, /books/igcse, /books/gcse never went
+      // live (they were noindex "coming soon" shells), so no redirect
+      // needed for those.
+      {
+        source: "/books/fbise",
+        destination: "/books/fbise-mathematics",
+        permanent: true,
+      },
       // Several internal links and possibly external/indexed URLs use the
       // short slug, but the page lives at the long one.
       {
