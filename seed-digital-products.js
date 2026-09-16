@@ -194,6 +194,25 @@ const PRODUCTS = [
     href: "/products/ib-aahl-paper1-set1-worked-solutions",
     active: true,
   },
+  {
+    slug: "igcse-extended-maths-practice-paper-worked-solutions",
+    title:
+      "IGCSE Mathematics (Extended) Practice Paper with Full Worked Solutions — Calculator Paper",
+    description:
+      "An original Cambridge IGCSE Mathematics (Extended) practice paper for calculator-paper revision — 20 exam-style questions with complete step-by-step worked solutions, not just final answers. Covers isosceles triangle angle reasoning, statistics (mode/median/mean from a frequency table), ruler-and-compass construction, percentage deposits and instalment payments, vectors, semicircle perimeter, compound interest (forward and reverse), cubic graphs (plotting and solving equations graphically), linear equations, exponential decay, inverse proportion, algebraic fractions, pyramid volume and angles, quadratic equations from area problems, histograms with unequal class widths, and bearings with the sine and cosine rules. Answers given to the correct significant figures/decimal places per Cambridge IGCSE convention. Pay once, download instantly. Original Shopyor content, not an official Cambridge past paper — not affiliated with or endorsed by Cambridge Assessment International Education.",
+    previewImage:
+      "/api/product-image/igcse-extended-maths-practice-paper-worked-solutions",
+    price: 6,
+    region: "international",
+    category: "igcse-maths",
+    gradeLevel: "IGCSE",
+    subject: "maths",
+    variantId: "2134034",
+    downloadUrl:
+      "https://ghgbr44ykzavh7lt.private.blob.vercel-storage.com/products/igcse-extended-maths-practice-paper-worked-solutions-dZt2BvVMToBoN7HwnnVyHyV9Z75cHc.pdf",
+    href: "/products/igcse-extended-maths-practice-paper-worked-solutions",
+    active: true,
+  },
 ];
 
 async function main() {
