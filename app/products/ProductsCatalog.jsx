@@ -2,7 +2,12 @@
 
 import { useMemo, useState } from "react";
 import { LayoutGrid } from "lucide-react";
-import { REGIONS, getCategoriesForRegion, getCategoryLabel } from "@/lib/constants/productCategories";
+import {
+  REGIONS,
+  CONTENT_TYPES,
+  getCategoriesForRegion,
+  getCategoryLabel,
+} from "@/lib/constants/productCategories";
 import ProductCard from "@/app/components/store/ProductCard";
 
 function FilterPill({ active, onClick, children }) {
@@ -24,6 +29,7 @@ function FilterPill({ active, onClick, children }) {
 export default function ProductsCatalog({ products }) {
   const [region, setRegion] = useState("all");
   const [category, setCategory] = useState("all");
+  const [contentType, setContentType] = useState("all");
 
   const categoryOptions = region === "all" ? [] : getCategoriesForRegion(region);
 
@@ -31,13 +37,29 @@ export default function ProductsCatalog({ products }) {
     return products.filter((p) => {
       if (region !== "all" && p.region !== region) return false;
       if (category !== "all" && p.category !== category) return false;
+      if (contentType !== "all" && p.contentType !== contentType) return false;
       return true;
     });
-  }, [products, region, category]);
+  }, [products, region, category, contentType]);
 
   return (
     <div>
       <div className="flex flex-wrap items-center gap-2">
+        <FilterPill active={contentType === "all"} onClick={() => setContentType("all")}>
+          All types
+        </FilterPill>
+        {CONTENT_TYPES.map((t) => (
+          <FilterPill
+            key={t.value}
+            active={contentType === t.value}
+            onClick={() => setContentType(t.value)}
+          >
+            {t.label}
+          </FilterPill>
+        ))}
+      </div>
+
+      <div className="mt-3 flex flex-wrap items-center gap-2">
         <FilterPill active={region === "all"} onClick={() => { setRegion("all"); setCategory("all"); }}>
           All regions
         </FilterPill>
