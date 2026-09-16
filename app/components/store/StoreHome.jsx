@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -15,6 +16,16 @@ import {
 import { HOMEPAGE_FAQ } from "@/lib/constants/homepageFaq";
 import ProductCard from "./ProductCard";
 import FaqAccordion from "./FaqAccordion";
+
+// Homepage-only shortcut tabs. Keep this to the handful of categories that
+// deserve a one-click filter on the landing page; the full region/category
+// filter set lives on /products.
+const HOMEPAGE_CATEGORY_TABS = [
+  { value: "all", label: "All" },
+  { value: "igcse-maths", label: "IGCSE" },
+  { value: "gcse-maths", label: "GCSE" },
+  { value: "ib-aahl-maths", label: "IB" },
+];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -55,6 +66,17 @@ const trustStats = [
 ];
 
 export default function StoreHome({ products = [] }) {
+  const [activeCategory, setActiveCategory] = useState("all");
+
+  const visibleTabs = HOMEPAGE_CATEGORY_TABS.filter(
+    (tab) => tab.value === "all" || products.some((p) => p.category === tab.value),
+  );
+
+  const filteredProducts = useMemo(() => {
+    if (activeCategory === "all") return products;
+    return products.filter((p) => p.category === activeCategory);
+  }, [products, activeCategory]);
+
   return (
     <div className="relative min-h-screen overflow-hidden px-4 pb-24 pt-6 sm:px-6 md:pt-8">
       <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-indigo-50/60 via-white to-fuchsia-50/40 dark:from-gray-950 dark:via-gray-950 dark:to-gray-900" />
@@ -133,6 +155,35 @@ export default function StoreHome({ products = [] }) {
           </motion.div>
         </motion.header>
 
+        {/* Category tabs */}
+        {visibleTabs.length > 1 && (
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            className="mb-6 flex flex-wrap items-center justify-center gap-2"
+            role="tablist"
+            aria-label="Filter by qualification"
+          >
+            {visibleTabs.map((tab) => (
+              <button
+                key={tab.value}
+                type="button"
+                role="tab"
+                aria-selected={activeCategory === tab.value}
+                onClick={() => setActiveCategory(tab.value)}
+                className={`rounded-full px-4 py-2 text-sm font-semibold transition-all ${
+                  activeCategory === tab.value
+                    ? "bg-gradient-to-r from-indigo-600 to-fuchsia-500 text-white shadow-md"
+                    : "border border-gray-200/70 bg-white/70 text-gray-600 hover:border-indigo-300 hover:text-indigo-600 dark:border-white/10 dark:bg-white/[0.03] dark:text-gray-300 dark:hover:text-indigo-300"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </motion.div>
+        )}
+
         {/* Product grid */}
         <motion.section
           variants={stagger}
@@ -141,7 +192,7 @@ export default function StoreHome({ products = [] }) {
           className="mb-20 grid gap-6 sm:grid-cols-2"
           aria-label="Worksheet packs"
         >
-          {products.map((p) => (
+          {filteredProducts.map((p) => (
             <motion.div key={p.slug} variants={fadeUp}>
               <ProductCard product={p} />
             </motion.div>
