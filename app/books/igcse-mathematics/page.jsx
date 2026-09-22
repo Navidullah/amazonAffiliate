@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { getActiveBooksByCurriculum } from "@/lib/actions/books";
+import { getActiveDigitalProductsByGradeLevel } from "@/lib/actions/products";
 import BooksCatalog from "../BooksCatalog";
+import CurriculumProducts from "../CurriculumProducts";
 import CurriculumLinks from "../CurriculumLinks";
 import CurriculumFaq from "../CurriculumFaq";
 
@@ -48,7 +50,10 @@ export const metadata = {
 };
 
 export default async function IgcseBooksPage() {
-  const books = await getActiveBooksByCurriculum("IGCSE");
+  const [books, products] = await Promise.all([
+    getActiveBooksByCurriculum("IGCSE"),
+    getActiveDigitalProductsByGradeLevel("IGCSE"),
+  ]);
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -112,6 +117,8 @@ export default async function IgcseBooksPage() {
       <div className="mt-10">
         <BooksCatalog initialBooks={books} lockedCurriculum="IGCSE" />
       </div>
+
+      <CurriculumProducts products={products} curriculum="IGCSE" />
 
       <section className="mt-16">
         <h2 className="text-center text-2xl font-bold text-gray-900 dark:text-white">

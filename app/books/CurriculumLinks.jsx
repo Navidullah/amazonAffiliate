@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { BOOK_CURRICULA } from "@/lib/constants/bookCurricula";
 
-// Books uploaded so far only exist for FBISE and IGCSE — the other
-// curriculum pages are staged "coming soon" shells (noindex) until books are
-// uploaded for them. Update this once IB/GCSE books go live.
-const LIVE_CURRICULA = ["FBISE", "IGCSE"];
+// FBISE/IGCSE have live books; IB has a live paid product (no book yet) but
+// still counts as "live" content. GCSE has neither yet, so its page stays a
+// "coming soon" shell. Update this once GCSE content goes live.
+const LIVE_CURRICULA = ["FBISE", "IGCSE", "IB"];
 
 const CURRICULUM_SLUGS = {
   FBISE: "fbise-mathematics",
