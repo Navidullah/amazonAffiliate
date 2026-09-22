@@ -12,6 +12,7 @@ import {
   LayoutGrid,
   FileCheck2,
   Ban,
+  BookOpen,
 } from "lucide-react";
 import { HOMEPAGE_FAQ } from "@/lib/constants/homepageFaq";
 import ProductCard from "./ProductCard";
@@ -65,7 +66,7 @@ const trustStats = [
   { icon: Ban, label: "No subscription, ever" },
 ];
 
-export default function StoreHome({ products = [] }) {
+export default function StoreHome({ products = [], books = [] }) {
   const [activeCategory, setActiveCategory] = useState("all");
 
   const visibleTabs = HOMEPAGE_CATEGORY_TABS.filter(
@@ -299,6 +300,68 @@ export default function StoreHome({ products = [] }) {
             <FaqAccordion items={HOMEPAGE_FAQ} />
           </div>
         </motion.section>
+
+        {/* Books — free to read online, pulled live from the DB so new
+            uploads (e.g. IGCSE/FBISE worked solutions) appear here without
+            another homepage edit. */}
+        {books.length > 0 && (
+          <motion.section
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            className="mb-20"
+          >
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+              Free to read online
+            </h2>
+            <p className="mt-2 max-w-2xl text-sm text-gray-600 dark:text-gray-400">
+              Textbooks and worked-solution books, browsable and readable in
+              your browser — no download, no sign-up.
+            </p>
+            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {books.slice(0, 3).map((book) => (
+                <motion.div key={book.slug} variants={fadeUp} className="h-full">
+                  <Link
+                    href={`/books/${book.slug}`}
+                    className="group flex h-full flex-col rounded-3xl border border-gray-200/70 bg-white/70 p-6 backdrop-blur-xl transition-all hover:-translate-y-1 hover:shadow-[0_24px_64px_-30px_rgba(56,89,255,0.5)] dark:border-white/10 dark:bg-white/[0.03]"
+                  >
+                    <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-indigo-600 dark:text-indigo-300">
+                      <BookOpen className="h-3.5 w-3.5" />
+                      {book.curriculum}
+                    </span>
+                    <h3 className="mt-2 text-lg font-bold text-gray-900 dark:text-white">
+                      {book.title}
+                    </h3>
+                    <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+                      {book.description}
+                    </p>
+                    <div className="mt-4 flex items-center justify-between">
+                      <span className="text-sm font-semibold text-emerald-600 dark:text-emerald-400">
+                        Free to read
+                      </span>
+                      <span className="inline-flex items-center gap-1 text-sm font-semibold text-gray-700 group-hover:text-indigo-600 dark:text-gray-300 dark:group-hover:text-indigo-300">
+                        Read online
+                        <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                      </span>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+            {books.length > 3 && (
+              <div className="mt-6 text-center">
+                <Link
+                  href="/books"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-600 hover:underline dark:text-indigo-300"
+                >
+                  Browse all books
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+            )}
+          </motion.section>
+        )}
 
         {/* More from Shopyor — free books + maths practice, currently invisible from the homepage */}
         <motion.section

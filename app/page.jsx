@@ -1,5 +1,6 @@
 ﻿import StoreHome from "@/app/components/store/StoreHome";
 import { getActiveDigitalProducts } from "@/lib/actions/products";
+import { getActiveBooks } from "@/lib/actions/books";
 import { HOMEPAGE_FAQ } from "@/lib/constants/homepageFaq";
 
 const SITE = "https://www.shopyor.com";
@@ -139,6 +140,7 @@ function buildStructuredData(products) {
 
 export default async function Page() {
   const products = await getActiveDigitalProducts();
+  const books = await getActiveBooks();
   const structuredData = buildStructuredData(products);
 
   return (
@@ -147,7 +149,7 @@ export default async function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <StoreHome products={products} />
+      <StoreHome products={products} books={books} />
     </>
   );
 }
