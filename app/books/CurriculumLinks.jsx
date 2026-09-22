@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { BOOK_CURRICULA } from "@/lib/constants/bookCurricula";
 
-// Books uploaded so far only exist for FBISE — the other curriculum pages
-// are staged "coming soon" shells (noindex) until books are uploaded for
-// them. Update this once IB/IGCSE/GCSE books go live.
-const LIVE_CURRICULA = ["FBISE"];
+// Books uploaded so far only exist for FBISE and IGCSE — the other
+// curriculum pages are staged "coming soon" shells (noindex) until books are
+// uploaded for them. Update this once IB/GCSE books go live.
+const LIVE_CURRICULA = ["FBISE", "IGCSE"];
 
 const CURRICULUM_SLUGS = {
   FBISE: "fbise-mathematics",
