@@ -10,6 +10,12 @@ const REGION_ACCENT = {
   ca: "linear-gradient(135deg, #1a1a2e 0%, #7f1d1d 45%, #f97316 100%)",
 };
 
+const CONTENT_TYPE_META = {
+  "past-paper-solutions": { brand: "SHOPYOR WORKED SOLUTIONS", label: "Worked solutions" },
+  "revision-guide": { brand: "SHOPYOR STUDY GUIDES", label: "Study guide" },
+};
+const DEFAULT_CONTENT_TYPE_META = { brand: "SHOPYOR WORKSHEETS", label: "Printable worksheet pack" };
+
 export async function GET(_req, { params }) {
   const { slug } = await params;
   const product = await getProductBySlug(slug);
@@ -19,6 +25,7 @@ export async function GET(_req, { params }) {
   }
 
   const background = REGION_ACCENT[product.region] || REGION_ACCENT.uk;
+  const { brand, label } = CONTENT_TYPE_META[product.contentType] || DEFAULT_CONTENT_TYPE_META;
 
   return new ImageResponse(
     (
@@ -37,7 +44,7 @@ export async function GET(_req, { params }) {
       >
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ display: "flex", fontSize: 24, opacity: 0.85, letterSpacing: "0.04em" }}>
-            SHOPYOR WORKSHEETS
+            {brand}
           </div>
           <div
             style={{
@@ -96,7 +103,7 @@ export async function GET(_req, { params }) {
             PDF
           </div>
           <div style={{ display: "flex", fontSize: 30, fontWeight: 700 }}>
-            Printable worksheet pack · ${product.price} one-time
+            {label} · ${product.price} one-time
           </div>
         </div>
       </div>
