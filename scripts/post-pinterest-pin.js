@@ -9,14 +9,17 @@
 // by the Pinterest OAuth login (stored in the pinterestauths collection —
 // see lib/models/PinterestAuth.js / lib/authOptions.js).
 //
-//   Run: node scripts/post-pinterest-pin.js <product-slug> [board-id]
+//   Run: node scripts/post-pinterest-pin.js <product-slug> [--title "..."]
+//          [--description "..."] [--board <board-id>]
 //   Example: node scripts/post-pinterest-pin.js uk-ks2-maths-year-6-fractions-ws02
+// --title/--description override the product's stored title/description with
+// SEO-tuned pin copy; omit them to fall back to the raw product fields.
 //
 // Prerequisites:
 //   1. Generate the pin image first if it doesn't exist yet:
 //        node generate-pinterest-pin.js <pdf-path> <slug> "<title>" "<price>"
 //   2. Sign in once via the Pinterest OAuth flow (visit
-//        https://www.shopyor.com/api/auth/signin/pinterest
+//        https://www.shopyor.com/admin/pinterest-connect
 //      and approve) so a fresh access token is stored in the DB. Pinterest
 //      access tokens expire (~30 days) — repeat this when posts start
 //      failing with 401.
@@ -27,11 +30,24 @@ const SITE = process.env.NEXT_PUBLIC_BASE_URL || "https://www.shopyor.com";
 const PINTEREST_API_BASE =
   process.env.PINTEREST_API_BASE || "https://api.pinterest.com/v5";
 
+function parseArgs(argv) {
+  const [slug, ...rest] = argv;
+  const flags = { slug };
+  for (let i = 0; i < rest.length; i++) {
+    if (rest[i] === "--title") flags.title = rest[++i];
+    else if (rest[i] === "--description") flags.description = rest[++i];
+    else if (rest[i] === "--board") flags.boardId = rest[++i];
+  }
+  return flags;
+}
+
 async function main() {
-  const [, , slug, boardIdArg] = process.argv;
+  const { slug, title, description, boardId: boardIdArg } = parseArgs(
+    process.argv.slice(2),
+  );
   if (!slug) {
     console.error(
-      "Usage: node scripts/post-pinterest-pin.js <product-slug> [board-id]",
+      'Usage: node scripts/post-pinterest-pin.js <product-slug> [--title "..."] [--description "..."] [--board <board-id>]',
     );
     process.exit(1);
   }
@@ -60,7 +76,7 @@ async function main() {
     if (!accessToken) {
       console.error(
         "❌ No Pinterest access token found. Sign in first via " +
-          `${SITE}/api/auth/signin/pinterest`,
+          `${SITE}/admin/pinterest-connect`,
       );
       process.exit(1);
     }
@@ -68,7 +84,7 @@ async function main() {
     const boardId = boardIdArg || process.env.PINTEREST_BOARD_ID;
     if (!boardId) {
       console.error(
-        "❌ No board id. Pass one as the 2nd argument or set PINTEREST_BOARD_ID.",
+        "❌ No board id. Pass one with --board or set PINTEREST_BOARD_ID.",
       );
       process.exit(1);
     }
@@ -78,8 +94,8 @@ async function main() {
 
     const body = {
       board_id: boardId,
-      title: product.title.slice(0, 100),
-      description: product.description.slice(0, 500),
+      title: (title || product.title).slice(0, 100),
+      description: (description || product.description).slice(0, 500),
       link: linkUrl,
       media_source: {
         source_type: "image_url",
@@ -102,7 +118,7 @@ async function main() {
       if (res.status === 401) {
         console.error(
           "❌ Pinterest rejected the access token (401 — likely expired).\n" +
-            `   Sign in again at ${SITE}/api/auth/signin/pinterest, then retry.`,
+            `   Sign in again at ${SITE}/admin/pinterest-connect, then retry.`,
         );
       } else {
         console.error(`❌ Pinterest API error (${res.status}):`, data);
