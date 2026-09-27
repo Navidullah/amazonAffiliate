@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Home, ChevronRight, BookOpen } from "lucide-react";
+import { Home, ChevronRight, BookOpen, CheckCircle2 } from "lucide-react";
 import { getBookBySlug, getActiveBooks } from "@/lib/actions/books";
 import BookCard from "@/app/components/store/BookCard";
 import ReadOnlineButton from "./ReadOnlineButton";
@@ -57,6 +57,18 @@ export default async function BookPage({ params }) {
           { "@type": "ListItem", position: 3, name: book.title, item: `${SITE}/books/${slug}` },
         ],
       },
+      ...(book.faqs?.length
+        ? [
+            {
+              "@type": "FAQPage",
+              mainEntity: book.faqs.map((f) => ({
+                "@type": "Question",
+                name: f.question,
+                acceptedAnswer: { "@type": "Answer", text: f.answer },
+              })),
+            },
+          ]
+        : []),
     ],
   };
 
@@ -119,6 +131,54 @@ export default async function BookPage({ params }) {
           </div>
         </div>
       </div>
+
+      {(book.longDescription || book.whatsInside?.length) && (
+        <section className="mt-16 grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+          {book.longDescription && (
+            <div className="prose prose-gray max-w-none dark:prose-invert">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                About this book
+              </h2>
+              {book.longDescription.split("\n\n").map((para, i) => (
+                <p key={i} className="text-gray-600 dark:text-gray-400">
+                  {para}
+                </p>
+              ))}
+            </div>
+          )}
+          {book.whatsInside?.length > 0 && (
+            <div>
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white">What's inside</h2>
+              <ul className="mt-4 space-y-2.5">
+                {book.whatsInside.map((item, i) => (
+                  <li key={i} className="flex items-start gap-2.5 text-gray-600 dark:text-gray-400">
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-indigo-600 dark:text-indigo-400" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </section>
+      )}
+
+      {book.faqs?.length > 0 && (
+        <section className="mt-16">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+            Frequently asked questions
+          </h2>
+          <div className="mt-6 space-y-6">
+            {book.faqs.map((f, i) => (
+              <div key={i}>
+                <h3 className="font-semibold text-gray-800 dark:text-gray-200">{f.question}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+                  {f.answer}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       {related.length > 0 && (
         <section className="mt-20">
