@@ -130,6 +130,38 @@ export default function TopicQuizExperience({ topic }) {
           </motion.div>
         )}
 
+        {stage === "intro" && topic.teach && (
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={fadeUp}
+            className="mt-10 rounded-3xl border border-gray-200/70 bg-white/80 p-6 backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.04] sm:p-8"
+          >
+            <h2 className="text-lg font-bold text-gray-900 dark:text-white">
+              How to solve Year 6 {topic.title}
+            </h2>
+            <ol className="mt-4 list-decimal space-y-2 pl-5 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+              {topic.teach.method.map((step, i) => (
+                <li key={i}>{step}</li>
+              ))}
+            </ol>
+
+            <div className="mt-6 rounded-2xl bg-violet-50/70 p-5 dark:bg-violet-500/10">
+              <p className="text-sm font-semibold text-violet-900 dark:text-violet-200">
+                Worked example: {topic.teach.example.question}
+              </p>
+              <ol className="mt-3 space-y-1.5 text-sm text-violet-800/90 dark:text-violet-300/90">
+                {topic.teach.example.steps.map((step, i) => (
+                  <li key={i}>{step}</li>
+                ))}
+              </ol>
+              <p className="mt-3 text-sm font-bold text-violet-900 dark:text-violet-200">
+                Answer: {topic.teach.example.answer}
+              </p>
+            </div>
+          </motion.div>
+        )}
+
         {stage === "intro" && (
           <motion.div initial="hidden" animate="visible" variants={fadeUp} className="mt-10">
             <h2 className="mb-4 text-lg font-bold text-gray-900 dark:text-white">

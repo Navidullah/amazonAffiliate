@@ -78,6 +78,7 @@ export default async function TopicQuizPage({ params }) {
         learningResourceType: "Interactive practice questions",
         about: topic.title,
         isPartOf: { "@type": "WebApplication", name: "Maths Challenge", url: `${BASE_URL}/maths` },
+        teaches: topic.teach?.method.join(" "),
       },
       {
         "@type": "BreadcrumbList",
