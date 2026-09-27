@@ -17,9 +17,6 @@ export const metadata = {
     "IB Maths AA HL worked solutions",
     "IB Mathematics AA HL Paper 1 practice questions",
     "IB AA HL Paper 1 practice with answers",
-    "year 6 maths worksheets pdf",
-    "printable maths worksheets year 6",
-    "KS2 maths worksheets",
   ],
   alternates: { canonical: `${SITE}/products` },
   openGraph: {

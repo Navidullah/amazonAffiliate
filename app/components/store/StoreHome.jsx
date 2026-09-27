@@ -28,6 +28,15 @@ const HOMEPAGE_CATEGORY_TABS = [
   { value: "ib-aahl-maths", label: "IB" },
 ];
 
+// One entry per exam board. Counts come live from products (by category) and
+// books (by curriculum), so a board flips from "coming soon" automatically
+// once real content is uploaded.
+const BOARD_CARDS = [
+  { key: "GCSE", title: "GCSE Maths", sub: "AQA · Edexcel · OCR", category: "gcse-maths", curriculum: "GCSE", href: "/books/gcse-mathematics", accent: "from-emerald-500 to-teal-500" },
+  { key: "IGCSE", title: "IGCSE Maths (0580)", sub: "Core & Extended", category: "igcse-maths", curriculum: "IGCSE", href: "/books/igcse-mathematics", accent: "from-indigo-500 to-blue-500" },
+  { key: "IB", title: "IB Maths (AA / AI)", sub: "SL & HL", category: "ib-aahl-maths", curriculum: "IB", href: "/books/ib-mathematics", accent: "from-fuchsia-500 to-violet-500" },
+];
+
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
   visible: { opacity: 1, y: 0 },
@@ -69,14 +78,21 @@ const trustStats = [
 export default function StoreHome({ products = [], books = [] }) {
   const [activeCategory, setActiveCategory] = useState("all");
 
+  // Exam-board solutions lead the page; KS2 worksheets get their own smaller
+  // section further down so they don't dilute the GCSE/IGCSE/IB message.
+  const isWorksheet = (p) =>
+    p.contentType === "worksheet" || p.category === "ks2-maths" || p.category === "sats";
+  const solutionProducts = useMemo(() => products.filter((p) => !isWorksheet(p)), [products]);
+  const worksheetProducts = useMemo(() => products.filter(isWorksheet), [products]);
+
   const visibleTabs = HOMEPAGE_CATEGORY_TABS.filter(
-    (tab) => tab.value === "all" || products.some((p) => p.category === tab.value),
+    (tab) => tab.value === "all" || solutionProducts.some((p) => p.category === tab.value),
   );
 
   const filteredProducts = useMemo(() => {
-    if (activeCategory === "all") return products;
-    return products.filter((p) => p.category === activeCategory);
-  }, [products, activeCategory]);
+    if (activeCategory === "all") return solutionProducts;
+    return solutionProducts.filter((p) => p.category === activeCategory);
+  }, [solutionProducts, activeCategory]);
 
   return (
     <div className="relative min-h-screen overflow-hidden px-4 pb-24 pt-6 sm:px-6 md:pt-8">
@@ -137,6 +153,35 @@ export default function StoreHome({ products = [], books = [] }) {
           </motion.div>
         </motion.header>
 
+        {/* Board cards */}
+        <section aria-label="Choose your exam board" className="mb-14 grid gap-4 sm:grid-cols-3">
+          {BOARD_CARDS.map((b) => {
+            const solutions = products.filter((p) => p.category === b.category).length;
+            const ebooks = books.filter((bk) => bk.curriculum === b.curriculum).length;
+            const live = solutions + ebooks > 0;
+            return (
+              <Link
+                key={b.key}
+                href={b.href}
+                className="group rounded-2xl border border-gray-200/70 bg-white/70 p-5 shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:shadow-md dark:border-white/10 dark:bg-white/[0.04]"
+              >
+                <span className={`inline-block h-1.5 w-12 rounded-full bg-gradient-to-r ${b.accent}`} />
+                <h2 className="mt-3 text-lg font-bold text-gray-900 dark:text-white">{b.title}</h2>
+                <p className="text-xs text-gray-500 dark:text-gray-400">{b.sub}</p>
+                <p className="mt-3 text-sm font-medium text-gray-700 dark:text-gray-300">
+                  {live
+                    ? [solutions && `${solutions} solution${solutions === 1 ? "" : "s"}`, ebooks && `${ebooks} ebook${ebooks === 1 ? "" : "s"}`].filter(Boolean).join(" · ")
+                    : "Coming soon"}
+                </p>
+                <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-indigo-600 dark:text-indigo-300">
+                  {live ? "Browse" : "Learn more"}
+                  <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+                </span>
+              </Link>
+            );
+          })}
+        </section>
+
         {/* Category tabs */}
         {visibleTabs.length > 1 && (
           <motion.div
@@ -167,12 +212,15 @@ export default function StoreHome({ products = [], books = [] }) {
         )}
 
         {/* Product grid */}
+        <h2 className="mb-5 text-2xl font-bold text-gray-900 dark:text-white">
+          Latest worked solutions
+        </h2>
         <motion.section
           variants={stagger}
           initial="hidden"
           animate="visible"
           className="mb-20 grid gap-6 sm:grid-cols-2"
-          aria-label="Worksheet packs"
+          aria-label="Latest worked solutions"
         >
           {filteredProducts.map((p) => (
             <motion.div key={p.slug} variants={fadeUp}>
@@ -188,11 +236,87 @@ export default function StoreHome({ products = [], books = [] }) {
             >
               <LayoutGrid className="h-8 w-8 text-gray-400 dark:text-gray-500" />
               <p className="mt-3 text-sm font-semibold text-gray-500 dark:text-gray-400">
-                Browse all worksheets
+                Browse all solutions & ebooks
               </p>
             </Link>
           </motion.div>
         </motion.section>
+
+        {/* Books — free to read online, pulled live from the DB so new
+            uploads (e.g. IGCSE/FBISE worked solutions) appear here without
+            another homepage edit. */}
+        {books.length > 0 && (
+          <motion.section
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            className="mb-20"
+          >
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+              Maths ebooks & worked-solution books
+            </h2>
+            <p className="mt-2 max-w-2xl text-sm text-gray-600 dark:text-gray-400">
+              Maths ebooks and worked-solution books for GCSE, IGCSE and IB — read
+              online in your browser, with PDF download where offered.
+            </p>
+            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {books.slice(0, 3).map((book) => (
+                <motion.div key={book.slug} variants={fadeUp} className="h-full">
+                  <Link
+                    href={`/books/${book.slug}`}
+                    className="group flex h-full flex-col rounded-3xl border border-gray-200/70 bg-white/70 p-6 backdrop-blur-xl transition-all hover:-translate-y-1 hover:shadow-[0_24px_64px_-30px_rgba(56,89,255,0.5)] dark:border-white/10 dark:bg-white/[0.03]"
+                  >
+                    <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-indigo-600 dark:text-indigo-300">
+                      <BookOpen className="h-3.5 w-3.5" />
+                      {book.curriculum}
+                    </span>
+                    <h3 className="mt-2 text-lg font-bold text-gray-900 dark:text-white">
+                      {book.title}
+                    </h3>
+                    <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+                      {book.description}
+                    </p>
+                    <div className="mt-4 flex items-center justify-between">
+                      <span className="text-sm font-semibold text-emerald-600 dark:text-emerald-400">
+                        Free to read
+                      </span>
+                      <span className="inline-flex items-center gap-1 text-sm font-semibold text-gray-700 group-hover:text-indigo-600 dark:text-gray-300 dark:group-hover:text-indigo-300">
+                        Read online
+                        <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                      </span>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+            {books.length > 3 && (
+              <div className="mt-6 text-center">
+                <Link
+                  href="/books"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-600 hover:underline dark:text-indigo-300"
+                >
+                  Browse all books
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+            )}
+          </motion.section>
+        )}
+
+        {/* KS2 worksheets — secondary to the exam-board content above */}
+        {worksheetProducts.length > 0 && (
+          <section className="mb-20" aria-label="KS2 maths worksheets">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+              Also available: KS2 Year 6 maths worksheets
+            </h2>
+            <div className="mt-6 grid gap-6 sm:grid-cols-2">
+              {worksheetProducts.map((p) => (
+                <ProductCard key={p.slug} product={p} />
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Features */}
         <motion.section
@@ -281,68 +405,6 @@ export default function StoreHome({ products = [], books = [] }) {
             <FaqAccordion items={HOMEPAGE_FAQ} />
           </div>
         </motion.section>
-
-        {/* Books — free to read online, pulled live from the DB so new
-            uploads (e.g. IGCSE/FBISE worked solutions) appear here without
-            another homepage edit. */}
-        {books.length > 0 && (
-          <motion.section
-            variants={stagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            className="mb-20"
-          >
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-              Free to read online
-            </h2>
-            <p className="mt-2 max-w-2xl text-sm text-gray-600 dark:text-gray-400">
-              Textbooks and worked-solution books, browsable and readable in
-              your browser — no download, no sign-up.
-            </p>
-            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {books.slice(0, 3).map((book) => (
-                <motion.div key={book.slug} variants={fadeUp} className="h-full">
-                  <Link
-                    href={`/books/${book.slug}`}
-                    className="group flex h-full flex-col rounded-3xl border border-gray-200/70 bg-white/70 p-6 backdrop-blur-xl transition-all hover:-translate-y-1 hover:shadow-[0_24px_64px_-30px_rgba(56,89,255,0.5)] dark:border-white/10 dark:bg-white/[0.03]"
-                  >
-                    <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-indigo-600 dark:text-indigo-300">
-                      <BookOpen className="h-3.5 w-3.5" />
-                      {book.curriculum}
-                    </span>
-                    <h3 className="mt-2 text-lg font-bold text-gray-900 dark:text-white">
-                      {book.title}
-                    </h3>
-                    <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
-                      {book.description}
-                    </p>
-                    <div className="mt-4 flex items-center justify-between">
-                      <span className="text-sm font-semibold text-emerald-600 dark:text-emerald-400">
-                        Free to read
-                      </span>
-                      <span className="inline-flex items-center gap-1 text-sm font-semibold text-gray-700 group-hover:text-indigo-600 dark:text-gray-300 dark:group-hover:text-indigo-300">
-                        Read online
-                        <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                      </span>
-                    </div>
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-            {books.length > 3 && (
-              <div className="mt-6 text-center">
-                <Link
-                  href="/books"
-                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-600 hover:underline dark:text-indigo-300"
-                >
-                  Browse all books
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </Link>
-              </div>
-            )}
-          </motion.section>
-        )}
 
         {/* More from Shopyor — free books + maths practice, currently invisible from the homepage */}
         <motion.section
