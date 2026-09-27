@@ -94,6 +94,8 @@ module.exports = {
     "/tools/free-tiktok-video-downloader", // 301 -> /tools (retired 2026-09-07, AdSense policy risk)
     "/tools/video-downloader", // 301 -> /tools (retired 2026-09-07, AdSense policy risk)
     "/tools/voice-clone", // 301 -> /tools (retired 2026-09-10, impersonation/synthetic-media risk)
+    "/classroom", // private per-user page, noindex
+    "/classroom/*", // private per-user/room pages, noindex
     "/order/*", // private post-checkout page, noindex
     "/maths/daily", // rotating daily content, not meant to rank
     "/maths/daily/*",
@@ -125,6 +127,8 @@ module.exports = {
           "/pinterest",
           "/maths/daily",
           "/maths/dashboard",
+          "/classroom",
+          "/classroom/",
         ],
       },
     ],
