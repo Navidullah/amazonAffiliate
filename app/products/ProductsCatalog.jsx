@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { LayoutGrid } from "lucide-react";
-import { CONTENT_TYPES } from "@/lib/constants/productCategories";
+import { CONTENT_TYPES, LEVELS } from "@/lib/constants/productCategories";
 import ProductCard from "@/app/components/store/ProductCard";
 
 function FilterPill({ active, onClick, children }) {
@@ -31,17 +31,22 @@ const BOARDS = [
 export default function ProductsCatalog({ products }) {
   const [board, setBoard] = useState("all");
   const [contentType, setContentType] = useState("all");
+  const [level, setLevel] = useState("all");
   const [query, setQuery] = useState("");
+
+  // Only offer levels that at least one product actually has.
+  const levelOptions = LEVELS.filter((l) => products.some((p) => p.level === l.value));
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return products.filter((p) => {
       if (board !== "all" && p.category !== board) return false;
       if (contentType !== "all" && p.contentType !== contentType) return false;
+      if (level !== "all" && p.level !== level) return false;
       if (q && !`${p.title} ${p.description || ""}`.toLowerCase().includes(q)) return false;
       return true;
     });
-  }, [products, board, contentType, query]);
+  }, [products, board, contentType, level, query]);
 
   return (
     <div>
@@ -75,6 +80,19 @@ export default function ProductsCatalog({ products }) {
           </FilterPill>
         ))}
       </div>
+      {levelOptions.length > 0 && (
+        <div className="mt-3 flex flex-wrap items-center gap-2" role="group" aria-label="Filter by level">
+          <FilterPill active={level === "all"} onClick={() => setLevel("all")}>
+            All levels
+          </FilterPill>
+          {levelOptions.map((l) => (
+            <FilterPill key={l.value} active={level === l.value} onClick={() => setLevel(l.value)}>
+              {l.label}
+            </FilterPill>
+          ))}
+        </div>
+      )}
+
       <p className="mt-6 text-sm text-gray-500 dark:text-gray-400">
         Showing {filtered.length} of {products.length} {products.length === 1 ? "pack" : "packs"}
       </p>
