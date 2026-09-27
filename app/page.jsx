@@ -8,10 +8,10 @@ const SITE = "https://www.shopyor.com";
 export const metadata = {
   metadataBase: new URL(SITE),
   title: {
-    absolute: "IGCSE Past Paper & IB Maths Worked Solutions | Shopyor",
+    absolute: "GCSE, IGCSE & IB Maths Past Paper Solutions & eBooks | Shopyor",
   },
   description:
-    "Fully worked Cambridge IGCSE past-paper solutions, IB Mathematics AA HL Paper 1-style practice with step-by-step worked solutions, and printable KS2 Year 6 Maths worksheets. Pay once, download instantly — anywhere in the world.",
+    "Step-by-step worked solutions to GCSE, IGCSE (0580) and IB Maths past papers, plus maths ebooks. Instant PDF download, pay once, no subscription.",
   keywords: [
     "IGCSE past paper worked solutions",
     "IGCSE mathematics 0580",
@@ -56,9 +56,9 @@ export const metadata = {
     url: SITE,
     siteName: "Shopyor",
     locale: "en_US",
-    title: "IGCSE Past Paper & IB Maths Worked Solutions | Shopyor",
+    title: "GCSE, IGCSE & IB Maths Past Paper Solutions & eBooks | Shopyor",
     description:
-      "Fully worked Cambridge IGCSE past-paper solutions, IB Mathematics AA HL Paper 1-style practice with worked solutions, and printable KS2 Year 6 Maths worksheets. Pay once, download instantly — anywhere in the world.",
+      "Step-by-step worked solutions to GCSE, IGCSE (0580) and IB Maths past papers, plus maths ebooks. Instant PDF download, pay once, no subscription.",
     // No `images` override here on purpose — this lets Next.js fall back to
     // the file-convention app/opengraph-image.js (and twitter-image.js),
     // which is generated from current copy instead of a static PNG that
@@ -68,9 +68,9 @@ export const metadata = {
     card: "summary_large_image",
     site: "@shopyor",
     creator: "@shopyor",
-    title: "IGCSE Past Paper & IB Maths Worked Solutions | Shopyor",
+    title: "GCSE, IGCSE & IB Maths Past Paper Solutions & eBooks | Shopyor",
     description:
-      "Fully worked Cambridge IGCSE past-paper solutions, IB Mathematics AA HL Paper 1-style practice with worked solutions, and printable KS2 Year 6 Maths worksheets. Pay once, download instantly.",
+      "Step-by-step worked solutions to GCSE, IGCSE (0580) and IB Maths past papers, plus maths ebooks. Instant PDF download, pay once, no subscription.",
   },
 };
 
@@ -88,7 +88,7 @@ function buildStructuredData(products) {
         isPartOf: { "@id": `${SITE}/#website` },
         about: { "@id": `${SITE}/#organization` },
         description:
-          "Fully worked Cambridge IGCSE past-paper solutions, IB Mathematics AA HL Paper 1-style practice with worked solutions, and printable KS2 Year 6 Maths worksheets. Pay once, download instantly.",
+          "Step-by-step worked solutions to GCSE, IGCSE (0580) and IB Maths past papers, plus maths ebooks. Instant PDF download, pay once, no subscription.",
       },
       {
         "@type": "ItemList",

@@ -62,8 +62,8 @@ const features = [
 const trustStats = [
   { icon: FileCheck2, label: "resource pack" },
   { icon: Download, label: "Instant PDF download" },
-  { icon: ClipboardCheck, label: "Full answer key / mark scheme included" },
-  { icon: Ban, label: "No subscription, ever" },
+  { icon: ClipboardCheck, label: "Mark-scheme accurate" },
+  { icon: Ban, label: "No subscription" },
 ];
 
 export default function StoreHome({ products = [], books = [] }) {
@@ -97,14 +97,14 @@ export default function StoreHome({ products = [], books = [] }) {
             className="inline-flex items-center gap-2 rounded-full border border-indigo-200/70 bg-white/70 px-4 py-1.5 text-xs font-semibold text-indigo-700 shadow-sm backdrop-blur dark:border-indigo-500/20 dark:bg-white/[0.04] dark:text-indigo-300"
           >
             <Sparkles className="h-3.5 w-3.5" />
-            IGCSE past paper & IB Maths worked solutions
+            GCSE · IGCSE · IB Maths
           </motion.span>
 
           <motion.h1
             variants={fadeUp}
             className="mx-auto mt-6 max-w-3xl text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-6xl"
           >
-            Worked solutions for IGCSE past papers and IB Maths, plus KS2 worksheets.{" "}
+            Maths Past Paper Worked Solutions for GCSE, IGCSE & IB.{" "}
             <span className="bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-500 bg-clip-text text-transparent dark:from-indigo-300 dark:via-violet-300 dark:to-fuchsia-200">
               Pay once, download instantly.
             </span>
@@ -114,28 +114,9 @@ export default function StoreHome({ products = [], books = [] }) {
             variants={fadeUp}
             className="mx-auto mt-5 max-w-2xl text-base text-gray-600 dark:text-gray-300 sm:text-lg"
           >
-            Fully worked Cambridge IGCSE past-paper solutions, IB
-            Mathematics AA HL Paper 1-style practice with step-by-step
-            worked solutions, and printable KS2 Year 6 Maths worksheets —
-            each with a complete mark scheme or answer key so students,
-            parents, and tutors anywhere in the world can mark it correctly.
-            No sign-up, no subscription — pick a pack and download.
+            Step-by-step solutions to past papers and maths ebooks, written for
+            each exam board. Pay once and download the PDF.
           </motion.p>
-
-          <motion.div
-            variants={fadeUp}
-            className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-medium text-gray-500 dark:text-gray-400"
-          >
-            <span className="inline-flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> No sign up
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Full answer key & mark scheme included
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Instant PDF download
-            </span>
-          </motion.div>
 
           {/* Trust strip */}
           <motion.div

@@ -5,9 +5,9 @@ const SITE = "https://www.shopyor.com";
 
 export const metadata = {
   metadataBase: new URL(SITE),
-  title: { absolute: "IGCSE Past Paper & IB Maths Worked Solutions | Shopyor" },
+  title: { absolute: "Shop Maths Past Paper Solutions & eBooks – GCSE, IGCSE, IB | Shopyor" },
   description:
-    "Browse every Cambridge IGCSE worked past-paper solution pack, IB Mathematics AA HL Paper 1-style practice pack, and printable KS2 Year 6 Maths worksheet — each with a full mark scheme or answer key. Pay once, download instantly, no subscription.",
+    "Browse worked solutions and ebooks by board, paper and year. Filter GCSE, IGCSE 0580 Core/Extended and IB AA/AI and find your paper in seconds.",
   keywords: [
     "IGCSE past paper worked solutions",
     "IGCSE mathematics 0580",
@@ -26,9 +26,9 @@ export const metadata = {
     type: "website",
     url: `${SITE}/products`,
     siteName: "Shopyor",
-    title: "IGCSE Past Paper & IB Maths Worked Solutions | Shopyor",
+    title: "Shop Maths Past Paper Solutions & eBooks – GCSE, IGCSE, IB | Shopyor",
     description:
-      "Browse every Cambridge IGCSE worked past-paper solution pack, IB Mathematics AA HL Paper 1-style practice pack, and printable KS2 Year 6 Maths worksheet — each with a full mark scheme or answer key. Pay once, download instantly, no subscription.",
+      "Browse worked solutions and ebooks by board, paper and year. Filter GCSE, IGCSE 0580 Core/Extended and IB AA/AI and find your paper in seconds.",
   },
 };
 
@@ -41,9 +41,9 @@ export default async function ProductsPage() {
       {
         "@type": "CollectionPage",
         url: `${SITE}/products`,
-        name: "IGCSE Past Paper & IB Maths Worked Solutions",
+        name: "Maths Past Paper Solutions & eBooks",
         description:
-          "Browse every Cambridge IGCSE worked past-paper solution pack, IB Mathematics AA HL Paper 1-style practice pack, and printable KS2 Year 6 Maths worksheet — each with a full mark scheme or answer key.",
+          "Browse worked solutions and ebooks by board, paper and year. Filter GCSE, IGCSE 0580 Core/Extended and IB AA/AI and find your paper in seconds.",
       },
       {
         "@type": "BreadcrumbList",
@@ -62,14 +62,10 @@ export default async function ProductsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-        IGCSE Past Paper & IB Maths Worked Solutions
+        Find your past paper solution
       </h1>
       <p className="mt-3 max-w-2xl text-base text-gray-600 dark:text-gray-400">
-        Browse every Cambridge IGCSE worked past-paper solution pack, IB
-        Mathematics AA HL Paper 1-style practice pack, and printable KS2
-        Year 6 Maths worksheet, each with a full mark scheme or answer key.
-        Pay once, download instantly — no subscription, anywhere in the
-        world.
+        Worked solutions and maths ebooks for GCSE, IGCSE and IB. Filter by board, type and level, then pay once and download the PDF — no subscription.
       </p>
 
       <div className="mt-10">

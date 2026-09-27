@@ -60,12 +60,12 @@ export const metadata = {
   metadataBase: new URL("https://www.shopyor.com"),
 
   title: {
-    default: "Free Online Tools — PDF, Image & SEO Utilities | Shopyor",
+    default: "GCSE, IGCSE & IB Maths Past Paper Solutions & eBooks | Shopyor",
     template: "%s | Shopyor",
   },
 
   description:
-    "Shopyor is a free online toolbox: convert & compress PDFs, remove image backgrounds, compress & resize images, clone a voice, calculate BMI, and generate SEO tags. No sign-up, no install — all in your browser.",
+    "Step-by-step worked solutions to GCSE, IGCSE (0580) and IB Maths past papers, plus maths ebooks and free online tools. Instant PDF download, no subscription.",
 
   keywords: [
     "free online tools",
@@ -94,9 +94,9 @@ export const metadata = {
   openGraph: {
     type: "website",
     url: "https://www.shopyor.com",
-    title: "Free Online Tools by Shopyor — One Free Toolbox for Everything",
+    title: "GCSE, IGCSE & IB Maths Past Paper Solutions | Shopyor",
     description:
-      "Convert & compress PDFs, remove image backgrounds, calculate BMI, and generate SEO tags — 12 free tools, no sign-up.",
+      "Step-by-step worked solutions and ebooks for GCSE, IGCSE and IB Maths. Pay once, download the PDF.",
     siteName: "Shopyor",
     locale: "en_US",
     alternateLocale: ["en_GB", "en_IN", "en_CA", "en_AU"],
@@ -112,9 +112,9 @@ export const metadata = {
     card: "summary_large_image",
     site: "@shopyor",
     creator: "@shopyor",
-    title: "Free Online Tools by Shopyor",
+    title: "GCSE, IGCSE & IB Maths Solutions | Shopyor",
     description:
-      "12 free, browser-based tools: PDF & image utilities, BMI calculator, and SEO tools. No sign-up.",
+      "Worked solutions and ebooks for GCSE, IGCSE and IB Maths past papers.",
   },
 
   robots: {

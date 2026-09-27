@@ -37,7 +37,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const NAV_LINKS = [
-  { href: "/", label: "Store" },
+  { href: "/products", label: "Store" },
   { href: "/books", label: "Books" },
   { href: "/maths", label: "Maths Challenge" },
   { href: "/tools", label: "Tools" },
